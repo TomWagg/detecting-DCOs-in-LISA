@@ -64,16 +64,16 @@ def LISA_Sn(f, Tobs=4 * u.yr):
 
 
 # sensitivity with WD confusion noise and MBHB confusion noise
-""" 
-    Calculate muAres sensitivity curve Sn(f) (code provided by Valeriya Korol)
-
-    Args:
-        f    --> [array_like, Hz]     Frequency range
-
-    Returns:
-        Sn   --> [array_like, 1 / Hz] Sensitivity curve 
-"""
 def muAres_Sn(f):
+    """ 
+        Calculate muAres sensitivity curve Sn(f) (code provided by Valeriya Korol)
+
+        Args:
+            f    --> [array_like, Hz]     Frequency range
+
+        Returns:
+            Sn   --> [array_like, 1 / Hz] Sensitivity curve 
+    """
     f = f.to(u.Hz).value
 
     cmks=299792458. # m/s
@@ -134,5 +134,3 @@ def muAres_Sn(f):
 
 
     return rSh**2 + Sgal + hc_MBHB**2/f
-
-print(muAres_Sn([5e-4]* u.Hz))
