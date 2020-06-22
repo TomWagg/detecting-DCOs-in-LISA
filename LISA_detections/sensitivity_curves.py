@@ -184,26 +184,24 @@ def plot_sensitivity_curve(Sn, frequency_range=np.logspace(-5, 0, 1000) * u.Hz, 
         
     return fig, ax
 
-def plot_binaries_on_sc(Sn, binary_amplitude, frequencies, 
-                        weights=None, cvar=None, cbar_label=None, snr=None,
+def plot_binaries_on_sc(Sn, frequencies, binary_amplitude,
+                        weights=None, snr=None, eccentricity=None,
                         asd=False, shade=True, filepath=None, cmap="plasma_r"):
     """
         Plot an array of binaries on a gravitational wave detector sensitivity curve
         
         Args:
             Sn               --> [function]             sensitivity curve function
-            binary_amplitude --> [array_like]           characteristic strain (or ASD if asd=True)
             frequencies      --> [array_like, Hz]       binary gravitational wave frequency
+            binary_amplitude --> [array_like]           characteristic strain (or ASD if asd=True)
             weights          --> [array_like, unitless] weight for each binary
-            cvar             --> [array_like]           variable to colour each binary
-            cbar_label       --> [string]               colourbar label
-            cmap             --> [string]               colourmap to apply to binaries
-            norm             --> [function]             colour normalising function
             snr              --> [array_like, unitless] signal-to-noise ratios of binaries
+            eccentricity     --> [array_like, unitless] eccentricity of binaries, if present use as colour
             asd              --> [boolean]              whether to plot amplitude spectral density
                                                         instead of characteristic strain
             shade            --> [boolean]              whether to shade in the area under the plot
             filepath         --> [string]               if not None, save the plot at this file
+            cmap             --> [string]               matplotlib colourmap to use
             
         Returns:
             fig              --> [figure]               matplotlib figure
@@ -211,8 +209,6 @@ def plot_binaries_on_sc(Sn, binary_amplitude, frequencies,
     """
     
     if snr:
-        SNR_CUTOFF = 7
-        
         # mask extremely undetectable binaries
         mask = snr > 1e-4
         yvals, snr, frequency = yvals[mask], snr[mask], frequency[mask]
@@ -220,64 +216,60 @@ def plot_binaries_on_sc(Sn, binary_amplitude, frequencies,
             e = e[mask]
 
         # define detectable binaries as above a certain SNR cutoff
+        SNR_CUTOFF = 7
         detectable = snr > SNR_CUTOFF
     
-    # define the range of frequencies to plot
+    # define the range of frequencies to plot (extending to lower frequencies if necessary)
     minfpow = int(np.floor(np.log10(frequencies.min().value)))
     frequency_range = np.logspace(min(-5, minfpow), -2, 1000) * u.Hz
         
-    # create a new figure
+    # plot the sensitivity curve
     color = matplotlib.cm.get_cmap(cmap)(1.0)
     fig, ax = plot_sensitivity_curve(Sn, frequency_range, asd=asd, shade=shade, color=color)
     plt.tight_layout()
-        
+    
+    # if no weights are provided then give them uniform weights
     if weights is None:
         weights = np.ones(len(frequencies))
-        
-    if cvar:
-        if snr is None:
-            boundaries = np.linspace(0, 1, 11)
-            norm = matplotlib.colors.BoundaryNorm(boundaries, plt.cm.plasma.N)
-            cmap = 'plasma'
-        else:
-            boundaries = np.logspace(-4, 2, 13)
-            norm = matplotlib.colors.BoundaryNorm(boundaries, plt.cm.plasma_r.N)
-            
-        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, c=cvar,
+    
+    # plot the binaries, colour either by eccentricity, snr or nothing
+    if eccentricity is not None:
+        cvar = eccentricity
+        boundaries = np.linspace(0, 1, 11)
+        norm = matplotlib.colors.BoundaryNorm(boundaries, plt.cm.plasma.N)
+        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, c=eccentricity,
                            cmap=cmap, norm=norm, label="Undetectable Binaries")
-    else:
-        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, label="Undetectable Binaries")
-        
-    
-    if snr:
-        if cvar:
-            ax.scatter(frequencies[detectable], binary_amplitude[detectable], s=150,
-                       marker="*", c=cvar[detectable], cmap=cmap, norm=norm, label="Detectable Binaries")
-            legend = plt.legend(loc='best', fontsize=fs)
-            legend.legendHandles[0].set_sizes([150])
-            legend.legendHandles[0].set_facecolor(matplotlib.cm.get_cmap('plasma_r')(0.2))
-            legend.legendHandles[1].set_sizes([250])
-            legend.legendHandles[1].set_facecolor(matplotlib.cm.get_cmap('plasma_r')(1.0))
-        else:
-            ax.scatter(frequencies[detectable], binary_amplitude[detectable], s=150,
-                       marker="*", label="Detectable Binaries")
-            legend = plt.legend(loc='best', fontsize=fs)
-            legend.legendHandles[0].set_sizes([150])
-            legend.legendHandles[1].set_sizes([250])
-    
-    if cvar:
-        if snr is not None:
-            def fmt(x, pos):
+        cbar = plt.colorbar(scatt, ticks=boundaries[::2])
+        cbar.set_label(label="Eccentricity", fontsize=1.5*fs, labelpad=15)
+        cbar.ax.tick_params(labelsize=fs)
+    elif snr is not None:
+        cvar = snr
+        boundaries = np.logspace(-4, 2, 13)
+        norm = matplotlib.colors.BoundaryNorm(boundaries, plt.cm.plasma_r.N)
+            
+        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, c=snr,
+                           cmap=cmap, norm=norm, label="Undetectable Binaries")
+        def fmt(x, pos):
                 a, b = '{:0e}'.format(x).split('e')
                 b = int(b)
                 return r'$10^{{{}}}$'.format(b)
-            cbar = plt.colorbar(scatt, ticks=boundaries[::2], format=matplotlib.ticker.FuncFormatter(fmt))
-            yval = norm(SNR_CUTOFF) / norm(1e2)
-            cbar.ax.plot([-0.1, 1.1], [yval, yval], linewidth=3, color='white')
-        else:
-            cbar = plt.colorbar(scatt, ticks=boundaries[::2])
-        cbar.set_label(label=cbar_label, fontsize=1.5*fs, labelpad=15)
+        cbar = plt.colorbar(scatt, ticks=boundaries[::2], format=matplotlib.ticker.FuncFormatter(fmt))
+        yval = norm(SNR_CUTOFF) / norm(1e2)
+        cbar.ax.plot([-0.1, 1.1], [yval, yval], linewidth=3, color='white')
+        cbar.set_label(label="Signal-to-noise Ratio", fontsize=1.5*fs, labelpad=15)
         cbar.ax.tick_params(labelsize=fs)
+    else:
+        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, color=matplotlib.cm.get_cmap(cmap)(0.5), label="Undetectable Binaries")
+        
+    
+    if snr is not None:
+        ax.scatter(frequencies[detectable], binary_amplitude[detectable], s=150,
+                   marker="*", c=cvar[detectable], cmap=cmap, norm=norm, label="Detectable Binaries")
+        legend = plt.legend(loc='best', fontsize=fs)
+        legend.legendHandles[0].set_sizes([150])
+        legend.legendHandles[0].set_facecolor(matplotlib.cm.get_cmap('plasma_r')(0.2))
+        legend.legendHandles[1].set_sizes([250])
+        legend.legendHandles[1].set_facecolor(matplotlib.cm.get_cmap('plasma_r')(1.0))
 
     if filepath is not None:
         fig.savefig(filepath, bbox_inches='tight')

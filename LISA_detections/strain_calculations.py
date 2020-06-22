@@ -1,5 +1,20 @@
 import numpy as np
 import astropy.units as u
+import astropy.constants as c
+from scipy.special import jv
+
+def chirp_mass(m1, m2):
+    """
+        Calculate the chirp mass of a binary
+        
+        Args:
+            m1 --> [array_like, Msun] Primary mass
+            m2 --> [array_like, Msun] Secondary mass
+            
+        Returns:
+            Mc --> [array_like, Msun] Chirp masss
+    """
+    return (m1 * m2)**(3./5) / (m1 + m2)**(1./5)
 
 def F(e):
     """ 
