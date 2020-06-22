@@ -1,5 +1,58 @@
 import numpy as np
 import astropy.units as u
+import astropy.constants as c
+
+def c0_peters(a0, e0):
+    """
+        Find constant c0 from Peters (1964) Eq. 5.11
+        
+        Args:
+            a0 --> [array_like, AU]       initial semi-major axis
+            e0 --> [array_like, unitless] initial eccentricity
+            
+        Returns:
+            c0 --> [array_like, AU]       c0 constant from Eq. 5.11    
+    """
+    return (a0 * (1 - np.square(e0)) * np.power(e0,-12./19) * \
+          np.power(1 + (121./304) * np.square(e0), -870./2299)).to(u.AU)
+
+def beta_peters(m1, m2):
+    """
+        Find the constant beta from Peters (1964)
+        
+        Args:
+            m1   --> [array_like, Msun]     Primary mass
+            m2   --> [array_like, Msun]     Secondary mass
+            
+        Returns:
+            beta --> [array_like, m^4 / s]  beta constant from Peters (1964)
+    """
+    beta = (64. / 5) * (c.G**3 * m1 * m2 * (m1 + m2)) / c.c**5
+    return beta.to(u.m**4 / u.s)
+
+def inspiral_time(a0, e0, m1, m2):
+    """
+        Calculate the coalescence of a binary with Peters (1964) Eq. 5.14
+        
+        Args:
+            a0      --> [array_like, AU]       Initial semi-major axis
+            e0      --> [array_like, unitless] Initial eccentricity
+            m1      --> [array_like, Msun]     Primary mass
+            m2      --> [array_like, Msun]     Secondary mass
+            
+        Returns:
+            t_inspr --> [array_like, Gyr]      Time from DCO formation to merger
+    """
+    c0 = c0_peters(a0, e0)
+    beta = beta_peters(m1, m2)
+    
+    def integration_function(e):
+        """ Inspiral time from Peters Eq. 5.14 """
+        return np.power(e, 29/19) * np.power(1 + (121/304)*e**2, 1181/2299) / np.power(1 - e**2, 3/2)
+    
+    t_inspr = [((12 / 19) * c0[i]**4 / beta[i] * quad(integration_function, 0, e0[i])[0]).to(u.Gyr).value
+               for i in range(len(e0))] * u.Gyr
+    return t_inspr if len(t_inspr) > 1 else t_inspr[0]
 
 def generate_inspiral_times(count, evolution_times, age=10*u.Gyr):
     """
@@ -115,20 +168,6 @@ def dedt(e, beta, c0):
     """
     return - (19 / 12) * (beta / np.power(c0, 4)) * (np.power(e, -29/19) * np.power(1 - np.square(e), 3/2)) \
             / np.power(1 + (121/304) * np.square(e), 1181.0/2299.0)
-
-def c0_peters(a0, e0):
-    """
-        Find constant c0 from Peters (1964) Eq. 5.11
-        
-        Args:
-            a0 --> [array_like, AU]       initial semi-major axis
-            e0 --> [array_like, unitless] initial eccentricity
-            
-        Returns:
-            c0 --> [array_like, AU]       c0 constant from Eq. 5.11    
-    """
-    return (a0 * (1 - np.square(e0)) * np.power(e0,-12./19) * \
-          np.power(1 + (121./304) * np.square(e0), -870./2299)).to(u.AU)
 
 def evolve_eccentricity(e0, a0, m1, m2, t, nsteps=10000):
     """
