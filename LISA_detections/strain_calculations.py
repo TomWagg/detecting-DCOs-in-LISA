@@ -46,6 +46,9 @@ def g(n, e):
         + (4 / (3.0 * n**2)) * np.square(jv(n, ne))
     )
 
+def characteristic_strain_circ(Mc, D, f):
+    return characteristic_strain(Mc, D, f, e=0, n=2)
+
 def characteristic_strain(Mc, D, f, e, n):
     """ 
         Find the characteristic strain in the nth harmonic caused by a binary
