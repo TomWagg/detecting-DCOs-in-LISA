@@ -1,6 +1,7 @@
 import numpy as np
 import astropy.units as u
 import astropy.constants as c
+from scipy.integrate import quad
 
 def c0_peters(a0, e0):
     """
@@ -50,9 +51,12 @@ def inspiral_time(a0, e0, m1, m2):
         """ Inspiral time from Peters Eq. 5.14 """
         return np.power(e, 29/19) * np.power(1 + (121/304)*e**2, 1181/2299) / np.power(1 - e**2, 3/2)
     
-    t_inspr = [((12 / 19) * c0[i]**4 / beta[i] * quad(integration_function, 0, e0[i])[0]).to(u.Gyr).value
+    if isinstance(e0, list):
+        t_inspr = [((12 / 19) * c0[i]**4 / beta[i] * quad(integration_function, 0, e0[i])[0]).to(u.Gyr).value
                for i in range(len(e0))] * u.Gyr
-    return t_inspr if len(t_inspr) > 1 else t_inspr[0]
+    else:
+        t_inspr = ((12 / 19) * c0**4 / beta * quad(integration_function, 0, e0)[0]).to(u.Gyr)
+    return t_inspr
 
 def generate_inspiral_times(count, evolution_times, age=10*u.Gyr):
     """
@@ -119,7 +123,7 @@ def random_disk(count, scale_radius, scale_height):
 
 def simulate_mw_distances(count=1, components=[
                                     {"type": "disk", "scale_height": 0.3 * u.kpc, "scale_radius": 2.6 * u.kpc}
-                                ]):
+                                ], return_pos=False):
     """
         Create a random sample of positions in Milky Way and return distances to these points
         Uses McMillan (2011) for Milky Models
@@ -127,6 +131,7 @@ def simulate_mw_distances(count=1, components=[
         Args:
             count      --> [int]              number of positions to simulate
             components --> [array_like, dict] array of Milky Way components
+            return_pos --> [boolean]          whether to return the positions in the Milky Way
             
             Each component is a dictionary with information about what type of component it is
             and the scale of heights and radii.
@@ -136,6 +141,7 @@ def simulate_mw_distances(count=1, components=[
             
         Returns:
             distances  --> [array_like, kpc]  array of distances to each random position
+            positions  --> [tuple]            tuple of r, z, theta positions (if return_pos=True)
     """
     EARTH_TO_MW_CENTRE = 8.2 * u.kpc
     
@@ -148,7 +154,11 @@ def simulate_mw_distances(count=1, components=[
         # calculate the distance to each coordinate
         distances = np.sqrt(np.square(heights) + np.square(radii) + np.square(EARTH_TO_MW_CENTRE) \
                             - 2 * radii * EARTH_TO_MW_CENTRE * np.cos(angles))
-        return distances[0] if count == 1 else distances
+        
+        if return_pos:
+            return distances, (radii, heights, angles)
+        else:
+            return distances
     else:
         # TODO: implement multi-component galaxies
         raise NotImplementedError

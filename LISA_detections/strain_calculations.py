@@ -64,8 +64,8 @@ def characteristic_strain(Mc, D, f, e, n):
             hcn --> [array_like, unitless] Characteristic strain in nth harmonic
     """
     HC2_CONSTS = 2 * c.G**(5./3) / (3 * np.pi**(4./3) * c.c**3)
-    hcn2 = HC2_CONSTS * np.power(Mc, 5./3) / np.power(D, 2) / np.power(f / 2 * n, 1./3) * \
-           np.power(2 / n, 2./3) * (g(n, e) / F(e))
+    hcn2 = HC2_CONSTS * np.power(Mc, 5./3) / np.power(D, 2) / np.power(f / 2. * n, 1./3) * \
+           np.power(2. / n, 2./3) * (g(n, e) / F(e))
     return np.sqrt(hcn2).decompose()
 
 def total_characteristic_strain(Mc, D, f, e, nmax=100):
