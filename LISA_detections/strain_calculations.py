@@ -46,8 +46,45 @@ def g(n, e):
         + (4 / (3.0 * n**2)) * np.square(jv(n, ne))
     )
 
-def characteristic_strain_circ(Mc, D, f):
-    return characteristic_strain(Mc, D, f, e=0, n=2)
+def strain(Mc, D, f, n, e):
+    """
+        Calculate the strain for binaries
+        
+        Args:
+            Mc  --> [array_like, Msun]     Chirp mass
+            D   --> [array_like, kpc]      Luminosity distance to binary
+            f   --> [array_like, Hz]       Gravitational wave frequency
+            n   --> [int]                  Harmonic
+            e   --> [array_like, unitless] Eccentricity
+            
+        Returns:
+            hn  --> [array_like, unitless] strain in the nth harmonic
+    """
+    h = np.sqrt(2**(25/3) / 5) * (c.G * Mc)**(5./3) / (D * c.c**4) * ((f / 2) * np.pi)**(2./3) * np.sqrt(g(n, e)) / n
+    return h.decompose()
+
+def calc_snr_stationary(hn, f, Sn, Tobs=4*u.yr, nmax=100):
+    """
+        Calculate the signal-to-noise for (possibly) eccentric and stationary binaries
+        
+        Args:
+            hn   --> [array_like, unitless] Strain at the first nmax harmonics
+            f    --> [array_like, Hz]       Gravitational wave frequency
+            Sn   --> [function]             Sensitivity curve
+            Tobs --> [float, yr]            Observing time (default=LISA mission length)
+            nmax --> [int]                  Maxmium number of harmonics to sum over
+            
+        Returns:
+            snr  --> [array_like, unitless] Signal-to-noise ratio
+    """
+    noise_n = [np.sqrt(Sn(f / 2 * n)) for n in range(1, nmax)]
+    snr_n = hn * np.sqrt(2 * Tobs) / (noise_n / u.Hz**(1./2))
+    return np.sum(snr_n, axis=0).decompose()
+                                      
+def calc_snr(Mc, D, f, e, Sn, Tobs=4*u.yr, nmax=100):
+    for n in range(1, 100):
+        hcn = characteristic_strain(Mc, D, f, e, n)
+    
 
 def characteristic_strain(Mc, D, f, e, n):
     """ 
@@ -67,6 +104,9 @@ def characteristic_strain(Mc, D, f, e, n):
     hcn2 = HC2_CONSTS * np.power(Mc, 5./3) / np.power(D, 2) / np.power(f / 2. * n, 1./3) * \
            np.power(2. / n, 2./3) * (g(n, e) / F(e))
     return np.sqrt(hcn2).decompose()
+
+def characteristic_strain_circ(Mc, D, f):
+    return characteristic_strain(Mc, D, f, e=0, n=2)
 
 def total_characteristic_strain(Mc, D, f, e, nmax=100):
     """ 

@@ -64,16 +64,14 @@ def LISA_Sn(f, Tobs=4 * u.yr):
     
     return Sn / u.Hz
 
-def plot_sensitivity_curve(Sn, frequency_range=np.logspace(-5, 0, 1000) * u.Hz, Tobs=4 * u.yr, 
-                           asd=False, shade=True, filepath=None, fig=None, ax=None, color="#18068b"):
+def plot_sensitivity_curve(Sn, frequency_range=np.logspace(-5, 0, 1000) * u.Hz, Tobs=4 * u.yr,
+                           shade=True, filepath=None, fig=None, ax=None, color="#18068b"):
     """ 
         Plot the sensitivity curve of a gravitational wave detector
         
         Args:
             Sn              --> [function]       function that computes sensitivity curve
             frequency_range --> [array_like, Hz] array of frequencies at which to evalute the curve
-            asd             --> [boolean]        whether to plot amplitude spectral density
-                                                     instead of characteristic strain
             shade           --> [boolean]        whether the shade in the area under the plot
             filepath        --> [string]         if not None, save plot to this file
             fig             --> [figure]         if not None, plot directly onto this figure
@@ -88,12 +86,7 @@ def plot_sensitivity_curve(Sn, frequency_range=np.logspace(-5, 0, 1000) * u.Hz, 
     fs = 20
     
     # work out what the noise amplitude should be
-    if asd:
-        noise_amplitude = np.sqrt(Sn(frequency_range, Tobs))
-        ax.set_ylabel(r'ASD $[\rm Hz^{-1/2}]$', fontsize=1.5*fs, labelpad=10)
-    else:
-        noise_amplitude = np.sqrt(frequency_range * Sn(frequency_range, Tobs))
-        ax.set_ylabel(r'Characteristic Strain', fontsize=1.5*fs, labelpad=10)
+    noise_amplitude = np.sqrt(Sn(frequency_range, Tobs))
     
     # plot the curve and shade if needed
     ax.loglog(frequency_range, noise_amplitude, color=color)
@@ -102,6 +95,7 @@ def plot_sensitivity_curve(Sn, frequency_range=np.logspace(-5, 0, 1000) * u.Hz, 
     
     # adjust labels, sizes and frequency limits to plot is flush to the edges
     ax.set_xlabel(r'Frequency [Hz]', fontsize=1.5*fs, labelpad=10)
+    ax.set_ylabel(r'ASD $[\rm Hz^{-1/2}]$', fontsize=1.5*fs, labelpad=10)
     ax.tick_params(axis='both', which='major', labelsize=1.5*fs)
     ax.set_xlim(min(frequency_range).value, max(frequency_range).value)
     
@@ -110,21 +104,20 @@ def plot_sensitivity_curve(Sn, frequency_range=np.logspace(-5, 0, 1000) * u.Hz, 
         
     return fig, ax
 
-def plot_binaries_on_sc(Sn, frequencies, binary_amplitude,
-                        weights=None, snr=None, eccentricity=None,
-                        asd=False, shade=True, filepath=None, cmap="plasma_r"):
+def plot_binaries_on_sc(Sn, frequencies, strain,
+                        weights=None, snr=None, eccentricity=None, Tobs=4 * u.yr,
+                        shade=True, filepath=None, cmap="plasma_r", development=False):
     """
         Plot an array of binaries on a gravitational wave detector sensitivity curve
         
         Args:
             Sn               --> [function]             sensitivity curve function
-            frequencies      --> [array_like, Hz]       binary gravitational wave frequency
-            binary_amplitude --> [array_like]           characteristic strain (or ASD if asd=True)
-            weights          --> [array_like, unitless] weight for each binary
-            snr              --> [array_like, unitless] signal-to-noise ratios of binaries
-            eccentricity     --> [array_like, unitless] eccentricity of binaries, if present use as colour
-            asd              --> [boolean]              whether to plot amplitude spectral density
-                                                        instead of characteristic strain
+            frequencies      --> [array_like, Hz]       Gravitational wave frequency of binaries
+            strain           --> [array_like, unitless] Strain of binary
+            weights          --> [array_like, unitless] Weight for each binary
+            snr              --> [array_like, unitless] Signal-to-noise ratios of binaries
+            eccentricity     --> [array_like, unitless] Eccentricity of binaries, if present use as colour
+            Tobs             --> [float, yr]            Observation time (default=LISA mission length)
             shade            --> [boolean]              whether to shade in the area under the plot
             filepath         --> [string]               if not None, save the plot at this file
             cmap             --> [string]               matplotlib colourmap to use
@@ -133,37 +126,40 @@ def plot_binaries_on_sc(Sn, frequencies, binary_amplitude,
             fig              --> [figure]               matplotlib figure
             ax               --> [axis]                 matplotlib axis
     """
+    fs = 20
+    SNR_CUTOFF = 7
     
-    if snr:
+    # if no weights are provided then give them uniform weights
+    if weights is None:
+        weights = np.ones(len(frequencies))
+    
+    if snr is not None:
         # mask extremely undetectable binaries
         mask = snr > 1e-4
-        yvals, snr, frequency = yvals[mask], snr[mask], frequency[mask]
-        if e is not None:
-            e = e[mask]
+        strain, snr, weights, frequencies = strain[mask], snr[mask], weights[mask], frequencies[mask]
+        if eccentricity is not None:
+            eccentricity = eccentricity[mask]
 
         # define detectable binaries as above a certain SNR cutoff
-        SNR_CUTOFF = 7
         detectable = snr > SNR_CUTOFF
     
     # define the range of frequencies to plot (extending to lower frequencies if necessary)
     minfpow = int(np.floor(np.log10(frequencies.min().value)))
     frequency_range = np.logspace(min(-5, minfpow), -2, 1000) * u.Hz
-        
+    
+    binary_amplitude = np.sqrt(2 * Tobs.to(u.s)) * strain
+    
     # plot the sensitivity curve
     color = matplotlib.cm.get_cmap(cmap)(1.0)
-    fig, ax = plot_sensitivity_curve(Sn, frequency_range, asd=asd, shade=shade, color=color)
+    fig, ax = plot_sensitivity_curve(Sn, frequency_range, shade=shade, color=color, Tobs=Tobs)
     plt.tight_layout()
-    
-    # if no weights are provided then give them uniform weights
-    if weights is None:
-        weights = np.ones(len(frequencies))
     
     # plot the binaries, colour either by eccentricity, snr or nothing
     if eccentricity is not None:
         cvar = eccentricity
         boundaries = np.linspace(0, 1, 11)
         norm = matplotlib.colors.BoundaryNorm(boundaries, plt.cm.plasma.N)
-        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, c=eccentricity,
+        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*10, c=eccentricity,
                            cmap=cmap, norm=norm, label="Undetectable Binaries")
         cbar = plt.colorbar(scatt, ticks=boundaries[::2])
         cbar.set_label(label="Eccentricity", fontsize=1.5*fs, labelpad=15)
@@ -173,7 +169,7 @@ def plot_binaries_on_sc(Sn, frequencies, binary_amplitude,
         boundaries = np.logspace(-4, 2, 13)
         norm = matplotlib.colors.BoundaryNorm(boundaries, plt.cm.plasma_r.N)
             
-        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, c=snr,
+        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*10, c=snr,
                            cmap=cmap, norm=norm, label="Undetectable Binaries")
         def fmt(x, pos):
                 a, b = '{:0e}'.format(x).split('e')
@@ -185,8 +181,33 @@ def plot_binaries_on_sc(Sn, frequencies, binary_amplitude,
         cbar.set_label(label="Signal-to-noise Ratio", fontsize=1.5*fs, labelpad=15)
         cbar.ax.tick_params(labelsize=fs)
     else:
-        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, color=matplotlib.cm.get_cmap(cmap)(0.5), label="Undetectable Binaries")
+        scatt = ax.scatter(frequencies.value, binary_amplitude, s=weights*100, color=matplotlib.cm.get_cmap(cmap)(0.5))
+    
+    # pay no attention to the man behind the curtain
+    # ignore this section, used for development
+    if development:
+        # duplicate the y-axis
+        ax_right = ax.twinx()
+        ax_right.plot(frequencies, binary_amplitude / np.sqrt(Sn(frequencies)), lw=2, color=color)
+        ax_right.set_ylabel("SNR Contribution", fontsize=fs)
+        ax_right.tick_params(axis="both", which="major", labelsize=0.7 * fs)
+        print(np.sum(binary_amplitude / np.sqrt(Sn(frequencies))))
         
+        if len(weights) > 1:
+            ax.scatter(frequencies[1].value, binary_amplitude[1], s=weights[1]*110, color=matplotlib.cm.get_cmap(cmap)(1.0), 
+                       label="GW Freq")
+
+        max_strain = np.where(binary_amplitude == max(binary_amplitude))
+        ax.scatter(frequencies[max_strain].value, binary_amplitude[max_strain], s=weights[max_strain]*110,
+                   color=matplotlib.cm.get_cmap(cmap)(0.75), label="Max Strain")
+
+        power = binary_amplitude / np.sqrt(Sn(frequencies))
+        max_power = np.where(power == max(power))
+        print(max_power)
+        ax.scatter(frequencies[max_power].value, binary_amplitude[max_power], s=weights[max_power]*110, 
+                   color=matplotlib.cm.get_cmap(cmap)(0.25), label="Max SNR")
+
+        ax.legend(loc="lower left", fontsize=0.7 * fs)
     
     if snr is not None:
         ax.scatter(frequencies[detectable], binary_amplitude[detectable], s=150,

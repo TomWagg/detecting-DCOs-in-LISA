@@ -44,6 +44,8 @@ def inspiral_time(a0, e0, m1, m2):
         Returns:
             t_inspr --> [array_like, Gyr]      Time from DCO formation to merger
     """
+    print(e0.value)
+    
     c0 = c0_peters(a0, e0)
     beta = beta_peters(m1, m2)
     
@@ -51,14 +53,15 @@ def inspiral_time(a0, e0, m1, m2):
         """ Inspiral time from Peters Eq. 5.14 """
         return np.power(e, 29/19) * np.power(1 + (121/304)*e**2, 1181/2299) / np.power(1 - e**2, 3/2)
     
-    if isinstance(e0, list):
+    if isinstance(e0.value, list):
         t_inspr = [((12 / 19) * c0[i]**4 / beta[i] * quad(integration_function, 0, e0[i])[0]).to(u.Gyr).value
                for i in range(len(e0))] * u.Gyr
     else:
+        print("hey")
         t_inspr = ((12 / 19) * c0**4 / beta * quad(integration_function, 0, e0)[0]).to(u.Gyr)
     return t_inspr
 
-def generate_inspiral_times(count, evolution_times, age=10*u.Gyr):
+def generate_DCO_to_today(count, evolution_times, age=10*u.Gyr):
     """
         Create a random sample of insprial times *assuming constant star formation*
         
@@ -69,7 +72,7 @@ def generate_inspiral_times(count, evolution_times, age=10*u.Gyr):
             NOTE: the length of evolution times must be equal to count
             
         Returns:
-            inspiral_times  --> [array_like, Gyr] time for which the binary will inspiral
+            DCO_to_today    --> [array_like, Gyr] time for which the binary will inspiral
             
             NOTE: many binaries will merge during this time (e.g. t_coalscence < t_inspiral)
     """
@@ -85,9 +88,9 @@ def generate_inspiral_times(count, evolution_times, age=10*u.Gyr):
     DCO_times = formation_times + evolution_times
 
     # binary will inspiral for the rest of the age of the Milky Way
-    inspiral_times = age - DCO_times
+    DCO_to_today = age - DCO_times
     
-    return inspiral_times.to(u.Gyr)
+    return DCO_to_today.to(u.Gyr)
 
 def random_disk(count, scale_radius, scale_height):
     """ 
