@@ -16,6 +16,21 @@ def chirp_mass(m1, m2):
     """
     return (m1 * m2)**(3./5) / (m1 + m2)**(1./5)
 
+def gw_frequency(a, m1, m2):
+    """
+        Calculate the gravitional wave frequency of a binary
+        
+        Args:
+            a  --> [array_like, AU]   Semi-major axis
+            m1 --> [array_like, Msun] Primary mass
+            m2 --> [array_like, Msun] Secondary mass
+            
+        Returns:
+            f  --> [array_like, Hz]   Gravitational wave frequency
+    """
+    f = 1 / np.pi * np.sqrt(c.G * (m1 + m2) / a**3)
+    return f.to(u.Hz)
+
 def F(e):
     """ 
         Calculate F(e) from Peters (1963) Eq.17

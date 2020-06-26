@@ -3,6 +3,83 @@ import astropy.units as u
 import astropy.constants as c
 from scipy.integrate import quad
 
+def get_COMPAS_variable(h5file, param):
+    """ 
+        Return a variable from the COMPAS output data
+        This function is adapted slightly from code provided by Floor Broekgaarden.
+        
+        Args:
+            h5file   --> [h5]         Variable containing an h5 File
+            param    --> [tuple]      Tuple of (name of variable column, hdf5 keyname)
+            
+        Returns:
+            variable --> [array_like] The requested variable
+            
+        Example call:
+            get_COMPAS_variable(h5file, ("M1", "doubleCompactObjects"))
+    """
+    xparam, fxparam = param
+    return h5file[fxparam][xparam][...].squeeze()
+
+def mask_COMPAS_data(h5file, DCO_type, flags):
+    """ 
+        Mask COMPAS data based on binary type and COMPAS flags
+        This function is adapted slightly from code provided by Floor Broekgaarden.
+        
+        Args:
+            h5file    --> [h5]                  Variable containing an h5 File
+            DCO_type  --> [str]                 Type of binary: ['ALL', 'BBH', 'BHNS', 'BNS']
+            bool_mask --> [tuple, boolean]      Flags: (mask binaries not merging in a Hubble time, 
+                                                        mask binaries with RLOF secondary after CEE,
+                                                        mask Pessimistic CE binaries)
+                                               
+        Returns:
+            mask      --> [array_like, boolean] Mask that can be applied to COMPAS variables
+    """
+    hubble, RLOF, pessimistic = flags
+    fDCO = h5file['doubleCompactObjects']
+    
+    # get the total number of binaries
+    BINARIES = len(fDCO['stellarType1'][...].squeeze())
+    
+    # store the stellar type of both stars
+    type1, type2 = fDCO['stellarType1'][...].squeeze(), fDCO['stellarType2'][...].squeeze()
+    
+    # create a mask on type (where BH=14 and NS=13)
+    if DCO_type == "ALL":
+        type_mask = np.repeat(True, BINARIES)
+    elif DCO_type == "BBH":
+        type_mask = np.logical_and(type1 == 14, type2 == 14)
+    elif DCO_type == "BNS":
+        type_mask = np.logical_and(type1 == 13, type2 == 13)
+    elif DCO_type == "BHNS":
+        type_mask = np.logical_or(np.logical_and(type1 == 14, type2 == 13),
+                                  np.logical_and(type1 == 13, type2 == 14))
+    else:
+        print("Error: Invalid DCO_type")
+        return
+        
+    # mask based on the Hubble time, RLOF and pessimistic flags
+    if hubble:
+        hubble_mask = fDCO['mergesInHubbleTimeFlag'][...].squeeze()
+    else:
+        hubble_mask = np.repeat(True, BINARIES)
+        
+    if RLOF:
+        rlof_mask = np.logical_not(fDCO['RLOFSecondaryAfterCEE'][...].squeeze())
+    else:
+        rlof_mask = np.repeat(True, BINARIES)
+        
+    if pessimistic:
+        pessimistic_mask = np.logical_not(fDCO['optimisticCEFlag'][...].squeeze())
+    else:
+        pessimistic_mask = np.repeat(True, BINARIES)
+    
+    # combine all masks
+    mask = type_mask * hubble_mask * rlof_mask * pessimistic_mask
+        
+    return mask
+
 def c0_peters(a0, e0):
     """
         Find constant c0 from Peters (1964) Eq. 5.11
@@ -44,7 +121,6 @@ def inspiral_time(a0, e0, m1, m2):
         Returns:
             t_inspr --> [array_like, Gyr]      Time from DCO formation to merger
     """
-    print(e0.value)
     
     c0 = c0_peters(a0, e0)
     beta = beta_peters(m1, m2)
@@ -53,11 +129,10 @@ def inspiral_time(a0, e0, m1, m2):
         """ Inspiral time from Peters Eq. 5.14 """
         return np.power(e, 29/19) * np.power(1 + (121/304)*e**2, 1181/2299) / np.power(1 - e**2, 3/2)
     
-    if isinstance(e0.value, list):
+    if isinstance(e0, list) or isinstance(e0, np.ndarray):
         t_inspr = [((12 / 19) * c0[i]**4 / beta[i] * quad(integration_function, 0, e0[i])[0]).to(u.Gyr).value
                for i in range(len(e0))] * u.Gyr
     else:
-        print("hey")
         t_inspr = ((12 / 19) * c0**4 / beta * quad(integration_function, 0, e0)[0]).to(u.Gyr)
     return t_inspr
 
