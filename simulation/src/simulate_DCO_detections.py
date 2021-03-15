@@ -10,7 +10,7 @@ SNR_CUTOFF = 7
 MW_SIZE = 100000
 
 
-def get_COMPAS_variable(input_file, param):
+def get_COMPAS_var(input_file, param):
     """Return a variable from the COMPAS output data
 
     Parameters
@@ -192,10 +192,16 @@ def usage():
 
 #####################################################################
 
+
 def main():
     # get command line arguments and exit if error
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], "hi:o:n:t:f", ["help", "input=", "output=", "loops=", "binary-type=", "opt-flag"])
+        opts, _ = getopt.getopt(sys.argv[1:], "hi:o:n:t:f", ["help",
+                                                             "input=",
+                                                             "output=",
+                                                             "loops=",
+                                                             "binary-type=",
+                                                             "opt-flag"])
     except getopt.GetoptError as err:
         print(err)
         usage()
@@ -206,7 +212,6 @@ def main():
     output_filepath = '../output/COMPASOutput_testing.h5'
     loops = 10
     binary_type = "BHNS"
-    label = "-1"
     pessimistic = True
 
     # change defaults based on input
@@ -227,31 +232,25 @@ def main():
 
     # open COMPAS file
     with h5.File(input_filepath, "r") as COMPAS_file:
-        dco_mask = mask_COMPAS_data(COMPAS_file, binary_type, (True, True, pessimistic))
+        dco_mask = mask_COMPAS_data(COMPAS_file, binary_type, (True, True,
+                                                               pessimistic))
 
-        compas_primary_mass = get_COMPAS_variable(COMPAS_file, ["M1", "doubleCompactObjects"])[dco_mask] * u.Msun
-        compas_secondary_mass = get_COMPAS_variable(COMPAS_file, ["M2", "doubleCompactObjects"])[dco_mask] * u.Msun
-        compas_chirp_mass = chirp_mass(compas_primary_mass, compas_secondary_mass)
+        compas_m1 = get_COMPAS_var(COMPAS_file, ["M1", "doubleCompactObjects"])[dco_mask] * u.Msun
+        compas_m2 = get_COMPAS_var(COMPAS_file, ["M2", "doubleCompactObjects"])[dco_mask] * u.Msun
+        compas_chirp_mass = chirp_mass(compas_m1, compas_m2)
 
-        compas_Z = get_COMPAS_variable(COMPAS_file, ["Metallicity1", "doubleCompactObjects"])[dco_mask]
+        compas_Z = get_COMPAS_var(COMPAS_file, ["Metallicity1", "doubleCompactObjects"])[dco_mask]
         compas_Z_unique = np.unique(compas_Z)
 
         inner_bins = np.array([compas_Z_unique[i] + (compas_Z_unique[i+1] - compas_Z_unique[i]) / 2 for i in range(len(compas_Z_unique) - 1)])
         Z_bins = np.concatenate(([compas_Z_unique[0]], inner_bins, [compas_Z_unique[-1]]))
 
-        compas_aDCO = get_COMPAS_variable(COMPAS_file, ["separationDCOFormation", "doubleCompactObjects"])[dco_mask] * u.AU
-        compas_eDCO = get_COMPAS_variable(COMPAS_file, ["eccentricityDCOFormation", "doubleCompactObjects"])[dco_mask]
+        compas_aDCO = get_COMPAS_var(COMPAS_file, ["separationDCOFormation", "doubleCompactObjects"])[dco_mask] * u.AU
+        compas_eDCO = get_COMPAS_var(COMPAS_file, ["eccentricityDCOFormation", "doubleCompactObjects"])[dco_mask]
 
-        compas_t_evolve = get_COMPAS_variable(COMPAS_file, ["tform", "doubleCompactObjects"])[dco_mask] * u.Myr
+        compas_t_evolve = get_COMPAS_var(COMPAS_file, ["tform", "doubleCompactObjects"])[dco_mask] * u.Myr
 
-        compas_weights = get_COMPAS_variable(COMPAS_file, ["weight", "doubleCompactObjects"])[dco_mask]
-
-    f_range = np.logspace(-6, -2, 1000) * u.Hz
-    e_range = np.linspace(0, 1, 1000)
-    n_range = np.arange(1, 1000 + 1)
-
-    snr_vals = np.load("../data/snr_interp.npy")
-    snr_interpolation = interp2d_pairs(e_range, f_range, snr_vals)
+        compas_weights = get_COMPAS_var(COMPAS_file, ["weight", "doubleCompactObjects"])[dco_mask]
 
     # create a random number generator
     rng = np.random.default_rng()
@@ -283,7 +282,7 @@ def main():
 
         # draw correct number of binaries for each metallicity bin and store indices
         binaries = np.zeros(MW_SIZE).astype(np.int)
-        indices = np.arange(len(compas_primary_mass)).astype(np.int)
+        indices = np.arange(len(compas_m1)).astype(np.int)
         total = 0
         for i in range(len(h)):
             if h[i] > 0:
@@ -298,7 +297,7 @@ def main():
             exit("PANIC: something funky is happening with the Z bins")
 
         # mask parameters for binaries
-        m1, m2, aDCO, eDCO, t_evolve, w, Z = compas_primary_mass[binaries], compas_secondary_mass[binaries], compas_aDCO[binaries], compas_eDCO[binaries], \
+        m1, m2, aDCO, eDCO, t_evolve, w, Z = compas_m1[binaries], compas_m2[binaries], compas_aDCO[binaries], compas_eDCO[binaries], \
                                              compas_t_evolve[binaries], compas_weights[binaries], compas_Z[binaries]
 
         c0 = c0_peters(aDCO, eDCO).to(u.m)
