@@ -2,6 +2,8 @@ from matplotlib import pyplot as plt
 
 __all__ = ["variations"]
 
+# object for all physics variations with file name, short label, long label
+# and the colour used in plotting with matplotlib
 variations = [{
         "file": "fiducial",
         "short": "A",
