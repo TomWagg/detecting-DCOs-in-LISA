@@ -1,9 +1,7 @@
 import h5py as h5
 import numpy as np
 import astropy.units as u
-import astropy.constants as c
 from scipy.integrate import quad, odeint
-import scipy.interpolate as interpolate
 from scipy.special import lambertw
 import getopt
 import sys
@@ -11,48 +9,53 @@ import sys
 SNR_CUTOFF = 7
 MW_SIZE = 100000
 
+
 def get_COMPAS_variable(input_file, param):
-    """ 
-        Return a variable from the COMPAS output data
-        This function is adapted slightly from code provided by Floor Broekgaarden.
-        
-        Args:
-            input_file   --> [h5]         Variable containing an h5 File
-            param    --> [tuple]      Tuple of (name of variable column, hdf5 keyname)
-            
-        Returns:
-            variable --> [array_like] The requested variable
-            
-        Example call:
-            get_COMPAS_variable(input_file, ("M1", "doubleCompactObjects"))
+    """Return a variable from the COMPAS output data
+
+    Parameters
+    ----------
+    input_file : `hdf5 File`
+        COMPAS file
+    param : `tuple`
+        Tuple of (name of variable column, hdf5 keyname)
+
+    Returns
+    -------
+    variable : `various`
+        The requested variable
     """
     xparam, fxparam = param
     return input_file[fxparam][xparam][...].squeeze()
 
 def mask_COMPAS_data(input_file, DCO_type, flags):
-    """ 
-        Mask COMPAS data based on binary type and COMPAS flags
-        This function is adapted slightly from code provided by Floor Broekgaarden.
-        
-        Args:
-            input_file    --> [h5]                  Variable containing an h5 File
-            DCO_type  --> [str]                 Type of binary: ['ALL', 'BHBH', 'BHNS', 'NSNS']
-            bool_mask --> [tuple, boolean]      Flags: (mask binaries not merging in a Hubble time, 
-                                                        mask binaries with RLOF secondary after CEE,
-                                                        mask Pessimistic CE binaries)
-                                               
-        Returns:
-            mask      --> [array_like, boolean] Mask that can be applied to COMPAS variables
+    """Mask COMPAS data based on binary type and COMPAS flags
+
+    Parameters
+    ----------
+    input_file : `hdf5 File`
+        COMPAS file
+    DCO_type : `{{ 'ALL', 'BHBH', 'BHNS', 'NSNS' }}`
+        Double compact object type
+    bool_mask : `tuple`
+        Flags for masking (mask binaries not merging in a Hubble time,
+                           mask binaries with RLOF secondary after CEE,
+                           mask Pessimistic CE binaries)
+    Returns
+    -------
+    mask : `bool/array`
+        Mask that can be applied to COMPAS variables
     """
     hubble, RLOF, pessimistic = flags
     fDCO = input_file['doubleCompactObjects']
-    
+
     # get the total number of binaries
     BINARIES = len(fDCO['stellarType1'][...].squeeze())
-    
+
     # store the stellar type of both stars
-    type1, type2 = fDCO['stellarType1'][...].squeeze(), fDCO['stellarType2'][...].squeeze()
-    
+    type1 = fDCO['stellarType1'][...].squeeze()
+    type2 = fDCO['stellarType2'][...].squeeze()
+
     # create a mask on type (where BH=14 and NS=13)
     if DCO_type == "ALL":
         type_mask = np.repeat(True, BINARIES)
@@ -66,26 +69,28 @@ def mask_COMPAS_data(input_file, DCO_type, flags):
     else:
         print("Error: Invalid DCO_type")
         return
-        
+
     # mask based on the Hubble time, RLOF and pessimistic flags
     if hubble:
         hubble_mask = fDCO['mergesInHubbleTimeFlag'][...].squeeze()
     else:
         hubble_mask = np.repeat(True, BINARIES)
-        
+
     if RLOF:
-        rlof_mask = np.logical_not(fDCO['RLOFSecondaryAfterCEE'][...].squeeze())
+        rlof_sec_post_CEE = fDCO['RLOFSecondaryAfterCEE'][...].squeeze()
+        rlof_mask = np.logical_not(rlof_sec_post_CEE)
     else:
         rlof_mask = np.repeat(True, BINARIES)
-        
+
     if pessimistic:
-        pessimistic_mask = np.logical_not(fDCO['optimisticCEFlag'][...].squeeze())
+        opt_flag = fDCO['optimisticCEFlag'][...].squeeze()
+        pessimistic_mask = np.logical_not(opt_flag)
     else:
         pessimistic_mask = np.repeat(True, BINARIES)
-    
+
     # combine all masks
     mask = type_mask * hubble_mask * rlof_mask * pessimistic_mask
-        
+
     return mask
 
 
