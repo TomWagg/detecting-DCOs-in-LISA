@@ -94,70 +94,93 @@ def mask_COMPAS_data(input_file, DCO_type, flags):
     return mask
 
 
-def simulate_mw(Nbinaries, tm=12 * u.Gyr, tsfr=6.8 * u.Gyr, alpha=0.3, zd=0.3 * u.kpc, Fm=-1, 
-                gradient=-0.075 / u.kpc, Rnow=8.7 * u.kpc, gamma=0.3, zsun=0.0142, Rsun=8.2 * u.kpc,
+def simulate_mw(n_binaries, tm=12 * u.Gyr, tsfr=6.8 * u.Gyr, alpha=0.3,
+                zd=0.3 * u.kpc, Fm=-1, gradient=-0.075 / u.kpc,
+                Rnow=8.7 * u.kpc, gamma=0.3, zsun=0.0142, Rsun=8.2 * u.kpc,
                 ret_pos=False, lookback=True):
-    """
-        Simulate the history of the Milky Way using distributions from Frankel at al. 2018
-        Most arguments refer to parameters from Frankel et al. 2018, see this paper for more details
-    
-        Args:
-            Nbinaries --> Number of binaries to simulate
-            tm        --> Maximum lookback time (Default: 12 Gyr)
-            tsfr      --> Star formation timescale (Default: 6.8 Gyr)
-            alpha     --> Disk inside-out growth parameter
-            zd        --> Disk scale height (Default: 0.3 kpc)
-            Fm        --> Metallicity of the gas at the centre of the disk at tm (Default: -1 dex)
-            gradient  --> Metallicity gradient of the interstellar medium (Default: -0.075 dex/kpc)
-            Rnow      --> Radius at which the present day birth metallicity is solar (Default: 8.7 kpc)
-            gamma     --> Time dependence of chemical enrichment (Default: 0.3)
-            zsun      --> Metallicity of the sun (Default: 0.0142)
-            Rsun      --> Galactocentric radius of the sun (Default: 8.2 kpc)
-            ret_pos   --> Boolean, whether to return positions as well as distances
-            lookback  --> Boolean, whether to return lookback time (or birth time)
+    """Summary
 
-        Returns:
-            tau       --> Lookback time (or birth time if lookback=False) in Gyr
-            D         --> Distance to the Earth in kpc
-            Z         --> Metallicity
-            pos       --> Tuple of the radii and heights in kpc and the angles (only returned if ret_pos=True)
+    Parameters
+    ----------
+    n_binaries : `int`
+        Number of binaries to simulate
+    tm : `float`, optional
+        Maximum lookback time, by default 12*u.Gyr
+    tsfr : `float`, optional
+        Star formation timescale, by default 6.8*u.Gyr
+    alpha : `float`, optional
+        Disc inside-out growth parameter, by default 0.3
+    zd : `float`, optional
+        Disc scale height, by default 0.3*u.kpc
+    Fm : `int`, optional
+        Metallicity at centre of disc at tm, by default -1
+    gradient : `float`, optional
+        Metallicity gradient, by default -0.075/u.kpc
+    Rnow : `float`, optional
+        Radius at which present day metallicity is solar, by default 8.7*u.kpc
+    gamma : `float`, optional
+        Time dependence of chemical enrichment, by default 0.3
+    zsun : `float`, optional
+        Solar metallicity, by default 0.0142
+    Rsun : `float`, optional
+        Galactocentric radius of the sun, by default 8.2*u.kpc
+    ret_pos : bool, optional
+        Whether to return full positions or just distance, by default False
+    lookback : bool, optional
+        Whether to return lookback time (uses birth time if False), by default
+        True
+
+    Returns
+    -------
+    tau : `float/array`
+        Lookback times
+    D : `float/array`
+        Distance to the Earth
+    Z : `float/array`
+        Metallicity
+    pos : `tuple`
+        Positions (R, z, theta), returned if ``ret_pos=True``
     """
-    
     def random_lookback_times(U):
         # Inverse CDF sampling derived from Frankel+ 2018 Eq. 2
-        Nt = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value), 0, tm.value)[0]
-        return tm + tsfr * np.log((Nt * tsfr.value + U - 1) / (Nt * tsfr.value))
-    
+        Nt = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value),
+                      0, tm.value)[0]
+        return tm + tsfr * np.log((Nt * tsfr.value + U - 1)
+                                  / (Nt * tsfr.value))
+
     def random_birth_radii(U, t):
         # Inverse CDF sampling derived from Frankel+ 2018 Eq. 5
-        return - 3 * u.kpc * (1 - alpha * (t / (8 * u.Gyr))) * (lambertw((U-1)/np.exp(1), k=-1).real + 1)
-    
+        return - 3 * u.kpc * (1 - alpha * (t / (8 * u.Gyr)))\
+            * (lambertw((U-1)/np.exp(1), k=-1).real + 1)
+
     def random_heights(U):
         # Inverse CDF sampling derived from McMillan+ 2011 Eq. 3
         return np.random.choice([-1, 1], len(U)) * zd * np.log(1 - U)
-    
+
     def metallicity(R, t):
         # Equation combining Bertelli+ 1994 Eq. 9 and Frankel+ 2018 Eq. 7
-        return np.power(10, 0.977 * (Fm + gradient * R - (Fm + gradient * Rnow) * (1 - (t / tm))**(gamma))
+        return np.power(10, 0.977 * (Fm + gradient * R - (Fm + gradient * Rnow)
+                                     * (1 - (t / tm))**(gamma))
                         + np.log10(zsun))
-    
+
     def distance_from_earth(R, z, theta):
         return np.sqrt(z**2 + R**2 + Rsun**2 - 2 * Rsun * R * np.cos(theta))
 
-    tau = random_lookback_times(np.random.rand(Nbinaries))
-    R = random_birth_radii(np.random.rand(Nbinaries), tau)
-    z = random_heights(np.random.rand(Nbinaries))
+    tau = random_lookback_times(np.random.rand(n_binaries))
+    R = random_birth_radii(np.random.rand(n_binaries), tau)
+    z = random_heights(np.random.rand(n_binaries))
     Z = metallicity(R, tau)
-    theta = 2 * np.pi * np.random.rand(Nbinaries)
+    theta = 2 * np.pi * np.random.rand(n_binaries)
     D = distance_from_earth(R, z, theta)
-    
-    if lookback == False:
+
+    if lookback is False:
         tau = tm - tau
-    
+
     if ret_pos:
         return tau, D, Z, (R, z, theta)
     else:
         return tau, D, Z
+
 
 def usage():
     print("usage: python full_simulation.py [options]")
