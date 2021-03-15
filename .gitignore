@@ -128,3 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .DS_Store
+
+# hide output and scripts
+simulation/slurm/scripts/*.sh
+simulation/slurm/logs/*.err
+simulation/slurm/logs/*.out
