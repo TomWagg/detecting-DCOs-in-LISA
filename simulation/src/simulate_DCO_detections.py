@@ -210,7 +210,7 @@ def main():
                                                      len(Z_unbinned[too_big])))
 
         # change metallicities below COMPAS limits to lower limit
-        too_small = Z_unbinned < max_Z_compas
+        too_small = Z_unbinned < min_Z_compas
         Z_unbinned[too_small] = min_Z_compas
 
         # sort by metallicity so everything matches up well
