@@ -162,7 +162,7 @@ def main():
             compas_weights,\
             compas_seeds = get_COMPAS_vars(COMPAS_file,
                                            "doubleCompactObjects",
-                                           ["m_1, m_2, Metallicity1",
+                                           ["m_1", "m_2", "Metallicity1",
                                             "separationDCOFormation",
                                             "eccentricityDCOFormation",
                                             "tform", "weight", "seed"],
