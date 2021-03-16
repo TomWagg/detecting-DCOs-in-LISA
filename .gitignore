@@ -133,3 +133,4 @@ dmypy.json
 simulation/slurm/scripts/*.sh
 simulation/slurm/logs/*.err
 simulation/slurm/logs/*.out
+simulation/data/*
