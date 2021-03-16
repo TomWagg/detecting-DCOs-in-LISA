@@ -187,13 +187,11 @@ def main():
     # prep the temporary variable for parameters
     MAX_HIGH = 500
     dt = np.dtype(float)
-    to_file = np.zeros(shape=(loops * MAX_HIGH,),
-                       dtype=[("m_1", dt), ("m_2", dt), ("a_DCO", dt),
-                              ("e_DCO", dt), ("a_LISA", dt),
-                              ("e_LISA", dt), ("t_evol", dt),
-                              ("t_merge", dt), ("tau", dt), ("dist", dt),
-                              ("Z", dt), ("snr", dt), ("weight", dt),
-                              ("seed", dt)])
+    dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
+             ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
+             ("tau", dt), ("dist", dt), ("Z", dt), ("snr", dt), ("weight", dt),
+             ("seed", dt)]
+    to_file = np.zeros(shape=(loops * MAX_HIGH,), dtype=dtype)
 
     n_ten_year_list = np.zeros(loops)
     tot_ten = 0
@@ -302,13 +300,7 @@ def main():
 
     # store all parameters in h5 file
     with h5.File(output_filepath, "w") as file:
-        file.create_dataset("simulation", (tot_ten,),
-                            dtype=[("m_1", dt), ("m_2", dt), ("a_DCO", dt),
-                                   ("e_DCO", dt), ("a_LISA", dt),
-                                   ("e_LISA", dt), ("t_evol", dt),
-                                   ("t_merge", dt), ("tau", dt), ("dist", dt),
-                                   ("Z", dt), ("snr", dt), ("weight", dt),
-                                   ("seed", dt)])
+        file.create_dataset("simulation", (tot_ten,), dtype=dtype)
         file["simulation"][...] = to_file
         file["simulation"].attrs["n_ten_year"] = n_ten_year
 
