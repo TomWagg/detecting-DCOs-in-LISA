@@ -189,10 +189,11 @@ def main():
     dt = np.dtype(float)
     to_file = np.zeros(shape=(loops * MAX_HIGH,),
                        dtype=[("m_1", dt), ("m_2", dt), ("a_DCO", dt),
-                              ("e_DCO", dt), ("a_LISA", dt), ("e_LISA", dt),
-                              ("t_evol", dt), ("t_merge", dt), ("tau", dt),
-                              ("dist", dt), ("Z", dt), ("snr", dt),
-                              ("weight", dt)])
+                              ("e_DCO", dt), ("a_LISA", dt),
+                              ("e_LISA", dt), ("t_evol", dt),
+                              ("t_merge", dt), ("tau", dt), ("dist", dt),
+                              ("Z", dt), ("snr", dt), ("weight", dt),
+                              ("seed", dt)])
 
     n_ten_year_list = np.zeros(loops)
     tot_ten = 0
@@ -281,7 +282,6 @@ def main():
         n_ten_year_list[milky_way] = n_ten_year
 
         # store parameters in temporary variable
-        to_file["seed"][tot_ten:tot_ten + n_ten_year] = seed[ten_year]
         to_file["m_1"][tot_ten:tot_ten + n_ten_year] = m_1[ten_year]
         to_file["m_2"][tot_ten:tot_ten + n_ten_year] = m_2[ten_year]
         to_file["a_DCO"][tot_ten:tot_ten + n_ten_year] = a_DCO[ten_year]
@@ -294,6 +294,7 @@ def main():
         to_file["Z"][tot_ten:tot_ten + n_ten_year] = Z[ten_year]
         to_file["snr"][tot_ten:tot_ten + n_ten_year] = snr[ten_year]
         to_file["weight"][tot_ten:tot_ten + n_ten_year] = w[ten_year]
+        to_file["seed"][tot_ten:tot_ten + n_ten_year] = seed[ten_year]
 
         tot_ten += n_ten_year
 
@@ -306,7 +307,8 @@ def main():
                                    ("e_DCO", dt), ("a_LISA", dt),
                                    ("e_LISA", dt), ("t_evol", dt),
                                    ("t_merge", dt), ("tau", dt), ("dist", dt),
-                                   ("Z", dt), ("snr", dt), ("weight", dt)])
+                                   ("Z", dt), ("snr", dt), ("weight", dt),
+                                   ("seed", dt)])
         file["simulation"][...] = to_file
         file["simulation"].attrs["n_ten_year"] = n_ten_year
 
