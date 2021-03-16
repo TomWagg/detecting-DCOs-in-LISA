@@ -6,92 +6,11 @@ from scipy.special import lambertw
 import getopt
 import sys
 
+from compas_processing import get_COMPAS_vars, mask_COMPAS_data
+import legwork as lw
+
 SNR_CUTOFF = 7
 MW_SIZE = 100000
-
-
-def get_COMPAS_var(input_file, param):
-    """Return a variable from the COMPAS output data
-
-    Parameters
-    ----------
-    input_file : `hdf5 File`
-        COMPAS file
-    param : `tuple`
-        Tuple of (name of variable column, hdf5 keyname)
-
-    Returns
-    -------
-    variable : `various`
-        The requested variable
-    """
-    xparam, fxparam = param
-    return input_file[fxparam][xparam][...].squeeze()
-
-def mask_COMPAS_data(input_file, DCO_type, flags):
-    """Mask COMPAS data based on binary type and COMPAS flags
-
-    Parameters
-    ----------
-    input_file : `hdf5 File`
-        COMPAS file
-    DCO_type : `{{ 'ALL', 'BHBH', 'BHNS', 'NSNS' }}`
-        Double compact object type
-    bool_mask : `tuple`
-        Flags for masking (mask binaries not merging in a Hubble time,
-                           mask binaries with RLOF secondary after CEE,
-                           mask Pessimistic CE binaries)
-    Returns
-    -------
-    mask : `bool/array`
-        Mask that can be applied to COMPAS variables
-    """
-    hubble, RLOF, pessimistic = flags
-    fDCO = input_file['doubleCompactObjects']
-
-    # get the total number of binaries
-    BINARIES = len(fDCO['stellarType1'][...].squeeze())
-
-    # store the stellar type of both stars
-    type1 = fDCO['stellarType1'][...].squeeze()
-    type2 = fDCO['stellarType2'][...].squeeze()
-
-    # create a mask on type (where BH=14 and NS=13)
-    if DCO_type == "ALL":
-        type_mask = np.repeat(True, BINARIES)
-    elif DCO_type == "BHBH":
-        type_mask = np.logical_and(type1 == 14, type2 == 14)
-    elif DCO_type == "NSNS":
-        type_mask = np.logical_and(type1 == 13, type2 == 13)
-    elif DCO_type == "BHNS":
-        type_mask = np.logical_or(np.logical_and(type1 == 14, type2 == 13),
-                                  np.logical_and(type1 == 13, type2 == 14))
-    else:
-        print("Error: Invalid DCO_type")
-        return
-
-    # mask based on the Hubble time, RLOF and pessimistic flags
-    if hubble:
-        hubble_mask = fDCO['mergesInHubbleTimeFlag'][...].squeeze()
-    else:
-        hubble_mask = np.repeat(True, BINARIES)
-
-    if RLOF:
-        rlof_sec_post_CEE = fDCO['RLOFSecondaryAfterCEE'][...].squeeze()
-        rlof_mask = np.logical_not(rlof_sec_post_CEE)
-    else:
-        rlof_mask = np.repeat(True, BINARIES)
-
-    if pessimistic:
-        opt_flag = fDCO['optimisticCEFlag'][...].squeeze()
-        pessimistic_mask = np.logical_not(opt_flag)
-    else:
-        pessimistic_mask = np.repeat(True, BINARIES)
-
-    # combine all masks
-    mask = type_mask * hubble_mask * rlof_mask * pessimistic_mask
-
-    return mask
 
 
 def simulate_mw(n_binaries, tm=12 * u.Gyr, tsfr=6.8 * u.Gyr, alpha=0.3,
@@ -232,25 +151,35 @@ def main():
 
     # open COMPAS file
     with h5.File(input_filepath, "r") as COMPAS_file:
+        # mask only required DCOs
         dco_mask = mask_COMPAS_data(COMPAS_file, binary_type, (True, True,
                                                                pessimistic))
 
-        compas_m1 = get_COMPAS_var(COMPAS_file, ["M1", "doubleCompactObjects"])[dco_mask] * u.Msun
-        compas_m2 = get_COMPAS_var(COMPAS_file, ["M2", "doubleCompactObjects"])[dco_mask] * u.Msun
-        compas_chirp_mass = chirp_mass(compas_m1, compas_m2)
+        # get all relevant variables
+        compas_m_1, compas_m_2,\
+            compas_Z, compas_a_DCO,\
+            compas_e_DCO, compas_t_evol,\
+            compas_weights,\
+            compas_seeds = get_COMPAS_vars(COMPAS_file,
+                                           "doubleCompactObjects",
+                                           ["m_1, m_2, Metallicity1",
+                                            "separationDCOFormation",
+                                            "eccentricityDCOFormation",
+                                            "tform", "weight", "seed"],
+                                           dco_mask)
 
-        compas_Z = get_COMPAS_var(COMPAS_file, ["Metallicity1", "doubleCompactObjects"])[dco_mask]
-        compas_Z_unique = np.unique(compas_Z)
+        # add units
+        compas_m_1, compas_m_2 = compas_m_1 * u.Msun, compas_m_2 * u.Msun
+        compas_a_DCO *= u.AU
+        compas_t_evol *= u.Myr
 
-        inner_bins = np.array([compas_Z_unique[i] + (compas_Z_unique[i+1] - compas_Z_unique[i]) / 2 for i in range(len(compas_Z_unique) - 1)])
-        Z_bins = np.concatenate(([compas_Z_unique[0]], inner_bins, [compas_Z_unique[-1]]))
-
-        compas_aDCO = get_COMPAS_var(COMPAS_file, ["separationDCOFormation", "doubleCompactObjects"])[dco_mask] * u.AU
-        compas_eDCO = get_COMPAS_var(COMPAS_file, ["eccentricityDCOFormation", "doubleCompactObjects"])[dco_mask]
-
-        compas_t_evolve = get_COMPAS_var(COMPAS_file, ["tform", "doubleCompactObjects"])[dco_mask] * u.Myr
-
-        compas_weights = get_COMPAS_var(COMPAS_file, ["weight", "doubleCompactObjects"])[dco_mask]
+    # work out metallicity bins
+    compas_Z_unique = np.unique(compas_Z)
+    inner_bins = np.array([compas_Z_unique[i]
+                           + (compas_Z_unique[i+1] - compas_Z_unique[i])
+                           / 2 for i in range(len(compas_Z_unique) - 1)])
+    Z_bins = np.concatenate(([compas_Z_unique[0]], inner_bins,
+                             [compas_Z_unique[-1]]))
 
     # create a random number generator
     rng = np.random.default_rng()
@@ -258,20 +187,32 @@ def main():
     # prep the temporary variable for parameters
     MAX_HIGH = 500
     dt = np.dtype(float)
-    to_file = np.zeros(shape=(loops * MAX_HIGH,), dtype=[("m1", dt), ("m2", dt), ("aDCO", dt), ("eDCO", dt), \
-                                                        ("aLISA", dt), ("eLISA", dt), ("te", dt), ("t_inspiral", dt), ("tau", dt), \
-                                                        ("D", dt), ("Z", dt), ("snr", dt), ("weight", dt)])
+    to_file = np.zeros(shape=(loops * MAX_HIGH,),
+                       dtype=[("m_1", dt), ("m_2", dt), ("a_DCO", dt),
+                              ("e_DCO", dt), ("a_LISA", dt), ("e_LISA", dt),
+                              ("t_evol", dt), ("t_merge", dt), ("tau", dt),
+                              ("D", dt), ("Z", dt), ("snr", dt),
+                              ("weight", dt)])
 
-    n_high_snr = np.zeros(loops)
-    total_high_snr = 0
+    n_ten_year_list = np.zeros(loops)
+    tot_ten = 0
     for milky_way in range(loops):
         # draw position parameters from Frankel Model
-        tau, D, Z_unbinned = simulate_mw(MW_SIZE)
+        tau, dist, Z_unbinned = simulate_mw(MW_SIZE)
 
+        # work out COMPAS limits (and limit to Z=0.022)
         min_Z_compas = np.min(compas_Z_unique)
         max_Z_compas = np.max(compas_Z_unique[compas_Z_unique <= 0.022])
-        Z_unbinned[Z_unbinned > max_Z_compas] = 10**(np.random.uniform(np.log10(0.01416), np.log10(max_Z_compas), len(Z_unbinned[Z_unbinned > max_Z_compas])))
-        Z_unbinned[Z_unbinned < min_Z_compas] = min_Z_compas
+
+        # change metallicities above COMPAS limits to between solar and upper
+        too_big = Z_unbinned > max_Z_compas
+        Z_unbinned[too_big] = 10**(np.random.uniform(np.log10(0.01416),
+                                                     np.log10(max_Z_compas),
+                                                     len(Z_unbinned[too_big])))
+
+        # change metallicities below COMPAS limits to lower limit
+        too_small = Z_unbinned < max_Z_compas
+        Z_unbinned[too_small] = min_Z_compas
 
         # sort by metallicity so everything matches up well
         Z_order = np.argsort(Z_unbinned)
@@ -280,15 +221,18 @@ def main():
         # bin the metallicities using Floor's bins
         h, _ = np.histogram(Z_unbinned, bins=Z_bins)
 
-        # draw correct number of binaries for each metallicity bin and store indices
+        # draw binaries for each metallicity bin, store indices
         binaries = np.zeros(MW_SIZE).astype(np.int)
-        indices = np.arange(len(compas_m1)).astype(np.int)
+        indices = np.arange(len(compas_m_1)).astype(np.int)
         total = 0
         for i in range(len(h)):
             if h[i] > 0:
-                binaries[total:total + h[i]] = rng.choice(indices[compas_Z == compas_Z_unique[i]], h[i], replace=True)
+                same_Z = compas_Z == compas_Z_unique[i]
+                binaries[total:total + h[i]] = rng.choice(indices[same_Z],
+                                                          h[i], replace=True)
                 total += h[i]
 
+        # TODO: remove this eventually
         if total != MW_SIZE:
             print(compas_Z_unique)
             print(Z_bins)
@@ -297,64 +241,74 @@ def main():
             exit("PANIC: something funky is happening with the Z bins")
 
         # mask parameters for binaries
-        m1, m2, aDCO, eDCO, t_evolve, w, Z = compas_m1[binaries], compas_m2[binaries], compas_aDCO[binaries], compas_eDCO[binaries], \
-                                             compas_t_evolve[binaries], compas_weights[binaries], compas_Z[binaries]
+        m_1, m_2, a_DCO, e_DCO,\
+            t_evol, w, Z, seed = compas_m_1[binaries], compas_m_2[binaries],\
+            compas_a_DCO[binaries], compas_e_DCO[binaries],\
+            compas_t_evol[binaries], compas_weights[binaries],\
+            compas_Z[binaries], compas_seeds[binaries]
 
-        c0 = c0_peters(aDCO, eDCO).to(u.m)
-        beta = beta_peters(m1, m2).to(u.m**4 / u.s)
-        
         # work out which binaries are still inspiralling
-        t_inspiral = inspiral_time_quad(e0=eDCO, a0=aDCO, c0=c0, beta=beta)
-        inspiraling = t_inspiral > (tau - t_evolve)
+        t_merge = lw.evol.get_t_merge_ecc(ecc_i=e_DCO, a_i=a_DCO,
+                                             m_1=m_1, m_2=m_2)
+        insp = t_merge > (tau - t_evol)
 
-        m1, m2, beta, aDCO, eDCO, c0, t_evolve, t_inspiral, tau, D, Z, w = m1[inspiraling], m2[inspiraling], beta[inspiraling], aDCO[inspiraling], \
-                                                                           eDCO[inspiraling], c0[inspiraling], t_evolve[inspiraling], t_inspiral[inspiraling], \
-                                                                           tau[inspiraling], D[inspiraling], Z[inspiraling], w[inspiraling]
+        # trim out the merged binaries
+        m_1, m_2, a_DCO, e_DCO,\
+            t_evol, t_merge,\
+            tau, dist, Z, w = m_1[insp], m_2[insp], a_DCO[insp], e_DCO[insp],\
+            t_evol[insp], t_merge[insp], tau[insp], dist[insp], Z[insp],\
+            w[insp], seed[insp]
 
-        # evolve eccentricity for inspiraling binaries
-        eLISA = np.array([odeint(dedt, eDCO[i], [0, (tau[i] - t_evolve[i]).to(u.s).value], \
-                        args=(beta[i].value, c0[i].value))[-1][0] for i in range(len(eDCO))])
+        # evolve binaries to LISA
+        e_LISA, a_LISA, f_orb_LISA = lw.evol.evol_ecc(ecc_i=e_DCO, a_i=a_DCO,
+                                                      m_1=m_1, m_2=m_2,
+                                                      t_evol=tau - t_evol,
+                                                      n_step=2,
+                                                      output_vars=["ecc", "a",
+                                                                   "f_orb"])
+        # we only care about the final state
+        e_LISA = e_LISA[:, -1]
+        a_LISA = a_LISA[:, -1]
+        f_orb_LISA = f_orb_LISA[:, -1]
 
-        # convert to separation
-        aLISA = e_to_a(eLISA, c0)
+        sources = lw.source.Source(m_1=m_1, m_2=m_2, ecc=e_LISA, dist=dist,
+                                   f_orb=f_orb_LISA)
+        snr = sources.get_snr(verbose=True)
 
-        # convert to frequency
-        forb_LISA = forb_from_a(aLISA, m1, m2)
-        forb_LISA[forb_LISA > 1 * u.Hz] = 0 * u.Hz
-
-        # calculate the signal-to-noise ratio
-        snr = interpolated_snr(chirp_mass(m1, m2), D, eLISA, forb_LISA, 4 * u.yr, interpolation=snr_interpolation)
-
-        high_snr = snr > (SNR_CUTOFF / np.sqrt(10 / 4))
-        high_snr_binaries = len(snr[high_snr])
-        n_high_snr[milky_way] = high_snr_binaries
+        ten_year = snr > (SNR_CUTOFF / np.sqrt(10 / 4))
+        n_ten_year = len(snr[ten_year])
+        n_ten_year_list[milky_way] = n_ten_year
 
         # store parameters in temporary variable
-        to_file["m1"][total_high_snr:total_high_snr + high_snr_binaries] = m1[high_snr]
-        to_file["m2"][total_high_snr:total_high_snr + high_snr_binaries] = m2[high_snr]
-        to_file["aDCO"][total_high_snr:total_high_snr + high_snr_binaries] = aDCO[high_snr]
-        to_file["eDCO"][total_high_snr:total_high_snr + high_snr_binaries] = eDCO[high_snr]
-        to_file["aLISA"][total_high_snr:total_high_snr + high_snr_binaries] = aLISA[high_snr]
-        to_file["eLISA"][total_high_snr:total_high_snr + high_snr_binaries] = eLISA[high_snr]
-        to_file["t_evolve"][total_high_snr:total_high_snr + high_snr_binaries] = t_evolve[high_snr]
-        to_file["t_inspiral"][total_high_snr:total_high_snr + high_snr_binaries] = t_inspiral[high_snr]
-        to_file["tau"][total_high_snr:total_high_snr + high_snr_binaries] = tau[high_snr]
-        to_file["D"][total_high_snr:total_high_snr + high_snr_binaries] = D[high_snr]
-        to_file["Z"][total_high_snr:total_high_snr + high_snr_binaries] = Z[high_snr]
-        to_file["snr"][total_high_snr:total_high_snr + high_snr_binaries] = snr[high_snr]
-        to_file["weight"][total_high_snr:total_high_snr + high_snr_binaries] = w[high_snr]
+        to_file["seed"][tot_ten:tot_ten + n_ten_year] = seed[ten_year]
+        to_file["m_1"][tot_ten:tot_ten + n_ten_year] = m_1[ten_year]
+        to_file["m_2"][tot_ten:tot_ten + n_ten_year] = m_2[ten_year]
+        to_file["a_DCO"][tot_ten:tot_ten + n_ten_year] = a_DCO[ten_year]
+        to_file["e_DCO"][tot_ten:tot_ten + n_ten_year] = e_DCO[ten_year]
+        to_file["a_LISA"][tot_ten:tot_ten + n_ten_year] = a_LISA[ten_year]
+        to_file["e_LISA"][tot_ten:tot_ten + n_ten_year] = e_LISA[ten_year]
+        to_file["t_evol"][tot_ten:tot_ten + n_ten_year] = t_evol[ten_year]
+        to_file["tau"][tot_ten:tot_ten + n_ten_year] = tau[ten_year]
+        to_file["D"][tot_ten:tot_ten + n_ten_year] = D[ten_year]
+        to_file["Z"][tot_ten:tot_ten + n_ten_year] = Z[ten_year]
+        to_file["snr"][tot_ten:tot_ten + n_ten_year] = snr[ten_year]
+        to_file["weight"][tot_ten:tot_ten + n_ten_year] = w[ten_year]
 
-        total_high_snr += high_snr_binaries
+        tot_ten += n_ten_year
 
-    to_file = to_file[:total_high_snr]
+    to_file = to_file[:tot_ten]
 
     # store all parameters in h5 file
     with h5.File(output_filepath, "w") as file:
-        file.create_dataset("simulation", (total_high_snr,), dtype=[("m1", dt), ("m2", dt), ("aDCO", dt), ("eDCO", dt), \
-                                                                   ("aLISA", dt), ("eLISA", dt), ("t_evolve", dt), ("t_inspiral", dt), \
-                                                                   ("tau", dt), ("D", dt), ("Z", dt), ("snr", dt), ("weight", dt)])
+        file.create_dataset("simulation", (tot_ten,),
+                            dtype=[("m_1", dt), ("m_2", dt), ("a_DCO", dt),
+                                   ("e_DCO", dt), ("a_LISA", dt),
+                                   ("e_LISA", dt), ("t_evol", dt),
+                                   ("t_merge", dt), ("tau", dt), ("D", dt),
+                                   ("Z", dt), ("snr", dt), ("weight", dt)])
         file["simulation"][...] = to_file
-        file["simulation"].attrs["n_high_snr"] = n_high_snr
+        file["simulation"].attrs["n_ten_year"] = n_ten_year
+
 
 if __name__ == "__main__":
     main()
