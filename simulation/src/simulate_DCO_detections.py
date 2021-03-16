@@ -1,7 +1,7 @@
 import h5py as h5
 import numpy as np
 import astropy.units as u
-from scipy.integrate import quad, odeint
+from scipy.integrate import quad
 from scipy.special import lambertw
 import getopt
 import sys
@@ -191,7 +191,7 @@ def main():
                        dtype=[("m_1", dt), ("m_2", dt), ("a_DCO", dt),
                               ("e_DCO", dt), ("a_LISA", dt), ("e_LISA", dt),
                               ("t_evol", dt), ("t_merge", dt), ("tau", dt),
-                              ("D", dt), ("Z", dt), ("snr", dt),
+                              ("dist", dt), ("Z", dt), ("snr", dt),
                               ("weight", dt)])
 
     n_ten_year_list = np.zeros(loops)
@@ -216,7 +216,8 @@ def main():
 
         # sort by metallicity so everything matches up well
         Z_order = np.argsort(Z_unbinned)
-        tau, D, Z_unbinned = tau[Z_order], D[Z_order], Z_unbinned[Z_order]
+        tau, dist, Z_unbinned = tau[Z_order], dist[Z_order],\
+            Z_unbinned[Z_order]
 
         # bin the metallicities using Floor's bins
         h, _ = np.histogram(Z_unbinned, bins=Z_bins)
@@ -249,7 +250,7 @@ def main():
 
         # work out which binaries are still inspiralling
         t_merge = lw.evol.get_t_merge_ecc(ecc_i=e_DCO, a_i=a_DCO,
-                                             m_1=m_1, m_2=m_2)
+                                          m_1=m_1, m_2=m_2)
         insp = t_merge > (tau - t_evol)
 
         # trim out the merged binaries
@@ -289,7 +290,7 @@ def main():
         to_file["e_LISA"][tot_ten:tot_ten + n_ten_year] = e_LISA[ten_year]
         to_file["t_evol"][tot_ten:tot_ten + n_ten_year] = t_evol[ten_year]
         to_file["tau"][tot_ten:tot_ten + n_ten_year] = tau[ten_year]
-        to_file["D"][tot_ten:tot_ten + n_ten_year] = D[ten_year]
+        to_file["dist"][tot_ten:tot_ten + n_ten_year] = dist[ten_year]
         to_file["Z"][tot_ten:tot_ten + n_ten_year] = Z[ten_year]
         to_file["snr"][tot_ten:tot_ten + n_ten_year] = snr[ten_year]
         to_file["weight"][tot_ten:tot_ten + n_ten_year] = w[ten_year]
@@ -304,7 +305,7 @@ def main():
                             dtype=[("m_1", dt), ("m_2", dt), ("a_DCO", dt),
                                    ("e_DCO", dt), ("a_LISA", dt),
                                    ("e_LISA", dt), ("t_evol", dt),
-                                   ("t_merge", dt), ("tau", dt), ("D", dt),
+                                   ("t_merge", dt), ("tau", dt), ("dist", dt),
                                    ("Z", dt), ("snr", dt), ("weight", dt)])
         file["simulation"][...] = to_file
         file["simulation"].attrs["n_ten_year"] = n_ten_year
