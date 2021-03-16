@@ -127,8 +127,8 @@ def main():
         sys.exit(2)
 
     # set default values
-    input_filepath = '../data/COMPASOutput.h5'
-    output_filepath = '../output/COMPASOutput_testing.h5'
+    input_filepath = 'COMPASOutput.h5'
+    output_filepath = 'COMPASOutput_testing.h5'
     loops = 10
     binary_type = "BHNS"
     pessimistic = True
