@@ -303,7 +303,7 @@ def main():
     with h5.File(output_filepath, "w") as file:
         file.create_dataset("simulation", (tot_ten,), dtype=dtype)
         file["simulation"][...] = to_file
-        file["simulation"].attrs["n_ten_year"] = n_ten_year
+        file["simulation"].attrs["n_ten_year"] = n_ten_year_list
 
 
 if __name__ == "__main__":
