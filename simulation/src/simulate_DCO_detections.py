@@ -255,7 +255,8 @@ def main():
         # trim out the merged binaries
         m_1, m_2, a_DCO, e_DCO,\
             t_evol, t_merge,\
-            tau, dist, Z, w = m_1[insp], m_2[insp], a_DCO[insp], e_DCO[insp],\
+            tau, dist, Z,\
+            w, seed = m_1[insp], m_2[insp], a_DCO[insp], e_DCO[insp],\
             t_evol[insp], t_merge[insp], tau[insp], dist[insp], Z[insp],\
             w[insp], seed[insp]
 
