@@ -23,7 +23,7 @@ def get_COMPAS_vars(compas_file, group, variables, mask=None):
         Single variable or list of variables (all masked)
     """
     var_list = None
-    if isinstance(var_list, str):
+    if isinstance(variables, str):
         var_list = compas_file[group][variables][...].squeeze()
         if mask is not None:
             var_list = var_list[mask]
