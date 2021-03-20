@@ -5,15 +5,18 @@ from os.path import isfile
 import sys
 sys.path.append("../src/")
 
+from formation_channels import identify_formation_channels
 from variations import variations
 
 dt = np.dtype(float)
 dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
          ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
          ("tau", dt), ("dist", dt), ("Z", dt), ("snr", dt), ("weight", dt),
-         ("seed", dt)]
+         ("seed", dt), ("channel", dt)]
 
 runs = 50
+
+floor_path = "/n/holystore01/LABS/berger_lab/Lab/fbroekgaarden/DATA/all_dco_legacy_CEbug_fix/"
 
 # loop over all binary types and physics variations
 for bt in ["BHBH", "BHNS", "NSNS"]:
@@ -48,13 +51,21 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
         if len(missing) != runs:
             # let the user know which ones are currently missing
             print(v, len(missing), missing)
+            
+            # work out the formation channels
+            floor_file = floor_path \
+                + "{}/COMPASOutputReduced.h5".format(variations[v]["file"])
+            with h5.File(floor_file, "r") as floor:
+                channels = identify_formation_channels(full_data["seed"],
+                                                       floor)
 
-            # write the rest of them to a single file
+            # write the rest of the files to a single file
             fname = "../data/{}_{}_all.h5".format(bt, variations[v]["file"])
             with h5.File(fname, "w") as file:
                 file.create_dataset("simulation", (np.sum(n_ten_year),),
                                     dtype=dtype)
                 file["simulation"][...] = full_data
+                file["simulation"]["channel"][...] = channels
                 file["simulation"].attrs["n_ten_year"] = n_ten_year
         # otherwise make sure that the user knows no data is present
         else:
