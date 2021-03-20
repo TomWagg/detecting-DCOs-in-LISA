@@ -6,13 +6,11 @@
 \usepackage{lipsum}
 \usepackage{physics}
 \usepackage{multirow}
-\usepackage{xspace} %this package handles when to use a whitespace in math symbols
-\usepackage{natbib} %this package can be used for creating an automated bibliography. 
+\usepackage{xspace}
+\usepackage{natbib}
 
 % remove indents in footnotes
 \usepackage[hang,flushmargin]{footmisc} 
-
-%Latex allows you to define abbreviations. \newcommand{.. here comes the short notation ...}{ ... here comes the full latex command... small change}
 
 \newcommand{\todo}[1]{{\color{red}{[TODO: #1}]}}
 
@@ -27,14 +25,6 @@
 \newcommand{\checknextarg}{\@ifnextchar\bgroup{\gobblenextarg}{}}
 \newcommand{\gobblenextarg}[1]{\,\mathrm{#1}\@ifnextchar\bgroup{\gobblenextarg}{}}
 \makeatother
-
-% Define symbols for Rsun and Msun, Lsun and Teff ensuring proper formatting
-\newcommand{\Rsun}{\ensuremath{\,\mathrm{R_\odot}}\xspace} % Solar radius symbol
-\newcommand{\Msun}{\ensuremath{\,\mathrm{M_\odot}}\xspace} % Solar mass symbol
-\newcommand{\Lsun}{\ensuremath{\,\mathrm{M_\odot}}\xspace} % Solar luminosity symbol
-\newcommand{\Teff}{\ensuremath{\,\mathrm{T_{\rm eff}}}\xspace} % Effective temperature symbol
-\newcommand{\Myr}{\ensuremath{\,\mathrm{Myr}}\xspace} % symbol for Mega year
-\newcommand{\Gyr}{\ensuremath{\,\mathrm{Gyr}}\xspace} % symbol for Gyr
 
 \newcommand{\avg}[1]{\left\langle#1\right\rangle}
 
@@ -80,7 +70,7 @@
 \affiliation{Anton Pannekoek Institute for Astronomy and GRAPPA, University of Amsterdam, NL-1090 GE Amsterdam, The Netherlands} 
 
 \begin{abstract}
-{The Laser Inteferometer Space Antenna (LISA) presents an exciting new lens through which to view the realm of gravitational waves. Detections of double compact objects with LISA may help to constrain uncertainties in binary evolution and understand the prevalence of electromagnetic counterparts to gravitational wave events. We estimate the number of Galactic DCOs that will be detected by LISA using a sample generated with the rapid population synthesis code COMPAS and a model of the Milky Way that includes not only the radial birth profiles but also the star formation and enrichment histories. We explore the effects of varying 15 physical assumptions that focus on key uncertainties in our understanding of mass transfer, common envelope and supernova physics. For our fiducial model, we find that over a 4 year mission, LISA will detect 26 BHBHs, 27 BHNSs and 12 NSNSs. These detection rates increase to 41, 45 and 19 respectively for a 10 year mission length. We present the distributions of the characteristics of the detectable binaries and explore how our different models affect them. We also discuss how well we can distinguish between different DCO types and methods for doing so.}
+{The Laser Interferometer Space Antenna (LISA) presents an exciting new lens through which to view the realm of gravitational waves. Detections of double compact objects with LISA may help to constrain uncertainties in binary evolution and understand the prevalence of electromagnetic counterparts to gravitational wave events. We estimate the number of Galactic DCOs that will be detected by LISA using a sample generated with the rapid population synthesis code COMPAS and a model of the Milky Way that includes not only the radial birth profiles but also the star formation and enrichment histories. We explore the effects of varying 15 physical assumptions that focus on key uncertainties in our understanding of mass transfer, common envelope and supernova physics. For our fiducial model, we find that over a 4 year mission, LISA will detect 26 BHBHs, 27 BHNSs and 12 NSNSs. These detection rates increase to 41, 45 and 19 respectively for a 10 year mission length. We present the distributions of the characteristics of the detectable binaries and explore how our different models affect them. We also discuss how well we can distinguish between different DCO types and methods for doing so.}
 \end{abstract}
 
 \keywords{LISA, black hole, neutron star, binary}
@@ -91,15 +81,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Since the first direct detection of gravitational waves by the LIGO scientific collaboration in 2015 \citep{LIGO_2016_BBHinfirstRun}, there have been 50 gravitational wave events detected by LIGO \citep{LIGO_GWTC1, LIGO_GWTC2}. The investigation of double compact object (DCO) population statistics provides an essential tool for constraining uncertainties in binary evolution and predicting distributions of observable parameters for different DCO types. 
+Since the first direct detection of gravitational waves by the LIGO scientific collaboration in 2015 \citep{Abbott+2016_first_detection}, there have been 50 gravitational wave events detected by LIGO \citep{Abbott+2019_GWTC1,Abbott+2020_GWTC2}. The investigation of double compact object (DCO) population statistics provides an essential tool for constraining uncertainties in binary evolution and predicting distributions of observable parameters for different DCO types. 
 
 The Laser Interferometer Space Antenna (LISA, \citealp{Amaro-Seoane+2017}) provides an exciting new lens through which to view the realm of gravitational waves. LISA will observe binaries at lower orbital frequencies than LIGO ($10^{-5} \lesssim f / \unit{Hz} \lesssim 10^{-1}$) and therefore focus on the inspiral phase of stellar mass binaries rather than the merger. This will allow LISA to detect, and possibly localise a binary on the sky, far in advance of the merger, which allows for both multimessenger detections to search for electromagnetic counterparts and multiband detections that would better constrain binary characteristics \citep[e.g.][]{Gerosa+2019}. In addition, DCOs may still have significant eccentricity in the LISA band and measurements of eccentricity may provide further constraints on binary evolution \citep[e.g.][]{Vigna-Gomez+2018}, differentiate between formation channels and distinguish between DCO types.
 
-One particularly interesting and elusive gravitational wave source is a black hole neutron star binary (BHNS). Of all the events detected by LIGO, none can be confidently attributed to the merger of a black hole and a neutron star, though several events such as GW190425 and GW190814 have not been ruled out as a BHNS merger \citep{LIGO_GW190425, LIGO_GW190814}.
+One particularly interesting and elusive gravitational wave source is a black hole neutron star binary (BHNS). Of all the events detected by LIGO, none can be confidently attributed to the merger of a black hole and a neutron star, though several events such as GW190425 and GW190814 have not been ruled out as a BHNS merger \citep{Abbott+2020_GW190425,Abbott+2020_GW190814}.
 
 Predictions for the merger rate of BHNSs range across three orders of magnitude \citep[e.g.][]{Broekgaarden+2021} so the number of detections in LISA will be important in reducing this uncertainty, thereby refining our understanding of the remnants and evolution of massive stars. Collating a sample of BHNS binaries will allow us to better understand whether there are electromagnetic counterparts to their gravitational wave signal such as kilonovae \citep[e.g.][]{Metzger+2017}, short gamma-ray bursts \citep[e.g.][]{Gompertz+2020}, radio emission \citep[e.g.][]{Hotokezaka+2016} and neutrinos \citep[e.g.][]{Kyutoku+2018}. Moreover, if the neutron star is observable (such as a pulsar), a BHNS would be ideal for measuring the Hubble constant \citep[e.g.][]{Feeney+2020} and the neutron star equation of state. A detection with LISA would allow these various signals to be measured for years before the merger and give observers ample time to prepare for the merger itself.
 
-The detection of double compact objects with LISA has been investigated in many recent studies. \citet{Korol+2017, Korol+2020} use the binary population synthesis code SeBa to focus on predictions for double white dwarf binaries (WDWD). \citet{Lamberts+2018, Lamberts+2019} instead use a hydrodynamic simulation from the FIRE project \citep{Hopkins+2014} to produce predictions for double black hole binaries (BHBH) and WDWD. Closer to this study, \citet{Breivik+2019} uses the COSMIC population synthesis code to predict detection rates for all double compact objects and \citet{Lau+2020} uses the same population synthesis code as this study, COMPAS, and focusses on double neutron star binaries (NSNS).
+The detection of double compact objects with LISA has been investigated in many previous studies through a combination of population synthesis and Milky Way modelling. Several focus only on the detection of the more numerous population of double white dwarf population
+
+The detection of double compact objects with LISA has been investigated in many recent studies. \citet{Korol+2017, Korol+2020} use the binary population synthesis code SeBa to focus on predictions for double white dwarf binaries (WDWD). \citet{Lamberts+2018, Lamberts+2019} instead use a hydrodynamic simulation from the FIRE project \citep{Hopkins+2014} to produce predictions for double black hole binaries (BHBH) and WDWD. Closer to this study, \citet{Breivik+2020} uses the COSMIC population synthesis code to predict detection rates for all double compact objects and \citet{Lau+2020} uses the same population synthesis code as this study, COMPAS, and focusses on double neutron star binaries (NSNS).
 
 In this paper, we present predictions for the detection rate and distribution of binary characteristics (masses, frequency, eccentricity, distance, merger time) of BHNS, BHBH and NSNS binaries formed through isolated binary evolution in the Milky Way using binaries synthesised with the \href{https://compas.science}{COMPAS} rapid population synthesis code \citep{Stevenson+2017, Vigna-Gomez+2018, Stevenson+2019} in tandem with the adaptive importance sampling algorithm STROOPWAFEL \citep{Broekgaarden+2019}. Additionally, we use a model of the Milky Way that not only includes the radial birth profiles but also the star formation and enrichment history. We explore 15 different models of physical assumptions in our population synthesis model and how the changes in these assumptions alter our results. In this study we consider three main questions: (1) how many of each type of DCO will LISA detect? (2) can we distinguish between different DCOs with LISA? (3) can we use detections in LISA to constrain uncertainties in binary evolution?
 
@@ -120,7 +112,7 @@ The population of double compact objects used in this study was synthesised by \
 
 \subsubsection{Initial Conditions}
 
-Each binary is sampled from initial distributions for the primary and secondary masses as well as the separation. The primary mass, or the mass of the initially more massive star, is restricted to $m_1 \in [5, 150] \unit{M_{\odot}}$ and drawn from the \citet{Kroupa2001} Initial Mass Function (IMF), therefore $p(m_1) \propto m_1^{-2.3}$. The secondary mass is drawn using the mass ratio of the binary, which we assume to be uniform on $[0, 1]$, therefore $p(q) = 1$ \citep[consistent e.g. with][]{Sana+2012}. We additionally restrict $m_2 \ge 0.1 \unit{M_{\odot}}$, since this is approximately the minimal mass for a main sequence star. We assume that the initial separation follows a flat in the log distribution with $p(a_i) \propto 1 / a_i$ and $a_i \in [0.01, 1000] \unit{AU}$ \citep{Opik1924, Abt1983}. We assume that all binaries are circular at birth to reduce the dimensions of initial parameters. Since we focus on post-interaction binaries which will have circularised during mass transfer this is a reasonable assumption and is likely not critical for predicting detection rates \citep{Hurley+2002, de-Mink+2015}.
+Each binary is sampled from initial distributions for the primary and secondary masses as well as the separation. The primary mass, or the mass of the initially more massive star, is restricted to $m_1 \in [5, 150] \unit{M_{\odot}}$ and drawn from the \citet{Kroupa+2001} Initial Mass Function (IMF), therefore $p(m_1) \propto m_1^{-2.3}$. The secondary mass is drawn using the mass ratio of the binary, which we assume to be uniform on $[0, 1]$, therefore $p(q) = 1$ \citep[consistent e.g. with][]{Sana+2012}. We additionally restrict $m_2 \ge 0.1 \unit{M_{\odot}}$, since this is approximately the minimal mass for a main sequence star. We assume that the initial separation follows a flat in the log distribution with $p(a_i) \propto 1 / a_i$ and $a_i \in [0.01, 1000] \unit{AU}$ \citep{Opik+1924, Abt+1983}. We assume that all binaries are circular at birth to reduce the dimensions of initial parameters. Since we focus on post-interaction binaries which will have circularised during mass transfer this is a reasonable assumption and is likely not critical for predicting detection rates \citep{Hurley+2002, deMink+2015}.
 
 For each metallicity $Z$, we have a sample of binaries, each with a set of parameters
 \begin{equation}
@@ -133,17 +125,17 @@ In this section we briefly summarise the main physical assumptions in our fiduci
 
 \textit{Mass Transfer:} In determining the stability of mass transfer we use the $\zeta$-prescription, which compares the radial response of the star with the response of the Roche lobe radius to the mass transfer \citep[e.g.][]{Hjellming+1987}. The mass transfer efficiency, $\beta = \Delta M_{\rm acc} / \Delta M_{\rm don}$, is defined as the fraction of the mass transferred by the donor that is actually accreted by the accretor. We limit the maximum accretion rate for stars to $\Delta M_{\rm acc} / \Delta t \le 10 M_{\rm acc} / \tau_{\rm KH}$, where $\tau_{\rm KH}$ is the Kelvin-Helmholtz timescale of the star \citep{Paczynski+1972, Hurley+2002}. The maximum accretion rate for double compact objects is limited to the Eddington accretion rate. If more mass than these rates is accreted then we assume that the excess is lost through isotropic re-emission in the vicinity of the accreting star, thus varying $\beta$ \citep[e.g.][]{Massevitch+1975, Soberman+1997}. We assume that all mass transfer phases from a stripped post-helium-burning-star (case BB) onto a neutron star or black hole are unstable \citep{Tauris+2015}.
 
-\textit{Common Envelope:} A common envelope phase follows dynamically unstable mass transfer and we parameterise this using the $\alpha$-$\lambda$ prescription from \citet{Webbink1984} and \citet{de-Kool1990}. We assume $\alpha = 1$, such that all of the gravitational binding energy is available for the ejection of the envelope. For $\lambda$ we use the fitting formulae from \citet{Xu+2010, Xu+2010a}. We assume that any Hertzsprung gap donor stars that initiate a common envelope phase will not survive this phase due to a lack of a steep density gradient between the core and envelope \citep{Taam&Sandquist2000, Ivanova+2004}. This follows the `pessimistic' common envelope scenario \citep[c.f.][]{Belczynski+2007a}. We remove any binaries where the secondary immediately fills its Roche lobe upon the conclusion of the common envelope phase as we treat these as failed common envelope ejections.
+\textit{Common Envelope:} A common envelope phase follows dynamically unstable mass transfer and we parameterise this using the $\alpha$-$\lambda$ prescription from \citet{Webbink+1984} and \citet{deKool+1990}. We assume $\alpha = 1$, such that all of the gravitational binding energy is available for the ejection of the envelope. For $\lambda$ we use the fitting formulae from \citet{Xu+2010, Xu+2010a}. We assume that any Hertzsprung gap donor stars that initiate a common envelope phase will not survive this phase due to a lack of a steep density gradient between the core and envelope \citep{Taam+2000, Ivanova+2004}. This follows the `pessimistic' common envelope scenario \citep[c.f.][]{Belczynski+2007}. We remove any binaries where the secondary immediately fills its Roche lobe upon the conclusion of the common envelope phase as we treat these as failed common envelope ejections.
 
 \textit{Supernovae:} We draw the remnant masses and natal kick magnitudes from different distributions depending on the type of supernova that occurs. For stars undergoing a general core-collapse supernova, we use the \textit{delayed} supernova remnant mass prescription from \citet{Fryer+2012}. The \textit{delayed} prescription does not reproduce the neutron star black hole mass gap and we use this as our default as it has been shown to provide a better fit for observed populations of DCOs \citep[e.g.][]{Vigna-Gomez+2018}. We draw the natal kick magnitudes from a Maxwellian velocity distribution with a one-dimensional root-mean-square velocity dispersion of $\sigma_{\rm rms}^{\rm 1D} = 265 \unit{km}{s^{-1}}$ \citep{Lyne+1994, Hobbs+2005}.
 
-We assume that stars with helium core masses between $1.6$--$2.25 \unit{M_{\odot}}$ \citep{Hurley+2002} experience electron-capture supernovae \citep{Nomoto1984, Nomoto1987, Ivanova+2008}. We set all remnant masses to $1.26 \unit{M_{\odot}}$ in this case as an approximation of the solution to Equation 8 of \citet{Timmes+1996}. For these supernovae, we set $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ as in \citet{Pfahl+2002} and \citet{Podsiadlowski+2004}.
+We assume that stars with helium core masses between $1.6$--$2.25 \unit{M_{\odot}}$ \citep{Hurley+2002} experience electron-capture supernovae \citep{Nomoto+1984, Nomoto+1987, Ivanova+2008}. We set all remnant masses to $1.26 \unit{M_{\odot}}$ in this case as an approximation of the solution to Equation 8 of \citet{Timmes+1996}. For these supernovae, we set $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ as in \citet{Pfahl+2002} and \citet{Podsiadlowski+2004}.
 
 We assume that stars that undergo case BB mass transfer experience extreme stripping which leads to an ultra-stripped supernova \citep{Tauris+2013, Tauris+2015}. For these supernovae we calculate the remnant mass using the \citet{Fryer+2012} prescription and use $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ (as with electron-capture supernovae).
 
 Stars with helium core masses between $60$-$135 \unit{M_{\odot}}$ are presumed to undergo a pair-instability, or pulsational pair-instability supernova \citep[e.g.][]{Woosley+2007, Farmer+2019}. We follow the prescription from \citet{Marchant+2019} as implemented in \citep{Stevenson+2019} for these supernovae.
 
-We assume that kicks are isotropic in the frame of the collapsing star. The maximum neutron star mass is predicted to be between $2$-$3 \unit{M_{\odot}}$ \citep[e.g.][]{Kalogera+1996_maxNS, Fryer+2015, Margalit&Metzger2017}. % removed Lawrence+2015 Alsing+2018
+We assume that kicks are isotropic in the frame of the collapsing star. The maximum neutron star mass is predicted to be between $2$-$3 \unit{M_{\odot}}$ \citep[e.g.][]{Kalogera+1996, Fryer+2015, Margalit+2017}.
 We adopt a maximum neutron star mass of $2.5 \unit{M_{\odot}}$ for the fiducial model and change the \citet{Fryer+2012} prescription accordingly.
 
 \subsubsection{Physical assumptions in other models} \label{sec:variation_assumptions}
@@ -173,8 +165,8 @@ Finally, models \modRangeSN{} make changes related to our assumptions about supe
         \modOpt & HG donor stars initiating a CE survive CE \\
         \hline
         \modRapid & Fryer rapid SN remnant mass prescription \\
-        \modNSLow & Maximum NS mass is fixed to $2\Msun$ \\
-        \modNSHigh & Maximum NS mass is fixed to $3\Msun$ \\
+        \modNSLow & Maximum NS mass is fixed to $2\unit{M_{\rm odot}}$ \\
+        \modNSHigh & Maximum NS mass is fixed to $3\unit{M_{\rm odot}}$ \\
         \modNoPISN & PISN and pulsational-PISN not implemented \\
         \modSigLow & $\sigma_{\rm{rms}}^{\rm{1D}}=100 \unit{km}{s^{-1}}$ for core-collapse supernova \\  
         \modSigLower & $\sigma_{\rm{rms}}^{\rm{1D}}=30  \unit{km}{s^{-1}}$ for core-collapse supernova \\ 
@@ -193,7 +185,7 @@ Most previous studies that predict a detection rate for LISA place binaries in t
 
 \subsubsection{Milky Way disc model}
 
-For the Milky Way thin disc, we use the model from \citet{Frankel+2018}. The authors developed this model in order to measure the global efficiency of radial migration in the Milky Way. They did this by fitting the model to a sample of red clump stars measured with APOGEE \citep{APOGEE} and Gaia \citep{Gaia-Collaboration+2016}. The result of this work is a model for the Milky Way that is calibrated to observations and includes the star formation history, radial birth profile and chemical enrichment history of the galaxy. We can therefore use this model to place binaries randomly in space and time and match these positions to a metallicity.
+For the Milky Way thin disc, we use the model from \citet{Frankel+2018}. The authors developed this model in order to measure the global efficiency of radial migration in the Milky Way. They did this by fitting the model to a sample of red clump stars measured with APOGEE \citep{Majewski+2017} and Gaia \citep{GaiaCollaboration+2016}. The result of this work is a model for the Milky Way that is calibrated to observations and includes the star formation history, radial birth profile and chemical enrichment history of the galaxy. We can therefore use this model to place binaries randomly in space and time and match these positions to a metallicity.
 
 The star formation history is given by the following  \citep[][Eq. 2]{Frankel+2018}
 \begin{equation}\label{eq:galaxy_tau}
@@ -222,11 +214,11 @@ $F_m = -1 \unit{dex}$ is the metallicity of the gas at the center of the disk at
 \begin{equation}\label{eq:galaxy_FeH_to_Z}
     \log Z = 0.977 [{\rm Fe} / {\rm H}] + \log(Z_\odot).
 \end{equation}
-Additionally, since the Frankel model does not treat the vertical structure of the Milky Way disc, we can supplement it with the vertical distribution from \citet{McMillan2011},
+Additionally, since the Frankel model does not treat the vertical structure of the Milky Way disc, we can supplement it with the vertical distribution from \citet{McMillan+2011},
 \begin{equation}\label{eq:galaxy_z}
     p(\abs{z}) = \frac{1}{z_d} \exp\qty(-\frac{z}{z_d}),
 \end{equation}
-where $z$ is the height above the Galactic plane and $z_d = 0.3 \unit{kpc}$. Equations \ref{eq:galaxy_tau}-\ref{eq:galaxy_z} summarise the model that we use for the Milky Way disc and we illustrate these distributions in Fig.~\ref{MAKEME}.
+where $z$ is the height above the Galactic plane and $z_d = 0.3 \unit{kpc}$. Equations \ref{eq:galaxy_tau}-\ref{eq:galaxy_z} summarise the model that we use for the Milky Way disc and we illustrate these distributions in Fig.~\ref{fig:galaxy_schematic}.
 
 \subsubsection{Combining population and galaxy synthesis}
 
@@ -234,12 +226,12 @@ For each Milky Way instance, we randomly sample the following set of parameters
 \begin{equation}
     \mathbf{g}_{{i}} = \{\tau, R, Z, z, \theta\}
 \end{equation}
-for $i = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using Eq.\,\ref{eq:galaxy_tau}-\ref{eq:galaxy_z}, $\theta$ is the polar angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Figure~\ref{fig:galaxy_metallicity} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions in the Milky and illustrates the gradient in metallicity over radius.
+for $i = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using Eq.\,\ref{eq:galaxy_tau}-\ref{eq:galaxy_z}, $\theta$ is the polar angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Figure~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions in the Milky and illustrates the gradient in metallicity over radius.
 
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\textwidth]{galaxy_diagram.png}
-    \caption{A schematic showing how we create a mock Mily Way disc. On the left, we show the various distributions presented in \citet{Frankel+2018} and \citet{McMillan2011}. On the right, we show an example instance of the Milky Way with $10^5$ binaries shown as points. The colour of each point represents its metallicity (with $Z \in [0.0001, 0.022]$). The top panel shows a side-on view and the bottom panel shows a view from above.}
+    \caption{A schematic showing how we create a mock Milky Way disc. On the left, we show the various distributions presented in \citet{Frankel+2018} and \citet{McMillan+2011}. On the right, we show an example instance of the Milky Way with $10^5$ binaries shown as points. The colour of each point represents its metallicity (with $Z \in [0.0001, 0.022]$). The top panel shows a side-on view and the bottom panel shows a view from above.}
     \label{fig:galaxy_schematic}
 \end{figure*}
 
@@ -252,17 +244,17 @@ for $i = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 10^{5}$, $\tau, R,
 
 We match each set of galaxy parameters $\mathbf{g}_{{i}}$, to a random set of binary parameters $\mathbf{b}_{{Z, i}}$, by randomly drawing a set of binary parameters from the closest metallicity bin to the metallicity in $\mathbf{g}_{{i}}$.
 
-Each binary is likely to move from its birth orbit. Although all stars in the Galactic disc experience some amount of radial migration \citep{Sellwood&Binney2002, Frankel+2018}, double compact objects generally experience stronger dynamical evolution as a result of the effects of both Blaauw kicks from instantaneous symmetric mass loss \citep{Blaauw1961} and natal kicks from asymmetric supernovae \citep{Hobbs+2005}.
+Each binary is likely to move from its birth orbit. Although all stars in the Galactic disc experience some amount of radial migration \citep{Sellwood+2002, Frankel+2018}, double compact objects generally experience stronger dynamical evolution as a result of the effects of both Blaauw kicks from instantaneous symmetric mass loss \citep{Blaauw+1961} and natal kicks from asymmetric supernovae \citep{Hobbs+2005}.
 
 The magnitude of the systemic kicks are typically small compared to the intital circular velocity of a binary at each Galactocentric radius. Therefore, kicks will not significantly alter the overall distribution of their positions. Given this, and for the sake of computational efficiency, we do not account for the displacement due to systemic kicks in our analysis.
 
 \subsection{Gravitational Wave Inspiral}
 
-Each binary loses orbital energy to gravitational waves throughout its lifetime. This causes the binary to shrink and circularise over time. In order to assess the detectability of a binary, we need to know its eccentricity and frequency at the time of the LISA mission. For each binary in our simulated Milky Way, we know that the time from DCO formation to today is $\tau - t_{\rm evolve}$ and that the initial eccentricity and semi-major axis are $e_{\rm DCO}$ and $a_{\rm DCO}$. We find the eccentricity of the binary at the start of the LISA mission, $e_{\rm LISA}$, by numerically integrating its time derivative \citep[][Eq. 5.13]{Peters1964} given the initial conditions. This additionally can be converted to the semi-major axis at the start of LISA, $a_{\rm LISA} $\citep[][Eq. 5.11]{Peters1964}, which in turn gives the orbital frequency, $f_{\rm orb, LISA}$, by Kepler's third law.
+Each binary loses orbital energy to gravitational waves throughout its lifetime. This causes the binary to shrink and circularise over time. In order to assess the detectability of a binary, we need to know its eccentricity and frequency at the time of the LISA mission. For each binary in our simulated Milky Way, we know that the time from DCO formation to today is $\tau - t_{\rm evolve}$ and that the initial eccentricity and semi-major axis are $e_{\rm DCO}$ and $a_{\rm DCO}$. We find the eccentricity of the binary at the start of the LISA mission, $e_{\rm LISA}$, by numerically integrating its time derivative \citep[][Eq. 5.13]{Peters+1964} given the initial conditions. This additionally can be converted to the semi-major axis at the start of LISA, $a_{\rm LISA} $\citep[][Eq. 5.11]{Peters+1964}, which in turn gives the orbital frequency, $f_{\rm orb, LISA}$, by Kepler's third law.
 
 \subsection{Detectability}
 
-We define a binary as detectable if its gravitational wave signal has a signal-to-noise ratio of greater than 7 \citep[e.g.][]{Breivik+2019, Korol+2020}. The sky-, polarisation- and orientation-averaged signal-to-noise ratio, $\rho$, of an inspiraling binary can be calculated with the following\footnote{For full derivations of the equations in this section, please see Appendix \ref{app:strain_snr_deriv}.} \citep[e.g.][]{Finn&Thorne2000}
+We define a binary as detectable if its gravitational wave signal has a signal-to-noise ratio of greater than 7 \citep[e.g.][]{Breivik+2020, Korol+2020}. The sky-, polarisation- and orientation-averaged signal-to-noise ratio, $\rho$, of an inspiraling binary can be calculated with the following\footnote{For full derivations of the equations in this section, please see Appendix \ref{app:strain_snr_deriv}.} \citep[e.g.][]{Finn+2000}
 \begin{equation}\label{eq:snr}
     \rho^2 = \sum_{n=1}^{\infty} \int_{f_{n, i}}^{f_{n, f}} \frac{h_{c, n}^{2}}{f_{n}^{2} S_{\rm n}\left(f_{n}\right)} \dd{f_n},
 \end{equation}
@@ -270,7 +262,7 @@ where $n$ is a harmonic of the gravitational wave signal, $f_n = n \cdot f_{\rm 
 \begin{equation}\label{eq:charstrain}
     h^2_{c,n} = \frac{2^{5/3}}{3 \pi^{4/3}} \frac{(G \mathcal{M}_c)^{5/3}}{c^3 D_L^2} \frac{1}{n f_{\rm orb}^{1/3}} \frac{g(n,e)}{F(e)}
 \end{equation}
-\citep[e.g.][]{Barack&Cutler2004}, where $D_L$ is the luminosity distance to the source, $f_{\rm orb}$ is the orbital frequency, $g(n, e)$ and $F(e)$ are given in \citet{Peters1963} and $\mathcal{M}_c$ is the chirp mass, defined as
+\citep[e.g.][]{Barack+2004}, where $D_L$ is the luminosity distance to the source, $f_{\rm orb}$ is the orbital frequency, $g(n, e)$ and $F(e)$ are given in \citet{Peters+1963} and $\mathcal{M}_c$ is the chirp mass, defined as
 \begin{equation}\label{eq:chirp_mass}
     \mathcal{M}_c = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}.
 \end{equation}
@@ -305,9 +297,9 @@ Firstly, eccentricity enhances the rate of energy emission via gravitational wav
 \begin{equation}
     F(e) = \frac{1 + (73 / 24) e^2 + (37 / 96) e^4}{(1 - e^2)^{7/2}},
 \end{equation}
-compared to a circular binary with the same semi-major axis \citep[][Eq.\,17]{Peters1963}. This means that eccentric binaries will not only inspiral faster, but also produce gravitational waves with stronger strain amplitudes (when summed over all harmonics).
+compared to a circular binary with the same semi-major axis \citep[][Eq.\,17]{Peters+1963}. This means that eccentric binaries will not only inspiral faster, but also produce gravitational waves with stronger strain amplitudes (when summed over all harmonics).
 
-Secondly, eccentric binaries will emit gravitational waves at many harmonic frequencies (unlike circular binaries, which only emit at twice the orbital frequency). This leads to the gravitational wave signal being diluted over many frequencies higher than the orbital frequency, where the higher the eccentricity, the more harmonics are required to capture all of the gravitational luminosity \citep[see][Fig.\,3]{Peters1963}.
+Secondly, eccentric binaries will emit gravitational waves at many harmonic frequencies (unlike circular binaries, which only emit at twice the orbital frequency). This leads to the gravitational wave signal being diluted over many frequencies higher than the orbital frequency, where the higher the eccentricity, the more harmonics are required to capture all of the gravitational luminosity \citep[see][Fig.\,3]{Peters+1963}.
 
 Therefore, though the first effect always increases the strength of the signal, the two effects in tandem do not necessarily always increase the detectability of a binary and we illustrate this point in Fig.\,\ref{fig:ecc_effects}. We show effect of eccentricity on the gravitational wave signal from a typical BHNS binary of chirp mass $\mathcal{M}_c = 3 \unit{M_{\odot}}$ and distance $8 \unit{kpc}$ at an orbital frequency of $f_{\rm orb} = 3 \times 10^{-4} \unit{Hz}$. Increasing the eccentricity from $e = 0.0$ to $0.5$ results in an increase in the signal-to-noise ratio (annotated on each set of points). This is because the eccentricity not only increases the gravitational wave emission, but also shifts the peak of the signal towards the minimum of the LISA sensitivity curve. However, further increasing the eccentricity from $e = 0.5$ to $0.9$ instead \textit{decreases} the signal-to-noise ratio. Although the greater eccentricity produces a stronger strain, it also shifts the peak of the gravitational wave signal to such high frequencies that the noise level is much higher and therefore has a lower signal-to-noise ratio.
 
@@ -342,6 +334,16 @@ This plot shows that, in principle, we could detect a BHNS binary up to several 
 \section{Results (II) - Synthetic Galaxy} \label{sec:resultsII}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\todo{Add text about detection rates}
+
+\begin{figure*}[p]
+    \centering
+    \includegraphics[width=\textwidth]{dco_detections.pdf}
+    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 1 (solid) and 2 (dotted) $\sigma$ uncertainties. The left axis and grid lines show the number of detections in a four year LISA mission and the right axis shows an approximation of the number of detections in a 10 year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in  Section~\ref{sec:fiducial_physics}}
+    \label{fig:detection_rates}
+\end{figure*}
+
 \subsection{Results for fiducial model}\label{sec:fiducial_distributions}
 We find that, for our fiducial model, a four year LISA mission will detect 26 BHBH, 27 BHNS and 12 NSNS binaries. Increasing the LISA mission length to ten years changes the number of detections to 41, 45 and 19 respectively. We can note that each shows an increase of approximately $\sqrt{10 / 4} \approx 1.6$ as expected since $\rho \propto \sqrt{T_{\rm obs}}$.
 
@@ -397,13 +399,6 @@ Each DCO has a strong peak at small inspiral times since higher metallicities le
 
 \subsection{Model variations}
 
-\begin{figure*}[p]
-    \centering
-    \includegraphics[width=\textwidth]{dco_detections.pdf}
-    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 1 (solid) and 2 (dotted) $\sigma$ uncertainties. The left axis and grid lines show the number of detections in a four year LISA mission and the right axis shows an approximation of the number of detections in a 10 year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in  Section~\ref{sec:fiducial_physics}}
-    \label{fig:model_variation_detections}
-\end{figure*}
-
 \newcolumntype{S}{>{\centering}p{0.75cm}}
 \newcolumntype{Z}{>{\centering\arraybackslash}p{0.75cm}}
 \begin{table*}[htb]
@@ -437,11 +432,11 @@ Each DCO has a strong peak at small inspiral times since higher metallicities le
 
 
 \subsection{Comparison with other studies}
-\citet{Lau+2020} find that the number of NSNS binaries in the Milky Way that would be detected by a 4 year LISA mission is 33, a factor of three times higher than our fiducial rate. This study incorporates \citet{Lau+2020} uses the same population synthesis code, COMPAS, as this study, though an earlier version. They make several different physical assumptions, using the \citet{Fryer+2012} \textit{rapid} remnant mass prescription, limiting the maximum neutron star mass to $2 \unit{M_{\odot}}$ and not implementing PISN. However, we note that none of these assumptions significantly affect the NSNS LISA detection rate (see bottom panel of Fig.\,\ref{fig:model_variation_detections}, models \modRapid{}, \modNSLow{} and \modNoPISN{}).
+\citet{Lau+2020} find that the number of NSNS binaries in the Milky Way that would be detected by a 4 year LISA mission is 33, a factor of three times higher than our fiducial rate. This study incorporates \citet{Lau+2020} uses the same population synthesis code, COMPAS, as this study, though an earlier version. They make several different physical assumptions, using the \citet{Fryer+2012} \textit{rapid} remnant mass prescription, limiting the maximum neutron star mass to $2 \unit{M_{\odot}}$ and not implementing PISN. However, we note that none of these assumptions significantly affect the NSNS LISA detection rate (see bottom panel of Fig.\,\ref{fig:detection_rates}, models \modRapid{}, \modNSLow{} and \modNoPISN{}).
 
 We therefore surmise that the difference between our results is likely due to way in which we simulate the Milky Way. \citet{Lau+2020} assumes constant star formation, solar metallicity and distribute binaries following the blue light luminosity of the Milky Way, whilst we use the distributions from \citet{Frankel+2018} for the star formation rate, metallicity and positions. The \citet{Frankel+2018} star formation rate decreases over time and the metallicity distribution peaks above solar metallicity. Both of these changes could decrease the rate since most NSNS binaries in our sample have short inspiral times compared to the age of the Milky Way and higher metallicity would lead to increased stellar winds and hence less massive DCOs.
 
-\citet{Breivik+2019} find that LISA will detect 93 BHBH, 33 BHNS and 8 NSNS binaries in the Milky Way over a 4 year mission. Although these are significantly different from our fiducial results, we make many different physical assumptions, the most notable being that \citet{Breivik+2019} assumes the optimistic CE scenario. Thus it would be more prudent to compare to our results from model \modOpt{} in which we find 70, 38 and 15 detections respectively. The discrepancy in the NSNS rate is likely due to the fact that we assume that case BB mass transfer onto a NS is always stable but \citet{Breivik+2019} does not and this would significantly decrease our rate (see bottom panel of Fig.\,\ref{fig:model_variation_detections}, model \modCaseBB{}) . The remaining differences are likely due to using a different population synthesis code (COSMIC) and using a different model for the Milky Way, particularly the assumptions of two fixed metallicities.
+\citet{Breivik+2020} find that LISA will detect 93 BHBH, 33 BHNS and 8 NSNS binaries in the Milky Way over a 4 year mission. Although these are significantly different from our fiducial results, we make many different physical assumptions, the most notable being that \citet{Breivik+2020} assumes the optimistic CE scenario. Thus it would be more prudent to compare to our results from model \modOpt{} in which we find 70, 38 and 15 detections respectively. The discrepancy in the NSNS rate is likely due to the fact that we assume that case BB mass transfer onto a NS is always stable but \citet{Breivik+2020} does not and this would significantly decrease our rate (see bottom panel of Fig.\,\ref{fig:detection_rates}, model \modCaseBB{}) . The remaining differences are likely due to using a different population synthesis code (COSMIC) and using a different model for the Milky Way, particularly the assumptions of two fixed metallicities.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -467,15 +462,15 @@ We therefore surmise that the difference between our results is likely due to wa
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\software{COMPAS (version 02.12.00) \url{http://github.com/TeamCOMPAS/COMPAS}. \citep{Stevenson+2017, Vigna-Gomez+2018, Broekgaarden+2019}, \texttt{Python} available from \url{python.org}, matplotlib \citep{matplotlib},  \texttt{NumPy} \citep{numpy}, 
-Astropy \citep[\url{http://www.astropy.org}][]{Astropy-Collaboration+2013,Astropy-Collaboration+2018}.}
+\software{COMPAS (version 02.12.00) \url{http://github.com/TeamCOMPAS/COMPAS}. \citep{Stevenson+2017, Vigna-Gomez+2018, Broekgaarden+2019}, \texttt{Python} available from \url{python.org}, matplotlib \citep{Hunter+2007},  \texttt{NumPy} \citep{vanderWalt+2011}, 
+Astropy \citep[\url{http://www.astropy.org}][]{AstropyCollaboration+2013, AstropyCollaboration+2018}.}
 
 \acknowledgments{This project was funded in part by the European Union’s Horizon 2020 research and innovation program from the European Research Council (ERC, Grant agreement No. 715063), and by the Netherlands Organization for Scientific Research (NWO) as part of the Vidi research program BinWaves with project number 639.042.728. We further acknowledge the Black Hole Initiative funded by a generous contribution of the John Templeton Foundation and the Gordon and Betty Moore Foundation.}
 
 \clearpage
 
 \bibliographystyle{aasjournal}
-\bibliography{references, selma_huge_bibs}
+\bibliography{references}
 
 \allowdisplaybreaks
 
@@ -493,25 +488,25 @@ where $m_1$ and $m_2$ are the primary and secondary mass of the binary. Kepler's
 \begin{equation}\label{eq:kepler3rd}
     a = \qty(\frac{G(m_1 + m_2)}{(2 \pi f_{\rm orb})^{2}})^{1/3},\qquad f_{\rm orb} = \frac{1}{2 \pi} \sqrt{\frac{G(m_1 + m_2)}{a^3}}.
 \end{equation}
-As we deal with eccentric binaries, the different harmonic frequencies of gravitational wave emission become important. We therefore write that the relative power radiated into the $n^{\rm th}$ harmonic for a binary with eccentricity $e$ is \citep[][Eq.\,20]{Peters1963}
+As we deal with eccentric binaries, the different harmonic frequencies of gravitational wave emission become important. We therefore write that the relative power radiated into the $n^{\rm th}$ harmonic for a binary with eccentricity $e$ is \citep[][Eq.\,20]{Peters+1963}
 \begin{equation}\label{eq:g(n,e)}
     \begin{aligned}
         g(n, e) = \frac{n^{4}}{32} & \left\{ \left[ J_{n-2}(n e)-2 e J_{n-1}(n e)+\frac{2}{n} J_{n}(n e)+2 e J_{n+1}(n e)-J_{n+2}(n e)\right]^{2}\right.\\
         &\left.+\left(1-e^{2}\right)\left[J_{n-2}(n e)-2 J_{n}(n e)+J_{n+2}(n e)\right]^{2}+\frac{4}{3 n^{2}}\left[J_{n}(n e)\right]^{2}\right\},
     \end{aligned}
 \end{equation}
-where $J_{n}(v)$ is the Bessel function of the first kind. Thus, the sum of $g(n, e)$ over all harmonics gives the factor by which the gravitational wave emission is stronger for a binary of eccentricity $e$ over an otherwise identical circular binary. This enhancement factor is defined by Peters as \citep[][Eq.\,17]{Peters1963}
+where $J_{n}(v)$ is the Bessel function of the first kind. Thus, the sum of $g(n, e)$ over all harmonics gives the factor by which the gravitational wave emission is stronger for a binary of eccentricity $e$ over an otherwise identical circular binary. This enhancement factor is defined by Peters as \citep[][Eq.\,17]{Peters+1963}
 \begin{equation}\label{eq:eccentricity_enhancement_factor}
     F(e) = \frac{1 + (73 / 24) e^2 + (37 / 96) e^4}{(1 - e^2)^{7/2}}.
 \end{equation}
 Note that $F(0) = 1$ as one would expect. A fun number to remember is that $F(0.5) \approx 5.0$, or in words, a binary with eccentricity $0.5$ loses energy to gravitational waves at a rate $5$ times higher than a similar circular binary.
 
 \subsection{Characteristic Strain}
-The characteristic strain from a binary in the $n^{\rm th}$ harmonic is defined as follows (e.g. \citealp[][Eq.\,56]{Barack&Cutler2004}; \citealp[][Eq.\,5.1]{ Flanagan+1998})
+The characteristic strain from a binary in the $n^{\rm th}$ harmonic is defined as follows (e.g. \citealp[][Eq.\,56]{Barack+2004}; \citealp[][Eq.\,5.1]{ Flanagan+1998})
 \begin{equation}\label{eq:char_strain_dedf}
     h_{c,n}^2 = \frac{1}{(\pi D_L)^2} \qty( \frac{2 G}{c^3} \frac{\dot{E_n}}{\dot{f_n}} ),
 \end{equation}
-where $D_L$ is the luminosity distance to the binary, $\dot{E}_n$ is the power radiated in the $n^{\rm th}$ harmonic and $\dot{f}_n$ is the rate of change of the $n^{\rm th}$ harmonic frequency. The power radiated in the $n^{\rm th}$ harmonic is given by \citep[][Eq. 19]{Peters1963}
+where $D_L$ is the luminosity distance to the binary, $\dot{E}_n$ is the power radiated in the $n^{\rm th}$ harmonic and $\dot{f}_n$ is the rate of change of the $n^{\rm th}$ harmonic frequency. The power radiated in the $n^{\rm th}$ harmonic is given by \citep[][Eq. 19]{Peters+1963}
 \begin{equation}\label{eq:edot_peters}
     \dot{E}_n = \frac{32}{5} \frac{G^{4}}{c^5} \frac{m_{1}^{2} m_{2}^{2}\left(m_{1}+m_{2}\right)}{a^{5}} g(n, e),
 \end{equation}
@@ -530,7 +525,7 @@ The frequency of the $n^{\rm th}$ harmonic is simply defined as $f_n = n \cdot f
     f_{n} &= \frac{n}{2 \pi} \sqrt{\frac{G(m_1 + m_2)}{a^3}}, \\
     \dv{f_{n}}{a} &= -\frac{3 n}{4 \pi} \frac{\sqrt{G(m_1 + m_2)}}{a^{5/2}}. \label{eq:dfda}
 \end{align}
-The rate at which the semi-major axis decreases is \citep[][Eq. 5.6]{Peters1964}
+The rate at which the semi-major axis decreases is \citep[][Eq. 5.6]{Peters+1964}
 \begin{equation}\label{eq:dadt}
     \dv{a}{t} = -\frac{64}{5} \frac{G^{3} m_{1} m_{2}\left(m_{1}+m_{2}\right)}{c^{5} a^{3}} F(e).
 \end{equation}
@@ -553,9 +548,9 @@ With definitions of both $\dot{E}_n$ and $\dot{f}_n$, we are now in a position t
 \end{align}
 
 \subsection{Strain}
-The strain can be found by dividing the characteristic strain by the square root of twice the number of cycles. This is explained in \citet{Finn&Thorne2000} and in further detail in \citet{Moore+2015}. The physical reasoning behind the idea is that the binary will spend a certain amount of time in the vicinity of some frequency $f$ and cause a similar gravitational wave strain. This leads to the signal 'accumulating' and resulting in a larger signal-to-noise ratio. Therefore, the characteristic strain represents the strain measured by the detector over the duration of the mission, whilst the strain is what is emitted by the binary at each instantaneous moment.
+The strain can be found by dividing the characteristic strain by the square root of twice the number of cycles. This is explained in \citet{Finn+2000} and in further detail in \citet{Moore+2015}. The physical reasoning behind the idea is that the binary will spend a certain amount of time in the vicinity of some frequency $f$ and cause a similar gravitational wave strain. This leads to the signal 'accumulating' and resulting in a larger signal-to-noise ratio. Therefore, the characteristic strain represents the strain measured by the detector over the duration of the mission, whilst the strain is what is emitted by the binary at each instantaneous moment.
 
-Following this logic, we can convert between characteristic strain and strain with \citep[e.g][see text before Eq.\,2.2]{Finn&Thorne2000}
+Following this logic, we can convert between characteristic strain and strain with \citep[e.g][see text before Eq.\,2.2]{Finn+2000}
 \begin{equation}\label{eq:strain-to-charstrain}
     h_{c, n}^2 = \qty(\frac{2 f_n^2}{\dot{f}_n}) h_n^2.
 \end{equation}
@@ -639,15 +634,15 @@ where $w_i$ is the STROOPWAFEL weight assigned to a binary, $N_{\rm binaries, Z}
 where $\avg{m}_{\rm COMPAS}$ is the average star forming mass of a binary in our sample and $f_{\rm trunc}$ is the fraction of the total stellar mass that COMPAS samples from given its truncated mass and separation ranges (see Section \ref{sec:COMPAS_explained}). The cuts applied to the distributions mean that only $f_{\rm trunc} \approx 0.2$ of the stellar mass is sampled from.
 
 \subsection{Total star forming mass in the Milky Way}
-It is important to distinguish between the \textit{total} star forming mass in the Milky Way and the \textit{current} star forming mass in the Milky Way. Many stars born in the Milky Way are no longer living and have lost much of their mass to stellar winds and supernovae, thus decreasing the total stellar mass. \citet{Licquia&Newman2014} find that the total stellar mass today in the Milky Way disc is $6.08 \pm 1.14 \times 10^{10} \Msun$. This total includes all stars and stellar remnants (white dwarfs, neutrons stars and black holes) but \textit{excludes} brown dwarfs. We can write that the total star forming mass that has \textit{ever} existed in the Milky Way is
+It is important to distinguish between the \textit{total} star forming mass in the Milky Way and the \textit{current} star forming mass in the Milky Way. Many stars born in the Milky Way are no longer living and have lost much of their mass to stellar winds and supernovae, thus decreasing the total stellar mass. \citet{Licquia+2014} find that the total stellar mass today in the Milky Way disc is $6.08 \pm 1.14 \times 10^{10} \unit{M_{\rm odot}}$. This total includes all stars and stellar remnants (white dwarfs, neutrons stars and black holes) but \textit{excludes} brown dwarfs. We can write that the total star forming mass that has \textit{ever} existed in the Milky Way is
 \begin{equation}\label{eq:m_SF_MW}
-    M_{\rm SF, MW} = 6.08 \pm 1.14 \times 10^{10} \Msun \cdot \frac{\avg{m}_{\rm SF, total}}{\avg{m}_{\rm SF, today}},
+    M_{\rm SF, MW} = 6.08 \pm 1.14 \times 10^{10} \unit{M_{\rm odot}} \cdot \frac{\avg{m}_{\rm SF, total}}{\avg{m}_{\rm SF, today}},
 \end{equation}
 where $\avg{m}_{\rm SF, total}$ is the average star forming mass over the history of the Milky Way and $\avg{m}_{\rm SF, today}$ is the average star forming mass of the mass remaining today. The former is defined as
 \begin{equation}
     \avg{m}_{\rm SF, total} = \int_{0}^{t_{\rm MW}} p_{\rm birth}(t) \int_{0.01}^{200} \zeta(m)\ m \dd{m} \dd{t},
 \end{equation}
-where $t_{\rm MW}$ is the age of the Milky Way, $\zeta(m)$ is the \citet{Kroupa2001} IMF function and $p_{\rm birth}(\tau)$ is the probability of a star being formed at a lookback time $\tau$ \citep[][Eq.\,4]{Frankel+2018}. The average star forming mass of the mass \textit{remaining today} is defined as follows (note that we integrate from $0.08$ not $0.01$ since observations of today's Milky Way mass exclude brown dwarfs)
+where $t_{\rm MW}$ is the age of the Milky Way, $\zeta(m)$ is the \citet{Kroupa+2001} IMF function and $p_{\rm birth}(\tau)$ is the probability of a star being formed at a lookback time $\tau$ \citep[][Eq.\,4]{Frankel+2018}. The average star forming mass of the mass \textit{remaining today} is defined as follows (note that we integrate from $0.08$ not $0.01$ since observations of today's Milky Way mass exclude brown dwarfs)
 \begin{equation}
     \avg{m}_{\rm SF, today} = \int_{0}^{t_{\rm MW}} p_{\rm birth}(\tau) \int_{0.08}^{200} \zeta(m)\ m_{\rm today}(m, \avg{Z}_\tau, \tau) \dd{m} \dd{\tau},
 \end{equation}
@@ -662,6 +657,15 @@ We can plug Equations~\ref{eq:norm_avg_target_formation} and \ref{eq:m_SF_MW} in
 \begin{equation}
     N_{\rm detect} = 9.1 \times 10^{10} \unit{M_{\odot}} \cdot f_{\rm detect} \cdot \sum_{Z=Z_{\rm min}}^{Z_{\rm max}} p_{Z} \qty(\sum_{i=1}^{N_{\rm binaries, Z}} w_i \theta_{\rm target, i}) \qty(\frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i)^{-1}
 \end{equation}
+
+\section{Extra figures}
+
+\begin{figure*}[p]
+    \centering
+    \includegraphics[height=\textheight]{previous_studies.png}
+    \caption{A table of previous studies of a similar nature to this work}
+    \label{fig:previous_studies}
+\end{figure*}
 
 \end{document}
 
