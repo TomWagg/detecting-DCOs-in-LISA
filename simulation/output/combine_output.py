@@ -12,7 +12,7 @@ dt = np.dtype(float)
 dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
          ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
          ("tau", dt), ("dist", dt), ("Z", dt), ("snr", dt), ("weight", dt),
-         ("seed", dt), ("channel", dt)]
+         ("seed", dt), ("channel", np.dtype(int))]
 
 runs = 50
 
@@ -51,10 +51,13 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
         if len(missing) != runs:
             # let the user know which ones are currently missing
             print(v, len(missing), missing)
-            
+
             # work out the formation channels
+            model = variations[v]["file"]
+            if model == "optimistic":
+                model = "fiducial"
             floor_file = floor_path \
-                + "{}/COMPASOutputReduced.h5".format(variations[v]["file"])
+                + "{}/COMPASOutputReduced.h5".format(model)
             with h5.File(floor_file, "r") as floor:
                 channels = identify_formation_channels(full_data["seed"],
                                                        floor)
@@ -64,9 +67,11 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
             with h5.File(fname, "w") as file:
                 file.create_dataset("simulation", (np.sum(n_ten_year),),
                                     dtype=dtype)
-                file["simulation"][...] = full_data
-                file["simulation"]["channel"][...] = channels
+                for col, _ in dtype:
+                    file["simulation"][col] = full_data[col] \
+                        if col != "channel" else channels
                 file["simulation"].attrs["n_ten_year"] = n_ten_year
+
         # otherwise make sure that the user knows no data is present
         else:
             print("No data found for {}".format(variations[v]["long"]))
