@@ -244,7 +244,7 @@ We match each set of galaxy parameters $\mathbf{g}_{{i}}$, to a random set of bi
 
 Each binary is likely to move from its birth orbit. Although all stars in the Galactic disc experience some amount of radial migration \citep{Sellwood+2002, Frankel+2018}, double compact objects generally experience stronger dynamical evolution as a result of the effects of both Blaauw kicks from instantaneous symmetric mass loss \citep{Blaauw+1961} and natal kicks from asymmetric supernovae \citep{Hobbs+2005}.
 
-The magnitude of the systemic kicks are typically small compared to the intital circular velocity of a binary at each Galactocentric radius. Therefore, kicks will not significantly alter the overall distribution of their positions. Given this, and for the sake of computational efficiency, we do not account for the displacement due to systemic kicks in our analysis.
+The magnitude of the systemic kicks are typically small compared to the initial circular velocity of a binary at each Galactocentric radius. Therefore, kicks will not significantly alter the overall distribution of their positions. Given this, and for the sake of computational efficiency, we do not account for the displacement due to systemic kicks in our analysis.
 
 \subsection{Gravitational Wave Inspiral}
 
@@ -333,15 +333,8 @@ This plot shows that, in principle, we could detect a BHNS binary up to several 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In Figure~\ref{fig:detection_rates}, we show the expected number of LISA detections for each model variation. We find that on average, for our fiducial model, a four year LISA mission will detect 26 BHBH, 27 BHNS and 11 NSNS binaries. Increasing the LISA mission length to ten years changes the number of detections to 42, 45 and 19 respectively. The BHBH detection rate is markedly robust across physics variations, with the expected detections in each model staying within 25\% of the fiducial rate (with the exception of model \modOpt{}). Thus even if there are changes in our understanding of the underlying physics before the LISA mission commences, the expected BHBH detection rate is unlikely to change significantly. In contrast, the NSNS and BHNS rates are very sensitive to changes in binary physics assumptions. Therefore, once LISA flies and we know the actual number of detections, we can compare to each model and possibly provide some constraint on binary evolution physics.
-
-Here is some attempted reasoning about the trends:
-
-\textbf{BHBH:} The major standout for the BHBHs is the optimistic. In this case Hertzsprung gap donors are allowed to survive CE and this is because many BHs are formed in this way rather than any effect on detectability. Can also comment on lower(higher) max NS mass being good(bad). Kicks same as BHNSs but less pronounced.
-
-\textbf{BHNS:} Whole bunch of trends here. The decrease with increasing $\beta$ seems to be due to fewer BHNSs surviving CE events (since envelope is harder to eject). Floor explains this in her paper and also references Kruckow. optimistic higher same as BHBH. Rapid higher because BHBHs become BHNSs instead. Maximum neutron star masses affect things because: lower means more things become BH instead of NS hence fewer BHNS and vice versa. PISN doesn't affect this mass range. Lower kicks means fewer disruptions. No BH kick lower again because NS kick is main factor at that point. \todo{this leaves E, F, G todo}
-
-\textbf{NSNS:} \todo{Why are B, C, D opposite?}. E is low because that's the main NSNS formation channel. CE follows nice trend (see Floor's about CE channels). Optimistic slightly up because duh. \todo{weirdly basically no change in rapid and max NS masses}. Lower kicks great as usual. No BH kicks no effect duh.
+\subsection{Detection Rates}
+In Figure~\ref{fig:detection_rates}, we show the expected number of LISA detections for each model variation. We find that on average, for our fiducial model, a four year LISA mission will detect 26 BHBH, 27 BHNS and 11 NSNS binaries. Increasing the LISA mission length to ten years changes the number of detections to 42, 45 and 19 respectively.
 
 \begin{figure*}[p]
     \centering
@@ -349,6 +342,25 @@ Here is some attempted reasoning about the trends:
     \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 1 (solid) and 2 (dotted) $\sigma$ uncertainties. The left axis and grid lines show the number of detections in a four year LISA mission and the right axis shows an approximation of the number of detections in a 10 year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in  Section~\ref{sec:fiducial_physics}}
     \label{fig:detection_rates}
 \end{figure*}
+
+\subsubsection{BHBH detection rate trends}
+The BHBH detection rate is markedly robust across physics variations, with the expected detections in each model staying within 25\% of the fiducial rate (with the exception of model \modOpt{}). Thus even if there are changes in our understanding of the underlying physics before the LISA mission commences, the expected BHBH detection rate is unlikely to change significantly.
+
+The exception to this statement is \modOpt{}, in which we allow Hertzsprung gap donors to survive common envelope events. A large fraction of the progenitors of BHs in this mass range expand significantly during the Hertzsprung gap phase and initiate common envelope events. Therefore, though the detectable fraction does not change significantly, the increased population of BHBHs in the Milky Way leads to this model predicting 2.5 times more detections. \tom{Can also mention slight trends in max NS mass and kicks that are explain in next paragraph}
+
+\subsubsection{BHNS detection rate trends}
+In contrast, the BHNS detection rate is very sensitive to changes in binary physics assumptions. Therefore, once LISA flies and we know the actual number of detections, we can compare to each model and possibly provide some constraint on binary evolution physics. There are several notable trends in the BHNS detection rate in the middle pane of Figure~\ref{fig:detection_rates}.
+
+As $\beta$ increases in models \modBetaLow{}-\modBetaHigh{}, the BHNS detection rate steadily decreases. This may seem unintuitive since a higher mass transfer efficiency should lead to more massive compact objects and thus a more detectable population. However, one must also consider that most of these DCOs are formed through a common envelope event and so retaining more of the envelope during mass transfer means that the eventual ejection of the envelope is much more difficult, thus leading to more stellar mergers and fewer detectable BHNSs \citep[e.g.][]{Kruckow+2018}. For a similar reason, the rate is decreased when $\alpha$ is decreased in model \modAlphaLow{}, as this reduces the amount of orbital energy that is used to eject the envelope and thus leads to more stellar mergers. \todo{Why isn't the opposite true for model \modAlphaHigh{}? It seems the number of bound DCOs \textit{does} increase but the merging total decreases...?}
+
+Enforcing that case BB mass transfer is always unstable (model \modCaseBB{}) decreases the detection rate as fewer NSs are produced and thus fewer BHNSs form. This is explained in further detail in Section~\ref{sec:NSNS_detection_trends}. For the same reason as the BHBH rate, model \modOpt{} has a higher number of detections. This change is less prominent than in the BHBH case as the progenitors tend to be lower masses and initiate a CE event less frequently during the Hertzsprung gap phase. 
+
+The Fryer \textit{rapid} prescription (model \modRapid{}) leads to a higher detection rate for BHNSs because progenitors that would become black holes in the \textit{delayed} prescription, instead become neutron stars and so more BHNSs are formed. For the same reason, increasing the maximum neutron star mass increases the detection rate and the inverse is true when it is decreased (in models \modNSLow{} and \modNSHigh{}).
+
+Finally, models \modSigLow{}-\modNoBH{} show increased detection rates as lower kicks result in fewer disrupted binaries and hence a more numerous detectable population. Following this logic it makes sense that model \modSigLower{} produces more detections than model \modSigLow{}. The model with no BH kick (\modNoBH{}) is slightly lower than model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick.
+
+\subsubsection{NSNS detection rate trends}\label{sec:NSNS_detection_trends}
+\textbf{NSNS:} \todo{Why are B, C, D opposite?}. E is low because that's the main NSNS formation channel. CE follows nice trend (see Floor's about CE channels). Optimistic slightly up because duh. \todo{weirdly basically no change in rapid and max NS masses}. Lower kicks great as usual. No BH kicks no effect duh.
 
 \begin{table*}[htb]
     \centering
@@ -406,7 +418,7 @@ The reasoning for these unequal mass ratio is as follows: in order to produce a 
 The neutron star mass distribution shows that most neutron stars have low masses, with $69\%$ and $87\%$ having masses below $1.5 \unit{M_{\odot}}$ for BHNSs and NSNSs respectively. The lacks of neutron stars around $1.7 \unit{M_{\odot}}$ and the subsequent small peaks are artifacts of the discontinuous nature of the \citet{Fryer+2012} remnant mass prescription.
 
 \subsubsection{Eccentricity}
-The eccentricity distributions show that detectable BHBHs are the most eccentric of the three DCOs. This may seem counterintuitive since neutron stars receive stronger natal kicks, which cause the orbit to become eccentric. However, these stronger kicks often instead result in disrupted or too-wide binaries. In contrast, BHBHs can receive strong kicks that impart high eccentricity without disrupting and thus tend to be more eccentric. This effect is compounded by the fact that we can see BHBHs at lower orbital frequencies, meaning that they have not had as much time to circularise and so still have significant eccentricity by the time of the LISA mission.
+The eccentricity distributions show that detectable BHBHs are the most eccentric of the three DCOs. This may seem counter-intuitive since neutron stars receive stronger natal kicks, which cause the orbit to become eccentric. However, these stronger kicks often instead result in disrupted or too-wide binaries. In contrast, BHBHs can receive strong kicks that impart high eccentricity without disrupting and thus tend to be more eccentric. This effect is compounded by the fact that we can see BHBHs at lower orbital frequencies, meaning that they have not had as much time to circularise and so still have significant eccentricity by the time of the LISA mission.
 
 \subsubsection{Orbital Frequency and Frequency Evolution}
 The orbital frequency distributions for BHBHs, BHNSs and NSNSs peak at increasing frequencies. This is because a higher mass DCO at the same distance and eccentricity requires a lower frequency to produce the same signal-to-noise ratio and thus be detected. The BHBH distribution also has a tail that extends to $4 \times 10^{-6} \unit{Hz}$, which is comprised of highly eccentric binaries since eccentricity moves the dominant harmonic to higher frequencies. Similar tails are not as prevalent for BHNSs and NSNSs as they do not have as many eccentric binaries.
@@ -426,13 +438,6 @@ Each DCO has a strong peak at small inspiral times since higher metallicities le
 
 \subsection{Distinguishing DCOs}
 \todo{}
-
-\begin{figure*}[htb]
-    \centering
-    \includegraphics[width=\textwidth]{fiducial_cdf_distributions.pdf}
-    \caption{Cumulative distributions of observable parameters for binaries that are detectable in a 4 year LISA mission. Shaded areas indicate regimes in which no measurement can be made. Dotted lines on the angular resolution distribution show the field of view for various telescopes that could perform EM counterpart observations.}
-    \label{fig:fiducial_cdf_distributions}
-\end{figure*}
 
 \subsection{Model variations}
 
@@ -455,7 +460,6 @@ We therefore surmise that the difference between our results is likely due to wa
     \item Systemic kicks
     \item No models for high $Z$ values in Frankel
     \item Only a single disc for the Milky Way
-    \item Stationary approximation? But I'm pretty sure that is fine
 \end{itemize}
 
 \subsection{Can we distinguish them?}

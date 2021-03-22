@@ -144,3 +144,5 @@ simulation/data/*
 *.log
 *.out
 *.synctex.gz
+
+.vscode
