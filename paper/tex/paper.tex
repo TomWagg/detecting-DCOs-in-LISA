@@ -360,7 +360,10 @@ The Fryer \textit{rapid} prescription (model \modRapid{}) leads to a higher dete
 Finally, models \modSigLow{}-\modNoBH{} show increased detection rates as lower kicks result in fewer disrupted binaries and hence a more numerous detectable population. Following this logic it makes sense that model \modSigLower{} produces more detections than model \modSigLow{}. The model with no BH kick (\modNoBH{}) is slightly lower than model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick.
 
 \subsubsection{NSNS detection rate trends}\label{sec:NSNS_detection_trends}
-\textbf{NSNS:} \todo{Why are B, C, D opposite?}. E is low because that's the main NSNS formation channel. CE follows nice trend (see Floor's about CE channels). Optimistic slightly up because duh. \todo{weirdly basically no change in rapid and max NS masses}. Lower kicks great as usual. No BH kicks no effect duh.
+
+\todo{understand the $\beta$ trends}. There is a drastic decrease in detections for model \modCaseBB{} by nearly two orders of magnitude. This is because the majority of NSNS binaries are formed through case BB mass transfer and setting this mass transfer to be always unstable results in many of these binaries to merge before they could become NSNSs. As a result the total number of detections decreases, however interestingly the remaining population represent more massive progenitors (that would not go through case BB mass transfer) and thus is skewed to higher masses and has a \textit{higher} detectable fraction (see Fig.~\ref{fig:detection_fractions}).
+
+\todo{come back to CE ones once we understand the BHNS ones}. \todo{weirdly basically no change in rapid and max NS masses}. As we found in the BHNS trends, a lower value for the core-collapse supernova velocity dispersion increases the detection rate in models \modSigLow{} and \modSigLower{}, whilst changing the BH kick (model \modNoBH{}) of course has no effect on the NSNS population.
 
 \begin{table*}[htb]
     \centering
@@ -390,8 +393,7 @@ Finally, models \modSigLow{}-\modNoBH{} show increased detection rates as lower 
     \label{tab:detection_rates}
 \end{table*}
 
-
-Now talk about where they are on the sensitivity curve
+\subsection{Distribution on the sensitivity curve}
 
 We illustrate the distribution of detectable DCOs on the sensitivity curve in Figure~\ref{fig:dcos_on_sc}. The shape of the distributions are bounded by the edge of the Milky Way and the scarcity of nearby DCOs. We indicate this with lines of constant distance that form as a boundary for the majority of DCOs, where the remaining scatter is due to variations in mass since lines are plotted for the average chirp mass of each respective DCO. The top edge is not a hard cutoff but is present because for any given distance there is a lower probability of drawing higher frequencies (since binaries spend more time at lower frequencies).
 
@@ -668,7 +670,39 @@ We can plug Equations~\ref{eq:norm_avg_target_formation} and \ref{eq:m_SF_MW} in
     N_{\rm detect} = 9.1 \times 10^{10} \unit{M_{\odot}} \cdot f_{\rm detect} \cdot \sum_{Z=Z_{\rm min}}^{Z_{\rm max}} p_{Z} \qty(\sum_{i=1}^{N_{\rm binaries, Z}} w_i \theta_{\rm target, i}) \qty(\frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i)^{-1}
 \end{equation}
 
-\section{Extra figures}
+\section{Supplementary figures}
+
+\subsection{Physics variation cumulative distributions}
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\textwidth]{variations_cdf_1_3.pdf}
+    \caption{Cumulative distribution functions for the black hole mass, neutron star mass, eccentricity during the LISA mission and merger time for each DCO type and physics variation. In colour we show the fiducial populations compared to changing the mass transfer efficiency $\beta$. We additionally show the other physics variations in the background in light grey.}
+    \label{fig:variations_cdf_1_3}
+\end{figure*}
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\textwidth]{variations_cdf_4_6.pdf}
+    \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models using different values for $\alpha_{\rm CE}$ and changing the stability of case BB mass transfer.}
+    \label{fig:variations_cdf_4_6}
+\end{figure*}
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\textwidth]{variations_cdf_7_10.pdf}
+    \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models changing the maximum neutron star mass, remnant mass prescription and survivability of common envelope events initiated by Hertzsprung gap donors.}
+    \label{fig:variations_cdf_7_10}
+\end{figure*}
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\textwidth]{variations_cdf_11_14.pdf}
+    \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models changing the core-collapse supernova kick distributions and the presence of BH kicks and PISNs.}
+    \label{fig:variations_cdf_11_14}
+\end{figure*}
+
+\subsection{Detection rates}
 
 \begin{figure*}[p]
     \centering
@@ -683,6 +717,8 @@ We can plug Equations~\ref{eq:norm_avg_target_formation} and \ref{eq:m_SF_MW} in
     \caption{The total number of merging DCOs in the Milky Way. When multiplied by Figure~\ref{fig:detection_fractions} this gives Figure~\ref{fig:detection_rates}.}
     \label{fig:total_merging_dcos}
 \end{figure*}
+
+\subsection{Miscellaneous}
 
 \begin{figure*}[p]
     \centering
