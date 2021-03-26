@@ -133,8 +133,7 @@ dmypy.json
 simulation/slurm/scripts/*.sh
 simulation/slurm/logs/*.err
 simulation/slurm/logs/*.out
-simulation/data/*.h5
-simulation/data/*.zip
+simulation/data/*
 simulation/output/*.h5
 
 # latex hiding

@@ -105,6 +105,7 @@ def main():
     to_file = np.zeros(shape=(loops * MAX_HIGH,), dtype=dtype)
 
     n_ten_year_list = np.zeros(loops)
+    total_MW_weight = np.zeros(loops)
     tot_ten = 0
     for milky_way in range(loops):
         # draw position parameters from Frankel Model
@@ -157,6 +158,9 @@ def main():
             compas_a_DCO[binaries], compas_e_DCO[binaries],\
             compas_t_evol[binaries], compas_weights[binaries],\
             compas_Z[binaries], compas_seeds[binaries]
+
+        # store the total weight of full population (for normalisation)
+        total_MW_weight[milky_way] = np.sum(w)
 
         # work out which binaries are still inspiralling
         t_merge = lw.evol.get_t_merge_ecc(ecc_i=e_DCO, a_i=a_DCO,
@@ -215,6 +219,7 @@ def main():
         file.create_dataset("simulation", (tot_ten,), dtype=dtype)
         file["simulation"][...] = to_file
         file["simulation"].attrs["n_ten_year"] = n_ten_year_list
+        file["simulation"].attrs["total_MW_weight"] = total_MW_weight
 
 
 if __name__ == "__main__":
