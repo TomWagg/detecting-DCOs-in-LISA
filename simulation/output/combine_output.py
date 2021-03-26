@@ -7,12 +7,16 @@ sys.path.append("../src/")
 
 from formation_channels import identify_formation_channels
 from variations import variations
+import time
 
 dt = np.dtype(float)
 dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
          ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
          ("tau", dt), ("dist", dt), ("Z", dt), ("snr", dt), ("weight", dt),
-         ("seed", dt), ("channel", np.dtype(int))]
+         ("seed", dt), ("channel", np.dtype(int)), ("m_1_ZAMS", dt),
+         ("m_2_ZAMS", dt), ("MT1_case", np.dtype(int)),
+         ("MT2_case", np.dtype(int)), ("a_ZAMS", dt), ("a_pre_SN2", dt),
+         ("kick_1", dt), ("kick_2", dt)]
 
 runs = 50
 
@@ -46,7 +50,7 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
                         full_data[prev_len:] = add_data
             else:
                 missing.append(i)
-
+                
         # as long as there is at least one file
         if len(missing) != runs:
             # let the user know which ones are currently missing
@@ -61,17 +65,37 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
             with h5.File(floor_file, "r") as floor:
                 channels = identify_formation_channels(full_data["seed"],
                                                        floor)
+                
+                dco_seeds = floor["doubleCompactObjects"]["seed"][...].squeeze()
+    
+                index = np.argsort(dco_seeds)
+                sorted_dco_seeds = dco_seeds[index]
+                sorted_index = np.searchsorted(sorted_dco_seeds, full_data["seed"])
+
+                seeds_index = np.take(index, sorted_index, mode="clip")
+                supp_data = {
+                    "m_1_ZAMS": floor["doubleCompactObjects"]["M1ZAMS"][...].squeeze()[seeds_index],
+                    "m_2_ZAMS": floor["doubleCompactObjects"]["M2ZAMS"][...].squeeze()[seeds_index],
+                    "MT1_case": floor["doubleCompactObjects"]["PrimaryMTCase"][...].squeeze()[seeds_index],
+                    "MT2_case": floor["doubleCompactObjects"]["SecondaryMTCase"][...].squeeze()[seeds_index],
+                    "a_pre_SN2": floor["doubleCompactObjects"]["separationPrior2ndSN"][...].squeeze()[seeds_index],
+                    "a_ZAMS": floor["doubleCompactObjects"]["separationInitial"][...].squeeze()[seeds_index],
+                    "kick_1": floor["doubleCompactObjects"]["drawnKick1"][...].squeeze()[seeds_index],
+                    "kick_2": floor["doubleCompactObjects"]["drawnKick2"][...].squeeze()[seeds_index],
+                    "channel": channels
+                }
 
             # write the rest of the files to a single file
             fname = "../data/{}_{}_all.h5".format(bt, variations[v]["file"])
             with h5.File(fname, "w") as file:
                 file.create_dataset("simulation", (np.sum(n_ten_year),),
                                     dtype=dtype)
-                for col, _ in dtype:
-                    file["simulation"][col] = full_data[col] \
-                        if col != "channel" else channels
+                for col, types in dtype:
+                    if col in supp_data.keys():
+                        file["simulation"][col] = supp_data[col]
+                    else:
+                        file["simulation"][col] = full_data[col]
                 file["simulation"].attrs["n_ten_year"] = n_ten_year
-
         # otherwise make sure that the user knows no data is present
         else:
             print("No data found for {}".format(variations[v]["long"]))
