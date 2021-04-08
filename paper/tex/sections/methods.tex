@@ -1,0 +1,178 @@
+\subsection{Binary population synthesis}\label{sec:COMPAS_explained}
+
+We use a population of binaries synthesised using the rapid population synthesis code \href{https://compas.science}{COMPAS} \citep{Stevenson+2017, Vigna-Gomez+2018, Stevenson+2019}. COMPAS broadly follows the approach of other codes, such as BSE \citep{Hurley+2002}. Each sampled binary is initialised as a zero-age main sequence (ZAMS) binary and each component star is evolved using the single star evolution fitting formulae from \citet{Hurley+2000} to the models of \citet{Pols+1998}. In addition, we apply the adaptive importance sampling algorithm STROOPWAFEL \citep{Broekgaarden+2019} to improve the yield of our sample. This algorithm increases the prevalence of target DCOs (BHBH, BHNS and NSNS binaries in this case) in the sample and assigns each a weight, $w$, which represents the probability of drawing it without STROOPWAFEL in effect.
+
+\subsubsection{Population Overview}
+
+The population of double compact objects used in this study was synthesised by \citet{Broekgaarden+2021}. One million binaries, $N_{\rm binary} \sim 10^6$, were simulated for each of 50 metallicity bins equally spaced in log space with $Z \in [0.0001, 0.022]$, where $Z$ is the mass fraction of heavy elements. These bins span the allowed metallicities range for the original fitting formulae on which COMPAS is based \citep{Hurley+2000}. This is repeated for 14 physics variations (see Section \ref{sec:variation_assumptions}) and so in total 750 million binaries were simulated.
+
+\subsubsection{Initial Conditions}
+
+Each binary is sampled from initial distributions for the primary and secondary masses as well as the separation. The primary mass, or the mass of the initially more massive star, is restricted to $m_1 \in [5, 150] \unit{M_{\odot}}$ and drawn from the \citet{Kroupa+2001} Initial Mass Function (IMF), therefore $p(m_1) \propto m_1^{-2.3}$. The secondary mass is drawn using the mass ratio of the binary, which we assume to be uniform on $[0, 1]$, therefore $p(q) = 1$ \citep[consistent e.g. with][]{Sana+2012}. We additionally restrict $m_2 \ge 0.1 \unit{M_{\odot}}$, since this is approximately the minimal mass for a main sequence star. We assume that the initial separation follows a flat in the log distribution with $p(a_i) \propto 1 / a_i$ and $a_i \in [0.01, 1000] \unit{AU}$ \citep{Opik+1924, Abt+1983}. We assume that all binaries are circular at birth to reduce the dimensions of initial parameters. Since we focus on post-interaction binaries which will have circularised during mass transfer this is a reasonable assumption and is likely not critical for predicting detection rates \citep{Hurley+2002, deMink+2015}.
+
+For each metallicity $Z$, we have a sample of binaries, each with a set of parameters
+\begin{equation}
+    \mathbf{b}_{{Z, i}} = \{m_1, m_2, a_{\rm DCO}, e_{\rm DCO}, t_{\rm evolve}, t_{\rm inspiral}, w\},
+\end{equation}
+for $i = 1, 2, \dots, N_{\rm binary}$, where $m_1$ and $m_2$ are the primary and secondary masses, $a_{\rm DCO}$ and $e_{\rm DCO}$ are the semi-major axis and eccentricity at the moment of double compact object (DCO) formation, $t_{\rm evolve}$ is the time between the binary's zero-age main sequence and DCO formation, $t_{\rm inspiral}$ is the time between DCO formation and gravitational-wave merger, $w$ is the adaptive importance sampling weight assigned by STROOPWAFEL. We sample from these sets of parameters when creating synthetic galaxies.
+
+\subsubsection{Physical assumptions in fiducial model}\label{sec:fiducial_physics}
+In this section we briefly summarise the main physical assumptions in our fiducial model. For more details see Section 2.1.2 and Table 1 of \citet{Broekgaarden+2021}.
+
+\textit{Mass Transfer:} In determining the stability of mass transfer we use the $\zeta$-prescription, which compares the radial response of the star with the response of the Roche lobe radius to the mass transfer \citep[e.g.][]{Hjellming+1987}. The mass transfer efficiency, $\beta = \Delta M_{\rm acc} / \Delta M_{\rm don}$, is defined as the fraction of the mass transferred by the donor that is actually accreted by the accretor. We limit the maximum accretion rate for stars to $\Delta M_{\rm acc} / \Delta t \le 10 M_{\rm acc} / \tau_{\rm KH}$, where $\tau_{\rm KH}$ is the Kelvin-Helmholtz timescale of the star \citep{Paczynski+1972, Hurley+2002}. The maximum accretion rate for double compact objects is limited to the Eddington accretion rate. If more mass than these rates is accreted then we assume that the excess is lost through isotropic re-emission in the vicinity of the accreting star, thus varying $\beta$ \citep[e.g.][]{Massevitch+1975, Soberman+1997}. We assume that all mass transfer phases from a stripped post-helium-burning-star (case BB) onto a neutron star or black hole are unstable \citep{Tauris+2015}.
+
+\textit{Common Envelope:} A common envelope phase follows dynamically unstable mass transfer and we parameterise this using the $\alpha$-$\lambda$ prescription from \citet{Webbink+1984} and \citet{deKool+1990}. We assume $\alpha = 1$, such that all of the gravitational binding energy is available for the ejection of the envelope. For $\lambda$ we use the fitting formulae from \citet{Xu+2010, Xu+2010a}. We assume that any Hertzsprung gap donor stars that initiate a common envelope phase will not survive this phase due to a lack of a steep density gradient between the core and envelope \citep{Taam+2000, Ivanova+2004}. This follows the `pessimistic' common envelope scenario \citep[c.f.][]{Belczynski+2007}. We remove any binaries where the secondary immediately fills its Roche lobe upon the conclusion of the common envelope phase as we treat these as failed common envelope ejections.
+
+\textit{Supernovae:} We draw the remnant masses and natal kick magnitudes from different distributions depending on the type of supernova that occurs. For stars undergoing a general core-collapse supernova, we use the \textit{delayed} supernova remnant mass prescription from \citet{Fryer+2012}. The \textit{delayed} prescription does not reproduce the neutron star black hole mass gap and we use this as our default as it has been shown to provide a better fit for observed populations of DCOs \citep[e.g.][]{Vigna-Gomez+2018}. We draw the natal kick magnitudes from a Maxwellian velocity distribution with a one-dimensional root-mean-square velocity dispersion of $\sigma_{\rm rms}^{\rm 1D} = 265 \unit{km}{s^{-1}}$ \citep{Lyne+1994, Hobbs+2005}.
+
+We assume that stars with helium core masses between $1.6$--$2.25 \unit{M_{\odot}}$ \citep{Hurley+2002} experience electron-capture supernovae \citep{Nomoto+1984, Nomoto+1987, Ivanova+2008}. We set all remnant masses to $1.26 \unit{M_{\odot}}$ in this case as an approximation of the solution to Equation 8 of \citet{Timmes+1996}. For these supernovae, we set $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ as in \citet{Pfahl+2002} and \citet{Podsiadlowski+2004}.
+
+We assume that stars that undergo case BB mass transfer experience extreme stripping which leads to an ultra-stripped supernova \citep{Tauris+2013, Tauris+2015}. For these supernovae we calculate the remnant mass using the \citet{Fryer+2012} prescription and use $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ (as with electron-capture supernovae).
+
+Stars with helium core masses between $60$-$135 \unit{M_{\odot}}$ are presumed to undergo a pair-instability, or pulsational pair-instability supernova \citep[e.g.][]{Woosley+2007, Farmer+2019}. We follow the prescription from \citet{Marchant+2019} as implemented in \citep{Stevenson+2019} for these supernovae.
+
+We assume that kicks are isotropic in the frame of the collapsing star. The maximum neutron star mass is predicted to be between $2$-$3 \unit{M_{\odot}}$ \citep[e.g.][]{Kalogera+1996, Fryer+2015, Margalit+2017}.
+We adopt a maximum neutron star mass of $2.5 \unit{M_{\odot}}$ for the fiducial model and change the \citet{Fryer+2012} prescription accordingly.
+
+\subsubsection{Physical assumptions in other models} \label{sec:variation_assumptions}
+In addition to our fiducial model, we explore 14 other models which change various aspects of the mass transfer, common envelope and supernova physics assumptions in order to assess their effect on the overall double compact object detection rates and distributions. Each of the models varies a single physics assumption (fiducial assumptions are outlined in Section~\ref{sec:fiducial_physics}) and these are outlined in Table~\ref{tab:physics_variations}.
+
+Models \modRangeMT{} focus on changes to the mass transfer physics. We explore the effect of fixing the mass transfer efficiency $\beta$ to a constant value, rather than allowing it to vary based on the maximum accretion rate, in models \modBetaLow{}, \modBetaMed{}, \modBetaHigh{}, in which we set the value of $\beta$ to $0.25$, $0.5$ and $0.75$ respectively. In model \modCaseBB{} we investigate the consequence of assuming that case BB mass transfer onto a neutron star or black hole is always stable rather than always unstable.
+
+Models \modRangeCE{} focus on altering the common envelope physics. We change the common envelope efficiency parameter in models \modAlphaLow{} and \modAlphaHigh{} to $\alpha = 0.5$ and $2.0$ respectively. In model \modOpt, we relax our restriction that Hertzsprung gap donor stars cannot survive common envelope events, thereby following the `optimistic' common envelope scenario.
+
+Finally, models \modRangeSN{} make changes related to our assumptions about supernova physics. Model \modRapid{} uses the alternate \textit{rapid} remnant mass prescription from \citet{Fryer+2012} instead of the \textit{delayed} prescription. We change the maximum neutron star mass in models \modNSLow{} and \modNSHigh{} to $2$ and $3 \unit{M_{\odot}}$ respectively to account for the range of predicted maximum neutron star masses. Model \modNoPISN{} removes the implementation of pair-instability and pulsational pair-instability supernovae. In models \modSigLow{} and \modSigLower{} we decrease the root-mean-square velocity dispersion for core-collapse supernovae to explore the effect of lower kicks. Finally, model \modNoBH{} removes the natal kick for all black holes.
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{cl}
+        \hline \hline
+        Model & Physics Variation \\
+        \hline \hline
+        \modFid & -- \\
+        \hline
+        \modBetaLow & Fixed mass transfer efficiency of $\beta=0.25$ \\ 
+        \modBetaMed & Fixed mass transfer efficiency of $\beta=0.5$  \\ 
+        \modBetaHigh & Fixed mass transfer efficiency of $\beta=0.75$ \\ 
+        \modCaseBB & Case BB mass transfer is always unstable \\
+        \hline
+        \modAlphaLow & CE efficiency parameter $\alpha = 0.5$ \\
+        \modAlphaHigh & CE efficiency parameter $\alpha = 2$   \\
+        \modOpt & HG donor stars initiating a CE survive CE \\
+        \hline
+        \modRapid & Fryer rapid SN remnant mass prescription \\
+        \modNSLow & Maximum NS mass is fixed to $2\unit{M_{\rm odot}}$ \\
+        \modNSHigh & Maximum NS mass is fixed to $3\unit{M_{\rm odot}}$ \\
+        \modNoPISN & PISN and pulsational-PISN not implemented \\
+        \modSigLow & $\sigma_{\rm{rms}}^{\rm{1D}}=100 \unit{km}{s^{-1}}$ for core-collapse supernova \\  
+        \modSigLower & $\sigma_{\rm{rms}}^{\rm{1D}}=30  \unit{km}{s^{-1}}$ for core-collapse supernova \\ 
+        \modNoBH & Black holes receive no natal kick \\
+        \hline \hline
+    \end{tabular}%
+    \caption{Adapted from \citet[][Table 2]{Broekgaarden+2021}, a description of the 15 binary population synthesis models used in this study. \modFid{} is the fiducial model, \modRangeMT{} change mass transfer physics, \modRangeCE{} change common envelope physics and \modRangeSN{} change supernova physics.}
+    \label{tab:physics_variations}
+\end{table}
+
+\subsection{Galaxy Synthesis}
+
+In order to produce a detection rate of DCOs with statistical uncertainties, we create a series of random instances of the Milky Way, each populated with a subsample of the synthesised binaries. For the distribution of the binaries, we make the simplification that the Milky Way is composed of only a single disc. We do not find that adding other components would significantly alter our results.
+
+Most previous studies that predict a detection rate for LISA place binaries in the Milky Way independently of their age or evolution. We improve upon this as the first study to use an analytical model of the Milky Way that takes into account the galaxy's enrichment history.
+
+\subsubsection{Milky Way disc model}
+
+For the Milky Way thin disc, we use the model from \citet{Frankel+2018}. The authors developed this model in order to measure the global efficiency of radial migration in the Milky Way. They did this by fitting the model to a sample of red clump stars measured with APOGEE \citep{Majewski+2017} and Gaia \citep{GaiaCollaboration+2016}. The result of this work is a model for the Milky Way that is calibrated to observations and includes the star formation history, radial birth profile and chemical enrichment history of the galaxy. We can therefore use this model to place binaries randomly in space and time and match these positions to a metallicity.
+
+The star formation history is given by the following  \citep[][Eq. 2]{Frankel+2018}
+\begin{equation}\label{eq:galaxy_tau}
+    p(\tau) \propto \exp \qty(-\frac{(\tau_m - \tau)}{\tau_{\rm SFR}}),
+\end{equation}
+where $\tau$ is the lookback time (the amount of time elapsed between the binary's zero-age main sequence and today), $\tau_m = 12 \unit{Gyr}$ is the assumed age of the Milky Way and $\tau_{\rm SFR} = 6.8 \unit{Gyr}$ was fit by \citet{Frankel+2018}. The radial birth profile of the galaxy is conditional upon its age and is given as \citep[][Eq. 5]{Frankel+2018}
+\begin{equation}\label{eq:galaxy_R}
+    p(R_0 \vert \tau) = \exp(-\frac{R_0}{R_{\rm exp}(\tau)}) \cdot \frac{R_0}{[R_{\rm exp}(\tau)]^2},
+\end{equation}
+where $R_0$ is the birth Galactocentric radius, and\footnote{In $R_{\rm exp}(\tau)$, we use 4 kpc instead of 3 kpc for the 0 Gyr exponential scale-length of the disc as it provides a better fit (correspondence with Neige Frankel)}
+\begin{equation}
+    R_{\rm exp}(\tau) = 4 \unit{kpc} \qty(1 - \alpha_{R_{\rm exp}} \qty(\frac{\tau}{8 \unit{Gyr}})),
+\end{equation}
+where $\alpha_{R_{\rm exp}} = 0.3$ was fit by \citet{Frankel+2018}. Finally, the metallicity-radius-time relation is given as \citep[][Eq. 7]{Frankel+2018}
+\begin{equation}\label{eq:galaxy_FeH}
+    \begin{split}
+        [{\rm Fe} / {\rm H}] (R, \tau) = &F_m + \nabla [{\rm Fe} / {\rm H}] R \\
+        &- \qty(F_m + \nabla [{\rm Fe} / {\rm H}] R^{\rm now}_{[{\rm Fe} / {\rm H}] = 0} ) f(\tau),
+    \end{split}
+\end{equation}
+where
+\begin{equation}
+    f(\tau) = \qty(1 - \frac{\tau}{\tau_m})^{\gamma_{[{\rm Fe} / {\rm H}]}},
+\end{equation}
+$F_m = -1 \unit{dex}$ is the metallicity of the gas at the center of the disk at $\tau = \tau_m$ and $\nabla [{\rm Fe} / {\rm H}] = -0.075 \unit{kpc^{-1}}$, $R^{\rm now}_{[{\rm Fe} / {\rm H}] = 0} = 8.7 \unit{kpc}$ and $\gamma_{[{\rm Fe} / {\rm H}]} = 0.3$ are fit by \citet{Frankel+2018}. We can convert this to our representation of metallicity using \citep[e.g][]{Bertelli+1994}
+\begin{equation}\label{eq:galaxy_FeH_to_Z}
+    \log Z = 0.977 [{\rm Fe} / {\rm H}] + \log(Z_\odot).
+\end{equation}
+Additionally, since the Frankel model does not treat the vertical structure of the Milky Way disc, we can supplement it with the vertical distribution from \citet{McMillan+2011},
+\begin{equation}\label{eq:galaxy_z}
+    p(\abs{z}) = \frac{1}{z_d} \exp\qty(-\frac{z}{z_d}),
+\end{equation}
+where $z$ is the height above the Galactic plane and $z_d = 0.3 \unit{kpc}$. Equations \ref{eq:galaxy_tau}-\ref{eq:galaxy_z} summarise the model that we use for the Milky Way disc and we illustrate these distributions in Fig.~\ref{fig:galaxy_schematic}.
+
+\subsubsection{Combining population and galaxy synthesis}
+
+For each Milky Way instance, we randomly sample the following set of parameters
+\begin{equation}
+    \mathbf{g}_{{i}} = \{\tau, R, Z, z, \theta\}
+\end{equation}
+for $i = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using Eq.\,\ref{eq:galaxy_tau}-\ref{eq:galaxy_z}, $\theta$ is the polar angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Figure~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions in the Milky and illustrates the gradient in metallicity over radius.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{galaxy_diagram.png}
+    \caption{A schematic showing how we create a mock Milky Way disc. On the left, we show the various distributions presented in \citet{Frankel+2018} and \citet{McMillan+2011}. On the right, we show an example instance of the Milky Way with $10^5$ binaries shown as points. The colour of each point represents its metallicity (with $Z \in [0.0001, 0.022]$). The top panel shows a side-on view and the bottom panel shows a view from above.}
+    \label{fig:galaxy_schematic}
+\end{figure*}
+
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=\columnwidth]{galaxy_metallicity.png}
+%     \caption{A random instance of the Milky Way of $10^5$ binaries, created using distributions from \citet{Frankel+2018}. The colour of each point represents its metallicity (with $Z \in [0.0001, 0.022]$). The top panel shows a side-on view and the bottom panels shows a view from above.}
+%     \label{fig:galaxy_metallicity}
+% \end{figure}
+
+We match each set of galaxy parameters $\mathbf{g}_{{i}}$, to a random set of binary parameters $\mathbf{b}_{{Z, i}}$, by randomly drawing a set of binary parameters from the closest metallicity bin to the metallicity in $\mathbf{g}_{{i}}$.
+
+Each binary is likely to move from its birth orbit. Although all stars in the Galactic disc experience some amount of radial migration \citep{Sellwood+2002, Frankel+2018}, double compact objects generally experience stronger dynamical evolution as a result of the effects of both Blaauw kicks from instantaneous symmetric mass loss \citep{Blaauw+1961} and natal kicks from asymmetric supernovae \citep{Hobbs+2005}.
+
+The magnitude of the systemic kicks are typically small compared to the initial circular velocity of a binary at each Galactocentric radius. Therefore, kicks will not significantly alter the overall distribution of their positions. Given this, and for the sake of computational efficiency, we do not account for the displacement due to systemic kicks in our analysis.
+
+\subsection{Gravitational Wave Inspiral}
+
+Each binary loses orbital energy to gravitational waves throughout its lifetime. This causes the binary to shrink and circularise over time. In order to assess the detectability of a binary, we need to know its eccentricity and frequency at the time of the LISA mission. For each binary in our simulated Milky Way, we know that the time from DCO formation to today is $\tau - t_{\rm evolve}$ and that the initial eccentricity and semi-major axis are $e_{\rm DCO}$ and $a_{\rm DCO}$. We find the eccentricity of the binary at the start of the LISA mission, $e_{\rm LISA}$, by numerically integrating its time derivative \citep[][Eq. 5.13]{Peters+1964} given the initial conditions. This additionally can be converted to the semi-major axis at the start of LISA, $a_{\rm LISA} $\citep[][Eq. 5.11]{Peters+1964}, which in turn gives the orbital frequency, $f_{\rm orb, LISA}$, by Kepler's third law.
+
+\subsection{Detectability}
+
+We define a binary as detectable if its gravitational wave signal has a signal-to-noise ratio of greater than 7 \citep[e.g.][]{Breivik+2020, Korol+2020}. The sky-, polarisation- and orientation-averaged signal-to-noise ratio, $\rho$, of an inspiraling binary can be calculated with the following\footnote{For full derivations of the equations in this section, please see Appendix \ref{app:strain_snr_deriv}.} \citep[e.g.][]{Finn+2000}
+\begin{equation}\label{eq:snr}
+    \rho^2 = \sum_{n=1}^{\infty} \int_{f_{n, i}}^{f_{n, f}} \frac{h_{c, n}^{2}}{f_{n}^{2} S_{\rm n}\left(f_{n}\right)} \dd{f_n},
+\end{equation}
+where $n$ is a harmonic of the gravitational wave signal, $f_n = n \cdot f_{\rm orb}$ is the frequency of the $n^{\rm th}$ harmonic of the gravitational wave signal, $f_{\rm orb}$ is the orbital frequency, $S_{\rm n}(f_n)$ is the LISA sensitivity curve at frequency $f_n$ \citep[e.g.][]{Robson+2019} and $h_{c,n}$ is the characteristic strain of the $n^{\rm th}$ harmonic, given by
+\begin{equation}\label{eq:charstrain}
+    h^2_{c,n} = \frac{2^{5/3}}{3 \pi^{4/3}} \frac{(G \mathcal{M}_c)^{5/3}}{c^3 D_L^2} \frac{1}{n f_{\rm orb}^{1/3}} \frac{g(n,e)}{F(e)}
+\end{equation}
+\citep[e.g.][]{Barack+2004}, where $D_L$ is the luminosity distance to the source, $f_{\rm orb}$ is the orbital frequency, $g(n, e)$ and $F(e)$ are given in \citet{Peters+1963} and $\mathcal{M}_c$ is the chirp mass, defined as
+\begin{equation}\label{eq:chirp_mass}
+    \mathcal{M}_c = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}.
+\end{equation}
+
+For the sake of computational efficiency, it is convenient to make the approximation that many of the binaries are stationary in frequency space on the timescale of the observing mission. This simplifies the signal-to-ratio equation to
+\begin{equation}\label{eq:snr_stat}
+    \rho_{\rm stat}^2 = \sum_{n=1}^{\infty} \frac{2 \, T_{\rm obs} h_n^2}{S_n(f_n)},
+\end{equation}
+where $T_{\rm obs}$ is the observing time and $h_n$ is the strain amplitude of gravitational waves emitted in the $n^{\rm th}$ harmonic, given by
+\begin{equation}
+    h_n^2 = \frac{2^{25/3}}{5} \frac{\left(G \mathcal{M}_{c}\right)^{10/3}}{c^{8}} \frac{\left(\pi f_{\mathrm{orb}}\right)^{4 / 3}}{D_L^2} \frac{g(n, e)}{n^2}.
+\end{equation}
+
+We consider a binary as stationary if its change in gravitational wave frequency is less than 1\% of the initial frequency. None binaries in our sample are in the non-stationary regime and therefore we believe that this is an acceptable approximation.
+
+\subsection{Detection rate}
+We calculate the detection rate for any one Milky Way instance by determining the fraction of binaries that are detectable and normalising to the true mass and IMF of the Milky Way in order to account for our relatively smaller galaxy size and restricted mass ranges. For a more in-depth discussion of this normalisation process see Appendix~\ref{app:rate_normalisation}.
