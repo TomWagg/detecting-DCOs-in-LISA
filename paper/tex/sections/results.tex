@@ -2,7 +2,7 @@
 
 We illustrate the distribution of detectable DCOs on the sensitivity curve in Figure~\ref{fig:dcos_on_sc}. The shape of the distributions are bounded by the edge of the Milky Way and the scarcity of nearby DCOs. We indicate this with lines of constant distance that form as a boundary for the majority of DCOs, where the remaining scatter is due to variations in mass since lines are plotted for the average chirp mass of each respective DCO. The top edge is not a hard cutoff but is present because for any given distance there is a lower probability of drawing higher frequencies (since binaries spend more time at lower frequencies).
 
-\begin{figure*}[t]
+\begin{figure*}[tp]
     \centering
     \includegraphics[width=\textwidth]{dcos_on_sc.png}
     \caption{Density distribution of detectable DCOs plotted over the LISA sensitivity curve \citep{Robson+2019}. We plot the total signal of binaries at their dominant frequency $n f_{\rm orb}$, such that $n$ is the harmonic that produces the most relative gravitational wave luminosity ($n = 2$ for circular binaries). If the density of points is below our lowest contour (2\%) then we plot the points as scatter points, where their sizes corresponds to their STROOPWAFEL weights. In order to explain the edges of the distribution, we additionally plot lines of constant distance. The dotted lines show the signal for a circular binary of average chirp mass, whilst the dashed line shows the signal for a binary with $e = 0.9$}
@@ -11,13 +11,6 @@ We illustrate the distribution of detectable DCOs on the sensitivity curve in Fi
 
 \subsection{Detection Rates}
 In Figure~\ref{fig:detection_rates}, we show the expected number of LISA detections for each model variation. We find that on average, for our fiducial model, a four year LISA mission will detect 26 BHBH, 27 BHNS and 11 NSNS binaries. Increasing the LISA mission length to ten years changes the number of detections to 42, 45 and 19 respectively.
-
-\begin{figure*}[p]
-    \centering
-    \includegraphics[width=\textwidth]{dco_detections.pdf}
-    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 1 (solid) and 2 (dotted) $\sigma$ uncertainties. The left axis and grid lines show the number of detections in a four year LISA mission and the right axis shows an approximation of the number of detections in a 10 year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in  Section~\ref{sec:fiducial_physics}}
-    \label{fig:detection_rates}
-\end{figure*}
 
 \subsubsection{BHBH detection rate trends}
 The BHBH detection rate is markedly robust across physics variations, with the expected detections in each model staying within 25\% of the fiducial rate (with the exception of model \modOpt{}). Thus even if there are changes in our understanding of the underlying physics before the LISA mission commences, the expected BHBH detection rate is unlikely to change significantly.
@@ -40,6 +33,13 @@ Finally, models \modSigLow{}-\modNoBH{} show increased detection rates as lower 
 \todo{understand the $\beta$ trends}. There is a drastic decrease in detections for model \modCaseBB{} by nearly two orders of magnitude. This is because the majority of NSNS binaries are formed through case BB mass transfer and setting this mass transfer to be always unstable results in many of these binaries to merge before they could become NSNSs. As a result the total number of detections decreases, however interestingly the remaining population represent more massive progenitors (that would not go through case BB mass transfer) and thus is skewed to higher masses and has a \textit{higher} detectable fraction (see Fig.~\ref{fig:detection_fractions}).
 
 \todo{come back to CE ones once we understand the BHNS ones}. \todo{weirdly basically no change in rapid and max NS masses}. As we found in the BHNS trends, a lower value for the core-collapse supernova velocity dispersion increases the detection rate in models \modSigLow{} and \modSigLower{}, whilst changing the BH kick (model \modNoBH{}) of course has no effect on the NSNS population.
+
+\begin{figure*}[p]
+    \centering
+    \includegraphics[width=\textwidth]{dco_detections.pdf}
+    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 1 (solid) and 2 (dotted) $\sigma$ uncertainties. The left axis and grid lines show the number of detections in a four year LISA mission and the right axis shows an approximation of the number of detections in a 10 year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in  Section~\ref{sec:fiducial_physics}}
+    \label{fig:detection_rates}
+\end{figure*}
 
 \subsection{Distributions for the fiducial model}\label{sec:fiducial_distributions}
 
