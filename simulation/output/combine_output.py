@@ -27,6 +27,7 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
     for v in range(len(variations)):
         full_data = None
         n_ten_year = np.array([], dtype=np.int)
+        total_weight = np.array([], dtype=np.float)
         n_runs = 0
         missing = []
 
@@ -41,6 +42,9 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
                 with h5.File(fname, "r") as f:
                     n_curr = f["simulation"].attrs["n_ten_year"].astype(np.int)
                     n_ten_year = np.concatenate((n_ten_year, n_curr))
+
+                    total_temp = f["simulation"].attrs["total_MW_weight"].astype(np.int)
+                    total_weight = np.concatenate((total_weight, total_temp))
                     if full_data is None:
                         full_data = f["simulation"][...].squeeze()
                     else:
@@ -50,7 +54,7 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
                         full_data[prev_len:] = add_data
             else:
                 missing.append(i)
-                
+
         # as long as there is at least one file
         if len(missing) != runs:
             # let the user know which ones are currently missing
@@ -65,9 +69,9 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
             with h5.File(floor_file, "r") as floor:
                 channels = identify_formation_channels(full_data["seed"],
                                                        floor)
-                
+
                 dco_seeds = floor["doubleCompactObjects"]["seed"][...].squeeze()
-    
+
                 index = np.argsort(dco_seeds)
                 sorted_dco_seeds = dco_seeds[index]
                 sorted_index = np.searchsorted(sorted_dco_seeds, full_data["seed"])
@@ -96,6 +100,7 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
                     else:
                         file["simulation"][col] = full_data[col]
                 file["simulation"].attrs["n_ten_year"] = n_ten_year
+                file["simulation"].attrs["total_MW_weight"] = total_weight
         # otherwise make sure that the user knows no data is present
         else:
             print("No data found for {}".format(variations[v]["long"]))
