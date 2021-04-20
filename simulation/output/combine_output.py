@@ -43,7 +43,7 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
                     n_curr = f["simulation"].attrs["n_ten_year"].astype(np.int)
                     n_ten_year = np.concatenate((n_ten_year, n_curr))
 
-                    total_temp = f["simulation"].attrs["total_MW_weight"].astype(np.int)
+                    total_temp = f["simulation"].attrs["total_MW_weight"]
                     total_weight = np.concatenate((total_weight, total_temp))
                     if full_data is None:
                         full_data = f["simulation"][...].squeeze()
