@@ -114,5 +114,19 @@ variations = np.array(
             "long": "No BH kicks",
             "colour": plt.get_cmap("tab20b")(18)
         },
+        {
+            "file": "wolf_rayet_multiplier_0_1",
+            "short": "P",
+            "med": r"$f_{\rm WR} = 0.1$",
+            "long": r"Wolf Rayet wind multiplier $= 0.1$",
+            "colour": "black"
+        },
+        {
+            "file": "wolf_rayet_multiplier_5",
+            "short": "P",
+            "med": r"$f_{\rm WR} = 5$",
+            "long": r"Wolf Rayet wind multiplier $= 5.0$",
+            "colour": "black"
+        }
     ]
 )
