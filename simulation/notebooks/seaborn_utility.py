@@ -5,6 +5,8 @@ from matplotlib.colors import to_rgba
 import matplotlib
 import numpy as np
 
+"""This file is copied from Seaborn source to reproduce cmaps"""
+
 
 def cmap_from_colour(colour):
     r, g, b, _ = to_rgba(colour)
