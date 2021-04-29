@@ -61,35 +61,35 @@ variations = np.array(
             "short": "H",
             "med": "optimistic\nCE",
             "long": "Optimistic CE",
-            "colour": plt.get_cmap("tab20")(4)
+            "colour": "darkgoldenrod"
         },
         {
             "file": "rapid",
             "short": "I",
             "med": "rapid SN",
             "long": "Fryer rapid prescription",
-            "colour": plt.get_cmap("tab20")(18)
+            "colour": "lightseagreen"
         },
         {
             "file": "maxNSmass2_0",
             "short": "J",
             "med": r"max $m_{\rm NS}$" + "\n" + r"$2.0 \, {\rm M_{\odot}}$",
             "long": r"Maximum neutron star mass = 2.0 ${\rm M_{\odot}}$",
-            "colour": plt.get_cmap("tab20")(1)
+            "colour": plt.get_cmap("tab20")(1/20)
         },
         {
             "file": "maxNSmass3_0",
             "short": "K",
             "med": r"max $m_{\rm NS}$" + "\n" + r"$3.0 \, {\rm M_{\odot}}$",
             "long": r"Maximum neutron star mass = 3.0 ${\rm M_{\odot}}$",
-            "colour": plt.get_cmap("tab20")(0)
+            "colour": plt.get_cmap("tab20")(0/20)
         },
         {
             "file": "noPISN",
             "short": "L",
             "med": "no PISN",
             "long": "No pair instability supernova",
-            "colour": plt.get_cmap("tab10")(4)
+            "colour": "deepskyblue"
         },
         {
             "file": "ccSNkick_100km_s",
@@ -97,7 +97,7 @@ variations = np.array(
             "med": r"$\sigma_{\rm cc}$" + "\n" + r"$100 \, {\rm km s^{-1}}$",
             "long": "SN kick dispersion "
                      + r"$\sigma_{\rm RMS}^{\rm 1D} = 100 \ {\rm km\ s^{-1}}$",
-            "colour": plt.get_cmap("tab20b")(2)
+            "colour": plt.get_cmap("tab20c")(11/20)
         },
         {
             "file": "ccSNkick_30km_s",
@@ -105,28 +105,28 @@ variations = np.array(
             "med": r"$\sigma_{\rm cc}$" + "\n" + r"$30 \, {\rm km s^{-1}}$",
             "long": "SN kick dispersion "
                      + r"$\sigma_{\rm RMS}^{\rm 1D} = 30 \ {\rm km\ s^{-1}}$",
-            "colour": plt.get_cmap("tab20b")(1)
+            "colour": plt.get_cmap("tab20c")(8/20)
         },
         {
             "file": "noBHkick",
             "short": "O",
             "med": "no BH\nkicks",
             "long": "No BH kicks",
-            "colour": plt.get_cmap("tab20b")(18)
+            "colour": "darkgreen"
         },
         {
             "file": "wolf_rayet_multiplier_0_1",
             "short": "P",
             "med": r"$f_{\rm WR} = 0.1$",
             "long": r"Wolf Rayet wind multiplier $= 0.1$",
-            "colour": "black"
+            "colour": "thistle"
         },
         {
             "file": "wolf_rayet_multiplier_5",
-            "short": "P",
+            "short": "Q",
             "med": r"$f_{\rm WR} = 5$",
             "long": r"Wolf Rayet wind multiplier $= 5.0$",
-            "colour": "black"
+            "colour": "purple"
         }
     ]
 )
