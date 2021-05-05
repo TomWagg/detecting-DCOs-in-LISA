@@ -51,7 +51,7 @@ def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None,
 
     # decide on x values to evaluate at (based on log scaling)
     if log_scale[0]:
-        print("WARNING: I think this doesn't work")
+        print("WARNING: I think this doesn't work", variable)
         x_vals = np.logspace(np.log10(np.min(variable)),
                              np.log10(np.max(variable)), x_count)
     else:
@@ -142,7 +142,6 @@ def bootstrapped_ecdf(variable, weights, seeds, ax,
 
     # decide on x values to evaluate at (based on log scaling)
     if log_scale[0]:
-        print("WARNING: I think this doesn't work")
         x_vals = np.logspace(np.log10(np.min(variable)),
                              np.log10(np.max(variable)), x_count)
     else:
