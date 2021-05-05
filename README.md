@@ -8,6 +8,9 @@ Hello there! This repository contains all of the code associated with with Wagg 
     - [Installing using pip](#installing-using-pip)
 - [Required data](#required-data)
 - [Using this repository](#using-this-repository)
+    - [How to reproduce/adapt paper figures](how-to-reproduceadapt-paper-figures)
+    - [How to reproduce results/run a new simulation](how-to-reproduce-resultsrun-a-new-simulation)
+- [Repository map](#repository-map)
 
 <hr style="border-width:5px">
 
@@ -44,7 +47,9 @@ This repository is set up so that it is very easy not only to reproduce every re
 
 ### How to reproduce/adapt paper figures
 
-## Repository Map
+### How to reproduce results/run a new simulation
+
+## Repository map
 Not sure where to look? This map should help point you to the right folder!
 
 ```
