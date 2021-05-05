@@ -1,0 +1,2 @@
+# src
+The main source code for running the simulation. The simulation is run using [simulate_dco_detections.py](https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/simulation/src/simulate_DCO_detections.py) and the other files are imported to this one.

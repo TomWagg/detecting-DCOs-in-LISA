@@ -1,0 +1,2 @@
+# tex
+All of the LaTeX and BibTex files are stored in this folder. [paper.tex](https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/tex/paper.tex) is the main tex file that brings everything together from the various [sections](https://github.com/TomWagg/detecting-DCOs-in-LISA/tree/main/paper/tex/sections) and references.

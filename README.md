@@ -46,9 +46,9 @@ All data used in the paper is stored [here](https://zenodo.org/record/4699713) o
 This repository is set up so that it is very easy not only to reproduce every result and figure in the paper but also adapt the work for future studies. With this in mind, let's split into two sections depending on whether you just want to visualise the results differently or whether you want to produce new results entirely.
 
 ### How to reproduce/adapt paper figures
-
+TODO
 ### How to reproduce results/run a new simulation
-
+TODO
 ## Repository map
 Not sure where to look? This map should help point you to the right folder!
 

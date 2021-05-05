@@ -1,3 +1,2 @@
 # Paper
-All figures shown in paper are stored here as well as the code needed to
-reproduce any of them
+Everything needed to recreate the PDF of the paper is in this folder (both the LaTeX and the figures). There are also two Excel files that contain the comparison tables for previous studies.
