@@ -1,10 +1,15 @@
 # Predictions for detecting BHNS and other double compact objects binaries with LISA
 
 Hello there! This repository contains all of the code associated with with Wagg et al. (2021), both for the simulations so that you can reproduce the results, but also for the paper so that you can reproduce all of the plots. If you haven't read the paper yet, I recommend that you go and take a look before trying to see what's going on in the code.
-## Required dependencies
-<details>
-    <summary>Click to expand</summary>
 
+## Table of contents
+- [Required dependencies](#required-dependencies)
+    - [Installing using Conda (recommended)](#installing-using-conda-recommended)
+    - [Installing using pip](#installing-using-pip)
+- [Required data](#required-data)
+- [Using this repository](#using-this-repository)
+
+## Required dependencies
 This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. It allows you evolve the orbits of binary sources, measure their strain and SNR as well as visualise the results.
 
 We also use some more well known Python packages and list them below
@@ -29,9 +34,7 @@ If you don't have Anaconda then alternatively you can use pip to install everyth
 ```
 pip install numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
 ```
-</details>
-
-## Downloading the data
+## Required data
 All data used in the paper is stored [here](https://zenodo.org/record/4699713) on Zenodo. You'll need to download all of this data for reproducing the figures. If you also want to run a new simulation then you'll need the data from Broekgaarden et al. (2021) which you can download [here](https://zenodo.org/record/4574727).
 
 ## Using this repository
