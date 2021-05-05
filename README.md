@@ -1,12 +1,42 @@
 # Predictions for detecting BHNS and other double compact objects binaries with LISA
 
 Hello there! This repository contains all of the code associated with with Wagg et al. (2021), both for the simulations so that you can reproduce the results, but also for the paper so that you can reproduce all of the plots. If you haven't read the paper yet, I recommend that you go and take a look before trying to see what's going on in the code.
+## Required dependencies
+This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. You can [install LEGWORK](https://legwork.readthedocs.io/en/latest/install.html) using pip and will need it to run a lot of the code.
 
-This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. You can [install LEGWORK](https://legwork.readthedocs.io/en/latest/install.html) using pip and will need it to run a lot of the code.
+We also use some more well known Python packages and list them below
+- `numpy`
+- `astropy`
+- `scipy`
+- `seaborn`
+- `h5py`
+- `matplotlib`
+- `jupyter`
+- `ipython`
 
-## How to use this repository
+### Installing using Conda (recommended)
+You can install these packages using `conda` and create an environment for working with this code. Run the following to do so
+```
+    conda create -n LISA_dcos numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
+    conda activate LISA_dcos
+```
+
+### Installing using pip
+If you don't have Anaconda then alternatively you can use pip to install everything by running
+```
+    pip install numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
+```
+
+## Downloading the data
+All data used in the paper is stored [here](https://zenodo.org/record/4699713) on Zenodo. You'll need to download all of this data for reproducing the figures. If you also want to run a new simulation then you'll need the data from Broekgaarden et al. (2021) which you can download [here](https://zenodo.org/record/4574727).
+
+## Using this repository
+This repository is set up so that it is very easy not only to reproduce every result and figure in the paper but also adapt the work for future studies. With this in mind, let's split into two sections depending on whether you just want to visualise the results differently or whether you want to produce new results entirely.
+
+### How to reproduce/adapt paper figures
 
 ## Repository Map
+Not sure where to look? This map should help point you to the right folder!
 
 ```
 detecting-DCOs-with-LISA
