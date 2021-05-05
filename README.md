@@ -4,30 +4,31 @@ Hello there! This repository contains all of the code associated with with Wagg 
 ## Required dependencies
 <details>
     <summary>Click to expand</summary>
-    This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. It allows you evolve the orbits of binary sources, measure their strain and SNR as well as visualise the results.
 
-    We also use some more well known Python packages and list them below
-    - `numpy`
-    - `astropy`
-    - `scipy`
-    - `seaborn`
-    - `h5py`
-    - `matplotlib`
-    - `jupyter`
-    - `ipython`
+This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. It allows you evolve the orbits of binary sources, measure their strain and SNR as well as visualise the results.
 
-    ### Installing using Conda (recommended)
-    You can install these packages using `conda` and create an environment for working with this code. Run the following to do so
-    ```
-    conda create -n LISA_dcos numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
-    conda activate LISA_dcos
-    ```
+We also use some more well known Python packages and list them below
+- `numpy`
+- `astropy`
+- `scipy`
+- `seaborn`
+- `h5py`
+- `matplotlib`
+- `jupyter`
+- `ipython`
 
-    ### Installing using pip
-    If you don't have Anaconda then alternatively you can use pip to install everything by running
-    ```
-    pip install numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
-    ```
+### Installing using Conda (recommended)
+You can install these packages using `conda` and create an environment for working with this code. Run the following to do so
+```
+conda create -n LISA_dcos numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
+conda activate LISA_dcos
+```
+
+### Installing using pip
+If you don't have Anaconda then alternatively you can use pip to install everything by running
+```
+pip install numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
+```
 </details>
 
 ## Downloading the data
