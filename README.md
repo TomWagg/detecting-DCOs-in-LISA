@@ -9,6 +9,8 @@ Hello there! This repository contains all of the code associated with with Wagg 
 - [Required data](#required-data)
 - [Using this repository](#using-this-repository)
 
+<hr style="border-width:5px">
+
 ## Required dependencies
 This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. It allows you evolve the orbits of binary sources, measure their strain and SNR as well as visualise the results.
 
