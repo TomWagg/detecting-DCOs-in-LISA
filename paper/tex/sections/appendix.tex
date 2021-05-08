@@ -130,41 +130,49 @@
 % \end{equation}
 
 \section{Detection Rate Normalisation}\label{app:rate_normalisation}
-From each instance of the Milky Way that we simulate we can extract the number of targets\footnote{By targets, we are referring to either BHBH, BHNS or NSNS that merge in a Hubble time} that are detectable. However, this number must be normalised in order to show the true detection rate for the Milky Way. Therefore, we write that the number of detectable targets in the Milky Way is
+In this section we explain in detail the normalisation process that we refer to in Section~\ref{sec:gw_detection}. From each instance of the Milky Way that we simulate we can extract the fraction of targets that are detectable, where we define a target as one of BHBH, BHNS or NSNS that merges in a Hubble time. Note that we complete this calculation separately for each DCO type and each model variations.
+
+We now explain how to convert the detectable fraction to a detection rate for the Milky Way. We write that the \textit{number} of detectable targets in the Milky Way is
 \begin{equation}\label{eq:norm_frame}
     N_{\rm detect} = f_{\rm detect} \cdot N_{\rm target, MW},
 \end{equation}
-where $f_{\rm detect}$ is the fraction of targets in the instance that were detectable and $N_{\rm target, MW}$ is the total number of targets that have been formed in the Milky Way's history. We can find this total in two steps: (1) find the average number of targets formed per star forming mass (2) find the total star forming mass that has existed in the Milky Way's history.
+where $f_{\rm detect}$ is the fraction of targets in the instance that were detectable and $N_{\rm target, MW}$ is the total number of targets that have been formed in the Milky Way's history. We can further break this total down into
+\begin{equation}
+    N_{\rm target, MW} = \avg{ \mathcal{R}_{\rm target} } \cdot M_{\rm SF, MW},
+\end{equation}
+where $\avg{ \mathcal{R}_{\rm target} }$ is the average number of targets formed per star forming mass and $M_{\rm SF, MW}$ is the total star forming mass that has existed in the Milky Way's history. We explain each of these terms in respective subsections below.
 
 \subsection{Average target formation rate}
-Since double compact object formation is strongly metallicity dependent, we can find the average rate as the integral over metallicity
+Double compact object formation is strongly metallicity dependent, so we must find the average rate as the integral over metallicity
 \begin{equation}\label{eq:norm_avg_target_formation}
     \avg{ \mathcal{R}_{\rm target} } = \int_{Z_{\rm min}}^{Z_{\rm max}} p_{Z} \mathcal{R}_{\rm target, Z} \dd{Z},
 \end{equation}
-where $Z_{\rm min}, Z_{\rm max}$ are the minimum and maximum sampled metallicities, $p_Z$ is the probability of forming a star at the metallicity $Z$ \citep{Frankel+2018} and $\mathcal{R}_{\rm target, Z}$ is defined as the number of targets formed per star forming mass. 
+where $Z_{\rm min}, Z_{\rm max}$ are the minimum and maximum sampled metallicities, $p_Z$ is the probability of forming a star at the metallicity $Z$ (which can be found using the distribution in \citealp{Frankel+2018}) and $\mathcal{R}_{\rm target, Z}$ is the number of targets formed per star forming mass.
 \begin{equation}
-    \mathcal{R}_{\rm target, Z} =  N_{\rm target, Z} / M_{\rm SF, Z}.
+    \mathcal{R}_{\rm target, Z} =  \frac{N_{\rm target, Z}}{ M_{\rm SF, Z} }.
 \end{equation}
-The number of targets in our sample at a metallicity $Z$ can be written simply as the sum of the targets' weights:
+In reality, this integral is instead approximated as a sum over the metallicity bins that we use in our simulation. The number of targets in our sample at a metallicity $Z$, $N_{\rm target, Z}$, can be written simply as the sum of the targets' weights:
 \begin{equation}
     N_{\rm target, Z} = \sum_{i=1}^{N_{\rm binaries, Z}} w_i \theta_{\rm target, i},
 \end{equation}
-where $w_i$ is the STROOPWAFEL weight assigned to a binary, $N_{\rm binaries, Z}$ is the number of binaries at metallicity $Z$ in our sample and $\theta_{\rm target, i}$ is a step function that is only $1$ when the binary is a target and otherwise 0. The total star forming mass at a metallicity $Z$ can be written as
+where $w_i$ is the adaptive importance sampling weight assigned to the binary by STROOPWAFEL, $N_{\rm binaries, Z}$ is the number of binaries at metallicity $Z$ in our sample and $\theta_{\rm target, i}$ is a step function that is only $1$ when the binary is a target and otherwise $0$.
+
+The total star forming mass at a metallicity $Z$, $M_{\rm SF, Z}$, can be written as
 \begin{equation}
     M_{\rm SF, Z} = \frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i,
 \end{equation}
-where $\avg{m}_{\rm COMPAS}$ is the average star forming mass of a binary in our sample and $f_{\rm trunc}$ is the fraction of the total stellar mass that COMPAS samples from given its truncated mass and separation ranges (see Section \ref{sec:COMPAS_explained}). The cuts applied to the distributions mean that only $f_{\rm trunc} \approx 0.2$ of the stellar mass is sampled from.
+where $\avg{m}_{\rm COMPAS}$ is the average star forming mass of a binary in our sample and $f_{\rm trunc}$ is the fraction of the total stellar mass from which COMPAS samples, given its truncated mass and separation ranges (see Section \ref{sec:COMPAS_explained}). The cuts applied to the distributions, mainly because only massive stars are sampled, mean that only $f_{\rm trunc} \approx 0.2$ of the stellar mass in the galaxy is sampled from.
 
 \subsection{Total star forming mass in the Milky Way}
-It is important to distinguish between the \textit{total} star forming mass in the Milky Way and the \textit{current} star forming mass in the Milky Way. Many stars born in the Milky Way are no longer living and have lost much of their mass to stellar winds and supernovae, thus decreasing the total stellar mass. \citet{Licquia+2015} find that the total stellar mass today in the Milky Way disc is $6.08 \pm 1.14 \times 10^{10} \unit{M_{\rm odot}}$. This total includes all stars and stellar remnants (white dwarfs, neutrons stars and black holes) but \textit{excludes} brown dwarfs. We can write that the total star forming mass that has \textit{ever} existed in the Milky Way is
+It is important to distinguish between the \textit{total} star forming mass over the Milky Way's history and the \textit{current} star forming mass in the Milky Way. Many stars born in the Milky Way are no longer living and have lost much of their mass to stellar winds and supernovae, thus decreasing the total stellar mass. \citet{Licquia+2015} find that the total stellar mass today in the Milky Way is $6.08 \pm 1.14 \times 10^{10} \unit{M_{\rm odot}}$. This total includes all stars and stellar remnants (white dwarfs, neutrons stars and black holes) but \textit{excludes} brown dwarfs. We can write that the total star forming mass that has \textit{ever} existed in the Milky Way is
 \begin{equation}\label{eq:m_SF_MW}
-    M_{\rm SF, MW} = 6.08 \pm 1.14 \times 10^{10} \unit{M_{\rm odot}} \cdot \frac{\avg{m}_{\rm SF, total}}{\avg{m}_{\rm SF, today}},
+    M_{\rm SF, MW} = 6.08 \pm 1.14 \times 10^{10} \unit{M_{\rm \odot}} \cdot \frac{\avg{m}_{\rm SF, total}}{\avg{m}_{\rm SF, today}},
 \end{equation}
 where $\avg{m}_{\rm SF, total}$ is the average star forming mass over the history of the Milky Way and $\avg{m}_{\rm SF, today}$ is the average star forming mass of the mass remaining today. The former is defined as
 \begin{equation}
-    \avg{m}_{\rm SF, total} = \int_{0}^{t_{\rm MW}} p_{\rm birth}(t) \int_{0.01}^{200} \zeta(m)\ m \dd{m} \dd{t},
+    \avg{m}_{\rm SF, total} = \int_{0}^{t_{\rm MW}} p_{\rm birth}(\tau) \int_{0.01}^{200} \zeta(m)\ m \dd{m} \dd{\tau},
 \end{equation}
-where $t_{\rm MW}$ is the age of the Milky Way, $\zeta(m)$ is the \citet{Kroupa+2001} IMF function and $p_{\rm birth}(\tau)$ is the probability of a star being formed at a lookback time $\tau$ \citep[][Eq.\,4]{Frankel+2018}. The average star forming mass of the mass \textit{remaining today} is defined as follows (note that we integrate from $0.08$ not $0.01$ since observations of today's Milky Way mass exclude brown dwarfs)
+where $t_{\rm MW}$ is the age of the Milky Way, $\zeta(m)$ is the \citet{Kroupa+2001} IMF function and $p_{\rm birth}(\tau)$ is the probability of a star being formed at a lookback time $\tau$ \citep[][Eq.~4]{Frankel+2018}. The average star forming mass of the mass \textit{remaining today} is defined as follows (note that we integrate from $0.08$ not $0.01$ since observations of today's Milky Way mass exclude brown dwarfs)
 \begin{equation}
     \avg{m}_{\rm SF, today} = \int_{0}^{t_{\rm MW}} p_{\rm birth}(\tau) \int_{0.08}^{200} \zeta(m)\ m_{\rm today}(m, \avg{Z}_\tau, \tau) \dd{m} \dd{\tau},
 \end{equation}
