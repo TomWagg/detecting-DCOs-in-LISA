@@ -127,7 +127,7 @@ def distance_from_earth(R, z, theta, Rsun=8.2*u.kpc):
 
     Returns
     -------
-    D : `float/array` 
+    D : `float/array`
         Distances
     """
     D = np.sqrt(z**2 + R**2 + Rsun**2 - 2 * Rsun * R * np.cos(theta))
@@ -186,8 +186,8 @@ def simulate_mw(n_binaries, tm=12 * u.Gyr, tsfr=6.8 * u.Gyr, alpha=0.3,
     tau = draw_lookback_times(n_binaries, tm=tm, tsfr=tsfr)
     R = draw_radii(n_binaries, tau, alpha=alpha)
     z = draw_heights(n_binaries, zd=zd)
-    Z = metallicity(R, tau, tm=tm, Fm=Fm, gradient=gradient, Rnow=Rnow,
-                    gamma=gamma, zsun=zsun)
+    Z = get_metallicity(R, tau, tm=tm, Fm=Fm, gradient=gradient, Rnow=Rnow,
+                        gamma=gamma, zsun=zsun)
     theta = 2 * np.pi * np.random.rand(n_binaries)
     D = distance_from_earth(R, z, theta)
 
