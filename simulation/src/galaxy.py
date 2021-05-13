@@ -8,7 +8,7 @@ __all__ = ["simulate_mw"]
 
 
 def draw_lookback_times(size, component="thin_disc", tm=12*u.Gyr,
-                        tsfr=6.8*u.Gyr):
+                        tsfr=6.8*u.Gyr, old=False):
     """Inverse CDF sampling of lookback times. Thin and thick discs uses
     Frankel+2018 Eq.4, separated at 8 Gyr. The bulge matches the distribution
     in Fig.7 of Bovy+19 but accounts for sample's bias.
@@ -32,7 +32,7 @@ def draw_lookback_times(size, component="thin_disc", tm=12*u.Gyr,
     if component == "thin_disc":
         U = np.random.rand(size)
         norm = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value),
-                        0, 8)[0]
+                        0, 8 if not old else 12)[0]
         tau = tsfr * np.log((U * np.exp(tm / tsfr)) / (norm * tsfr.value) + 1)
     elif component == "thick_disc":
         U = np.random.rand(size)
@@ -85,7 +85,7 @@ def draw_heights(size, z_d=0.3*u.kpc):
         Random heights
     """
     U = np.random.rand(size)
-    z = np.random.choice([-1, 1], len(U)) * z_d * np.log(1 - U)
+    z = np.random.choice([-1, 1], size) * z_d * np.log(1 - U)
     return z
 
 
@@ -150,7 +150,7 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
                 tm=12 * u.Gyr, tsfr=6.8 * u.Gyr, alpha=0.3,
                 zd=0.3 * u.kpc, Fm=-1, gradient=-0.075 / u.kpc,
                 Rnow=8.7 * u.kpc, gamma=0.3, zsun=0.0142, Rsun=8.2 * u.kpc,
-                ret_pos=False, lookback=True):
+                ret_pos=False, lookback=True, old=False):
     """Draw a sample of birth times, distances and metallicities from a Milky
     Way model.
 
@@ -208,10 +208,10 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
     R = [None for i in range(len(components))]
     z = [None for i in range(len(components))]
     for i, com in enumerate(components):
-        tau[i] = draw_lookback_times(sizes[i], tm=tm, tsfr=tsfr, component=com)
+        tau[i] = draw_lookback_times(sizes[i], tm=tm, tsfr=tsfr, component=com, old=old)
 
         scale_length = R_exp(tau[i], alpha=alpha) if com == "thin_disc"\
-            else 0.43 * u.kpc if com == "thick_disc"\
+            else 1/0.43 * u.kpc if com == "thick_disc"\
             else 1.5 * u.kpc
 
         R[i] = draw_radii(sizes[i], R_0=scale_length)
