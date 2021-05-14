@@ -76,27 +76,39 @@ Finally, in models \modRangeSN{} we consider changes related to our assumptions 
 
 \subsection{Galaxy synthesis}\label{sec:galaxy_synthesis}
 
-In order to estimate a detection rate of DCOs with statistical uncertainties, we create a series of random instances of the Milky Way, each populated with a subsample of the synthesised binaries described in Section~\ref{sec:COMPAS_explained}. For the distribution of the binaries, we make the simplification that the Milky Way is composed of only a single disc. We do not find that adding other components would significantly alter our results.
+In order to estimate a detection rate of DCOs with statistical uncertainties, we create a series of random instances of the Milky Way, each populated with a subsample drawn (with replacement) from the synthesised binaries described in Section~\ref{sec:COMPAS_explained}.
 
-Most previous studies that predict a detection rate for LISA place binaries in the Milky Way independently of their age or evolution. We improve upon this as the first study to use an analytical model of the Milky Way that takes into account the galaxy's enrichment history.
+\subsubsection{Milky Way model}\label{sec:mw_model}
+We assume that the Milky Way is composed of a thin disc, thick disc and a central bar/bulge. For each of these components we use a separate lookback time, radial and vertical distribution, which we combine into a single model, weighting each component by its stellar mass. \citet{Licquia+2015} gives that the stellar mass of the bulge is $0.91 \times 10^{10} \unit{M_{\odot}}$ and the stellar mass of the disc is $5.17 \times 10^{10} \unit{M_\odot}$, which we split equally between the thin and thick disc. \todo{need citation for equal mass discs}
 
-\subsubsection{Milky Way disc model}\label{sec:disc_model}
-
-For the Milky Way thin disc, we use the model from \citet{Frankel+2018}. The authors developed this model in order to measure the global efficiency of radial migration in the Milky Way. They did this by fitting the model to a sample of red clump stars measured with APOGEE \citep{Majewski+2017} and Gaia \citep{GaiaCollaboration+2016}. The result of this work is a model for the Milky Way that is calibrated to observations and which includes the star formation history, radial birth profile and chemical enrichment history of the galaxy. We can therefore use this model to place binaries randomly in space and time and match these positions to a metallicity.
-
-The star formation history is given by the following  \citep[][Eq. 2]{Frankel+2018}
-\begin{equation}\label{eq:galaxy_tau}
+\textit{Star formation history:} For the thin and thick discs we use the star formation history given by \citet[][Eq.~2]{Frankel+2018},
+\begin{equation}\label{eq:thin_disc_tau}
     p(\tau) \propto \exp \qty(-\frac{(\tau_m - \tau)}{\tau_{\rm SFR}}),
 \end{equation}
-where $\tau$ is the lookback time (the amount of time elapsed between the binary's zero-age main sequence and today), $\tau_m = 12 \unit{Gyr}$ is the assumed age of the Milky Way and $\tau_{\rm SFR} = 6.8 \unit{Gyr}$ was fit by \citet{Frankel+2018}. The radial birth profile of the galaxy is conditional upon its age and is given as \citep[][Eq. 5]{Frankel+2018}
+where $\tau$ is the lookback time (the amount of time elapsed between the binary's zero-age main sequence and today), $\tau_m = 12 \unit{Gyr}$ is the assumed age of the Milky Way and $\tau_{\rm SFR} = 6.8 \unit{Gyr}$ is the star formation timescale. Following \citet{Frankel+2018}, we assume that there is a transition from thick disc star formation to thin disc star formation $8 \unit{Gyr}$ ago and apply a sharp transition at this point. This has been shown to still reproduce the Milky Way structure well despite its simplicity \citep{Sharma+2020} \todo{I could write this bit better}. Therefore, for the thin disc we normalise this distribution on the range $[0, 8) \unit{Gyr}$ and for the thick disc we normalise on the range $[8, 12] \unit{Gyr}$.
+
+For the bulge, we base our distribution on the one presented in \citet[][Fig.~7]{Bovy+2019}. We adapt this distribution to account for the possible bias of the sample, where fainter older stars are not observed \todo{I don't understand this well enough to write}. We therefore approximate the distribution using a $\beta(2,3)$ distribution, shifted and scaled such that stars are only formed in the range $[6, 12] \unit{Gyr}$.
+
+\textit{Radial distribution:} For each of the three components we employ the same single exponential distribution (but with different scale lengths)
 \begin{equation}\label{eq:galaxy_R}
-    p(R_0 \vert \tau) = \exp(-\frac{R_0}{R_{\rm exp}(\tau)}) \frac{R_0}{[R_{\rm exp}(\tau)]^2},
+    p(R) = \exp(-\frac{R}{R_d}) \frac{R}{R_d^2},
 \end{equation}
-where $R_0$ is the birth Galactocentric radius, and\footnote{In $R_{\rm exp}(\tau)$, we use 4 kpc instead of 3 kpc for the 0 Gyr exponential scale-length of the disc as it provides a better fit (correspondence with Neige Frankel)}
+where $R$ is the Galactocentric radius and $R_d$ is the scale length of the component. For the thin disc, we set $R_d = R_{\rm exp}(\tau)$, where $R_{\rm exp}(\tau)$ is the scale length presented in \citet[][Eq.~5]{Frankel+2018}
 \begin{equation}
     R_{\rm exp}(\tau) = 4 \unit{kpc} \qty(1 - \alpha_{R_{\rm exp}} \qty(\frac{\tau}{8 \unit{Gyr}})),
 \end{equation}
-where $\alpha_{R_{\rm exp}} = 0.3$ was fit by \citet{Frankel+2018}. Finally, the metallicity-radius-time relation is given as \citep[][Eq. 7]{Frankel+2018}
+where $\alpha_{R_{\rm exp}} = 0.3$ is the inside-out growth parameter\footnote{In $R_{\rm exp}(\tau)$, we use 4 kpc instead of 3 kpc for the 0 Gyr exponential scale-length of the disc as it provides a better fit (correspondence with Neige Frankel)}. This scale length accounts for the inside-out growth of the thin disc and hence is age dependent. We assume $R_d = (1 / 0.43) \unit{kpc}$ for the thick disc \citep[][Table~1]{Bovy+2016} and $R_d = 1.5 \unit{kpc}$ for the bulge \citep{Bovy+2019}.
+
+\textit{Vertical distribution}: Similar to the radial distribution, we use the same single exponential distribution (but with different scale heights) for each component
+\begin{equation}\label{eq:galaxy_z}
+    p(\abs{z}) = \frac{1}{z_d} \exp\qty(-\frac{z}{z_d}),
+\end{equation}
+where $z$ is the height above the Galactic plane and $z_d$ is the scale height. We set $z_d = 0.3 \unit{kpc}$ for the thin disc \citep{McMillan+2011} and $z_d = 0.95 \unit{kpc}$ for the thick disc \citep{Bovy+2016}. For the bulge, we set $z_d = 1.5 \unit{kpc}$ such that the probability of forming a star approaches zero at approximately the co-rotation radius of the Galactic bar/bulge \citep{Bovy+2019}.
+
+
+\textit{Metallicity-radius-time relation:} Most previous studies that predict a detection rate for LISA place binaries in the Milky Way independently of their age or evolution. We improve upon this as the first study to use an analytical model of the Milky Way that takes into account the galaxy's enrichment history. For this purpose, we apply the metallicity-radius-time relation from \citet{Frankel+2018}. The authors developed this model in order to measure the global efficiency of radial migration in the Milky Way and calibrated it using a sample of red clump stars measured with APOGEE \citep{Majewski+2017} and matched to stars in Gaia \citep{GaiaCollaboration+2016}.
+
+The metallicity-radius-time relation is given by \citep[][Eq. 7]{Frankel+2018}
 \begin{equation}\label{eq:galaxy_FeH}
     \begin{split}
         [{\rm Fe} / {\rm H}] (R, \tau) &= F_m + \nabla [{\rm Fe} / {\rm H}] R \\
@@ -107,15 +119,19 @@ where
 \begin{equation}
     f(\tau) = \qty(1 - \frac{\tau}{\tau_m})^{\gamma_{[{\rm Fe} / {\rm H}]}},
 \end{equation}
-$F_m = -1 \unit{dex}$ is the metallicity of the gas at the center of the disk at $\tau = \tau_m$ and $\nabla [{\rm Fe} / {\rm H}] = -0.075 \unit{kpc^{-1}}$, $R^{\rm now}_{[{\rm Fe} / {\rm H}] = 0} = 8.7 \unit{kpc}$ and $\gamma_{[{\rm Fe} / {\rm H}]} = 0.3$ are fit by \citet{Frankel+2018}. We can convert this to our representation of metallicity using \citep[e.g][]{Bertelli+1994}
+$F_m = -1 \unit{dex}$ is the metallicity of the gas at the center of the disk at $\tau = \tau_m$, $\nabla [{\rm Fe} / {\rm H}] = -0.075 \unit{kpc^{-1}}$ is the metallicity gradient, $R^{\rm now}_{[{\rm Fe} / {\rm H}] = 0} = 8.7 \unit{kpc}$ is the radius at which the present day metallicity is solar and $\gamma_{[{\rm Fe} / {\rm H}]} = 0.3$ set the time dependence of the chemical enrichment. We can convert this to the representation of metallicity that we use in this paper by applying \citep[e.g][]{Bertelli+1994}
 \begin{equation}\label{eq:galaxy_FeH_to_Z}
     \log_{10} (Z) = 0.977 [{\rm Fe} / {\rm H}] + \log_{10}(Z_\odot).
 \end{equation}
-Additionally, since this model does not treat the vertical structure of the Milky Way disc, we can supplement it with the vertical distribution from \citet{McMillan+2011},
-\begin{equation}\label{eq:galaxy_z}
-    p(\abs{z}) = \frac{1}{z_d} \exp\qty(-\frac{z}{z_d}),
-\end{equation}
-where $z$ is the height above the Galactic plane and $z_d = 0.3 \unit{kpc}$. Equations \ref{eq:galaxy_tau}-\ref{eq:galaxy_z} summarise the model that we use for the Milky Way disc and we illustrate these distributions in Fig.~\ref{fig:galaxy_schematic}.
+
+Fig.~\ref{fig:galaxy_schematic} shows the distributions and relations outlined in this section and also displays an example random galaxy drawn using this model.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{1_galaxy_diagram.png}
+    \caption{A schematic illustrating how we create a mock Milky Way galaxy. On the left, we show the various individual distributions for the different parameters. In the star formation history distribution, we also plot the separate distributions of each component with dotted lines to more clearly explain the shape. On the right, we show an example instance of the Milky Way with $10^5$ binaries shown as point, where the colour of each point represents its metallicity. The top panel shows a side-on view and the bottom panel shows a view from above.}
+    \label{fig:galaxy_schematic}
+\end{figure*}
 
 \subsubsection{Combining population and galaxy synthesis}
 
@@ -123,14 +139,7 @@ For each Milky Way instance, we randomly sample the following set of parameters
 \begin{equation}
     \mathbf{g}_{{i}} = \{\tau, R, Z, z, \theta\}
 \end{equation}
-for $i = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using the distribution functions specified in Section~\ref{sec:disc_model}, $\theta$ is the polar angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Figure~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions in the Milky and illustrates the gradient in metallicity over radius.
-
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=\textwidth]{1_galaxy_diagram.png}
-    \caption{A schematic showing how we create a mock Milky Way disc. On the left, we show the various distributions presented in \citet{Frankel+2018} and \citet{McMillan+2011}. On the right, we show an example instance of the Milky Way with $10^5$ binaries shown as points. The colour of each point represents its metallicity (with $Z \in [0.0001, 0.022]$). The top panel shows a side-on view and the bottom panel shows a view from above.}
-    \label{fig:galaxy_schematic}
-\end{figure*}
+for $i = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using the distribution functions specified in Section~\ref{sec:mw_model}, $\theta$ is the polar angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Figure~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions in the Milky and illustrates the gradient in metallicity over radius.
 
 We match each set of galaxy parameters $\mathbf{g}_{{i}}$, to a random set of binary parameters $\mathbf{b}_{{Z, i}}$, by randomly drawing a set of binary parameters from the closest metallicity bin to the metallicity in $\mathbf{g}_{{i}}$.
 
