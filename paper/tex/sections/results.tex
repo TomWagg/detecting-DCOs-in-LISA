@@ -1,3 +1,5 @@
+\todo{Note that the numbers/errors are subject to change in this section once the larger high Z simulations are done (thank you Floor!)}
+
 In this section we present our main results for the detectable LISA DCO population. We find that on average, for our fiducial model, a four year LISA mission will detect \confinv{34.4}{20.9}{46.6} BHBHs, \confinv{29.9}{20.1}{47.4} BHNSs and \confinv{7.7}{5.0}{10.3} NSNSs where the error bars represent the 90\% confidence interval. We first show the distribution of the sources on the sensitivity curve in Section~\ref{sec:dcos_on_sc}, before exploring the variations in the detection rate over different physics variations in Section~\ref{sec:detection_rate_analysis} and analysing the parameter distributions for detectable sources in the fiducial model in Section~\ref{sec:fiducial_distributions}.
 
 \subsection{Distribution on the sensitivity curve}\label{sec:dcos_on_sc}
@@ -21,7 +23,7 @@ We find that for our fiducial model, a four year LISA mission will detect \confi
 \begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{3_dco_detections.pdf}
-    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 50\% (solid) and 90\% (dotted) confidence intervals. The left axis and grid lines show the number of detections in a four year LISA mission and the right axis shows an approximation of the number of detections in a 10 year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in Section~\ref{sec:fiducial_physics}.}
+    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 50\% (solid) and 90\% (dotted) confidence intervals. The left axis and grid lines show the number of detections in a four year LISA mission and the right axis shows an approximation of the number of detections in a 10 year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in Section~\ref{sec:fiducial_physics}. \todo{@ALL, ignore models P and Q for now}}
     \label{fig:detection_rates}
 \end{figure*}
 
@@ -35,7 +37,7 @@ In contrast, the BHNS detection rate is very sensitive to changes in binary phys
 
 As $\beta$ increases in models \modBetaLow{}-\modBetaHigh{}, the BHNS detection rate steadily decreases. This may seem unintuitive since a higher mass transfer efficiency should lead to more massive compact objects and thus a more detectable population. However, one must also consider that most of these DCOs are formed through a common envelope event and so retaining more of the envelope during mass transfer means that the eventual ejection of the envelope is much more difficult, thus leading to more stellar mergers and fewer detectable BHNSs \citep[e.g.][]{Kruckow+2018}.
 
-\tom{@Selma, the trend with common envelopes still confuses me, specifially, why does it not increase when $\alpha=2.0$? We never quite resolved this in the thread in zpro\_tom\_wagg with me and Lieke. I do see that the BHBH have a lot of only stable mass transfer and so reasonably are not too affected. NSNS basically only come through CE events and so sensibly are strongly affected but BHNS have $\sim 70\%$ classic channel and so should be affected strongly. But we don't see an increase with $\alpha = 2.0$. Any thoughts?}
+\todo{@ALL, the trend with common envelopes still confuses me, specifially, why does it not increase when $\alpha=2.0$? We never quite resolved this in the thread in zpro\_tom\_wagg with me and Lieke. I do see that the BHBH have a lot of only stable mass transfer and so reasonably are not too affected. NSNS basically only come through CE events and so sensibly are strongly affected but BHNS have $\sim 70\%$ classic channel and so should be affected strongly. But we don't see an increase with $\alpha = 2.0$. Any thoughts? (I'm leaving thinking about this for now in case it changes with the new data haha)}
 % For a similar reason, the rate is decreased when $\alpha$ is decreased in model \modAlphaLow{}, as this reduces the amount of orbital energy that is used to eject the envelope and thus leads to more stellar mergers. \todo{Why isn't the opposite true for model \modAlphaHigh{}? It seems the number of bound DCOs \textit{does} increase but the merging total decreases...?}
 
 Enforcing that case BB mass transfer is always unstable (model \modCaseBB{}) decreases the detection rate as fewer NSs are produced and thus fewer BHNSs form. This is explained in further detail in Section~\ref{sec:NSNS_detection_trends}. For the same reason as the BHBH rate, model \modOpt{} has a higher number of detections. This change is less prominent than in the BHBH case as the progenitors tend to be lower masses and initiate a CE event less frequently during the Hertzsprung gap phase. 
@@ -55,6 +57,8 @@ The vast majority of NSNSs in our sample are formed through the common envelope 
 As we found in the BHNS trends, a lower value for the core-collapse supernova velocity dispersion increases the detection rate in models \modSigLow{} and \modSigLower{}, whilst changing the PISN or BH kick prescription (models \modNoPISN{} and \modNoBH{}) of course has no effect on the NSNS population.
 
 \subsection{Distributions for the fiducial model}\label{sec:fiducial_distributions}
+
+\todo{This section is not currently up to date, waiting for new sims before writing more}
 
 In Figure~\ref{fig:fiducial_pdf_distributions}, we show the distribution of the individual parameters of the population of detectable binaries and discuss the various features in the following sections.
 
@@ -78,7 +82,7 @@ The orbital frequency distributions for BHBHs, BHNSs and NSNSs peak at increasin
 Each DCO's luminosity distance distribution peaks around $8 \unit{kpc}$ since this is the distance to the centre of the Milky Way and thus the most dense location of DCOs. Each DCO also has a shoulder at lower distances since closer binaries are easier to detect. This shoulder is more prominent for the NSNS distribution since their lower relative masses require a smaller distance in order to be detected on average.
 
 \subsubsection{Inspiral Time}
-Each DCO has a strong peak at small inspiral times since higher metallicities lead to tighter binaries and thus shorter inspiral times. \todo{finish this}
+Each DCO has a strong peak at small inspiral times since higher metallicities lead to tighter binaries and thus shorter inspiral times.
 
 \begin{figure*}[htbp]
     \centering
@@ -88,3 +92,4 @@ Each DCO has a strong peak at small inspiral times since higher metallicities le
 \end{figure*}
 
 \subsection{Model variations}
+\todo{This will be about how the shapes change with model variations}
