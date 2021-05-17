@@ -76,16 +76,18 @@ Finally, in models \modRangeSN{} we consider changes related to our assumptions 
 
 \subsection{Galaxy synthesis}\label{sec:galaxy_synthesis}
 
-In order to estimate a detection rate of DCOs with statistical uncertainties, we create a series of random instances of the Milky Way, each populated with a subsample drawn (with replacement) from the synthesised binaries described in Section~\ref{sec:COMPAS_explained}. Most previous studies that predict a detection rate for LISA place binaries in the Milky Way independently of their age or evolution. We improve upon this as the first study to use an empirically-informed analytical model of the Milky Way that takes into account the galaxy's enrichment history by applying the metallicity-radius-time relation from \citet{Frankel+2018}. The authors developed this model in order to measure the global efficiency of radial migration in the Milky Way and calibrated it using a sample of red clump stars measured with APOGEE \citep{Majewski+2017} and matched to stars in Gaia \citep{GaiaCollaboration+2016}.
+In order to estimate a detection rate of DCOs with statistical uncertainties, we create a series of random instances of the Milky Way, each populated with a subsample drawn (with replacement) from the synthesised binaries described in Section~\ref{sec:COMPAS_explained}.
 
-In Section~\ref{sec:mw_model}, we outline our model for the Milky Way with each of the various distributions and in Section~\ref{sec:combining_pop_gal} we explain how we combine our population of synthesised DCOs with the Milky Way model.
+Most previous studies that predict a detection rate for LISA place binaries in the Milky Way independently of their age or evolution. We improve upon this as the first study to use an empirically-informed analytical model of the Milky Way that takes into account the galaxy's enrichment history by applying the metallicity-radius-time relation from \citet{Frankel+2018}. The authors developed this relation in order to measure the global efficiency of radial migration in the Milky Way and calibrated it using a sample of red clump stars measured with APOGEE \citep{Majewski+2017} and matched to stars in Gaia \citep{GaiaCollaboration+2016}.
+
+In Section~\ref{sec:mw_model}, we outline our model for the Milky Way and in Section~\ref{sec:combining_pop_gal} we explain how we combine our population of synthesised DCOs with this Milky Way model.
 
 \subsubsection{Milky Way model}\label{sec:mw_model}
 
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\textwidth]{1_galaxy_diagram.png}
-    \caption{A schematic illustrating how we create a mock Milky Way galaxy. On the left, we show the various individual distributions for the different parameters. In the star formation history distribution, we also plot the separate distributions of each component with dotted lines to more clearly explain the shape. On the right, we show an example instance of the Milky Way with $10^5$ binaries shown as point, where the colour of each point represents its metallicity. The top panel shows a side-on view and the bottom panel shows a view from above.}
+    \caption{A schematic illustrating how we create a mock Milky Way galaxy. On the left, we show the various individual distributions for the different parameters. In the star formation history distribution, we also plot the separate distributions of each component with dotted lines to more clearly explain the shape. On the right, we show an example instance of the Milky Way with $10^5$ binaries shown as points, where the colour of each point represents its metallicity. The top panel shows a side-on view and the bottom panel shows a view from above.}
     \label{fig:galaxy_schematic}
 \end{figure*}
 
