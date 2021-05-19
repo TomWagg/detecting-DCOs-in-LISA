@@ -82,10 +82,11 @@ for bt in ["BHBH", "BHNS", "NSNS"]:
                     "m_2_ZAMS": floor["doubleCompactObjects"]["M2ZAMS"][...].squeeze()[seeds_index],
                     "MT1_case": floor["doubleCompactObjects"]["PrimaryMTCase"][...].squeeze()[seeds_index],
                     "MT2_case": floor["doubleCompactObjects"]["SecondaryMTCase"][...].squeeze()[seeds_index],
-                    "a_pre_SN2": floor["doubleCompactObjects"]["separationPrior2ndSN"][...].squeeze()[seeds_index],
                     "a_ZAMS": floor["doubleCompactObjects"]["separationInitial"][...].squeeze()[seeds_index],
+                    "a_pre_SN2": floor["doubleCompactObjects"]["separationPrior2ndSN"][...].squeeze()[seeds_index],
                     "kick_1": floor["doubleCompactObjects"]["drawnKick1"][...].squeeze()[seeds_index],
                     "kick_2": floor["doubleCompactObjects"]["drawnKick2"][...].squeeze()[seeds_index],
+                    "e_pre_SN2": floor["doubleCompactObjects"]["eccentricityPrior2ndSN"][...].squeeze()[seeds_index],
                     "channel": channels
                 }
 
