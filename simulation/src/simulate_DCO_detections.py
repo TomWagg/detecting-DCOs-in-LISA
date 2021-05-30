@@ -9,7 +9,7 @@ from galaxy import simulate_mw
 import legwork as lw
 
 SNR_CUTOFF = 7
-MW_SIZE = 100000
+MW_SIZE = 200000
 
 
 def usage():
