@@ -16,7 +16,7 @@ dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
          ("seed", dt), ("channel", np.dtype(int)), ("m_1_ZAMS", dt),
          ("m_2_ZAMS", dt), ("MT1_case", np.dtype(int)),
          ("MT2_case", np.dtype(int)), ("a_ZAMS", dt), ("a_pre_SN2", dt),
-         ("kick_1", dt), ("kick_2", dt)]
+         ("kick_1", dt), ("kick_2", dt), ("e_pre_SN2", dt)]
 
 runs = 50
 
