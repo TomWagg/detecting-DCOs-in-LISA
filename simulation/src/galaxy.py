@@ -7,11 +7,9 @@ from scipy.stats import beta
 __all__ = ["simulate_mw"]
 
 
-def draw_lookback_times(size, component="thin_disc", tm=12*u.Gyr,
-                        tsfr=6.8*u.Gyr):
-    """Inverse CDF sampling of lookback times. Thin and thick discs uses
-    Frankel+2018 Eq.4, separated at 8 Gyr. The bulge matches the distribution
-    in Fig.7 of Bovy+19 but accounts for sample's bias.
+def draw_lookback_times(size, component="thin_disc", tm=12*u.Gyr, tsfr=6.8*u.Gyr):
+    """Inverse CDF sampling of lookback times. Thin and thick discs uses Frankel+2018 Eq.4,
+    separated at 8 Gyr. The bulge matches the distribution in Fig.7 of Bovy+19 but accounts for sample's bias.
 
     Parameters
     ----------
@@ -31,15 +29,12 @@ def draw_lookback_times(size, component="thin_disc", tm=12*u.Gyr,
     """
     if component == "thin_disc":
         U = np.random.rand(size)
-        norm = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value),
-                        0, 8)[0]
+        norm = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value), 0, 8)[0]
         tau = tsfr * np.log((U * np.exp(tm / tsfr)) / (norm * tsfr.value) + 1)
     elif component == "thick_disc":
         U = np.random.rand(size)
-        norm = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value),
-                        8, 12)[0]
-        tau = tsfr * np.log((U * np.exp(tm / tsfr)) / (norm * tsfr.value)
-                            + np.exp(8 * u.Gyr / tsfr))
+        norm = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value), 8, 12)[0]
+        tau = tsfr * np.log((U * np.exp(tm / tsfr)) / (norm * tsfr.value) + np.exp(8 * u.Gyr / tsfr))
     elif component == "bulge":
         tau = beta.rvs(a=2, b=3, loc=6, scale=6, size=size) * u.Gyr
     return tau
@@ -91,8 +86,7 @@ def draw_heights(size, z_d=0.3*u.kpc):
 
 def get_metallicity(R, tau, tm=12*u.Gyr, Fm=-1, gradient=-0.075/u.kpc,
                     Rnow=8.7*u.kpc, gamma=0.3, zsun=0.0142):
-    """Convert radius and time to metallicity using Frankel+2018 Eq.7 and
-    Bertelli+1994 Eq.9
+    """Convert radius and time to metallicity using Frankel+2018 Eq.7 and Bertelli+1994 Eq.9
 
     Parameters
     ----------
@@ -146,10 +140,8 @@ def distance_from_earth(R, z, theta, Rsun=8.2*u.kpc):
 
 
 def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
-                masses=[2.585e10, 2.585e10, 0.91e10]*u.Msun,
-                tm=12 * u.Gyr, tsfr=6.8 * u.Gyr, alpha=0.3,
-                Fm=-1, gradient=-0.075 / u.kpc,
-                Rnow=8.7 * u.kpc, gamma=0.3, zsun=0.0142, Rsun=8.2 * u.kpc,
+                masses=[2.585e10, 2.585e10, 0.91e10]*u.Msun, tm=12 * u.Gyr, tsfr=6.8 * u.Gyr, alpha=0.3,
+                Fm=-1, gradient=-0.075 / u.kpc, Rnow=8.7 * u.kpc, gamma=0.3, zsun=0.0142, Rsun=8.2 * u.kpc,
                 ret_pos=False, lookback=True):
     """Draw a sample of birth times, distances and metallicities from a Milky
     Way model.
@@ -158,6 +150,10 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
     ----------
     n_binaries : `int`
         Number of binaries to simulate
+    components : `list of strings`
+        Which components to include: any from 'thin_disc', 'thick_disc' and 'bulge'.
+    masses : `list of floats`
+        Corresponding masses to `components` and so must have the same length.
     tm : `float`, optional
         Maximum lookback time, by default 12*u.Gyr
     tsfr : `float`, optional
@@ -179,8 +175,7 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
     ret_pos : bool, optional
         Whether to return full positions or just distance, by default False
     lookback : bool, optional
-        Whether to return lookback time (uses birth time if False), by default
-        True
+        Whether to return lookback time (uses birth time if False), by default True
 
     Returns
     -------
@@ -193,10 +188,11 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
     pos : `tuple`
         Positions (R, z, theta), returned if ``ret_pos=True``
     """
-
+    # work out the weight to assign to each component
     total_mass = np.sum(masses)
     mass_fractions = np.divide(masses, total_mass)
 
+    # convert these weights to a number of binaries
     sizes = np.zeros(len(mass_fractions)).astype(int)
     for i in range(len(components) - 1):
         sizes[i] = np.round(mass_fractions[i] * n_binaries)
@@ -205,6 +201,8 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
     tau = [None for i in range(len(components))]
     R = [None for i in range(len(components))]
     z = [None for i in range(len(components))]
+
+    # go through each component and get lookback time, radius and height
     for i, com in enumerate(components):
         tau[i] = draw_lookback_times(sizes[i], tm=tm, tsfr=tsfr, component=com)
 
@@ -220,18 +218,25 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
 
         z[i] = draw_heights(sizes[i], z_d=scale_height)
 
+    # combine the samples
     tau = np.concatenate(tau)
     R = np.concatenate(R)
     z = np.concatenate(z)
 
-    Z = get_metallicity(R, tau, tm=tm, Fm=Fm, gradient=gradient, Rnow=Rnow,
-                        gamma=gamma, zsun=zsun)
+    # compute the metallicity given the other values
+    Z = get_metallicity(R, tau, tm=tm, Fm=Fm, gradient=gradient, Rnow=Rnow, gamma=gamma, zsun=zsun)
+
+    # draw a random azimuthal angle uniformly
     theta = 2 * np.pi * np.random.rand(n_binaries)
+
+    # convert parameters to a distance from the earth
     D = distance_from_earth(R, z, theta, Rsun=Rsun)
 
+    # swap to time from start of MW if necessary
     if lookback is False:
         tau = tm - tau
 
+    # return positions as well as rest if requested
     if ret_pos:
         return tau, D, Z, (R, z, theta)
     else:
