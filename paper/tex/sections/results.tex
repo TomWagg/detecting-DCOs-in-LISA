@@ -147,7 +147,14 @@ where $\rho$ is the signal-to-noise ratio and $T_{\rm obs}$ is the LISA mission 
 
 We use Eq.~\ref{eq:chirp_mass_uncertainty} to calculate the chirp mass uncertainty for each DCO in our sample and plot it in the lower centre panel of Fig.~\ref{fig:fiducial_pdf_distributions}. We show the distribution as a CDF that is normalised to the expected number of detections to better indicate the absolute number of detections that will have well determined chirp masses. We find that approximately 10 BHBHs and BHNSs and 5 NSNSs have measurable chirp masses (as indicated by the shaded region). We emphasise that this is a pessimistic estimate due to the pessimistic nature of how we determine the eccentricity uncertainty.
 
-\subsubsection{Angular resolution}
+\subsubsection{Sky localisation}
+We quantify the sky localisation of a source by calculating its angular resolution. Since we find that all potential sources are stationary on the timescale of the LISA mission, following \citet{Mandel+2018}, we can use the timing accuracy of LISA and the effective detector baseline to calculate the angular resolution, $\sigma_{\theta}$, as
+\begin{equation}
+    \sigma_{\theta} = 16.6^\circ \left(\frac{7}{\rho}\right) \left(\frac{5 \times 10^{-4} \unit{Hz}}{f_{\rm dom}}\right) \left( \frac{2 \unit{AU}}{L} \right),
+\end{equation}
+where $\rho$ is the signal-to-noise ratio, $f_{\rm dom}$ is the harmonic frequency with the strongest signal-to-noise ratio ($f_{\rm dom} = n_{\rm dom} f_{\rm orb}$ and $n_{\rm dom} = 2$ for circular binaries) and $L$ is the effective detector baseline.
+
+We plot the angular resolution in the last panel of Fig.~\ref{fig:fiducial_pdf_distributions} as a CDF normalised to the expected detection rate of each DCO. From this plot, we see that many sources can only be resolved to a patch with an area in excess of 100 square degrees \todo{make this positive}. The size of a pencil beam for a 15m diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (approximately the angular size of the moon). Applying this to the plot shows that about 20\% of DCOs can be covered by a single pointing of SKA. We will discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
 
 \subsection{Model variations}
 \todo{This will be about how the shapes change with model variations}
