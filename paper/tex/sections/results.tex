@@ -136,7 +136,7 @@ and therefore that the chirp mass uncertainty is
 \end{equation}
 
 We calculate the frequency uncertainties using \citet{Takahashi+2002}, such that
-\begin{align}
+\begin{align}\label{eq:f_orb_unc}
     \frac{\Delta f_{\rm orb}}{f_{\rm orb}} &= 4 \sqrt{3} \cdot \frac{1}{\rho} \frac{1}{T_{\rm obs}} \frac{1}{f_{\rm orb}}, \\
     \frac{\Delta \dot{f}_{\rm orb}}{\dot{f}_{\rm orb}} &= 6 \sqrt{5} \cdot \frac{1}{\rho} \left(\frac{1}{T_{\rm obs}} \right)^2 \frac{1}{\dot{f}_{\rm orb}},
 \end{align}
@@ -154,7 +154,7 @@ We quantify the sky localisation of a source by calculating its angular resoluti
 \end{equation}
 where $\rho$ is the signal-to-noise ratio, $f_{\rm dom}$ is the harmonic frequency with the strongest signal-to-noise ratio ($f_{\rm dom} = n_{\rm dom} f_{\rm orb}$ and $n_{\rm dom} = 2$ for circular binaries) and $L$ is the effective detector baseline.
 
-We plot the angular resolution in the last panel of Fig.~\ref{fig:fiducial_pdf_distributions} as a CDF normalised to the expected detection rate of each DCO. From this plot, we see that many sources can only be resolved to a patch with an area in excess of 100 square degrees \todo{make this positive}. The size of a pencil beam for a 15m diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (approximately the angular size of the moon). Applying this to the plot shows that about 20\% of DCOs can be covered by a single pointing of SKA. We will discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
+We plot the angular resolution in the last panel of Fig.~\ref{fig:fiducial_pdf_distributions} as a CDF normalised to the expected detection rate of each DCO. From this plot, we see that the majority of sources can be resolved to an angular resolution of 10 square degrees. The size of a pencil beam for a 15m diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (which, for intuition, is approximately the angular size of the moon). Applying this to the plot shows that about 20\% of DCOs can be covered by a single pointing of SKA. We will discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
 
 \subsection{Model variations}
 \todo{This will be about how the shapes change with model variations}
