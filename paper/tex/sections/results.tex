@@ -132,7 +132,7 @@ We can invert this and instead write that the chirp mass is
 \end{equation}
 and therefore that the chirp mass uncertainty is
 \begin{equation}\label{eq:chirp_mass_uncertainty}
-    \frac{\Delta \mathcal{M}_c}{\mathcal{M}_c} = \frac{11}{5} \frac{\Delta f_{\rm orb}}{f_{\rm orb}} + \frac{3}{5} \frac{\Delta \dot{f}_{\rm orb}}{\dot{f}_{\rm orb}} + \frac{3}{5} \frac{\Delta F(e)}{F(e)}.
+    \qty( \frac{\Delta \mathcal{M}_c}{\mathcal{M}_c} )^2 = \left( \frac{11}{5} \frac{\Delta f_{\rm orb}}{f_{\rm orb}} \right)^2 + \left( \frac{3}{5} \frac{\Delta \dot{f}_{\rm orb}}{\dot{f}_{\rm orb}} \right)^2 + \left( \frac{3}{5} \frac{\Delta F(e)}{F(e)} \right)^2.
 \end{equation}
 
 We calculate the frequency uncertainties using \citet{Takahashi+2002}, such that
@@ -145,7 +145,7 @@ where $\rho$ is the signal-to-noise ratio and $T_{\rm obs}$ is the LISA mission 
     \frac{\Delta F(e)}{F(e)} = \Delta e \cdot \frac{(1256 + 1608 e^2 + 111 e^4) e}{96 + 196 e^2 - 255 e^4 - 37 e^6}.
 \end{equation}
 
-We use Eq.~\ref{eq:chirp_mass_uncertainty} to calculate the chirp mass uncertainty for each DCO in our sample and plot it in the lower centre panel of Fig.~\ref{fig:fiducial_pdf_distributions}. We show the distribution as a CDF that is normalised to the expected number of detections to better indicate the absolute number of detections that will have well determined chirp masses. We find that approximately 10 BHBHs and BHNSs and 5 NSNSs have measurable chirp masses (as indicated by the shaded region). We emphasise that this is a pessimistic estimate due to the pessimistic nature of how we determine the eccentricity uncertainty.
+We use Eq.~\ref{eq:chirp_mass_uncertainty} to calculate the chirp mass uncertainty for each DCO in our sample and plot it in the lower centre panel of Fig.~\ref{fig:fiducial_pdf_distributions}. We show the distribution as a CDF that is normalised to the expected number of detections to better indicate the absolute number of detections that will have well determined chirp masses. We find that approximately 10 BHBHs, 10 BHNSs and 5 NSNSs have measurable chirp masses (as indicated by the shaded region). We emphasise that this is a pessimistic estimate due to the pessimistic nature of how we determine the eccentricity uncertainty.
 
 \subsubsection{Sky localisation}
 We quantify the sky localisation of a source by calculating its angular resolution. Since we find that all potential sources are stationary on the timescale of the LISA mission, following \citet{Mandel+2018}, we can use the timing accuracy of LISA and the effective detector baseline to calculate the angular resolution, $\sigma_{\theta}$, as
@@ -157,4 +157,4 @@ where $\rho$ is the signal-to-noise ratio, $f_{\rm dom}$ is the harmonic frequen
 We plot the angular resolution in the last panel of Fig.~\ref{fig:fiducial_pdf_distributions} as a CDF normalised to the expected detection rate of each DCO. From this plot, we see that the majority of sources can be resolved to an angular resolution of 10 square degrees. The size of a pencil beam for a 15m diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (which, for intuition, is approximately the angular size of the moon). Applying this to the plot shows that about 20\% of DCOs can be covered by a single pointing of SKA. We will discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
 
 \subsection{Model variations}
-\todo{This will be about how the shapes change with model variations}
+\todo{This will be about how the shapes of the parameter distributions change for the different model variations}
