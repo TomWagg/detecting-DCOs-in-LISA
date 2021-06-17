@@ -6,7 +6,7 @@ We use a population of binaries recently presented in \citet{Broekgaarden+2021} 
 
 \subsubsection{Initial conditions}
 
-One million binaries are simulated for 50 metallicity bins equally spaced in log space between $Z \in [0.0001, 0.022]$, where $Z$ is the mass fraction of heavy elements. These bins span the allowed metallicities range for the original fitting formulae on which COMPAS is based \citep{Hurley+2000}. This is repeated for 19 physics variations (see Section \ref{sec:variation_assumptions}) and so in total over a billion binaries were simulated.
+One million binaries are simulated for 50 metallicity bins equally spaced in log space between $Z \in [0.0001, 0.022]$, where $Z$ is the mass fraction of heavy elements. These bins span the allowed metallicities range for the original fitting formulae on which COMPAS is based \citep{Hurley+2000}. This is repeated for \nMinusOneModels{} physics variations (see Section \ref{sec:variation_assumptions}) and so in total over a billion binaries were simulated.
 
 Each binary is sampled from initial distributions for the primary and secondary masses as well as the separation. The primary mass, that is the mass of the initially more massive star, is restricted to $m_1 \in [5, 150] \unit{M_{\odot}}$, which spans the range of interest for NS and BH formation in binary systems, and drawn from the \citet{Kroupa+2001} initial mass function (IMF), $p(m_1) \propto m_1^{-2.3}$. The secondary mass is drawn using the mass ratio of the binary, which we assume to be uniform on $[0, 1]$, therefore $p(q) = 1$ \citep[consistent e.g. with][]{Sana+2012}. We additionally restrict $m_2 \ge 0.1 \unit{M_{\odot}}$, since this is approximately the minimal mass for a main sequence star. We assume that the initial separation follows a flat in the log distribution with $p(a_i) \propto 1 / a_i$ and $a_i \in [0.01, 1000] \unit{AU}$ \citep{Opik+1924, Abt+1983}. We assume that all binaries are circular at birth to reduce the dimensions of initial parameters. Since we focus on post-interaction binaries which will have circularised during mass transfer this is a reasonable assumption and is likely not critical for predicting detection rates \citep{Hurley+2002, deMink+2015}. In addition, we apply the adaptive importance sampling algorithm STROOPWAFEL \citep{Broekgaarden+2019} to improve the yield of our sample. This algorithm increases the prevalence of target DCOs (BHBHs, BHNSs and NSNSs in this case) in the sample and assigns each a weight, $w$, which represents the probability of drawing it without STROOPWAFEL in effect.
 
@@ -38,13 +38,15 @@ We assume that kicks are isotropic in the frame of the collapsing star. We adopt
 \textit{Wind mass loss:} We follow the wind prescription from \citet{Belczynski+2008}, which was based on results from Monte Carlo radiative transfer simulation of \citet{Vink+2000, Vink+2001}. We use the wind mass loss rates from \citet{Vink+2001} for stars above $12500 \unit{K}$ and the rates from \citet{Hurley+2000} for cooler stars. Additionally, we use a separate, higher wind mass loss rate for LBV stars, since these experience eruptive mass loss in addition to the regular line-driven winds and we follow \citet{Belczynski+2008} in setting $f_{\rm LBV} = 1.5$. We also use their Wolf-Rayet-like mass loss rate for helium stars and set $f_{\rm WR} = 1$. See Team COMPAS: J. Riley et al. (in prep), Section 3 for the explicit equations.
 
 \subsubsection{Model variations} \label{sec:variation_assumptions}
-In addition to our fiducial model for the formation of DCOs, we explore 14 other models in which we change various aspects of the mass transfer, common envelope and supernova physics assumptions in order to assess the effect of their uncertainties on the overall double compact object detection rates and distributions. Each of the models varies a single physics assumption (fiducial assumptions are outlined in Section~\ref{sec:fiducial_physics}) and these are outlined in Table~\ref{tab:physics_variations}.
+In addition to our fiducial model for the formation of DCOs, we explore \nMinusOneModels{} other models in which we change various aspects of the mass transfer, common envelope, supernova and wind mass loss physics assumptions in order to assess the effect of their uncertainties on the overall double compact object detection rates and distributions. Each of the models varies a single physics assumption (fiducial assumptions are outlined in Section~\ref{sec:fiducial_physics}) and these are outlined in Table~\ref{tab:physics_variations}.
 
 Our fiducial model is labelled model \modFid{}. Models \modRangeMT{} focus on changes to the mass transfer physics assumptions. We explore the effect of fixing the mass transfer efficiency $\beta$ to a constant value, rather than allowing it to vary based on the maximum accretion rate. In models \modBetaLow{}, \modBetaMed{}, \modBetaHigh{}, in which we set the value of $\beta$ to $0.25$, $0.5$ and $0.75$ respectively. In model \modCaseBB{} we investigate the consequence of assuming that case BB mass transfer onto a neutron star or black hole is always stable rather than always unstable.
 
-Models \modRangeCE{} focus on altering the common envelope physics. We change the common envelope efficiency parameter in models \modAlphaLow{} and \modAlphaHigh{} to $\alpha = 0.5$ and $2.0$ respectively. In model \modOpt, we relax our restriction that Hertzsprung gap donor stars cannot survive common envelope events, thereby following the `optimistic' common envelope scenario.
+Models \modRangeCE{} focus on altering the common envelope physics. We change the common envelope efficiency parameter to $\alpha_{\rm CE} = 0.1, 0.5, 2.0, 10.0$ in models \modAlphaLowest{}, \modAlphaLow{}, \modAlphaHigh{} and \modAlphaHighest{} respectively. In model \modOpt{}, we relax our restriction that Hertzsprung gap donor stars cannot survive common envelope events, thereby following the `optimistic' common envelope scenario. We combine this with model \modCaseBB{} in model \modCaseBBOpt{}.
 
-Finally, in models \modRangeSN{} we consider changes related to our assumptions about supernova physics. Model \modRapid{} uses the alternate \textit{rapid} remnant mass prescription from \citet{Fryer+2012} instead of the \textit{delayed} prescription. We change the maximum neutron star mass in models \modNSLow{} and \modNSHigh{} to $2$ and $3 \unit{M_{\odot}}$ respectively to account for the range of predicted maximum neutron star masses. Model \modNoPISN{} removes the implementation of pair-instability and pulsational pair-instability supernovae. In models \modSigLow{} and \modSigLower{} we decrease the root-mean-square velocity dispersion for core-collapse supernovae to explore the effect of lower kicks. Finally, model \modNoBH{} removes the natal kick for all black holes.
+In models \modRangeSN{} we consider changes related to our assumptions about supernova physics. Model \modRapid{} uses the alternate \textit{rapid} remnant mass prescription from \citet{Fryer+2012} instead of the \textit{delayed} prescription. We change the maximum neutron star mass in models \modNSLow{} and \modNSHigh{} to $2$ and $3 \unit{M_{\odot}}$ respectively to account for the range of predicted maximum neutron star masses. Model \modNoPISN{} removes the implementation of pair-instability and pulsational pair-instability supernovae. In models \modSigLow{} and \modSigLower{} we decrease the root-mean-square velocity dispersion for core-collapse supernovae to explore the effect of lower kicks. Lastly, model \modNoBH{} removes the natal kick for all black holes.
+
+Finally, in models \modRangeML{} we investigate the effect of changing our assumption about wind mass loss rates, specifically for Wolf-Rayet winds. We vary $f_{\rm WR}$ to $0.1$ and $5.0$ in models \modWRLow{} and \modWRHigh{} respectively. These values approximately span the current range of possible Wolf-Rayet wind efficiencies suggested from observations (e.g. \citet{Vink+2017}, \citet{Hamann+2019}, \citet{Shenar+2019}, \citet{Miller-Jones+2021} and van Son et al. (in prep)).
 
 \begin{table}[htb]
     \centering
@@ -58,9 +60,12 @@ Finally, in models \modRangeSN{} we consider changes related to our assumptions 
         \modBetaMed & Fixed mass transfer efficiency of $\beta=0.5$  \\ 
         \modBetaHigh & Fixed mass transfer efficiency of $\beta=0.75$ \\ 
         \modCaseBB & Case BB mass transfer is always unstable \\
+        \modCaseBBOpt & Model \modCaseBB{} + Model \modOpt{} \\
         \hline
+        \modAlphaLowest & CE efficiency parameter $\alpha = 0.1$ \\
         \modAlphaLow & CE efficiency parameter $\alpha = 0.5$ \\
         \modAlphaHigh & CE efficiency parameter $\alpha = 2$   \\
+        \modAlphaHighest & CE efficiency parameter $\alpha = 10$   \\
         \modOpt & HG donor stars initiating a CE survive CE \\
         \hline
         \modRapid & Fryer rapid SN remnant mass prescription \\
@@ -70,9 +75,12 @@ Finally, in models \modRangeSN{} we consider changes related to our assumptions 
         \modSigLow & $\sigma_{\rm{rms}}^{\rm{1D}}=100 \unit{km}{s^{-1}}$ for core-collapse supernova \\  
         \modSigLower & $\sigma_{\rm{rms}}^{\rm{1D}}=30  \unit{km}{s^{-1}}$ for core-collapse supernova \\ 
         \modNoBH & Black holes receive no natal kick \\
+        \hline
+        \modWRLow & Wolf-Rayet wind factor $f_{\rm WR} = 0.1$ \\
+        \modWRHigh & Wolf-Rayet wind factor $f_{\rm WR} = 5.0$ \\
         \hline \hline
     \end{tabular}%
-    \caption{A description of the 15 binary population synthesis models used in this study. \modFid{} is the fiducial model, \modRangeMT{} change mass transfer physics, \modRangeCE{} change common envelope physics and \modRangeSN{} change supernova physics \citep[c.f.][Table 2]{Broekgaarden+2021}.}
+    \caption{A description of the \nModels{} binary population synthesis models used in this study. \modFid{} is the fiducial model, \modRangeMT{} change mass transfer physics, \modRangeCE{} change common envelope physics , \modRangeSN{} change supernova physics and \modRangeML{} change wind mass loss \citep[c.f.][Table 2]{Broekgaarden+2021}.}
     \label{tab:physics_variations}
 \end{table}
 
