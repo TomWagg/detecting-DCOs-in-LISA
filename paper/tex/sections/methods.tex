@@ -190,8 +190,6 @@ where $D_L$ is the luminosity distance to the source, $f_{\rm orb}$ is the orbit
 We use LEGWORK to calculate the signal-to-noise ratio for each binary and the package ensures that enough harmonics are computed for each binary such that the error on the gravitational wave luminosity remains below 1\%.
 
 \subsubsection{Detection rate calculation}
-For any one instance of the Milky Way, we calculate the detection rate 
-
 For each physics variation model and DCO type, we compute the total number of merging DCOs in the Milky Way today, $N_{\rm MW}$, based on the COMPAS simulation. This takes into account the true mass and IMF of the Milky Way since our simulations may each have a slightly different galaxy mass and only ever sample from massive stars rather than the full IMF. For a more in-depth discussion of this process see Appendix~\ref{app:rate_normalisation}.
 
 We determine the fraction of binaries that are detectable in each Milky Way instance by summing the adaptive importance sampling weights of the binaries that have an SNR greater than 7 and dividing by the total weights in the simulation. We multiply this fraction by the total number in the Milky Way to find a detection rate.
