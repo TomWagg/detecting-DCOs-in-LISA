@@ -241,3 +241,75 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
         return tau, D, Z, (R, z, theta)
     else:
         return tau, D, Z
+
+def simulate_simple_mw(n_binaries, ret_pos=False):
+    """Generate a simple Milky Way based on the model used in Breivik+2020.
+
+    Parameters
+    ----------
+    n_binaries : `int`
+        How many binaries to place in the Milky Way
+    """
+
+    masses = [8.9e9, 4.32e10, 1.44e10]
+    m_tot = np.sum(masses)
+    totals = np.array([int((masses[i] / m_tot * n_binaries).round(0)) for i in range(len(masses))])
+    totals[-1] = n_binaries - np.sum(totals[:-1])
+
+    tau = np.zeros(n_binaries) * u.Gyr
+    radius = np.zeros(n_binaries) * u.kpc
+    height = np.zeros(n_binaries) * u.kpc
+    Z = np.array([0.02] * totals[0:2].sum() + [0.003] * totals[-1])
+
+    cursor = 0
+    # bulge
+    tau[cursor:cursor + totals[0]] = np.random.uniform(9, 10, totals[0]) * u.Gyr
+
+    # the following code block is taken from COSMIC Github
+    # https://github.com/COSMIC-PopSynth/COSMIC/blob/v3.3.0/cosmic/MC_samp.py#L266-L287
+    r_save = []
+    z_save = []
+    # sample double exp func and then rejection sample
+    while len(r_save) < totals[0]:
+        rcut = 2.1
+        q = 0.5
+        r0 = 0.075
+        alpha = -1.8
+        r = np.random.uniform(0, 5, totals[0] * 10)
+        z = np.random.uniform(0, 3, totals[0] * 10)
+        prob = np.random.uniform(0, 1, totals[0] * 10)
+        sample_func = np.exp(-(r**2 + (z / q)**2) / rcut**2)
+        actual_func = (1 + np.sqrt((r**2 + (z / q)**2)) / r0)**(alpha) * sample_func
+        indSave, = np.where(prob < actual_func)
+        for ii in indSave:
+            r_save.append(r[ii])
+            z_save.append(z[ii])
+    r = np.array(r_save[:totals[0]])
+    z = np.array(z_save[:totals[0]])
+    ind_pos_neg = np.random.uniform(0, 1, len(z))
+    ind_negative, = np.where(ind_pos_neg > 0.5)
+    z[ind_negative] = -z[ind_negative]
+
+    radius[cursor:cursor + totals[0]] = r * u.kpc
+    height[cursor:cursor + totals[0]] = z * u.kpc
+
+    # thin disc
+    cursor += totals[0]
+    tau[cursor:cursor + totals[1]] = np.random.uniform(0, 10, totals[1]) * u.Gyr
+    radius[cursor:cursor + totals[1]] = - 2.6 * u.kpc * np.log10(1.0 - np.random.uniform(0, 1, totals[1]))
+    height[cursor:cursor + totals[1]] = draw_heights(totals[1], 0.3 * u.kpc)
+
+    # thick disc
+    cursor += totals[1]
+    tau[cursor:cursor + totals[2]] = np.random.uniform(10, 11, totals[2]) * u.Gyr
+    radius[cursor:cursor + totals[2]] = - 3.31 * u.kpc * np.log10(1.0 - np.random.uniform(0, 1, totals[2]))
+    height[cursor:cursor + totals[2]] = draw_heights(totals[2], 0.9 * u.kpc)
+
+    theta = np.random.uniform(0, 2 * np.pi, n_binaries)
+
+    dist = distance_from_earth(radius, height, theta)
+
+    if ret_pos:
+        return tau, dist, Z, (radius, height, theta)
+    else:
+        return tau, dist, Z
