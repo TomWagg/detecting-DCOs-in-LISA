@@ -5,7 +5,7 @@ import getopt
 import sys
 
 from compas_processing import get_COMPAS_vars, mask_COMPAS_data
-from galaxy import simulate_mw
+from galaxy import simulate_mw, simulate_simple_mw
 import legwork as lw
 
 SNR_CUTOFF = 7
@@ -26,12 +26,13 @@ def usage():
 def main():
     # get command line arguments and exit if error
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], "hi:o:n:t:f", ["help",
+        opts, _ = getopt.getopt(sys.argv[1:], "hi:o:n:t:fs", ["help",
                                                              "input=",
                                                              "output=",
                                                              "loops=",
                                                              "binary-type=",
-                                                             "opt-flag"])
+                                                             "opt-flag",
+                                                             "simple-mw"])
     except getopt.GetoptError as err:
         print(err)
         usage()
@@ -43,6 +44,7 @@ def main():
     loops = 10
     binary_type = "BHNS"
     pessimistic = True
+    use_simple_mw = False
 
     # change defaults based on input
     for option, value in opts:
@@ -59,12 +61,13 @@ def main():
             binary_type = value
         if option in ("-f", "--opt-flag"):
             pessimistic = False
+        if option in ("-s", "--simple-mw"):
+            use_simple_mw = True
 
     # open COMPAS file
     with h5.File(input_filepath, "r") as COMPAS_file:
         # mask only required DCOs
-        dco_mask = mask_COMPAS_data(COMPAS_file, binary_type, (True, True,
-                                                               pessimistic))
+        dco_mask = mask_COMPAS_data(COMPAS_file, binary_type, (True, True, pessimistic))
 
         # get all relevant variables
         compas_m_1, compas_m_2,\
@@ -86,9 +89,8 @@ def main():
 
     # work out metallicity bins
     compas_Z_unique = np.unique(compas_Z)
-    inner_bins = np.array([compas_Z_unique[i]
-                           + (compas_Z_unique[i+1] - compas_Z_unique[i])
-                           / 2 for i in range(len(compas_Z_unique) - 1)])
+    inner_bins = np.array([compas_Z_unique[i] + (compas_Z_unique[i+1] - compas_Z_unique[i]) / 2
+                           for i in range(len(compas_Z_unique) - 1)])
     Z_bins = np.concatenate(([compas_Z_unique[0]], inner_bins,
                              [compas_Z_unique[-1]]))
 
@@ -108,8 +110,12 @@ def main():
     total_MW_weight = np.zeros(loops)
     tot_ten = 0
     for milky_way in range(loops):
-        # draw position parameters from Frankel Model
-        tau, dist, Z_unbinned = simulate_mw(MW_SIZE)
+        if not use_simple_mw:
+            # draw parameters from Frankel Model
+            tau, dist, Z_unbinned = simulate_mw(MW_SIZE)
+        else:
+            # draw parameters from simple Milky Way (following Breivik+2020)
+            tau, dist, Z_unbinned = simulate_simple_mw(MW_SIZE)
 
         # work out COMPAS limits (and limit to Z=0.022)
         min_Z_compas = np.min(compas_Z_unique)
@@ -127,8 +133,7 @@ def main():
 
         # sort by metallicity so everything matches up well
         Z_order = np.argsort(Z_unbinned)
-        tau, dist, Z_unbinned = tau[Z_order], dist[Z_order],\
-            Z_unbinned[Z_order]
+        tau, dist, Z_unbinned = tau[Z_order], dist[Z_order], Z_unbinned[Z_order]
 
         # bin the metallicities using Floor's bins
         h, _ = np.histogram(Z_unbinned, bins=Z_bins)
@@ -140,8 +145,7 @@ def main():
         for i in range(len(h)):
             if h[i] > 0:
                 same_Z = compas_Z == compas_Z_unique[i]
-                binaries[total:total + h[i]] = rng.choice(indices[same_Z],
-                                                          h[i], replace=True)
+                binaries[total:total + h[i]] = rng.choice(indices[same_Z], h[i], replace=True)
                 total += h[i]
 
         # TODO: remove this eventually
@@ -153,8 +157,7 @@ def main():
             exit("PANIC: something funky is happening with the Z bins")
 
         # mask parameters for binaries
-        m_1, m_2, a_DCO, e_DCO,\
-            t_evol, w, Z, seed = compas_m_1[binaries], compas_m_2[binaries],\
+        m_1, m_2, a_DCO, e_DCO, t_evol, w, Z, seed = compas_m_1[binaries], compas_m_2[binaries],\
             compas_a_DCO[binaries], compas_e_DCO[binaries],\
             compas_t_evol[binaries], compas_weights[binaries],\
             compas_Z[binaries], compas_seeds[binaries]
@@ -163,32 +166,23 @@ def main():
         total_MW_weight[milky_way] = np.sum(w)
 
         # work out which binaries are still inspiralling
-        t_merge = lw.evol.get_t_merge_ecc(ecc_i=e_DCO, a_i=a_DCO,
-                                          m_1=m_1, m_2=m_2)
+        t_merge = lw.evol.get_t_merge_ecc(ecc_i=e_DCO, a_i=a_DCO, m_1=m_1, m_2=m_2)
         insp = t_merge > (tau - t_evol)
 
         # trim out the merged binaries
-        m_1, m_2, a_DCO, e_DCO,\
-            t_evol, t_merge,\
-            tau, dist, Z,\
-            w, seed = m_1[insp], m_2[insp], a_DCO[insp], e_DCO[insp],\
-            t_evol[insp], t_merge[insp], tau[insp], dist[insp], Z[insp],\
-            w[insp], seed[insp]
+        m_1, m_2, a_DCO, e_DCO, t_evol, t_merge, tau, dist, Z, w, seed = m_1[insp], m_2[insp], a_DCO[insp],\
+            e_DCO[insp], t_evol[insp], t_merge[insp], tau[insp], dist[insp], Z[insp], w[insp], seed[insp]
 
         # evolve binaries to LISA
-        e_LISA, a_LISA, f_orb_LISA = lw.evol.evol_ecc(ecc_i=e_DCO, a_i=a_DCO,
-                                                      m_1=m_1, m_2=m_2,
-                                                      t_evol=tau - t_evol,
-                                                      n_step=2,
-                                                      output_vars=["ecc", "a",
-                                                                   "f_orb"])
+        e_LISA, a_LISA, f_orb_LISA = lw.evol.evol_ecc(ecc_i=e_DCO, a_i=a_DCO, m_1=m_1, m_2=m_2,
+                                                      t_evol=tau - t_evol, n_step=2,
+                                                      output_vars=["ecc", "a", "f_orb"])
         # we only care about the final state
         e_LISA = e_LISA[:, -1]
         a_LISA = a_LISA[:, -1]
         f_orb_LISA = f_orb_LISA[:, -1]
 
-        sources = lw.source.Source(m_1=m_1, m_2=m_2, ecc=e_LISA, dist=dist,
-                                   f_orb=f_orb_LISA)
+        sources = lw.source.Source(m_1=m_1, m_2=m_2, ecc=e_LISA, dist=dist, f_orb=f_orb_LISA)
         snr = sources.get_snr(verbose=True)
 
         ten_year = snr > (SNR_CUTOFF / np.sqrt(10 / 4))
