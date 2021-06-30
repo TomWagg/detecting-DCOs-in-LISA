@@ -172,7 +172,7 @@ We use the Python package \href{https://legwork.readthedocs.io/en/latest/}{LEGWO
 
 \subsubsection{Inspiral evolution}
 
-Each DCO loses orbital energy to gravitational waves throughout its lifetime. This causes the binary to shrink and circularise over time. In order to assess the detectability of a binary, we need to know its eccentricity and frequency at the time of the LISA mission. For each binary in our simulated Milky Way, we know that the time from DCO formation to today is $\tau - t_{\rm evolve}$ and that the initial eccentricity and semi-major axis are $e_{\rm DCO}$ and $a_{\rm DCO}$. We find the eccentricity of the binary at the start of the LISA mission, $e_{\rm LISA}$, by numerically integrating its time derivative \citep[][Eq. 5.13]{Peters+1964} given the initial conditions. This can be converted to the semi-major axis at the start of LISA, $a_{\rm LISA} $\citep[][Eq. 5.11]{Peters+1964}, which in turn gives the orbital frequency, $f_{\rm orb, LISA}$, by Kepler's third law.
+Each binary loses orbital energy to gravitational waves throughout its lifetime. This causes the binary to shrink and circularise over time. In order to assess the detectability of a binary, we need to know its eccentricity and frequency at the time of the LISA mission. For each binary in our simulated Milky Way, we know that the time from DCO formation to today is $\tau - t_{\rm evolve}$ and that the initial eccentricity and semi-major axis are $e_{\rm DCO}$ and $a_{\rm DCO}$. We find the eccentricity of the binary at the start of the LISA mission, $e_{\rm LISA}$, by numerically integrating its time derivative \citep[][Eq. 5.13]{Peters+1964} given the initial conditions. This can be converted to the semi-major axis at the start of LISA, $a_{\rm LISA} $\citep[][Eq. 5.11]{Peters+1964}, which in turn gives the orbital frequency, $f_{\rm orb, LISA}$, by Kepler's third law.
 
 \subsubsection{Binary detectability}
 
@@ -192,7 +192,7 @@ where $D_L$ is the luminosity distance to the source, $f_{\rm orb}$ is the orbit
 We use LEGWORK to calculate the signal-to-noise ratio for each binary and the package ensures that enough harmonics are computed for each binary such that the error on the gravitational wave luminosity remains below 1\%.
 
 \subsubsection{Detection rate calculation}
-For each physics variation model and DCO type, we compute the total number of merging DCOs in the Milky Way today, $N_{\rm MW}$, based on the COMPAS simulation. This takes into account the true mass and IMF of the Milky Way since our simulations may each have a slightly different galaxy mass and only ever sample from massive stars rather than the full IMF. For a more in-depth discussion of this process see Appendix~\ref{app:rate_normalisation}.
+For each physics variation model and DCO type, we compute the total number of merging DCOs in the Milky Way today, $N_{\rm MW}$, based on the COMPAS simulation. This takes into account the true mass and IMF of the Milky Way since our simulations may each have a slightly different galaxy mass and only ever sample from massive stars rather than the full IMF. For more details see Appendix~\ref{app:rate_normalisation}.
 
 We determine the fraction of binaries that are detectable in each Milky Way instance by summing the adaptive importance sampling weights of the binaries that have an SNR greater than 7 and dividing by the total weights in the simulation. We multiply this fraction by the total number in the Milky Way to find a detection rate.
 \begin{equation}
