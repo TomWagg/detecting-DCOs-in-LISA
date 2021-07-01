@@ -130,9 +130,9 @@
 % \end{equation}
 
 \section{Detection Rate Normalisation}\label{app:rate_normalisation}
-In this section we explain in detail the normalisation process that we refer to in Section~\ref{sec:gw_detection}. From each instance of the Milky Way that we simulate we can extract the fraction of targets that are detectable, where we define a target as one of BHBH, BHNS or NSNS that merges in a Hubble time. Note that we complete this calculation separately for each DCO type and each model variations.
+In this section we explain the normalisation process that we refer to in Section~\ref{sec:gw_detection}. From each simulated instance of the Milky Way we can extract the fraction of targets that are detectable, where we define a target as one of BHBH, BHNS or NSNS that merges in a Hubble time.
 
-We now explain how to convert the detectable fraction to a detection rate for the Milky Way. We write that the \textit{number} of detectable targets in the Milky Way is
+To convert the detectable fraction to a detection rate for the Milky Way, we write that the \textit{number} of detectable targets in the Milky Way is
 \begin{equation}\label{eq:norm_frame}
     N_{\rm detect} = f_{\rm detect} \cdot N_{\rm target, MW},
 \end{equation}
@@ -140,18 +140,18 @@ where $f_{\rm detect}$ is the fraction of targets in the instance that were dete
 \begin{equation}
     N_{\rm target, MW} = \avg{ \mathcal{R}_{\rm target} } \cdot M_{\rm SF, MW},
 \end{equation}
-where $\avg{ \mathcal{R}_{\rm target} }$ is the average number of targets formed per star forming mass and $M_{\rm SF, MW}$ is the star forming mass of the Milky Way, meaning the total mass of every star ever formed in the Milky Way. We explain how to calculate each of these terms in respective subsections below.
+where $\avg{ \mathcal{R}_{\rm target} }$ is the average number of targets formed per star forming mass and $M_{\rm SF, MW}$ is the star forming mass of the Milky Way, meaning the total mass of every star ever formed in the Milky Way.
 
 \subsection{Average target formation rate}
-Double compact object formation is strongly metallicity dependent, so we must find the average rate as the integral over metallicity
+Double compact object formation is metallicity dependent, so we find the average rate as the integral over metallicity, which is given by
 \begin{equation}\label{eq:norm_avg_target_formation}
     \avg{ \mathcal{R}_{\rm target} } = \int_{Z_{\rm min}}^{Z_{\rm max}} p_{Z} \mathcal{R}_{\rm target, Z} \dd{Z},
 \end{equation}
-where $Z_{\rm min}, Z_{\rm max}$ are the minimum and maximum sampled metallicities, $p_Z$ is the probability of forming a star at the metallicity $Z$ (which can be found using the distribution in \citealp{Frankel+2018}) and $\mathcal{R}_{\rm target, Z}$ is the number of targets formed per star forming mass.
+where $Z_{\rm min}, Z_{\rm max}$ are the minimum and maximum sampled metallicities, $p_Z$ is the probability of forming a star at the metallicity $Z$ (which can be found using the distribution in \citealp{Frankel+2018}) and $\mathcal{R}_{\rm target, Z}$ is the number of targets formed per star forming mass,
 \begin{equation}
     \mathcal{R}_{\rm target, Z} =  \frac{N_{\rm target, Z}}{ M_{\rm SF, Z} }.
 \end{equation}
-In reality, this integral is instead approximated as a sum over the metallicity bins that we use in our simulation. The number of targets in our sample at a metallicity $Z$, $N_{\rm target, Z}$, can be written simply as the sum of the targets' weights:
+In practice, this integral is instead approximated as a sum over the metallicity bins that we use in our simulation. The number of targets in our sample at a metallicity $Z$, $N_{\rm target, Z}$, can be written simply as the sum of the targets' weights:
 \begin{equation}
     N_{\rm target, Z} = \sum_{i=1}^{N_{\rm binaries, Z}} w_i \theta_{\rm target, i},
 \end{equation}
@@ -180,7 +180,7 @@ where $t_{\rm MW}$ is the age of the Milky Way, $\zeta(m)$ is the \citet{Kroupa+
 \end{equation}
 where $m_{\rm today}(m, Z, \tau)$ is the current mass of a star that was formed $\tau$ years ago at a metallicity $Z$. We calculate $m_{\rm today}(m, Z, \tau)$ by interpolating the final masses given by COMPAS for a grid of single stars over different masses and metallicities using the \citet{Fryer+2012} delayed prescription and default wind mass loss settings. We only use the final mass if more than the main sequence lifetime of the star has passed, otherwise we just use the initial mass. Since we don't know the exact metallicity of each star we use the average star forming metallicity in the Milky Way at a lookback time $\tau$ using the birth radius distribution and metallicity equation from \citet{Frankel+2018}. If we now evaluate Equation \ref{eq:m_SF_MW}, we find that the total mass of every star that has ever formed in the Milky Way is
 \begin{equation}
-    M_{\rm SF, MW} = 6.1 \pm 1.1 \times 10^{10} \unit{M_{\odot}} \cdot \frac{0.384 \unit{M_{\odot}}}{0.257 \unit{M_{\odot}}} = 9.1 \pm 1.1 \times 10^{10} \unit{M_{\odot}},
+    M_{\rm SF, MW} = (6.1 \pm 1.1) \times 10^{10} \unit{M_{\odot}} \cdot \frac{0.384 \unit{M_{\odot}}}{0.257 \unit{M_{\odot}}} = (9.1 \pm 1.1) \times 10^{10} \unit{M_{\odot}},
 \end{equation}
 an increase of approximately 50\% from the value still in stars today!
 
