@@ -81,8 +81,15 @@ The neutron star mass distribution shows that most neutron stars have low masses
 
 Both distributions have notable peaks around $1.26 \unit{M_{\odot}}$, though more strongly in the NSNS case, which are a result of the combination of two effects. Firstly, we set the remnant mass for all electron-capture supernovae to $1.26 \unit{M_\odot}$ (see Sec.~\ref{sec:fiducial_physics}) and thus this leads to a pileup when many systems are formed through ECSN. In addition, the Fryer remnant mass prescription gives a fixed fallback mass for any star with a CO core mass less than $2.5 \unit{M_\odot}$, such that many NSs are given the identical mass of $1.278 \unit{M_\odot}$ in the \textit{delayed} prescription \citep[see][Eq.~19]{Fryer+2012}. 
 
+\subsubsection{Eccentricity}
+The eccentricity distributions show that detectable BHBHs are the most likely to be highly eccentric of the three DCOs. This may seem counter-intuitive since neutron stars receive stronger natal kicks, which cause the orbit to become eccentric. However, these stronger kicks often instead result in disrupted or too-wide binaries in more weakly bound NSNSs. In contrast, BHBHs can receive strong kicks that impart high eccentricity without disrupting and thus tend to be more eccentric. This effect is compounded by the fact that we can see BHBHs at lower orbital frequencies, meaning that they have not had as much time to circularise and so still have significant eccentricity by the time of the LISA mission.
+
+An eccentricity of $e = 0.01$ is the lower bound on the measurable eccentricity with LISA proposed by \citet{Nishizawa+2016}. We find that a significant fraction of DCOs (86\% of BHBHs, 46\% of BHNSs and 86\% of NSNSs) exceed this bound. This is in contrast to several previous work that assume all DCOs are circular once they reach the LISA mission. Moreover, we find that 20\%, 8\% and 12\% of BHBHs, BHNSs and NSNSs respectively have $e > 0.3$. At this eccentricity the majority of the gravitational wave power is emitted in higher harmonics above the orbital frequency and thus the signal would appear at higher frequencies in LISA. 
+
 \subsubsection{Luminosity Distance}
-Each DCO's luminosity distance distribution peaks around $8 \unit{kpc}$ since this is the distance to the centre of the Milky Way and thus the most dense location of DCOs. There is a clear bias in each distribution for systems at lower distances since closer binaries are easier to detect. This bias is most prominent for the NSNS distribution since, on average, their lower relative masses require a smaller distance in order to be detected.
+Each DCO's luminosity distance distribution peaks around $8 \unit{kpc}$ since this is the distance to the centre of the Milky Way and thus the most dense location of DCOs. There is a bias in each distribution for systems at lower distances since closer binaries are easier to detect. This bias is most prominent for the NSNS distribution since, on average, their lower relative masses require a smaller distance in order to be detected.
+
+However, more surprisingly, we also see that the NSNS distribution extends to higher distances than the other DCOs. The reason for this is that the NSNS population has the highest fraction of ``mildly'' eccentric systems ($0.01 < e < 0.3$). The BHNS population has a much higher fraction of effectively circular systems ($e < 0.01$), which emit weaker gravitational wave compared to equivalent eccentric systems. Therefore, despite their relatively higher masses, the maximum distance at which a source is detectable is generally lower than the eccentric NSNSs and hence the distribution tends to zero at smaller distances. Conversely, the BHBH population has a higher fraction of \textit{high} eccentricity systems $e > 0.3$. Although one may naively expect that this would result in stronger signals (and so further distances), for a system to have these high eccentricities in LISA it must still be early in its evolution and thus have a low orbital frequencies. The result of this is that high eccentricity systems tend to have lower SNRs and so cannot be detected at large distances. Overall we see that the eccentricity distribution of NSNSs occupies a ``sweet spot'' where the gravitational wave power is increased compared to circular systems, but it isn't too high that the frequency is significantly impacted. This means that NSNSs can be seen at the largest distances of the three DCO types.
 
 \subsubsection{Lookback Time}
 Although when creating each mock Milky Way galaxy the lookback time is drawn independently from other parameters, and in the same way for every DCO type, the distributions are clearly different for each type of DCO. This is because for a binary to be detectable, it must have an orbital frequency within the LISA band. Therefore a binary needs to have completed most of its inspiral to be visible in the LISA band and thus detectable systems will tend to have lookback time that are close to their merger times, which \textit{are} a function of other binary parameters.
@@ -90,11 +97,6 @@ Although when creating each mock Milky Way galaxy the lookback time is drawn ind
 Since most of the DCOs are formed through common envelope events, their initial separations are relatively tight and so if a binary it given a long lookback time, it will have merged before the LISA mission. This explains the peak in each distribution at short lookback times. The later lookback times correspond to systems that are formed through channels in which mass transfer is only stable and no common envelope event occurs.
 
 The trends across the different DCO types can be explained by considering that the merger time is a function of the masses, frequency and eccentricity of th source. This dependence can be approximately written as $t_{\rm merge} \propto f_{\rm orb}^{-4} m_1^{-3} (1 - e^2)^{-7/2}$,  \citep[][Eq.~5.14]{Peters+1964}. Therefore, although NSNSs are the lowest mass systems, their relatively higher orbital frequencies means that they have the shortest merger times. This same logic implies that BHNSs should have the next shortest merger times and then BHBHs. This order is flipped due to the fact that high eccentricity results in a shorter merger time and we find that LISA detectable BHNSs are mostly circular, whilst BHBHs have a significant highly eccentric subpopulation.
-
-\subsubsection{Eccentricity}
-The eccentricity distributions show that detectable BHBHs are the most eccentric of the three DCOs. This may seem counter-intuitive since neutron stars receive stronger natal kicks, which cause the orbit to become eccentric. However, these stronger kicks often instead result in disrupted or too-wide binaries in more weakly bound NSNSs. In contrast, BHBHs can receive strong kicks that impart high eccentricity without disrupting and thus tend to be more eccentric. This effect is compounded by the fact that we can see BHBHs at lower orbital frequencies, meaning that they have not had as much time to circularise and so still have significant eccentricity by the time of the LISA mission.
-
-A significant fraction of DCOs in each population have eccentricities greater than 0.01, the lower bound on the measurable eccentricity with LISA proposed by \citet{Nishizawa+2016}, which we indicate with the shaded area. We discuss the estimation of the eccentricity uncertainty further in Section~\ref{sec:measurement_uncertainties}
 
 \subsection{Measurement Uncertainties}\label{sec:measurement_uncertainties}
 Although it is useful to investigate the underlying parameters of the detectable population, it is also important to consider what LISA will actually \textit{measure} during a detection.
@@ -113,6 +115,7 @@ In some cases, sources may only have one individually detectable harmonic, or ev
 This method provides a pessimistic estimate of the eccentricity of sources since we do not consider the benefits of any sort of matched-filter analysis or similar methods.
 
 \subsubsection{Chirp mass uncertainty}
+
 The chirp mass uncertainty can be calculated using the uncertainty on the orbital frequency, the time derivative of the orbital frequency and the eccentricity. This is because the time derivative of the orbital frequency can be written as
 \begin{equation}\label{eq:f_n_dot}
     \dot{f}_{n} = \frac{48 n}{5 \pi} \frac{(G \mathcal{M}_c)^{5/3}}{c^3} (2 \pi f_{\rm orb})^{11/3} F(e),
@@ -143,7 +146,14 @@ where $\rho$ is the signal-to-noise ratio and $T_{\rm obs}$ is the LISA mission 
     \frac{\Delta F(e)}{F(e)} = \Delta e \cdot \frac{(1256 + 1608 e^2 + 111 e^4) e}{96 + 196 e^2 - 255 e^4 - 37 e^6}.
 \end{equation}
 
-We use Eq.~\ref{eq:chirp_mass_uncertainty} to calculate the chirp mass uncertainty for each DCO in our sample and plot it in the lower centre panel of Fig.~\ref{fig:fiducial_pdf_distributions}. We show the distribution as a CDF that is normalised to the expected number of detections to better indicate the absolute number of detections that will have well determined chirp masses. We find that approximately 10 BHBHs, 10 BHNSs and 5 NSNSs have measurable chirp masses (as indicated by the shaded region). This uncertainty is generally dominated by the uncertainty on the time derivative of the frequency since most of the binaries are too early in their inspiral for LISA to measure a strong chirp.
+We use Eq.~\ref{eq:chirp_mass_uncertainty} to calculate the chirp mass uncertainty for each DCO in our sample and plot it in Fig.~\ref{fig:m_c_unc}. We find that approximately 10 BHBHs, 10 BHNSs and 5 NSNSs have measurable chirp masses (as indicated by the shaded region). This uncertainty is generally dominated by the uncertainty on the time derivative of the frequency since most of the binaries are too early in their inspiral for LISA to measure a strong chirp.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{paper/figures/chirp_mass_uncertainty_4yr.pdf}
+    \caption{Cumulative distribution function for error on the chirp mass. Colours indicate DCO type and shading shows 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). Shaded region indicates region with unmeasureable chirp mass.}
+    \label{fig:m_c_unc}
+\end{figure}
 
 \subsubsection{Sky localisation}
 We quantify the sky localisation of a source by calculating its angular resolution. Since we find that all potential sources are stationary on the timescale of the LISA mission, following \citet{Mandel+2018}, we can use the timing accuracy of LISA and the effective detector baseline to calculate the angular resolution, $\sigma_{\theta}$, as
@@ -152,7 +162,14 @@ We quantify the sky localisation of a source by calculating its angular resoluti
 \end{equation}
 where $\rho$ is the signal-to-noise ratio, $f_{\rm dom}$ is the harmonic frequency with the strongest signal-to-noise ratio ($f_{\rm dom} = n_{\rm dom} f_{\rm orb}$ and $n_{\rm dom} = 2$ for circular binaries) and $L$ is the effective detector baseline.
 
-We plot the angular resolution in the last panel of Fig.~\ref{fig:fiducial_pdf_distributions} as a CDF normalised to the expected detection rate of each DCO. From this plot, we see that the majority of sources can be resolved to an angular resolution of 10 square degrees. The size of a pencil beam for a 15m diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (which, for intuition, is approximately the angular size of the moon). Applying this to the plot shows that about 20\% of DCOs can be covered by a single pointing of SKA. We will discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
+We plot the angular resolution in Fig.~\ref{fig:ang_res}. From this plot, we see that the majority of sources can be resolved to an angular resolution of 10 square degrees. The size of a pencil beam for a 15m diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (which, for intuition, is approximately the angular size of the moon). Applying this to the plot shows that about 20\% of DCOs can be covered by a single pointing of SKA. We will discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{paper/figures/angular_resolution_4yr.pdf}
+    \caption{As Fig.~\ref{fig:m_c_unc}, but for the angular resolution.}
+    \label{fig:ang_res}
+\end{figure}
 
 \subsection{Model variations}
 \tom{This will be about how the shapes of the parameter distributions change for the different model variations. I won't detail every variation but I'll point out anything that stands out and leave the rest in the appendix plots.}
