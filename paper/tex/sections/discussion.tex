@@ -35,36 +35,6 @@ If there is more than one pulsar in the region given by the LISA sky localisatio
 
 In order to assess the efficacy of this method, we would need to know the probability that two random binary pulsars would have orbital frequencies and chirp masses close enough that one could not tell which pulsar matches the LISA detection. This would require simulating the SKA population of pulsars with a code such as PSRPOPPy to find the frequency and chirp mass distribution and thus is beyond the scope of this paper. However, the uncertainty on the orbital frequency of a binary on the detection threshold ($\rho = 7$) for a 4-year LISA mission is $2.5 \times 10^{-9} \unit{Hz}$ and $1.0 \times 10^{-9} \unit{Hz}$ for a 10-year mission (calculated using Eq.~\ref{eq:f_orb_unc}). Therefore, we expect that SKA could likely isolate the correct binary pulsar to match to a LISA detection even when several are present in the sky localisation region.
 
-\subsection{Assessing the impact of Milky Way model choices}
-The model that we use for the Milky Way adds several layers of complexity, accounting for the inside-out growth of the thin disc, using empirically informed star formation histories that are a function of time and assigning metallicities based on the position and age of binaries. In this section, we repeat our main analysis but instead apply a simpler model for the Milky Way in order to assess the effect of these added features. For this purpose, we use model for the Milky Way used in \citet{Breivik+2020} as this is representative of the models used in most previous works.
-
-Their model can be summarised as follows: the Milky Way is assumed to comprise of three components, a thin disc, a thick disc and a bulge. The spatial distributions and relative masses for these components are given in \citet{McMillan+2011}. \citet{Breivik+2020} assume constant star formation over 10 Gyr for the thin disc, a 1 Gyr burst of star formation 11 Gyr ago for the thick disc and a 1 Gyr burst of star formation 10 Gyr ago for the bulge. A major difference is that only two metallicities are used and they are assigned independent of age or position. Binaries formed in the thin disc and bulge are assumed to have a metallicity of $Z = 0.02$ and those formed in the thick disc are assumed to have $Z = 0.003$.
-
-We show this model in Fig.~\ref{fig:simple_mw} in the same form as Fig.~\ref{fig:galaxy_schematic} for ease of comparison between our models. The two main differences we can see in these plots are that the \citet{Breivik+2020} model is more centrally concentrated and only has two fixed metallicity populations.
-%In addition, though it can't be seen in these plots, the simpler prescriptions for the star formation histories mean that the overall star formation history is highly discontinuous at $\tau = 9 \unit{Gyr}$ and significantly more star formation occurs from $\tau = 9 \unit{Gyr}$ to $\tau = 11 \unit{Gyr}$.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{../figures/random_simple_galaxy.png}
-    \caption{As Fig.~\ref{fig:galaxy_schematic} (right panel), but for the Milky Way model used in \citet{Breivik+2020}.}
-    \label{fig:simple_mw}
-\end{figure}
-
-We find that when applying this simpler Milky Way model and our fiducial physics assumptions (model \modFid{}), the expected number of detections for BHBHs, BHNSs and NSNSs for a 4-year LISA mission is $39$, $39$ and $14$ respectively. Thus the BHBH and BHNS detection rates are only marginally increased from our main findings, but the NSNS detection is overestimated by nearly a factor of 2.
-
-Moreover, the distribution of parameters within the population, particularly the mass distributions, are notably disparate. By using only two fixed metallicity populations, unphysical artifacts are introduced into distribution of DCO masses (Kummer at al. (in prep)). For example, in Fig.~\ref{fig:bh_mass_simple_mw}, we show the black hole mass distribution produced by the simulation using the simple Milky Way model. Despite the fact that these KDEs use the same bandwidth as Fig.~\ref{fig:fiducial_pdf_distributions}, the distributions show many more sharp transitions, which is a result of pileups occurring at specific masses for specific metallicities. Moreover, the lack of lower metallicities systems means that higher mass systems are not formed and so we see the distributions do not include a high mass tail such as in our fiducial results.
-
-The unphysical artifacts present in the mass distributions can have far-reaching effects since the masses of DCOs affect most other parameters. The inspiral time and SNR are directly dependent on the mass, whilst the uncertainty estimates depend on the SNR. This means that the artifacts can affect the predictions for most distributions of LISA detectable populations.
-
-Overall, we find that previous studies that use Milky Way models analogous to this simpler model may significantly overestimate the LISA NSNS detection rate as well as contain unphysical artifacts in their parameter distributions.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{../figures/BH_mass_dist_simple_mw.pdf}
-    \caption{As Fig.~\ref{fig:fiducial_pdf_distributions} (top left panel), but for the Milky Way model used in \citet{Breivik+2020}.}
-    \label{fig:bh_mass_simple_mw}
-\end{figure}
-
 \subsection{Caveats}\label{sec:caveats}
 \textit{Population synthesis limitations:} As with any study involving a population synthesis code, our results rely on uncertain stellar physics and the use of approximate fitting formulae. We cannot use detailed stellar evolution codes to produce such a large sample of DCOs in a reasonable amount of time. Therefore COMPAS uses fitting formulae and approximate prescriptions based on (sometimes limited) grids of detailed models to describe the evolution of binary stars. This means that some of the finer points of evolution may be approximated but generally the final product of the stars on a population as a whole is reasonably close to the true result. In addition, much of the underlying physics is uncertain, such as the common envelope evolution and mass transfer physics. We attempt to understand the importance of these assumptions by creating many different physics variations. However, it is not reasonable to change every possible parameter (especially since many parts of the code have fixed assumptions) and therefore our results are subject to the accuracy of the assumptions made within the COMPAS code.
 

@@ -1,8 +1,8 @@
-In this section we present our main results for the detectable LISA DCO population. We find that on average, for our fiducial model, a 4-year LISA mission will detect about \BHBHFourYear{} BHBHs, \BHNSFourYear{} BHNSs and \NSNSFourYear{} NSNSs (c.f.\ Table~\ref{tab:detection_rates}). We first show the distribution of the sources together with the sensitivity curve in Section~\ref{sec:dcos_on_sc}, before exploring the variations in the detection rate over different physics variations in Section~\ref{sec:detection_rate_analysis} and the parameter distributions for detectable sources in Section~\ref{sec:fiducial_distributions}.
+In this section we present our main results for the detectable LISA DCO population in our fiducial model. We find that on average, a 4-year LISA mission will detect about \BHBHFourYear{} BHBHs, \BHNSFourYear{} BHNSs and \NSNSFourYear{} NSNSs (c.f.\ Table~\ref{tab:detection_rates}). We first show the distribution of the sources together with the sensitivity curve in Section~\ref{sec:dcos_on_sc}, before exploring the parameter distributions for detectable sources in Section~\ref{sec:fiducial_distributions} and the measurement uncertainties in Section.~\ref{sec:measurement_uncertainties}.
 
 \subsection{Distribution on the sensitivity curve}\label{sec:dcos_on_sc}
 
-\begin{figure*}[tp]
+\begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{2_dcos_on_sc.png}
     \caption{Density distribution of detectable BHBH, BHNS and NSNS binaries are shown together with the LISA sensitivity curve. In the top panel we show all systems with the LISA verification binaries over plotted (star symbols, \citealp{Kupfer+2018}). In the bottom panels we separate by type. Contours show the percentage of the population enclosed. The remaining 2\% of the population is shown as dots with a size that scales with the sampling weight. For reference we show lines where a circular binary of average mass $\avg{\mathcal{M}_c}$ would reside for a given remaining inspiral time (vertical lines) and distance (diagonal line). To highlight the role of eccentricity we further show the signal expected for an eccentric binary at 30 kpc. The coloured line in the bottom panels shows a contour that encloses 90\% of the population that is circular. See Sec.~\ref{sec:dcos_on_sc} for a discussion.}
@@ -15,59 +15,19 @@ We would expect that if a population was entirely circular, it should be bounded
 
 We plot vertical lines that give the inspiral time for a circular binary with the average chirp mass (annotated in each panel). From these lines we can understand the trend of the density distribution decreasing with increasing frequency. Sources with higher frequencies have shorter inspiral times and thus DCOs will spend less time in these regimes, meaning that more sources are detected at lower frequencies. Note that these inspiral time lines should only be used as guidelines for the population as a whole, as the inspiral time of each individual source will be a function of its mass and eccentricity. It is also evident for each DCO source that the tail of the high frequency sources is more numerous near to the Galactic centre than at short distances. This is simply because there are more sources in the galactic centre and so the chances of `catching' a binary at high frequency are better.
 
-\subsection{Detection rates}\label{sec:detection_rate_analysis}
-\tom{I will be updating this section once the other physics variations are done running. There will be a couple of new models and the current ones will have better high Z resolution.}
-We find that for our fiducial model on average, a 4-year LISA mission will detect \BHBHFourYear{} BHBHs, \BHNSFourYear{} BHNSs and \NSNSFourYear{} NSNSs. Increasing to a 10-year LISA mission length changes the number of detections to \BHBHTenYear{}, \BHNSTenYear{} and \NSNSTenYear{} respectively. In Figure~\ref{fig:detection_rates}, we show the expected number of LISA detections for each model variation and discuss the prominent trends in the following sections. We show the rates and uncertainties plotted in this figure in Table~\ref{tab:detection_rates}.
-
-\begin{figure*}[p]
-    \centering
-    \includegraphics[width=\textwidth]{3_dco_detections.pdf}
-    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 1- (solid) and 2-$\sigma$ (dotted) Poisson uncertainties. An arrow indicates that the error bar extends to zero. The left axis and grid lines show the number of detections in a 4-year LISA mission and the right axis shows an approximation of the number of detections in a 10-year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in Section~\ref{sec:fiducial_physics}. See Sec.~\ref{sec:detection_rate_analysis} for a discussion. \todo{subject to change with the updated/new models and new uncertainty estimates}}
-    \label{fig:detection_rates}
-\end{figure*}
-
-\subsubsection{BHBH detection rate trends}
-The BHBH detection rate is markedly robust across physics variations, with the expected detections in each model staying within 25\% of the fiducial rate (with the exception of model \modOpt{}). Thus even if there are changes in our understanding of the underlying physics before the LISA mission commences, the expected BHBH detection rate is unlikely to change significantly.
-
-The exception to this statement is model \modOpt{}, in which we allow Hertzsprung gap donors to survive common envelope events. A large fraction of the progenitors of BHs in this mass range expand significantly during the Hertzsprung gap phase and initiate common envelope events. Therefore, though the detectable fraction does not change significantly, the increased population of BHBHs in the Milky Way leads to this model predicting 2.5 times more detections.
-
-\subsubsection{BHNS detection rate trends}
-In contrast, the BHNS detection rate is very sensitive to changes in binary physics assumptions. Therefore, once LISA flies and we know the actual number of detections, we can compare to each model and possibly provide some constraint on binary evolution physics. There are several notable trends in the BHNS detection rate in the middle pane of Figure~\ref{fig:detection_rates}.
-
-As $\beta$ increases in models \modBetaLow{}-\modBetaHigh{}, the BHNS detection rate steadily decreases. This may seem unintuitive since a higher mass transfer efficiency should lead to more massive compact objects and thus a more detectable population. However, one must also consider that most of these DCOs are formed through a common envelope event and so retaining more of the envelope during mass transfer means that the eventual ejection of the envelope is much more difficult, thus leading to more stellar mergers and fewer detectable BHNSs \citep[e.g.][]{Kruckow+2018}.
-
-\tom{@ALL, the trend with common envelopes still confuses me, specifially, why does it not increase when $\alpha=2.0$? We never quite resolved this in the thread in zpro\_tom\_wagg with me and Lieke. I do see that the BHBH have a lot of only stable mass transfer and so reasonably are not too affected. NSNS basically only come through CE events and so sensibly are strongly affected but BHNS have $\sim 70\%$ classic channel and so should be affected strongly. But we don't see an increase with $\alpha = 2.0$. Any thoughts? (I'm leaving thinking about this for now in case it changes with the new data haha)}
-% For a similar reason, the rate is decreased when $\alpha$ is decreased in model \modAlphaLow{}, as this reduces the amount of orbital energy that is used to eject the envelope and thus leads to more stellar mergers. \todo{Why isn't the opposite true for model \modAlphaHigh{}? It seems the number of bound DCOs \textit{does} increase but the merging total decreases...?}
-
-Enforcing that case BB mass transfer is always unstable (model \modCaseBB{}) decreases the detection rate as fewer NSs are produced and thus fewer BHNSs form. This is explained in further detail in Section~\ref{sec:NSNS_detection_trends}. For the same reason as the BHBH rate, model \modOpt{} has a higher number of detections. This change is less prominent than in the BHBH case as the progenitors tend to be lower masses and initiate a CE event less frequently during the Hertzsprung gap phase. 
-
-The Fryer \textit{rapid} prescription (model \modRapid{}) leads to a higher detection rate for BHNSs because progenitors that would become black holes in the \textit{delayed} prescription, instead become neutron stars and so more BHNSs are formed instead of BHBHs. For the same reason, increasing the maximum neutron star mass (model \modNSHigh{}) increases the detection rate and the inverse is true when it is decreased (model \modNSLow{}).
-
-Finally, models \modSigLow{}-\modNoBH{} show increased detection rates since lower kicks result in fewer disrupted binaries and hence a more numerous detectable population. Following this logic it makes sense that model \modSigLower{} produces more detections than model \modSigLow{}. The model with no BH kick (\modNoBH{}) is slightly lower than model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick.
-
-\subsubsection{NSNS detection rate trends}\label{sec:NSNS_detection_trends}
-
-As $\beta$ increases the NSNS detection rate increases, the opposite trend to that seen in the BHNS rate. This is for two main reasons: firstly the ejection of a common envelope is less problematic for the less massive NSNS binaries. Moreover, the increased mass transfer efficiency means that systems that were previously below the mass necessary to become a NS can now accrete enough mass to form a NS. Although the same is true for more massive stars becoming BHs instead of NSs, due to the IMF, there is a net flux of more stars becoming NSs.
-
-There is a drastic decrease in detections for model \modCaseBB{} by nearly two orders of magnitude. This is because the majority of NSNS binaries are formed through case BB mass transfer and setting this mass transfer to be always unstable results in many of these binaries to merge before they could become NSNSs. As a result the total number of detections decreases, however, interestingly the remaining population represent more massive progenitors (that would not go through case BB mass transfer) and thus is skewed to higher masses and has a \textit{higher} detectable fraction.
-
-The vast majority of NSNSs in our sample are formed through the common envelope channel and thus changing the value of $\alpha_{\rm CE}$ has an effect on the rate. We see that decreasing $\alpha_{\rm CE}$ (model \modAlphaLow) leads to a lower rate as there is less energy available to eject the envelope and so more binaries result to stellar mergers rather than NSNSs and similarly we see an inverse trend when increasing $\alpha_{\rm CE}$ (model \modAlphaHigh).
-
-As we found in the BHNS trends, a lower value for the core-collapse supernova velocity dispersion increases the detection rate in models \modSigLow{} and \modSigLower{}, whilst changing the PISN or BH kick prescription (models \modNoPISN{} and \modNoBH{}) of course has no effect on the NSNS population.
-
 \subsection{Properties of the detectable systems}\label{sec:fiducial_distributions}
 
 In Figure~\ref{fig:fiducial_pdf_distributions}, we show the distribution of the individual parameters of the population of detectable binaries and discuss the various features in the following sections.
 
-\begin{figure*}[htbp]
+\subsubsection{Orbital Frequency}
+The orbital frequency distributions for BHBHs, BHNSs and NSNSs peak at progressively increasing frequencies. This is because a higher mass DCO at the same distance and eccentricity requires a lower frequency to produce the same signal-to-noise ratio and thus be detected. The BHBH distribution has a tail that extends to $8 \times 10^{-6} \unit{Hz}$, which is comprised of highly eccentric binaries. These systems are still detectable by LISA as the high eccentricity means that the majority of the GW signal is emitted at higher harmonics at higher frequencies that are located in the LISA band. Similar tails are not as prevalent for BHNSs and NSNSs as they do not have as many eccentric binaries.
+
+\begin{figure*}[t]
     \centering
     \includegraphics[width=\textwidth]{4_detectable_properties_4yr.pdf}
     \caption{Properties of detectable systems for a 4-year LISA mission in our fiducial model. Each panel shows a kernel density estimator for a single property, coloured by DCO type. The shaded areas show the 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). The dotted lines in the black hole mass panel show the individual primary and secondary mass distributions. See Sec.~\ref{sec:fiducial_distributions} for a discussion.}
     \label{fig:fiducial_pdf_distributions}
 \end{figure*}
-
-\subsubsection{Orbital Frequency}
-The orbital frequency distributions for BHBHs, BHNSs and NSNSs peak at progressively increasing frequencies. This is because a higher mass DCO at the same distance and eccentricity requires a lower frequency to produce the same signal-to-noise ratio and thus be detected. The BHBH distribution has a tail that extends to $8 \times 10^{-6} \unit{Hz}$, which is comprised of highly eccentric binaries. These systems are still detectable by LISA as the high eccentricity means that the majority of the GW signal is emitted at higher harmonics at higher frequencies that are located in the LISA band. Similar tails are not as prevalent for BHNSs and NSNSs as they do not have as many eccentric binaries.
 
 \subsubsection{Black Hole Mass}
 For both the BHBHs and BHNSs, the black hole mass distribution extends across relatively low masses, with $88\%$ and $90\%$ respectively below $11 \unit{M_{\odot}}$. Unlike ground-based detector, LISA is not biased to higher masses and so the mass distribution more closely follows the IMF. In addition, at the high metallicities in the Milky Way, stellar winds are much stronger and strip away much of the stellar mass before BH formation, resulting the less massive black holes. The mass distribution extends down to $2.5 \unit{M_{\odot}}$, our fiducial maximum neutron star mass, since the \citet{Fryer+2012} \textit{delayed} remnant mass prescription does not produce a mass gap between neutron stars and black holes. Indeed we expect $35\%$ and $39\%$ of detected BHBH and BHNS systems to contain a black hole in the lower mass gap. Therefore, LISA could help to confirm or rule out the existence of the lower mass gap.
@@ -170,6 +130,3 @@ We plot the angular resolution in Fig.~\ref{fig:ang_res}. From this plot, we see
     \caption{As Fig.~\ref{fig:m_c_unc}, but for the angular resolution.}
     \label{fig:ang_res}
 \end{figure}
-
-\subsection{Model variations}
-\tom{This will be about how the shapes of the parameter distributions change for the different model variations. I won't detail every variation but I'll point out anything that stands out and leave the rest in the appendix plots.}
