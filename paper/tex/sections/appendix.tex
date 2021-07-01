@@ -1,20 +1,16 @@
 \section{Population Synthesis}\label{app:pop_synth}
+
+In this section we summarise the main assumptions and settings that we use when performing population synthesis for this work. For a more general overview of every setting see \citet{Broekgaarden+2021}.
+
 \subsection{Initial conditions}
 
-Between 1 and 100 million massive binaries are simulated for 50 metallicities equally spaced in log space between $Z \in [0.0001, 0.022]$, where $Z$ is the mass fraction of heavy elements. More binaries are simulated for higher metallicities to account for the lower formation rate of DCOs. These bins span the allowed metallicity range for the original fitting formulae on which COMPAS is based \citep{Hurley+2000}. This is repeated for \nMinusOneModels{} physics variations (see Section \ref{sec:variation_assumptions}) and so in total over a billion binaries were simulated.
+We simulate between 1 and 100 million massive binaries for 50 metallicities equally spaced in log space between $Z \in [0.0001, 0.022]$, where $Z$ is the mass fraction of heavy elements. We simulate more binaries for higher metallicities to account for the lower formation rate of DCOs. These metallicities span the allowed metallicity range for the original fitting formulae on which COMPAS is based \citep{Hurley+2000}. This is repeated for \nMinusOneModels{} physics variations (see Section \ref{sec:variation_assumptions}) and so in total over two billion binaries were simulated.
 
 Each binary is sampled from initial distributions for the primary and secondary masses as well as the separation. The primary mass, that is the mass of the initially more massive star, is restricted to $m_1 \in [5, 150] \unit{M_{\odot}}$, which spans the range of interest for NS and BH formation in binary systems, and drawn from the \citet{Kroupa+2001} initial mass function (IMF), $p(m_1) \propto m_1^{-2.3}$. The secondary mass, $m_2$, is drawn using the initial mass ratio of the binary, $q \equiv m_2 / m_1$, which we assume to be uniform on $[0, 1]$, therefore $p(q) = 1$ \citep[consistent e.g.\ with][]{Sana+2012}. We additionally restrict the secondary masses $m_2 \ge 0.1 \unit{M_{\odot}}$, which is approximately the minimum mass for a main sequence star. We assume that the initial separation follows a flat in the log distribution with $p(a_i) \propto 1 / a_i$ and $a_i \in [0.01, 1000] \unit{AU}$ \citep{Opik+1924, Abt+1983}. We assume that all binary orbits are circular at birth to reduce the dimensions of initial parameters. Since we focus on post-interaction binaries which will have circularised after mass transfer this is a reasonable assumption and is likely not critical for predicting detection rates \citep{Hurley+2002, deMink+2015}.
 
 We apply the adaptive importance sampling algorithm STROOPWAFEL \citep{Broekgaarden+2019} to improve the yield of our sample. This algorithm increases the prevalence of target DCOs (BHBHs, BHNSs and NSNSs in this case) in the sample and assigns each a weight, $w$, which represents the probability of drawing it without STROOPWAFEL in effect.
 
-For each metallicity $Z$, the simulations result in a sample of binaries, each with a set of parameters
-\begin{equation}
-    \mathbf{b}_{{Z, i}} = \{m_1, m_2, a_{\rm DCO}, e_{\rm DCO}, t_{\rm evolve}, t_{\rm inspiral}, w\},
-\end{equation}
-for $i = 1, 2, \dots, N_{\rm binary}$, where $m_1$ and $m_2$ are the primary and secondary masses, $a_{\rm DCO}$ and $e_{\rm DCO}$ are the semi-major axis and eccentricity at the moment of double compact object (DCO) formation, $t_{\rm evolve}$ is the time between the binary's zero-age main sequence and DCO formation, $t_{\rm inspiral}$ is the time between DCO formation (that is immediately after the second supernova in the system) and gravitational wave merger, $w$ is the adaptive importance sampling weight assigned by STROOPWAFEL \cite[][Eq.~7]{Broekgaarden+2019}. We sample from these sets of parameters when creating synthetic galaxies.
-
 \subsection{Physical assumptions in our fiducial model}\label{sec:fiducial_physics}
-In this section we briefly summarise the main physical assumptions in our fiducial model. For more details see \citet{Broekgaarden+2021}.
 
 \textit{Stellar Evolution:} To follow the evolution of massive stars, COMPAS relies on fitting formulae by \citet{Hurley+2000} to detailed single star models by \citet{Pols+1998}. COMPAS models the evolution of stars that lose or gain mass closely following the algorithms originally described in \citet{Tout+1996} and \citet{Hurley+2002}.
 
@@ -24,15 +20,7 @@ In this section we briefly summarise the main physical assumptions in our fiduci
 
 \textit{Common Envelope:} A common envelope phase follows dynamically unstable mass transfer and we parameterise this using the $\alpha$-$\lambda$ prescription from \citet{Webbink+1984} and \citet{deKool+1990}. We assume $\alpha = 1$, such that all of the gravitational binding energy is available for the ejection of the envelope. For $\lambda$ we use the fitting formulae from \citet{Xu+2010, Xu+2010a}. We assume that any Hertzsprung gap donor stars that initiate a common envelope phase will not survive this phase due to a lack of a steep density gradient between the core and envelope \citep{Taam+2000, Ivanova+2004, Klencki+2021}. This follows the `pessimistic' common envelope scenario \citep[c.f.][]{Belczynski+2007}. We remove any binaries where the secondary immediately fills its Roche lobe upon the conclusion of the common envelope phase as we treat these as failed common envelope ejections, likely leading to a stellar merger.
 
-\textit{Supernovae:} We draw the remnant masses and natal kick magnitudes from different distributions depending on the type of supernova that occurs. For stars undergoing a general core-collapse supernova, we use the \textit{delayed} supernova remnant mass prescription from \citet{Fryer+2012}. The \textit{delayed} prescription does not reproduce the neutron star black hole mass gap and we use this as our default as it has been shown to provide a better fit for observed populations of DCOs \citep[e.g.][]{Vigna-Gomez+2018}. We draw the natal kick magnitudes from a Maxwellian velocity distribution with a one-dimensional root-mean-square velocity dispersion of $\sigma_{\rm rms}^{\rm 1D} = 265 \unit{km}{s^{-1}}$ \citep{Lyne+1994, Hobbs+2005}.
-
-We assume that stars with helium core masses between $1.6$--$2.25 \unit{M_{\odot}}$ \citep{Hurley+2002} experience electron-capture supernovae (ECSN) \citep{Nomoto+1984, Nomoto+1987, Ivanova+2008}. We set all remnant masses to $1.26 \unit{M_{\odot}}$ in this case as an approximation of the solution to Equation 8 of \citet{Timmes+1996}. For these supernovae, we set $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ \citep[e.g.][]{Pfahl+2002, Podsiadlowski+2004}.
-
-We assume that stars that undergo case BB mass transfer \citep{Dewi+2002} experience extreme stripping which leads to an ultra-stripped supernova \citep{Tauris+2013, Tauris+2015}. For these supernovae we calculate the remnant mass using the \citet{Fryer+2012} prescription and use $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ (as with ECSN).
-
-Stars with final helium core masses between $60$-$135 \unit{M_{\odot}}$ are presumed to undergo a pair-instability, or pulsational pair-instability supernova \citep[e.g.][]{Woosley+2007, Farmer+2019}. We follow the prescription from \citet{Marchant+2019} as implemented in \citep{Stevenson+2019} for these supernovae.
-
-We assume that kicks are isotropic in the frame of the collapsing star. We adopt a maximum neutron star mass of $2.5 \unit{M_{\odot}}$ \citep[e.g.][]{Kalogera+1996, Fryer+2015, Margalit+2017} for the fiducial model and change the \citet{Fryer+2012} prescription accordingly.
+\textit{Supernovae:} We draw the remnant masses and natal kick magnitudes from different distributions depending on the type of supernova that occurs. For stars undergoing a general core-collapse supernova, we use the \textit{delayed} supernova remnant mass prescription from \citet{Fryer+2012}. The \textit{delayed} prescription does not reproduce the neutron star black hole mass gap and we use this as our default as it has been shown to provide a better fit for observed populations of DCOs \citep[e.g.][]{Vigna-Gomez+2018}. We draw the natal kick magnitudes from a Maxwellian velocity distribution with a one-dimensional root-mean-square velocity dispersion of $\sigma_{\rm rms}^{\rm 1D} = 265 \unit{km}{s^{-1}}$ \citep{Lyne+1994, Hobbs+2005}. We assume that stars with helium core masses between $1.6$--$2.25 \unit{M_{\odot}}$ \citep{Hurley+2002} experience electron-capture supernovae (ECSN) \citep{Nomoto+1984, Nomoto+1987, Ivanova+2008}. We set all remnant masses to $1.26 \unit{M_{\odot}}$ in this case as an approximation of the solution to Equation 8 of \citet{Timmes+1996}. For these supernovae, we set $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ \citep[e.g.][]{Pfahl+2002, Podsiadlowski+2004}. We assume that stars that undergo case BB mass transfer \citep{Dewi+2002} experience extreme stripping which leads to an ultra-stripped supernova \citep{Tauris+2013, Tauris+2015}. For these supernovae we calculate the remnant mass using the \citet{Fryer+2012} prescription and use $\sigma_{\rm rms}^{\rm 1D} = 30 \unit{km}{s^{-1}}$ (as with ECSN). Stars with final helium core masses between $35$-$135 \unit{M_{\odot}}$ are presumed to undergo a pair-instability, or pulsational pair-instability supernova \citep[e.g.][]{Woosley+2007, Farmer+2019}. We follow the prescription from \citet{Marchant+2019} as implemented in \citep{Stevenson+2019} for these supernovae. We assume that kicks are isotropic in the frame of the collapsing star. We adopt a maximum neutron star mass of $2.5 \unit{M_{\odot}}$ \citep[e.g.][]{Kalogera+1996, Fryer+2015, Margalit+2017} for the fiducial model and change the \citet{Fryer+2012} prescription accordingly.
 
 \subsection{Model variations} \label{sec:variation_assumptions}
 In addition to our fiducial model for the formation of DCOs, we explore \nMinusOneModels{} other models in which we change various aspects of the mass transfer, common envelope, supernova and wind mass loss physics assumptions in order to assess the effect of their uncertainties on the overall double compact object detection rates and distributions. Each of the models varies a single physics assumption (fiducial assumptions are outlined in Section~\ref{sec:fiducial_physics}) and these models are outlined in Table~\ref{tab:physics_variations}.
@@ -143,8 +131,6 @@ Finally, we can substitute Equations~\ref{eq:norm_avg_target_formation} and \ref
     N_{\rm detect} = f_{\rm detect} \cdot 9.1 \times 10^{10} \unit{M_{\odot}} \cdot \sum_{Z=Z_{\rm min}}^{Z_{\rm max}} p_{Z} \qty(\sum_{i=1}^{N_{\rm binaries, Z}} w_i \theta_{\rm target, i}) \qty(\frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i)^{-1}
 \end{equation}
 
-\newpage
-
 \section{Supplementary material}
 
 \subsection{Detection rate table}
@@ -178,30 +164,32 @@ Finally, we can substitute Equations~\ref{eq:norm_avg_target_formation} and \ref
     \label{tab:detection_rates}
 \end{table*}
 
+\newpage
+
 \subsection{Physics variation cumulative distributions}
 
-\begin{figure*}[h]
+\begin{figure*}[htb]
     \centering
     \includegraphics[width=\textwidth]{variations_cdf_1_3.pdf}
     \caption{Cumulative distribution functions for the black hole mass, neutron star mass, eccentricity during the LISA mission and merger time for each DCO type and physics variation. In colour we show the fiducial populations compared to changing the mass transfer efficiency $\beta$. We additionally show the other physics variations in the background in light grey.}
     \label{fig:variations_cdf_1_3}
 \end{figure*}
 
-\begin{figure*}[h]
+\begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{variations_cdf_4_6.pdf}
     \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models using different values for $\alpha_{\rm CE}$ and changing the stability of case BB mass transfer.}
     \label{fig:variations_cdf_4_6}
 \end{figure*}
 
-\begin{figure*}[h]
+\begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{variations_cdf_7_10.pdf}
     \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models changing the maximum neutron star mass, remnant mass prescription and survivability of common envelope events initiated by Hertzsprung gap donors.}
     \label{fig:variations_cdf_7_10}
 \end{figure*}
 
-\begin{figure*}[h]
+\begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{variations_cdf_11_14.pdf}
     \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models changing the core-collapse supernova kick distributions and the presence of BH kicks and PISNs.}

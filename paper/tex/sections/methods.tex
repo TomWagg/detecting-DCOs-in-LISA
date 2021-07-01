@@ -4,6 +4,12 @@ To produce predictions for the DCOs that are detectable with LISA, we synthesise
 
 We use the grid of binary population synthesis simulations recently presented in \citet{Broekgaarden+2021} and Broekgaarden et al. (in prep). This grid of simulations is synthesised using the rapid population synthesis code \href{https://compas.science}{COMPAS} \citep{Stevenson+2017, Vigna-Gomez+2018, Stevenson+2019}. COMPAS follows the approach of the pioneering population synthesis code BSE \citep{Hurley+2000,Hurley+2002} and uses fitting formula and rapid algorithms to efficiently predict the final fate of binary systems. The code is open source and documented in the papers listed above, the online documentation\footnote{\url{https://compas.science}} and in the upcoming methods paper (Team COMPAS: J. Riley et al. (in prep)). We summarise the main assumptions and settings relevant for this work in Appendix~\ref{app:pop_synth}.
 
+The result of the simulations is a sample of binaries, which, for each metallicity $Z$, have the parameters
+\begin{equation}
+    \mathbf{b}_{{Z, i}} = \{m_1, m_2, a_{\rm DCO}, e_{\rm DCO}, t_{\rm evolve}, t_{\rm inspiral}, w\},
+\end{equation}
+for $i = 1, 2, \dots, N_{\rm binary}$, where $m_1$ and $m_2$ are the primary and secondary masses, $a_{\rm DCO}$ and $e_{\rm DCO}$ are the semi-major axis and eccentricity at the moment of double compact object (DCO) formation, $t_{\rm evolve}$ is the time between the binary's zero-age main sequence and DCO formation, $t_{\rm inspiral}$ is the time between DCO formation (that is immediately after the second supernova in the system) and gravitational wave merger, $w$ is the adaptive importance sampling weight assigned by STROOPWAFEL \cite[][Eq.~7]{Broekgaarden+2019}. We sample from these sets of parameters when creating synthetic galaxies.
+
 \subsection{Galaxy synthesis}\label{sec:galaxy_synthesis}
 
 In order to estimate a detection rate of DCOs with statistical uncertainties, we create a series of random instances of the Milky Way, each populated with a subsample drawn (with replacement) from the synthesised binaries described in Section~\ref{sec:COMPAS_explained}.
