@@ -61,47 +61,28 @@ The trends across the different DCO types can be explained by considering that t
 \subsection{Measurement Uncertainties}\label{sec:measurement_uncertainties}
 Although it is useful to investigate the underlying parameters of the detectable population, it is also important to consider what LISA will actually \textit{measure} during a detection.
 
-\subsubsection{Eccentricity uncertainty}\label{sec:ecc_unc}
-One of the main advantage of space-based gravitational wave detectors such as LISA is that systems may still have significant eccentricity during the LISA mission. Whilst also being useful as an individual quantity for learning more about sources, the uncertainty on the eccentricity also affects the uncertainty on the chirp mass and so it is important to quantify this uncertainty.
-
-We follow a method used in previous works that uses the individually detectable harmonics of sources to determine the uncertainty of the eccentricity of a source \citep[e.g.][]{Lau+2020, Korol+2021}. Eccentric sources emit at several evenly spaced harmonic frequencies, each with a different fraction of the gravitational wave power and the distribution of the power over the harmonics changes with eccentricity. Therefore, by measuring the SNR of each individual harmonic and finding the ratio of the SNR of the two most detectable harmonics that are above the detection threshold, one can determine the eccentricity. The uncertainty on the eccentricity can therefore be written as a combination of the uncertainty on the SNR of the two most detectable harmonics. In the limit of large SNRs, the eccentricity uncertainty, $\Delta e$, can be written as 
-\begin{equation}
-    \Delta e = \frac{1}{\rho_1} + \frac{1}{\rho_2},
-\end{equation}
-where $\rho_1$ and $\rho_2$ are the SNRs of the two most detectable harmonics.
-
-In some cases, sources may only have one individually detectable harmonic, or even none. In these cases one can only put a lower or upper bound on the eccentricity. For sources with only one detectable harmonic, the source is either a circular source or a source with a small enough eccentricity that most of the GW power is still concentrated in the $n = 2$ harmonic. Therefore, we can use this information to place an upper bound on the eccentricity. Conversely, sources with no detectable harmonics must be eccentric enough such that the GW power has spread over so many harmonics that no single harmonic has a significantly stronger signal. Therefore, we can use this information to place a lower bound on the eccentricity.
-
-This method provides a pessimistic estimate of the eccentricity of sources since we do not consider the benefits of any sort of matched-filter analysis or similar methods.
-
 \subsubsection{Chirp mass uncertainty}
 
-The chirp mass uncertainty can be calculated using the uncertainty on the orbital frequency, the time derivative of the orbital frequency and the eccentricity. This is because the time derivative of the orbital frequency can be written as
-\begin{equation}\label{eq:f_n_dot}
-    \dot{f}_{n} = \frac{48 n}{5 \pi} \frac{(G \mathcal{M}_c)^{5/3}}{c^3} (2 \pi f_{\rm orb})^{11/3} F(e),
+The chirp mass uncertainty is important for identifying the source of a GW signal. It is calculated using the uncertainty on the orbital frequency, the time derivative of the orbital frequency and the eccentricity. This is because the chirp mass can be written as
+\begin{equation}
+    \mathcal{M}_c = \frac{c^3}{G} \left( \frac{5 \pi}{48 n} \frac{\dot{f}_{n}}{F(e)} \right)^{3/5} \frac{1}{(2 \pi f_{\rm orb})^{11/5}},
 \end{equation}
 where $f_{\rm orb}$ is the orbital frequency, $\mathcal{M}_{c}$ is the chirp mass (defined in Eq.~\ref{eq:chirp_mass}) and $e$ is the eccentricity and
 \begin{equation}
     F(e) = \frac{1 + \frac{73}{24} e^2 + \frac{37}{96} e^4}{(1 - e^2)^{7/2}},
 \end{equation}
-is the enhancement factor of gravitational wave emission for an eccentric binary over an otherwise identical circular binary \citep[][Eq.~17]{Peters+1963}.
-
-We can invert this and instead write that the chirp mass is
-\begin{equation}
-    \mathcal{M}_c = \frac{c^3}{G} \left( \frac{5 \pi}{48 n} \frac{\dot{f}_{n}}{F(e)} \right)^{3/5} \frac{1}{(2 \pi f_{\rm orb})^{11/5}},
-\end{equation}
-and therefore that the chirp mass uncertainty is
+is the enhancement factor of gravitational wave emission for an eccentric binary over an otherwise identical circular binary \citep[][Eq.~17]{Peters+1963}. Therefore that the chirp mass uncertainty is
 \begin{equation}\label{eq:chirp_mass_uncertainty}
     \qty( \frac{\Delta \mathcal{M}_c}{\mathcal{M}_c} )^2 = \left( \frac{11}{5} \frac{\Delta f_{\rm orb}}{f_{\rm orb}} \right)^2 + \left( \frac{3}{5} \frac{\Delta \dot{f}_{\rm dom}}{\dot{f}_{\rm dom}} \right)^2 + \left( \frac{3}{5} \frac{\Delta F(e)}{F(e)} \right)^2,
 \end{equation}
-where $f_{\rm dom}$ is the harmonic frequency with the strongest SNR as this will provide the best measurement.
+where $f_{\rm dom}$ is the harmonic frequency with the strongest SNR ($f_{\rm dom} = n_{\rm dom} f_{\rm orb}$ and $n_{\rm dom} = 2$ for circular binaries) as this will provide the best measurement.
 
 We calculate the frequency uncertainties using \citet{Takahashi+2002}, such that
 \begin{align}\label{eq:f_orb_unc}
     \frac{\Delta f_{\rm orb}}{f_{\rm orb}} &= 4 \sqrt{3} \cdot \frac{1}{\rho} \frac{1}{T_{\rm obs}} \frac{1}{f_{\rm orb}}, \\
     \frac{\Delta \dot{f}_{\rm dom}}{\dot{f}_{\rm dom}} &= 6 \sqrt{5} \cdot \frac{1}{\rho} \left(\frac{1}{T_{\rm obs}} \right)^2 \frac{1}{\dot{f}_{\rm dom}},
 \end{align}
-where $\rho$ is the signal-to-noise ratio and $T_{\rm obs}$ is the LISA mission length. Then we calculate the eccentricity certainty, $\Delta e$, as discussed in Sec.~\ref{sec:ecc_unc} and propagate it so that
+where $\rho$ is the signal-to-noise ratio and $T_{\rm obs}$ is the LISA mission length. We calculate the eccentricity certainty, $\Delta e$, following the methods of \citet{Lau+2020} and \citet{Korol+2021}, which use the relative SNRs of different harmonics to work out the eccentricity. We propagate this uncertainty such that
 \begin{equation}
     \frac{\Delta F(e)}{F(e)} = \Delta e \cdot \frac{(1256 + 1608 e^2 + 111 e^4) e}{96 + 196 e^2 - 255 e^4 - 37 e^6}.
 \end{equation}
@@ -122,7 +103,7 @@ We quantify the sky localisation of a source by calculating its angular resoluti
 \end{equation}
 where $\rho$ is the signal-to-noise ratio, $f_{\rm dom}$ is the harmonic frequency with the strongest signal-to-noise ratio ($f_{\rm dom} = n_{\rm dom} f_{\rm orb}$ and $n_{\rm dom} = 2$ for circular binaries) and $L$ is the effective detector baseline.
 
-We plot the angular resolution in Fig.~\ref{fig:ang_res}. From this plot, we see that the majority of sources can be resolved to an angular resolution of 10 square degrees. The size of a pencil beam for a 15m diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (which, for intuition, is approximately the angular size of the moon). Applying this to the plot shows that about 20\% of DCOs can be covered by a single pointing of SKA. We will discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
+We plot the angular resolution in Fig.~\ref{fig:ang_res}. From this plot, we see that the majority of sources can be resolved to an angular resolution of 10 square degrees. The size of a pencil beam for a 15m diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (which, for intuition, is approximately the angular size of the moon). Applying this to the plot shows that about 10-20\% of DCOs can be covered by a single pointing of SKA. However, since these LISA sources are essentially stationary in frequency space, observations need not be limited to a single pointing. We will discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
 
 \begin{figure}[ht]
     \centering
