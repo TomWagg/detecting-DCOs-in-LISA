@@ -214,7 +214,7 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
 
         scale_height = 0.3 * u.kpc if com == "thin_disc"\
             else 0.95 * u.kpc if com == "thick_disc"\
-            else 1.5 * u.kpc
+            else 0.2 * u.kpc
 
         z[i] = draw_heights(sizes[i], z_d=scale_height)
 
