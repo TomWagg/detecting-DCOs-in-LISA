@@ -7,12 +7,11 @@ sys.path.append("../src/")
 
 from formation_channels import identify_formation_channels
 from variations import variations
-import time
 
 dt = np.dtype(float)
 dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
          ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
-         ("tau", dt), ("dist", dt), ("Z", dt), ("snr", dt), ("weight", dt),
+         ("tau", dt), ("R", dt), ("z", dt), ("theta", dt), ("Z", dt), ("snr", dt), ("weight", dt),
          ("seed", dt), ("channel", np.dtype(int)), ("m_1_ZAMS", dt),
          ("m_2_ZAMS", dt), ("MT1_case", np.dtype(int)),
          ("MT2_case", np.dtype(int)), ("a_ZAMS", dt), ("a_pre_SN2", dt),
@@ -22,7 +21,7 @@ floor_path = "/n/holystore01/LABS/berger_lab/Lab/fbroekgaarden/DATA/all_dco_lega
 
 def combine_data(dco_type, variation, simple_mw=False, runs=50):
     full_data = None
-    n_ten_year = np.array([], dtype=np.int)
+    n_detect = np.array([], dtype=np.int)
     total_weight = np.array([], dtype=np.float)
     n_runs = 0
     missing = []
@@ -39,8 +38,8 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
 
             # open file and copy contents
             with h5.File(fname, "r") as f:
-                n_curr = f["simulation"].attrs["n_ten_year"].astype(np.int)
-                n_ten_year = np.concatenate((n_ten_year, n_curr))
+                n_curr = f["simulation"].attrs["n_detect"].astype(np.int)
+                n_detect = np.concatenate((n_detect, n_curr))
 
                 total_temp = f["simulation"].attrs["total_MW_weight"]
                 total_weight = np.concatenate((total_weight, total_temp))
@@ -65,8 +64,7 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
             model = "fiducial"
         floor_file = floor_path + "{}/COMPASOutputCombined.h5".format(model)
         with h5.File(floor_file, "r") as floor:
-            channels = identify_formation_channels(full_data["seed"],
-                                                    floor)
+            channels = identify_formation_channels(full_data["seed"], floor)
 
             dco_seeds = floor["doubleCompactObjects"]["seed"][...].squeeze()
 
@@ -94,13 +92,13 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
         else:
             fname = "../data/{}_{}_all.h5".format(dco_type, variations[variation]["file"])
         with h5.File(fname, "w") as file:
-            file.create_dataset("simulation", (np.sum(n_ten_year),), dtype=dtype)
+            file.create_dataset("simulation", (np.sum(n_detect),), dtype=dtype)
             for col, types in dtype:
                 if col in supp_data.keys():
                     file["simulation"][col] = supp_data[col]
                 else:
                     file["simulation"][col] = full_data[col]
-            file["simulation"].attrs["n_ten_year"] = n_ten_year
+            file["simulation"].attrs["n_detect"] = n_detect
             file["simulation"].attrs["total_MW_weight"] = total_weight
     # otherwise make sure that the user knows no data is present
     else:
