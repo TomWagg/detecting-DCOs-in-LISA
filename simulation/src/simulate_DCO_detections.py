@@ -102,20 +102,21 @@ def main():
     dt = np.dtype(float)
     dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
              ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
-             ("tau", dt), ("dist", dt), ("Z", dt), ("snr", dt), ("weight", dt),
+             ("tau", dt), ("Z", dt), ("R", dt), ("z", dt), ("theta", dt), ("snr", dt), ("weight", dt),
              ("seed", dt)]
     to_file = np.zeros(shape=(loops * MAX_HIGH,), dtype=dtype)
 
-    n_ten_year_list = np.zeros(loops)
+    n_detect_list = np.zeros(loops)
     total_MW_weight = np.zeros(loops)
-    tot_ten = 0
+    tot_detect = 0
     for milky_way in range(loops):
         if not use_simple_mw:
             # draw parameters from Frankel Model
-            tau, dist, Z_unbinned = simulate_mw(MW_SIZE)
+            tau, dist, Z_unbinned, pos = simulate_mw(MW_SIZE)
         else:
             # draw parameters from simple Milky Way (following Breivik+2020)
-            tau, dist, Z_unbinned = simulate_simple_mw(MW_SIZE)
+            tau, dist, Z_unbinned, pos = simulate_simple_mw(MW_SIZE)
+        R, z, theta = pos
 
         # work out COMPAS limits (and limit to Z=0.022)
         min_Z_compas = np.min(compas_Z_unique)
@@ -133,7 +134,8 @@ def main():
 
         # sort by metallicity so everything matches up well
         Z_order = np.argsort(Z_unbinned)
-        tau, dist, Z_unbinned = tau[Z_order], dist[Z_order], Z_unbinned[Z_order]
+        tau, dist, Z_unbinned, R, z, theta = tau[Z_order], dist[Z_order], Z_unbinned[Z_order],\
+            R[Z_order], z[Z_order], theta[Z_order]
 
         # bin the metallicities using Floor's bins
         h, _ = np.histogram(Z_unbinned, bins=Z_bins)
@@ -170,8 +172,9 @@ def main():
         insp = t_merge > (tau - t_evol)
 
         # trim out the merged binaries
-        m_1, m_2, a_DCO, e_DCO, t_evol, t_merge, tau, dist, Z, w, seed = m_1[insp], m_2[insp], a_DCO[insp],\
-            e_DCO[insp], t_evol[insp], t_merge[insp], tau[insp], dist[insp], Z[insp], w[insp], seed[insp]
+        m_1, m_2, a_DCO, e_DCO, t_evol, t_merge, tau, dist, Z, R, z, theta, w, seed = m_1[insp], m_2[insp],\
+            a_DCO[insp], e_DCO[insp], t_evol[insp], t_merge[insp], tau[insp], dist[insp], Z[insp], R[insp],\
+            z[insp], theta[insp], w[insp], seed[insp]
 
         # evolve binaries to LISA
         e_LISA, a_LISA, f_orb_LISA = lw.evol.evol_ecc(ecc_i=e_DCO, a_i=a_DCO, m_1=m_1, m_2=m_2,
@@ -185,34 +188,36 @@ def main():
         sources = lw.source.Source(m_1=m_1, m_2=m_2, ecc=e_LISA, dist=dist, f_orb=f_orb_LISA)
         snr = sources.get_snr(verbose=True)
 
-        ten_year = snr > (SNR_CUTOFF / np.sqrt(10 / 4))
-        n_ten_year = len(snr[ten_year])
-        n_ten_year_list[milky_way] = n_ten_year
+        detectable = snr > SNR_CUTOFF
+        n_detect = len(snr[detectable])
+        n_detect_list[milky_way] = n_detect
 
         # store parameters in temporary variable
-        to_file["m_1"][tot_ten:tot_ten + n_ten_year] = m_1[ten_year]
-        to_file["m_2"][tot_ten:tot_ten + n_ten_year] = m_2[ten_year]
-        to_file["a_DCO"][tot_ten:tot_ten + n_ten_year] = a_DCO[ten_year]
-        to_file["e_DCO"][tot_ten:tot_ten + n_ten_year] = e_DCO[ten_year]
-        to_file["a_LISA"][tot_ten:tot_ten + n_ten_year] = a_LISA[ten_year]
-        to_file["e_LISA"][tot_ten:tot_ten + n_ten_year] = e_LISA[ten_year]
-        to_file["t_evol"][tot_ten:tot_ten + n_ten_year] = t_evol[ten_year]
-        to_file["tau"][tot_ten:tot_ten + n_ten_year] = tau[ten_year]
-        to_file["dist"][tot_ten:tot_ten + n_ten_year] = dist[ten_year]
-        to_file["Z"][tot_ten:tot_ten + n_ten_year] = Z[ten_year]
-        to_file["snr"][tot_ten:tot_ten + n_ten_year] = snr[ten_year]
-        to_file["weight"][tot_ten:tot_ten + n_ten_year] = w[ten_year]
-        to_file["seed"][tot_ten:tot_ten + n_ten_year] = seed[ten_year]
+        to_file["m_1"][tot_detect:tot_detect + n_detect] = m_1[detectable]
+        to_file["m_2"][tot_detect:tot_detect + n_detect] = m_2[detectable]
+        to_file["a_DCO"][tot_detect:tot_detect + n_detect] = a_DCO[detectable]
+        to_file["e_DCO"][tot_detect:tot_detect + n_detect] = e_DCO[detectable]
+        to_file["a_LISA"][tot_detect:tot_detect + n_detect] = a_LISA[detectable]
+        to_file["e_LISA"][tot_detect:tot_detect + n_detect] = e_LISA[detectable]
+        to_file["t_evol"][tot_detect:tot_detect + n_detect] = t_evol[detectable]
+        to_file["tau"][tot_detect:tot_detect + n_detect] = tau[detectable]
+        to_file["R"][tot_detect:tot_detect + n_detect] = R[detectable]
+        to_file["z"][tot_detect:tot_detect + n_detect] = z[detectable]
+        to_file["theta"][tot_detect:tot_detect + n_detect] = theta[detectable]
+        to_file["Z"][tot_detect:tot_detect + n_detect] = Z[detectable]
+        to_file["snr"][tot_detect:tot_detect + n_detect] = snr[detectable]
+        to_file["weight"][tot_detect:tot_detect + n_detect] = w[detectable]
+        to_file["seed"][tot_detect:tot_detect + n_detect] = seed[detectable]
 
-        tot_ten += n_ten_year
+        tot_detect += n_detect
 
-    to_file = to_file[:tot_ten]
+    to_file = to_file[:tot_detect]
 
     # store all parameters in h5 file
     with h5.File(output_filepath, "w") as file:
-        file.create_dataset("simulation", (tot_ten,), dtype=dtype)
+        file.create_dataset("simulation", (tot_detect,), dtype=dtype)
         file["simulation"][...] = to_file
-        file["simulation"].attrs["n_ten_year"] = n_ten_year_list
+        file["simulation"].attrs["n_detect"] = n_detect_list
         file["simulation"].attrs["total_MW_weight"] = total_MW_weight
 
 
