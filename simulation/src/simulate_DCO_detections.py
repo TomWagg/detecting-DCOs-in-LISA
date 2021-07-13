@@ -112,10 +112,10 @@ def main():
     for milky_way in range(loops):
         if not use_simple_mw:
             # draw parameters from Frankel Model
-            tau, dist, Z_unbinned, pos = simulate_mw(MW_SIZE)
+            tau, dist, Z_unbinned, pos = simulate_mw(MW_SIZE, ret_pos=True)
         else:
             # draw parameters from simple Milky Way (following Breivik+2020)
-            tau, dist, Z_unbinned, pos = simulate_simple_mw(MW_SIZE)
+            tau, dist, Z_unbinned, pos = simulate_simple_mw(MW_SIZE, ret_pos=True)
         R, z, theta = pos
 
         # work out COMPAS limits (and limit to Z=0.022)
