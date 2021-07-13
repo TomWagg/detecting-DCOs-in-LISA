@@ -24,7 +24,9 @@ def create_file(dco_type, file, simple_mw=False):
 
     main_line = 'python /n/home09/twagg/detecting-DCOs-in-LISA/simulation/src/simulate_DCO_detections.py -i /n/holystore01/LABS/berger_lab/Lab/fbroekgaarden/DATA/all_dco_legacy_CEbug_fix/{1}/COMPASOutputCombined.h5 -o /n/home09/twagg/detecting-DCOs-in-LISA/simulation/output/{0}_{1}_'.format(dco_type, file) + '"${SLURM_ARRAY_TASK_ID}".h5 -n 50 -t ' + '{}\n'.format(dco_type)
     if file == "optimistic":
-        main_line = main_line.replace("\n", " --opt-flag\n")
+        main_line = main_line.replace("\n", " --opt-flag\n").replace("all_dco_legacy_CEbug_fix/optimistic", "all_dco_legacy_CEbug_fix/fiducial")
+    if file == "unstableCaseBB_opt":
+        main_line = main_line.replace("\n", " --opt-flag\n").replace("all_dco_legacy_CEbug_fix/unstableCaseBB_opt", "all_dco_legacy_CEbug_fix/unstableCaseBB")
     if simple_mw:
         main_line = 'python /n/home09/twagg/detecting-DCOs-in-LISA/simulation/src/simulate_DCO_detections.py -i /n/holystore01/LABS/berger_lab/Lab/fbroekgaarden/DATA/all_dco_legacy_CEbug_fix/{1}/COMPASOutputCombined.h5 -o /n/home09/twagg/detecting-DCOs-in-LISA/simulation/output/simple_mw_{0}_{1}_'.format(dco_type, file) + '"${SLURM_ARRAY_TASK_ID}".h5 -n 50 --simple-mw -t ' + '{}\n'.format(dco_type)
         script_file = script_file.replace(".sh", "_simplemw.sh")
@@ -36,6 +38,6 @@ def create_file(dco_type, file, simple_mw=False):
 
 
 for dco_type in ["BHBH", "BHNS", "NSNS"]:
-    create_file(dco_type, variations[0]["file"], simple_mw=True)
+    create_file(dco_type, "fiducial", simple_mw=True)
     for v in variations:
         create_file(dco_type, v["file"])
