@@ -64,6 +64,8 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
         model = variations[variation]["file"]
         if model == "optimistic":
             model = "fiducial"
+        elif model == "unstableCaseBB_opt":
+            model = "unstableCaseBB"
         floor_file = floor_path + "{}/COMPASOutputCombined.h5".format(model)
         with h5.File(floor_file, "r") as floor:
             channels = identify_formation_channels(full_data["seed"], floor)
@@ -112,7 +114,7 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
 
 # loop over all binary types and physics variations
 for dco_type in ["BHBH", "BHNS", "NSNS"]:
-    for variation in range(len(variations)):
+    for variation in [0, 1, 2, 3, 4, 5, 7, 10, 11, 12, 13, 14, 15, 16, 18]:
         combine_data(dco_type, variation)
         # if variation == 0:
         #     combine_data(dco_type, variation, simple_mw=True)
