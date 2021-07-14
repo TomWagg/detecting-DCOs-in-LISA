@@ -89,9 +89,8 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
                 "dist": np.zeros(len(channels))
             }
 
-        if not simple_mw:
-            supp_data["dist"] = distance_from_earth(full_data["R"] * u.kpc, full_data["z"] * u.kpc,
-                                                    full_data["theta"]).to(u.kpc).value
+        supp_data["dist"] = distance_from_earth(full_data["R"] * u.kpc, full_data["z"] * u.kpc,
+                                                full_data["theta"]).to(u.kpc).value
 
         # write the rest of the files to a single file
         if simple_mw:
@@ -115,5 +114,5 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
 for dco_type in ["BHBH", "BHNS", "NSNS"]:
     for variation in range(len(variations)):
         combine_data(dco_type, variation)
-        if variation == 0:
-            combine_data(dco_type, variation, simple_mw=True)
+        # if variation == 0:
+        #     combine_data(dco_type, variation, simple_mw=True)
