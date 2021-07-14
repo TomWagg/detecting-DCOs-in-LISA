@@ -85,11 +85,12 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
                 "kick_1": floor["doubleCompactObjects"]["drawnKick1"][...].squeeze()[seeds_index],
                 "kick_2": floor["doubleCompactObjects"]["drawnKick2"][...].squeeze()[seeds_index],
                 "e_pre_SN2": floor["doubleCompactObjects"]["eccentricityPrior2ndSN"][...].squeeze()[seeds_index],
-                "channel": channels
+                "channel": channels,
+                "dist": np.zeros(len(channels))
             }
 
         if not simple_mw:
-            full_data["dist"] = distance_from_earth(full_data["R"] * u.kpc, full_data["z"] * u.kpc,
+            supp_data["dist"] = distance_from_earth(full_data["R"] * u.kpc, full_data["z"] * u.kpc,
                                                     full_data["theta"]).to(u.kpc).value
 
         # write the rest of the files to a single file
