@@ -87,7 +87,8 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
                 "channel": channels
             }
 
-        full_data["dist"] = distance_from_earth(full_data["R"], full_data["z"], full_data["theta"])
+        if not simple_mw:
+            full_data["dist"] = distance_from_earth(full_data["R"], full_data["z"], full_data["theta"])
 
         # write the rest of the files to a single file
         if simple_mw:
