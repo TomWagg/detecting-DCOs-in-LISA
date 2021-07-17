@@ -2,9 +2,67 @@ import numpy as np
 from scipy.stats import gaussian_kde
 from scipy.interpolate import interp1d
 
+def kde(variable, weights, bw_adjust=1.0, x_min=None, x_max=None, x_count=200, x_vals=None,
+        lower_bound=None, upper_bound=None, verbose=False):
+    # if a range of x values at which to evaluate have not been provided then create one
+    if x_vals is None:
+        if x_min is None:
+            x_min = np.min(variable)
+        if x_max is None:
+            x_max = np.max(variable)
+        x_vals = np.linspace(x_min, x_max, x_count)
+    else:
+        x_min, x_max = x_vals[0], x_vals[-1]
 
-def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None,
-                     bootstraps=200, x_count=500, x_min=None, x_max=None, log_scale=(False, False),
+    # calculate the covariance factor using Scott's rule
+    cv = (1 / np.sum((weights / np.sum(weights))**2))**(-1./(1+4))
+
+    # work out the bandwidth for the original data
+    bw = cv * np.std(variable)
+
+    # check if either bound is surpassed given this bandwidth
+    exceeds_lower_bound = lower_bound is not None and np.min(variable) < lower_bound + bw
+    exceeds_upper_bound = upper_bound is not None and np.max(variable) > upper_bound - bw
+
+    # mirror data as necessary and adjust height based on how much added
+    if exceeds_lower_bound and exceeds_upper_bound:
+        if verbose:
+            print("exceeds both bounds")
+        variable = np.concatenate((2 * lower_bound - variable, variable, 2 * upper_bound - variable))
+        weights = np.repeat(weights, 3)
+        height_adjust = 3
+    elif exceeds_lower_bound:
+        if verbose:
+            print("exceeds lower bounds")
+        variable = np.concatenate((variable, 2 * lower_bound - variable))
+        weights = np.concatenate((weights, weights))
+        height_adjust = 2
+    elif exceeds_upper_bound:
+        if verbose:
+            print("exceeds upper bounds")
+        variable = np.concatenate((variable, 2 * upper_bound - variable))
+        weights = np.concatenate((weights, weights))
+        height_adjust = 2
+    else:
+        height_adjust = 1
+
+    # calculate the KDE
+    kde = gaussian_kde(variable, weights=weights)
+
+    # set the bandwidth so it is equal to the original
+    kde.set_bandwidth(bw / np.std(variable))
+
+    # adjust as desired
+    if bw_adjust is not None:
+        kde.set_bandwidth(kde.factor * bw_adjust)
+
+    # evaluate kde
+    kde_vals = kde.evaluate(x_vals) * height_adjust
+
+    return x_vals, kde_vals
+
+def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None, lower_bound=None, upper_bound=None,
+                     bootstraps=200, x_min=None, x_max=None, x_count=200, log_scale=(False, False),
                      color="tab:blue", label=None, **kwargs):
     """Create a bootstrapped weighted KDE plot.
 
@@ -70,13 +128,8 @@ def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None,
         # sample indices
         boot_index = np.random.choice(indices, size=len(indices), replace=True)
 
-        # find kde of sample and adjust bandwidth if need be
-        kde = gaussian_kde(loop_variable[boot_index], weights=loop_weights[boot_index])
-        if bw_adjust is not None:
-            kde.set_bandwidth(kde.factor * bw_adjust)
-
-        # evaluate kde
-        kde_vals[i] = kde.evaluate(x_vals)
+        _, kde_vals[i] = kde(loop_variable[boot_index], weights=loop_weights[boot_index], x_vals=x_vals,
+                             lower_bound=lower_bound, upper_bound=upper_bound, bw_adjust=bw_adjust)
 
     # calculate 1- and 2- sigma percentiles
     percentiles = np.percentile(kde_vals, [15.89, 84.1, 2.27, 97.725], axis=0)
@@ -141,8 +194,7 @@ def bootstrapped_ecdf(variable, weights, seeds, ax,
 
     # decide on x values to evaluate at (based on log scaling)
     if log_scale[0]:
-        x_vals = np.logspace(np.log10(np.min(variable)),
-                             np.log10(np.max(variable)), x_count)
+        x_vals = np.logspace(np.log10(np.min(variable)), np.log10(np.max(variable)), x_count)
     else:
         x_vals = np.linspace(np.min(variable), np.max(variable), x_count)
 

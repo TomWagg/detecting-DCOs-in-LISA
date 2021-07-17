@@ -45,7 +45,7 @@ variations = np.array(
         {
             "file": "unstableCaseBB_opt",
             "short": "F",
-            "med": "unstable\ncase BB optimistic",
+            "med": "E+K",
             "long": "Unstable case BB mass transfer with optimistic CE scenario",
             "colour": plt.get_cmap("tab20")(2)
         },
