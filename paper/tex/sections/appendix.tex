@@ -134,9 +134,9 @@ Finally, we can substitute Equations~\ref{eq:norm_avg_target_formation} and \ref
 \section{Supplementary material}
 
 \subsection{Detection rate table}
-\begin{table*}[htb]
+\begin{table}[htb]
     \centering
-    \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the 15 different model variations and each DCO type. Each value shows the median and the 90\% confidence interval.}
+    \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the \nModels{} different model variations and each DCO type. Each value shows the mean and the 90\% confidence interval.}
     \begin{tabular}{c|lll|lll}
         \hline
         \multirow{2}{*}{Model} & \multicolumn{3}{c|}{LISA (4 year)} & \multicolumn{3}{c}{LISA (10 year)} \\ \cline{2-7}
@@ -162,67 +162,23 @@ Finally, we can substitute Equations~\ref{eq:norm_avg_target_formation} and \ref
         \hline
     \end{tabular}
     \label{tab:detection_rates}
-\end{table*}
+\end{table}
 
 \subsection{Distribution of eccentric sources on sensitivity curve}
-\begin{figure*}[hb]
+\begin{figure}[hb]
     \centering
     \includegraphics[width=\textwidth]{dcos_on_sc_eccentric_colours.png}
     \caption{As the bottom panels of Fig.~\ref{fig:dcos_on_sc}, but without the density distributions and scatter points are coloured by their eccentricity. We show eccentric sources are located in an offshoot below the $30 \unit{kpc}$ around $2 \unit{mHz}$.}
     \label{fig:dcos_on_sc_ecc_col}
-\end{figure*}
-
-\newpage
-
-\subsection{Physics variation cumulative distributions}
-
-\begin{figure*}[htb]
-    \centering
-    \includegraphics[width=\textwidth]{variations_cdf_1_3.pdf}
-    \caption{Cumulative distribution functions for the black hole mass, neutron star mass, eccentricity during the LISA mission and merger time for each DCO type and physics variation. In colour we show the fiducial populations compared to changing the mass transfer efficiency $\beta$. We additionally show the other physics variations in the background in light grey.}
-    \label{fig:variations_cdf_1_3}
-\end{figure*}
-
-\begin{figure*}[p]
-    \centering
-    \includegraphics[width=\textwidth]{variations_cdf_4_6.pdf}
-    \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models using different values for $\alpha_{\rm CE}$ and changing the stability of case BB mass transfer.}
-    \label{fig:variations_cdf_4_6}
-\end{figure*}
-
-\begin{figure*}[p]
-    \centering
-    \includegraphics[width=\textwidth]{variations_cdf_7_10.pdf}
-    \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models changing the maximum neutron star mass, remnant mass prescription and survivability of common envelope events initiated by Hertzsprung gap donors.}
-    \label{fig:variations_cdf_7_10}
-\end{figure*}
-
-\begin{figure*}[p]
-    \centering
-    \includegraphics[width=\textwidth]{variations_cdf_11_14.pdf}
-    \caption{As Fig.~\ref{fig:variations_cdf_1_3}, except comparing the fiducial population with models changing the core-collapse supernova kick distributions and the presence of BH kicks and PISNs.}
-    \label{fig:variations_cdf_11_14}
-\end{figure*}
+\end{figure}
 
 \subsection{Formation channels}
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{formation_channels_BHBH.pdf}
-    \caption{}
-    \label{fig:formation_channels_BHBH}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{formation_channels_BHNS.pdf}
-    \label{fig:formation_channels_BHNS}
-    \caption{}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{formation_channels_NSNS.pdf}
-    \label{fig:formation_channels_NSNS}
-    \caption{}
+    \includegraphics[height=0.3\textheight]{formation_channels_BHBH.pdf}
+    \includegraphics[height=0.3\textheight]{formation_channels_BHNS.pdf}
+    \includegraphics[height=0.3\textheight]{formation_channels_NSNS.pdf}
+    \caption{Fraction of each DCO type that is formed through different formation channels for all physics variations. Channels are described in detail in \citet{Broekgaarden+2021}. The classic, single core CEE and double core CEE channels all require at least one common envelope event whilst only `only stable' consists of only stable mass transfer and `other' contains the remaining binaries which are mainly formed from `lucky' supernova kicks that shrink the binary. \todo{Update with new models}}
+    \label{fig:formation_channels}
 \end{figure}
