@@ -16,7 +16,7 @@ We apply the adaptive importance sampling algorithm STROOPWAFEL \citep{Broekgaar
 
 \textit{Wind mass loss:} We follow the wind prescription from \citet{Belczynski+2008}, which was based on results from Monte Carlo radiative transfer simulation of \citet{Vink+2000, Vink+2001}. We use the wind mass loss rates from \citet{Vink+2001} for stars above $12500 \unit{K}$ and the rates from \citet{Hurley+2000} for cooler stars. Additionally, we use a separate, higher wind mass loss rate for luminous blue variable (LBV) stars, following \citet{Belczynski+2008}, to mimic observer LBV eruptions for stars with luminosities and  effective temperatures above the Humphrey Davidson limit. We use the Wolf-Rayet-like mass loss rate from \citet{Hamann+1998} with an additional metallicity scaling from \citet{Vink+2005} for helium stars and set $f_{\rm WR} = 1$. See Team COMPAS: J. Riley et al. (in prep), Section 3 for the explicit equations.
 
-\textit{Mass Transfer:} In determining the stability of mass transfer we use the $\zeta$-prescription, which compares the radial response of the star with the response of the Roche lobe radius to the mass transfer \citep[e.g.][]{Hjellming+1987}. The mass transfer efficiency, $\beta \equiv \Delta M_{\rm acc} / \Delta M_{\rm don}$, is defined as the fraction of the mass transferred by the donor that is actually accreted by the accretor. We limit the maximum accretion rate for stars to $\Delta M_{\rm acc} / \Delta t \le 10 M_{\rm acc} / \tau_{\rm KH}$, where $\tau_{\rm KH}$ is the Kelvin-Helmholtz timescale of the star \citep{Paczynski+1972, Hurley+2002}. The maximum accretion rate for compact objects is limited to the Eddington accretion rate. If more mass than these rates is accreted then we assume that the excess is lost through isotropic re-emission in the vicinity of the accreting star \citep[e.g.][]{Massevitch+1975, Soberman+1997}. We assume that all mass transfer phases from a stripped post-helium-burning-star (case BB) onto a neutron star or black hole are unstable \citep{Tauris+2015}.
+\textit{Mass Transfer:} In determining the stability of mass transfer we use the $\zeta$-prescription, which compares the radial response of the star with the response of the Roche lobe radius to the mass transfer \citep[e.g.][]{Hjellming+1987}. The mass transfer efficiency, $\beta \equiv \Delta M_{\rm acc} / \Delta M_{\rm don}$, is defined as the fraction of the mass transferred by the donor that is actually accreted by the accretor. We limit the maximum accretion rate for stars to $\Delta M_{\rm acc} / \Delta t \le 10 M_{\rm acc} / \tau_{\rm KH}$, where $\tau_{\rm KH}$ is the Kelvin-Helmholtz timescale of the star \citep{Paczynski+1972, Hurley+2002}. The maximum accretion rate for compact objects is limited to the Eddington accretion rate. If more mass than these rates is accreted then we assume that the excess is lost through isotropic re-emission in the vicinity of the accreting star \citep[e.g.][]{Massevitch+1975, Soberman+1997}. We assume that all mass transfer from a stripped post-helium-burning-star (case BB) onto a neutron star or black hole is unstable \citep{Tauris+2015}.
 
 \textit{Common Envelope:} A common envelope phase follows dynamically unstable mass transfer and we parameterise this using the $\alpha$-$\lambda$ prescription from \citet{Webbink+1984} and \citet{deKool+1990}. We assume $\alpha = 1$, such that all of the gravitational binding energy is available for the ejection of the envelope. For $\lambda$ we use the fitting formulae from \citet{Xu+2010, Xu+2010a}. We assume that any Hertzsprung gap donor stars that initiate a common envelope phase will not survive this phase due to a lack of a steep density gradient between the core and envelope \citep{Taam+2000, Ivanova+2004, Klencki+2021}. This follows the `pessimistic' common envelope scenario \citep[c.f.][]{Belczynski+2007}. We remove any binaries where the secondary immediately fills its Roche lobe upon the conclusion of the common envelope phase as we treat these as failed common envelope ejections, likely leading to a stellar merger.
 
@@ -71,9 +71,7 @@ Finally, in models \modRangeML{} we investigate the effect of changing our assum
 
 
 \section{Detection Rate Normalisation}\label{app:rate_normalisation}
-In this section we explain the normalisation process that we refer to in Section~\ref{sec:gw_detection}. From each simulated instance of the Milky Way we can extract the fraction of targets that are detectable, where we define a target as one of BHBH, BHNS or NSNS that merges in a Hubble time.
-
-To convert the detectable fraction to a detection rate for the Milky Way, we write that the \textit{number} of detectable targets in the Milky Way is
+In this section we explain the normalisation process that we refer to in Section~\ref{sec:gw_detection}. From each simulated instance of the Milky Way we extract the fraction of targets that are detectable, where we define a target as one of BHBH, BHNS or NSNS that merges in a Hubble time. To convert the detectable fraction to a detection rate for the Milky Way, we write that the \textit{number} of detectable targets in the Milky Way is
 \begin{equation}\label{eq:norm_frame}
     N_{\rm detect} = f_{\rm detect} \cdot N_{\rm target, MW},
 \end{equation}
@@ -102,7 +100,7 @@ The total star forming mass at a metallicity $Z$, $M_{\rm SF, Z}$, can be writte
 \begin{equation}
     M_{\rm SF, Z} = \frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i,
 \end{equation}
-where $\avg{m}_{\rm COMPAS}$ is the average star forming mass of a binary in our sample and $f_{\rm trunc}$ is the fraction of the total stellar mass from which COMPAS samples, given its truncated mass and separation ranges (see Section \ref{sec:COMPAS_explained}). The cuts applied to the distributions, mainly because only massive stars are sampled, mean that only $f_{\rm trunc} \approx 0.2$ of the stellar mass in the galaxy is sampled from.
+where $\avg{m}_{\rm COMPAS}$ is the average star forming mass of a binary in our sample and $f_{\rm trunc}$ is the fraction of the total stellar mass from which COMPAS samples, given its truncated mass and separation ranges (see Section \ref{sec:COMPAS_explained}). These truncations mean that only $f_{\rm trunc} \approx 0.2$ of the stellar mass in the galaxy is sampled from.
 
 \subsection{Total star forming mass in the Milky Way}
 It is important to distinguish between the \textit{total} mass of every star formed over the entire history of the Milky Way and the \textit{current} stellar mass in the Milky Way. Many stars born in the Milky Way are no longer living and have lost much of their mass to stellar winds and supernovae, thus the current stellar mass in the Milky Way is an underestimate of the total star forming mass.
@@ -117,24 +115,58 @@ where $\avg{m}_{\rm SF, total}$ is the average mass of a star over the history o
 \end{equation}
 where $t_{\rm MW}$ is the age of the Milky Way, $\zeta(m)$ is the \citet{Kroupa+2001} IMF function and $p_{\rm birth}(\tau)$ is the probability of a star being formed at a lookback time $\tau$ (Eq.~\ref{eq:thin_disc_tau}). $\avg{m}_{\rm SF, today}$ is the average mass of all stars and stellar remnants (excluding brown dwarfs) present in the Milky Way today is defined as follows (note that we integrate from $0.08$ not $0.01$ since observations of today's Milky Way mass exclude brown dwarfs)
 \begin{equation}
-    \avg{m}_{\rm SF, today} = \int_{0}^{t_{\rm MW}} p_{\rm birth}(\tau) \int_{0.08}^{200} \zeta(m)\ m_{\rm today}(m, \avg{Z}_\tau, \tau) \dd{m} \dd{\tau},
+    \avg{m}_{\rm SF, today} = \int_{0}^{t_{\rm MW}} p_{\rm birth}(\tau) \int_{0.08}^{200} \zeta(m)\ m_{\rm today} \dd{m} \dd{\tau},
 \end{equation}
-where $m_{\rm today}(m, Z, \tau)$ is the current mass of a star that was formed $\tau$ years ago at a metallicity $Z$. We calculate $m_{\rm today}(m, Z, \tau)$ by interpolating the final masses given by COMPAS for a grid of single stars over different masses and metallicities using the \citet{Fryer+2012} delayed prescription and default wind mass loss settings. We only use the final mass if more than the main sequence lifetime of the star has passed, otherwise we just use the initial mass. Since we don't know the exact metallicity of each star we use the average star forming metallicity in the Milky Way at a lookback time $\tau$ using the birth radius distribution and metallicity equation from \citet{Frankel+2018}. If we now evaluate Equation \ref{eq:m_SF_MW}, we find that the total mass of every star that has ever formed in the Milky Way is
-\begin{equation}
-    M_{\rm SF, MW} = (6.1 \pm 1.1) \times 10^{10} \unit{M_{\odot}} \cdot \frac{0.384 \unit{M_{\odot}}}{0.257 \unit{M_{\odot}}} = (9.1 \pm 1.1) \times 10^{10} \unit{M_{\odot}},
-\end{equation}
+where $m_{\rm today}(m, Z, \tau)$ is the current mass of a star that was formed $\tau$ years ago at a metallicity $Z$. We calculate $m_{\rm today}(m, Z, \tau)$ by interpolating the final masses given by COMPAS for a grid of single stars over different masses and metallicities using the \citet{Fryer+2012} delayed prescription and default wind mass loss settings. For $Z$, we use the average star forming metallicity in the Milky Way at a lookback time $\tau$ using our galaxy model. Evaluating Equation~\ref{eq:m_SF_MW}, we find that the total mass of every star that has ever formed in the Milky Way is
+\begin{align}
+    M_{\rm SF, MW} &= (6.1 \pm 1.1) \times 10^{10} \unit{M_{\odot}} \cdot \frac{0.384 \unit{M_{\odot}}}{0.257 \unit{M_{\odot}}}, \nonumber \\
+    &= (9.1 \pm 1.1) \times 10^{10} \unit{M_{\odot}},
+\end{align}
 an increase of approximately 50\% from the value still in stars today!
 
 \subsection{Normalisation summary}
 Finally, we can substitute Equations~\ref{eq:norm_avg_target_formation} and \ref{eq:m_SF_MW} into \ref{eq:norm_frame} and write that the overall normalisation of the detection rate is calculated as
-\begin{equation}
-    N_{\rm detect} = f_{\rm detect} \cdot 9.1 \times 10^{10} \unit{M_{\odot}} \cdot \sum_{Z=Z_{\rm min}}^{Z_{\rm max}} p_{Z} \qty(\sum_{i=1}^{N_{\rm binaries, Z}} w_i \theta_{\rm target, i}) \qty(\frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i)^{-1}
-\end{equation}
+\begin{align}
+    N_{\rm detect} &= f_{\rm detect} \cdot 9.1 \times 10^{10} \unit{M_{\odot}} \nonumber \\
+    &\times \sum_{Z=Z_{\rm min}}^{Z_{\rm max}} p_{Z} \qty(\sum_{i=1}^{N_{\rm binaries, Z}} w_i \theta_{\rm target, i}) \nonumber \\
+    &\times \qty(\frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i)^{-1}.
+\end{align}
+
+\subsection{Assessing the impact of Milky Way model choices}\label{sec:mw_changes}
+The model that we use for the Milky Way adds several layers of complexity, accounting for the inside-out growth of the thin disc, using empirically informed star formation histories that are a function of time and assigning metallicities based on the position and age of binaries. In this section, we repeat our main analysis but instead apply a simpler model for the Milky Way in order to assess the effect of these added features. For this purpose, we use model for the Milky Way used in \citet{Breivik+2020} as this is representative of the models used in most previous works.
+
+Their model can be summarised as follows: the Milky Way is assumed to comprise of three components, a thin disc, a thick disc and a bulge. The spatial distributions and relative masses for these components are given in \citet{McMillan+2011}. \citet{Breivik+2020} assume constant star formation over 10 Gyr for the thin disc, a 1 Gyr burst of star formation 11 Gyr ago for the thick disc and a 1 Gyr burst of star formation 10 Gyr ago for the bulge. A major difference is that only two metallicities are used and they are assigned to binaries independent of age or position. Binaries formed in the thin disc and bulge are assumed to have a metallicity of $Z = 0.02$ and those formed in the thick disc are assumed to have $Z = 0.003$.
+
+We show the spatial metallicity distribution for this model in Fig.~\ref{fig:simple_mw} in the same form as Fig.~\ref{fig:galaxy_schematic} for ease of comparison between our models. The two main differences we can see between Fig.~\ref{fig:galaxy_schematic} and \ref{fig:simple_mw} are that the \citet{Breivik+2020} model is more centrally concentrated and only has two fixed metallicity populations.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{../figures/random_simple_galaxy.png}
+    \caption{As Fig.~\ref{fig:galaxy_schematic} (right panel), but for the Milky Way model used in \citet{Breivik+2020}.}
+    \label{fig:simple_mw}
+\end{figure}
+
+When applying this simpler Milky Way model in combination with our fiducial binary physics assumptions (model \modFid{}), we find that the expected number of detections for BHBHs, BHNSs and NSNSs for a 4-year LISA mission is $39$, $39$ and $14$ respectively. Thus the BHBH and BHNS detection rates are only marginally increased from our main findings, but the NSNS detection has increased by nearly a factor of 2.
+
+Moreover, the distribution of parameters within the population, particularly the mass distributions, are notably disparate. By using only two fixed metallicity populations, unphysical artifacts are introduced into distribution of DCO masses (Kummer at al. (in prep)). For example, in Fig.~\ref{fig:bh_mass_simple_mw}, we show the black hole mass distribution produced by the simulation using the simple Milky Way model. Despite the fact that these KDEs use the same bandwidth as Fig.~\ref{fig:fiducial_pdf_distributions}, the distributions show many more sharp transitions, which is a result of pileups occurring at specific masses for specific metallicities. Moreover, the lack of lower metallicities systems means that higher mass systems are not formed and so we see the distributions do not include a high mass tail such as in our fiducial results.
+
+The unphysical artifacts present in the mass distributions can have far-reaching effects since the masses of DCOs affect most other parameters. The inspiral time and SNR are directly dependent on the mass, whilst the uncertainty estimates depend on the SNR. This means that the artifacts can affect the predictions for most distributions of LISA detectable populations.
+
+Overall, we find that previous studies that use Milky Way models analogous to this simpler model may significantly overestimate the LISA NSNS detection rate as well as contain unphysical artifacts in their parameter distributions.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{../figures/BH_mass_dist_simple_mw.pdf}
+    \caption{As Fig.~\ref{fig:fiducial_pdf_distributions} (top left panel), but for the Milky Way model used in \citet{Breivik+2020}.}
+    \label{fig:bh_mass_simple_mw}
+\end{figure}
+
+\onecolumngrid
 
 \section{Supplementary material}
 
 \subsection{Detection rate table}
-\begin{table}[htb]
+\begin{table*}[htb]
     \centering
     \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the \nModels{} different model variations and each DCO type. Each value shows the mean and the 90\% confidence interval.}
     \begin{tabular}{c|lll|lll}
@@ -162,15 +194,15 @@ Finally, we can substitute Equations~\ref{eq:norm_avg_target_formation} and \ref
         \hline
     \end{tabular}
     \label{tab:detection_rates}
-\end{table}
+\end{table*}
 
 \subsection{Distribution of eccentric sources on sensitivity curve}
-\begin{figure}[hb]
+\begin{figure*}[hb]
     \centering
     \includegraphics[width=\textwidth]{dcos_on_sc_eccentric_colours.png}
     \caption{As the bottom panels of Fig.~\ref{fig:dcos_on_sc}, but without the density distributions and scatter points are coloured by their eccentricity. We show eccentric sources are located in an offshoot below the $30 \unit{kpc}$ around $2 \unit{mHz}$.}
     \label{fig:dcos_on_sc_ecc_col}
-\end{figure}
+\end{figure*}
 
 \subsection{Formation channels}
 
