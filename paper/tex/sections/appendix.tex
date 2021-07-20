@@ -179,29 +179,32 @@ Overall, we therefore expect a single pulsar per $5.7 \unit{deg^2}$ and $1.5 \un
 \subsection{Detection rate table}
 \begin{table*}[htb]
     \centering
-    \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the \nModels{} different model variations and each DCO type. Each value shows the mean and the 90\% confidence interval.}
-    \begin{tabular}{c|lll|lll}
+    \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the \nModels{} different model variations and each DCO type. Each value shows the mean and the 1-$\sigma$ Poisson uncertainty.}
+    \begin{tabular}{cl|lll|lll}
         \hline
-        \multirow{2}{*}{Model} & \multicolumn{3}{c|}{LISA (4 year)} & \multicolumn{3}{c}{LISA (10 year)} \\ \cline{2-7}
-         & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} \\
+        \multirow{2}{*}{Model} & \multirow{2}{*}{Description} & \multicolumn{3}{c|}{LISA detections (4 year)} & \multicolumn{3}{c}{LISA detections (10 year)} \\ \cline{3-8}
+        & & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} \\
         \hline
-        A & \confinv{39.6}{6.6}{6.4} & \confinv{36.5}{6.5}{6.5} & \confinv{8.7}{2.7}{3.3} & \confinv{62.9}{7.9}{8.1} & \confinv{60.7}{7.7}{7.3} & \confinv{14.4}{3.4}{3.6}\\
-        B & \confinv{37.1}{6.1}{5.9} & \confinv{17.4}{4.4}{4.6} & \confinv{3.3}{2.3}{1.7} & \confinv{58.7}{7.7}{7.3} & \confinv{28.7}{5.7}{5.3} & \confinv{5.3}{2.3}{2.7}\\
-        C & \confinv{22.4}{4.4}{4.6} & \confinv{5.8}{2.8}{2.2} & \confinv{4.7}{1.7}{2.3} & \confinv{35.8}{5.8}{6.2} & \confinv{9.4}{3.4}{2.6} & \confinv{7.6}{2.6}{2.4}\\
-        D & \confinv{26.2}{5.2}{4.8} & \confinv{4.3}{2.3}{1.7} & \confinv{14.1}{4.1}{3.9} & \confinv{40.5}{6.5}{6.5} & \confinv{7.1}{3.1}{2.9} & \confinv{23.2}{5.2}{4.8}\\
-        E & \confinv{36.9}{5.9}{6.1} & \confinv{4.2}{2.2}{1.8} & \confinv{0.2}{0.2}{0.8} & \confinv{58.6}{7.6}{7.4} & \confinv{6.6}{2.6}{2.4} & \confinv{0.3}{0.3}{0.7}\\
-        F & \confinv{30.2}{5.2}{5.8} & \confinv{22.9}{4.9}{5.1} & \confinv{6.4}{2.4}{2.6} & \confinv{47.5}{6.5}{6.5} & \confinv{35.5}{5.5}{5.5} & \confinv{10.4}{3.4}{3.6}\\
-        G & \confinv{31.8}{5.8}{5.2} & \confinv{25.9}{4.9}{5.1} & \confinv{25.9}{4.9}{5.1} & \confinv{50.5}{7.5}{7.5} & \confinv{43.5}{6.5}{6.5} & \confinv{42.4}{6.4}{6.6}\\
-        H & \confinv{117.8}{10.8}{11.2} & \confinv{51.7}{6.7}{7.3} & \confinv{10.1}{3.1}{2.9} & \confinv{181.6}{13.6}{13.4} & \confinv{87.7}{9.7}{9.3} & \confinv{16.7}{3.7}{4.3}\\
-        I & \confinv{25.5}{5.5}{5.5} & \confinv{62.0}{8.0}{8.0} & \confinv{7.2}{2.2}{2.8} & \confinv{39.1}{6.1}{5.9} & \confinv{102.3}{10.3}{9.7} & \confinv{11.9}{3.9}{3.1}\\
-        J & \confinv{55.5}{7.5}{7.5} & \confinv{27.9}{4.9}{5.1} & \confinv{8.0}{3.0}{3.0} & \confinv{87.8}{9.8}{9.2} & \confinv{45.7}{6.7}{6.3} & \confinv{13.0}{4.0}{4.0}\\
-        K & \confinv{34.8}{5.8}{6.2} & \confinv{42.4}{6.4}{6.6} & \confinv{9.0}{3.0}{3.0} & \confinv{56.0}{8.0}{7.0} & \confinv{69.5}{8.5}{8.5} & \confinv{14.8}{3.8}{4.2}\\
-        L & \confinv{39.8}{6.8}{6.2} & \confinv{36.7}{5.7}{6.3} & \confinv{9.1}{3.1}{2.9} & \confinv{63.4}{8.4}{7.6} & \confinv{61.9}{7.9}{8.1} & \confinv{14.7}{3.7}{3.3}\\
-        M & \confinv{48.2}{7.2}{6.8} & \confinv{80.8}{8.8}{9.2} & \confinv{18.0}{4.0}{4.0} & \confinv{75.3}{8.3}{8.7} & \confinv{134.5}{11.5}{11.5} & \confinv{29.5}{5.5}{5.5}\\
-        N & \confinv{57.5}{7.5}{7.5} & \confinv{138.2}{12.2}{11.8} & \confinv{41.9}{6.9}{6.1} & \confinv{89.5}{9.5}{9.5} & \confinv{227.5}{15.5}{15.5} & \confinv{67.4}{8.4}{8.6}\\
-        O & \confinv{45.7}{6.7}{6.3} & \confinv{85.3}{9.3}{9.7} & \confinv{10.2}{3.2}{2.8} & \confinv{70.9}{8.9}{8.1} & \confinv{141.6}{11.6}{12.4} & \confinv{16.8}{3.8}{4.2}\\
-        P & \confinv{50.8}{6.8}{7.2} & \confinv{32.7}{5.7}{5.3} & \confinv{10.0}{3.0}{3.0} & \confinv{77.6}{8.6}{8.4} & \confinv{53.1}{7.1}{6.9} & \confinv{16.5}{4.5}{4.5}\\
-        Q & \confinv{0.0}{0.0}{0.0} & \confinv{6.7}{2.7}{2.3} & \confinv{8.5}{2.5}{2.5} & \confinv{0.0}{0.0}{0.0} & \confinv{11.3}{3.3}{3.7} & \confinv{13.8}{3.8}{4.2}\\
+        A & Fiducial & \confinv{73.7}{8.7}{8.3} & \confinv{42.1}{6.1}{6.9} & \confinv{7.9}{2.9}{3.1}\\
+        B & Fixed mass transfer efficiency of $\beta=0.25$ & \confinv{68.6}{8.6}{8.4} & \confinv{22.3}{4.3}{4.7} & \confinv{2.9}{1.9}{2.1}\\
+        C & Fixed mass transfer efficiency of $\beta=0.5$ & \confinv{46.8}{6.8}{7.2} & \confinv{8.2}{3.2}{2.8} & \confinv{3.9}{1.9}{2.1}\\
+        D & Fixed mass transfer efficiency of $\beta=0.75$ & \confinv{46.8}{6.8}{7.2} & \confinv{7.4}{2.4}{2.6} & \confinv{12.7}{3.7}{3.3}\\
+        E & Case BB mass transfer is always unstable & \confinv{69.0}{8.0}{8.0} & \confinv{7.2}{2.2}{2.8} & \confinv{0.2}{0.2}{0.8}\\
+        F & Model E + Model K & \confinv{153.8}{12.8}{12.2} & \confinv{147.8}{11.8}{12.2} & \confinv{18.2}{4.2}{3.8}\\
+        G & CE efficiency $\alpha = 0.1$ & \confinv{27.8}{4.8}{5.2} & \confinv{2.1}{1.1}{1.9} & \confinv{10.2}{3.2}{2.8}\\
+        H & CE efficiency $\alpha = 0.5$ & \confinv{61.7}{7.7}{8.3} & \confinv{28.1}{5.1}{4.9} & \confinv{6.2}{2.2}{2.8}\\
+        I & CE efficiency $\alpha = 2.0$ & \confinv{71.6}{8.6}{8.4} & \confinv{38.1}{6.1}{5.9} & \confinv{31.1}{5.1}{5.9}\\
+        J & CE efficiency $\alpha = 10.0$ & \confinv{0.0}{0.0}{0.0} & \confinv{0.0}{0.0}{0.0} & \confinv{0.0}{0.0}{0.0}\\
+        K & HG donor stars initiating a CE survive CE & \confinv{154.1}{12.1}{12.9} & \confinv{58.9}{7.9}{8.1} & \confinv{9.6}{2.6}{3.4}\\
+        L & Fryer rapid SN remnant mass prescription & \confinv{50.2}{7.2}{6.8} & \confinv{70.0}{8.0}{8.0} & \confinv{6.6}{2.6}{2.4}\\
+        M & Maximum NS mass = 2.0 ${\rm M_{\odot}}$ & \confinv{95.9}{9.9}{10.1} & \confinv{30.0}{5.0}{5.0} & \confinv{7.1}{3.1}{2.9}\\
+        N & Maximum NS mass = 3.0 ${\rm M_{\odot}}$ & \confinv{58.1}{8.1}{7.9} & \confinv{51.7}{6.7}{7.3} & \confinv{8.2}{3.2}{2.8}\\
+        O & PISN and pulsational-PISN not implemented & \confinv{75.1}{9.1}{8.9} & \confinv{43.2}{6.2}{6.8} & \confinv{7.9}{2.9}{3.1}\\
+        P & $\sigma_{\rm RMS}^{\rm 1D} = 100 \ {\rm km\ s^{-1}}$ for core-collapse supernova & \confinv{82.4}{9.4}{8.6} & \confinv{86.3}{9.3}{9.7} & \confinv{15.4}{4.4}{3.6}\\
+        Q & $\sigma_{\rm RMS}^{\rm 1D} = 30 \ {\rm km\ s^{-1}}$ for core-collapse supernova & \confinv{91.5}{9.5}{9.5} & \confinv{142.4}{12.4}{11.6} & \confinv{33.4}{5.4}{5.6}\\
+        R & Black holes receive not natal kick & \confinv{85.9}{8.9}{9.1} & \confinv{95.8}{9.8}{10.2} & \confinv{9.7}{2.7}{3.3}\\
+        S & Wolf-Rayet wind factor $f_{\rm WR} = 0.1$ & \confinv{75.4}{8.4}{8.6} & \confinv{33.9}{5.9}{6.1} & \confinv{8.8}{2.8}{3.2}\\
+        T & Wolf-Rayet wind factor $f_{\rm WR} = 5.0$ & \confinv{0.0}{0.0}{0.0} & \confinv{14.9}{3.9}{4.1} & \confinv{9.6}{3.6}{3.4}\\
         \hline
     \end{tabular}
     \label{tab:detection_rates}
