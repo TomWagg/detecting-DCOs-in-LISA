@@ -132,14 +132,14 @@ Finally, we can substitute Equations~\ref{eq:norm_avg_target_formation} and \ref
     &\times \qty(\frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i)^{-1}.
 \end{align}
 
-\subsection{Assessing the impact of Milky Way model choices}\label{sec:mw_changes}
+\section{Assessing the impact of Milky Way model choices}\label{sec:mw_changes}
 The model that we use for the Milky Way adds several layers of complexity, accounting for the inside-out growth of the thin disc, using empirically informed star formation histories that are a function of time and assigning metallicities based on the position and age of binaries. In this section, we repeat our main analysis but instead apply a simpler model for the Milky Way in order to assess the effect of these added features. For this purpose, we use model for the Milky Way used in \citet{Breivik+2020} as this is representative of the models used in most previous works.
 
 Their model can be summarised as follows: the Milky Way is assumed to comprise of three components, a thin disc, a thick disc and a bulge. The spatial distributions and relative masses for these components are given in \citet{McMillan+2011}. \citet{Breivik+2020} assume constant star formation over 10 Gyr for the thin disc, a 1 Gyr burst of star formation 11 Gyr ago for the thick disc and a 1 Gyr burst of star formation 10 Gyr ago for the bulge. A major difference is that only two metallicities are used and they are assigned to binaries independent of age or position. Binaries formed in the thin disc and bulge are assumed to have a metallicity of $Z = 0.02$ and those formed in the thick disc are assumed to have $Z = 0.003$.
 
 We show the spatial metallicity distribution for this model in Fig.~\ref{fig:simple_mw} in the same form as Fig.~\ref{fig:galaxy_schematic} for ease of comparison between our models. The two main differences we can see between Fig.~\ref{fig:galaxy_schematic} and \ref{fig:simple_mw} are that the \citet{Breivik+2020} model is more centrally concentrated and only has two fixed metallicity populations.
 
-\begin{figure}[ht]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{../figures/random_simple_galaxy.png}
     \caption{As Fig.~\ref{fig:galaxy_schematic} (right panel), but for the Milky Way model used in \citet{Breivik+2020}.}
@@ -154,13 +154,24 @@ The unphysical artifacts present in the mass distributions can have far-reaching
 
 Overall, we find that previous studies that use Milky Way models analogous to this simpler model may significantly overestimate the LISA NSNS detection rate as well as contain unphysical artifacts in their parameter distributions.
 
-\begin{figure}[h]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{../figures/BH_mass_dist_simple_mw.pdf}
     \caption{As Fig.~\ref{fig:fiducial_pdf_distributions} (top left panel), but for the Milky Way model used in \citet{Breivik+2020}.}
     \label{fig:bh_mass_simple_mw}
 \end{figure}
 
+\section{Estimating the number of pulsars for a given sky area in SKA}\label{app:ska_area}
+
+In this section, we perform some back-of-the-envelope calculations in order to estimate the number of pulsars that SKA will observe within a given sky area.
+
+First, we consider how many pulsars SKA is likely to detect. \citet{Keane+2015} uses PSRPOPPy \citep{Bates+2014} to simulate the Milky Way pulsar population. They find that for SKA-1, approximately $10000$ pulsars will be discovered. The second phase of SKA, which should be in operation by the time of the LISA mission, would yield a total of $35000$-$41000$ pulsars \citep{Keane+2015}. We use the average, $38000$, in further estimates below. Moreover, we are only interested in pulsars that are part of a binary system. We estimate this pulsar binary fraction as the fraction of known pulsars that are in binaries using the ATNF Pulsar Catalogue\footnote{\url{https://www.atnf.csiro.au/research/pulsar/psrcat}} \citep{Manchester+2005}. $290$ of the $2872$ currently known pulsars are in binary systems and thus we estimate the binary fraction of pulsars as $10\%$. Therefore, we expect that SKA-1 and SKA-2 will detect approximately $1000$ and $3800$ binary pulsars respectively.
+
+Next, we can find the total number of pulsars SKA will detect in a patch on the sky. The total sky area that the SKA mission covers is approximately $5700 \unit{deg^2}$, which is calculated by integrating over the sky for all Galactic longitudes and Galactic latitudes limited to $\abs{b} < 10^\circ$ and $\delta < 45^\circ$, which are the limits on SKA-mid \citep{Keane+2015}. If we assume that the pulsars are found uniformly across the sky, this means that roughly $0.2$ and $0.7$ binary pulsars are expected per square degree for SKA-1 and SKA-2 respectively. Note that the assumption of a uniform distribution is not realistic as pulsars will tend to be far more concentrated in the Galactic centre but we use it to provide an upper bound on these estimates.
+
+Overall, we therefore expect a single pulsar per $5.7 \unit{deg^2}$ and $1.5 \unit{deg^2}$ for SKA-1 and SKA-2 respectively, which correspond to angular resolutions of $\sigma_\theta = 1.3^\circ$ and $\sigma_\theta = 0.7^\circ$.
+
+\clearpage
 \onecolumngrid
 
 \section{Supplementary material}
@@ -204,13 +215,15 @@ Overall, we find that previous studies that use Milky Way models analogous to th
     \label{fig:dcos_on_sc_ecc_col}
 \end{figure*}
 
+\clearpage
+
 \subsection{Formation channels}
 
-\begin{figure}
+\begin{figure}[thb]
     \centering
-    \includegraphics[height=0.3\textheight]{formation_channels_BHBH.pdf}
-    \includegraphics[height=0.3\textheight]{formation_channels_BHNS.pdf}
-    \includegraphics[height=0.3\textheight]{formation_channels_NSNS.pdf}
+    \includegraphics[height=0.28\textheight]{formation_channels_BHBH.pdf}
+    \includegraphics[height=0.28\textheight]{formation_channels_BHNS.pdf}
+    \includegraphics[height=0.28\textheight]{formation_channels_NSNS.pdf}
     \caption{Fraction of each DCO type that is formed through different formation channels for all physics variations. Channels are described in detail in \citet{Broekgaarden+2021}. The classic, single core CEE and double core CEE channels all require at least one common envelope event whilst only `only stable' consists of only stable mass transfer and `other' contains the remaining binaries which are mainly formed from `lucky' supernova kicks that shrink the binary. \todo{Update with new models}}
     \label{fig:formation_channels}
 \end{figure}
