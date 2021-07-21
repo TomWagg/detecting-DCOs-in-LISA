@@ -5,7 +5,7 @@ import legwork
 
 dco_types = ["BHBH", "BHNS", "NSNS"]
 data_folder = "../../simulation/data/"
-sim_folder = data_folder + "simulation_high_res_double/"
+sim_folder = data_folder + "simulation/"
 
 def get_ecc_uncertainty(t_obs=4*u.yr, source_threshold=7, harmonic_threshold=7, model="fiducial"):
     detectable_harmonics = {"BHBH": None, "BHNS": None, "NSNS": None}
