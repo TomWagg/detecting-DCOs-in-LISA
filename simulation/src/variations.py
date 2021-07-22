@@ -40,7 +40,7 @@ variations = np.array(
             "short": "E",
             "med": "unstable\ncase BB",
             "long": "Case BB mass transfer is always unstable",
-            "colour": plt.get_cmap("tab20")(2)
+            "colour": plt.get_cmap("tab20")(3)
         },
         {
             "file": "unstableCaseBB_opt",
@@ -61,28 +61,28 @@ variations = np.array(
             "short": "H",
             "med": r"$\alpha_{\rm CE}=0.5$",
             "long": r"CE efficiency $\alpha = 0.5$",
-            "colour": plt.get_cmap("tab20b")(11)
+            "colour": plt.get_cmap("tab20b")(10)
         },
         {
             "file": "alpha2_0",
             "short": "I",
             "med": r"$\alpha_{\rm CE}=2.0$",
             "long": r"CE efficiency $\alpha = 2.0$",
-            "colour": plt.get_cmap("tab20b")(10)
+            "colour": plt.get_cmap("tab20b")(9)
         },
         {
             "file": "alpha10",
             "short": "J",
             "med": r"$\alpha_{\rm CE}=10.0$",
             "long": r"CE efficiency $\alpha = 10.0$",
-            "colour": plt.get_cmap("tab20b")(10)
+            "colour": plt.get_cmap("tab20b")(8)
         },
         {
             "file": "optimistic",
             "short": "K",
             "med": "optimistic\nCE",
             "long": "HG donor stars initiating a CE survive CE",
-            "colour": "darkgoldenrod"
+            "colour": plt.get_cmap("tab20")(11)
         },
         {
             "file": "rapid",
