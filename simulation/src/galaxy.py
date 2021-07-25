@@ -198,7 +198,7 @@ def simulate_mw(n_binaries, components=["low_alpha_disc", "high_alpha_disc", "bu
         sizes[i] = np.round(mass_fractions[i] * n_binaries)
     sizes[-1] = n_binaries - np.sum(sizes)
 
-    components = ["low_alpha"]
+    which_comp = np.concatenate([[components[i]] * sizes[i] for i in range(len(components))])
 
     tau = [None for i in range(len(components))]
     R = [None for i in range(len(components))]
@@ -240,7 +240,7 @@ def simulate_mw(n_binaries, components=["low_alpha_disc", "high_alpha_disc", "bu
 
     # return positions as well as rest if requested
     if ret_pos:
-        return tau, D, Z, (R, z, theta)
+        return tau, D, Z, (R, z, theta), which_comp
     else:
         return tau, D, Z
 
@@ -257,6 +257,9 @@ def simulate_simple_mw(n_binaries, ret_pos=False):
     m_tot = np.sum(masses)
     totals = np.array([int((masses[i] / m_tot * n_binaries).round(0)) for i in range(len(masses))])
     totals[-1] = n_binaries - np.sum(totals[:-1])
+
+    components = ["bulge", "thin_disc", "thick_disc"]
+    which_comp = np.concatenate([[components[i]] * totals[i] for i in range(len(components))])
 
     tau = np.zeros(n_binaries) * u.Gyr
     radius = np.zeros(n_binaries) * u.kpc
@@ -312,6 +315,6 @@ def simulate_simple_mw(n_binaries, ret_pos=False):
     dist = distance_from_earth(radius, height, theta)
 
     if ret_pos:
-        return tau, dist, Z, (radius, height, theta)
+        return tau, dist, Z, (radius, height, theta), which_comp
     else:
         return tau, dist, Z

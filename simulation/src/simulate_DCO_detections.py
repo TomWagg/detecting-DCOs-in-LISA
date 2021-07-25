@@ -102,8 +102,8 @@ def main():
     dt = np.dtype(float)
     dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
              ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
-             ("tau", dt), ("Z", dt), ("R", dt), ("z", dt), ("theta", dt), ("snr", dt), ("weight", dt),
-             ("seed", dt)]
+             ("tau", dt), ("Z", dt), ("R", dt), ("z", dt), ("theta", dt), ("component", np.dtype(str)),
+             ("snr", dt), ("weight", dt), ("seed", dt)]
     to_file = np.zeros(shape=(loops * MAX_HIGH,), dtype=dtype)
 
     n_detect_list = np.zeros(loops)
@@ -112,10 +112,16 @@ def main():
     for milky_way in range(loops):
         if not use_simple_mw:
             # draw parameters from Frankel Model
-            tau, dist, Z_unbinned, pos = simulate_mw(MW_SIZE, ret_pos=True)
+            tau, dist, Z_unbinned, pos, component = simulate_mw(MW_SIZE, ret_pos=True)
+            component[component == "low_alpha_disc"] = '0'
+            component[component == "high_alpha_disc"] = '1'
+            component[component == "bulge"] = '2'
         else:
             # draw parameters from simple Milky Way (following Breivik+2020)
-            tau, dist, Z_unbinned, pos = simulate_simple_mw(MW_SIZE, ret_pos=True)
+            tau, dist, Z_unbinned, pos, component = simulate_simple_mw(MW_SIZE, ret_pos=True)
+            component[component == "thin_disc"] = '0'
+            component[component == "thick_disc"] = '1'
+            component[component == "bulge"] = '2'
         R, z, theta = pos
 
         # work out COMPAS limits (and limit to Z=0.022)
@@ -134,8 +140,8 @@ def main():
 
         # sort by metallicity so everything matches up well
         Z_order = np.argsort(Z_unbinned)
-        tau, dist, Z_unbinned, R, z, theta = tau[Z_order], dist[Z_order], Z_unbinned[Z_order],\
-            R[Z_order], z[Z_order], theta[Z_order]
+        tau, dist, Z_unbinned, R, z, theta, component = tau[Z_order], dist[Z_order], Z_unbinned[Z_order],\
+            R[Z_order], z[Z_order], theta[Z_order], component[Z_order]
 
         # bin the metallicities using Floor's bins
         h, _ = np.histogram(Z_unbinned, bins=Z_bins)
@@ -172,9 +178,9 @@ def main():
         insp = t_merge > (tau - t_evol)
 
         # trim out the merged binaries
-        m_1, m_2, a_DCO, e_DCO, t_evol, t_merge, tau, dist, Z, R, z, theta, w, seed = m_1[insp], m_2[insp],\
-            a_DCO[insp], e_DCO[insp], t_evol[insp], t_merge[insp], tau[insp], dist[insp], Z[insp], R[insp],\
-            z[insp], theta[insp], w[insp], seed[insp]
+        m_1, m_2, a_DCO, e_DCO, t_evol, t_merge, tau, dist, Z, R, z, theta, component, w, seed = m_1[insp],\
+            m_2[insp], a_DCO[insp], e_DCO[insp], t_evol[insp], t_merge[insp], tau[insp], dist[insp], Z[insp],\
+            R[insp], z[insp], theta[insp], component[insp], w[insp], seed[insp]
 
         # evolve binaries to LISA
         e_LISA, a_LISA, f_orb_LISA = lw.evol.evol_ecc(ecc_i=e_DCO, a_i=a_DCO, m_1=m_1, m_2=m_2,
@@ -204,6 +210,7 @@ def main():
         to_file["R"][tot_detect:tot_detect + n_detect] = R[detectable]
         to_file["z"][tot_detect:tot_detect + n_detect] = z[detectable]
         to_file["theta"][tot_detect:tot_detect + n_detect] = theta[detectable]
+        to_file["component"][tot_detect:tot_detect + n_detect] = component[detectable]
         to_file["Z"][tot_detect:tot_detect + n_detect] = Z[detectable]
         to_file["snr"][tot_detect:tot_detect + n_detect] = snr[detectable]
         to_file["weight"][tot_detect:tot_detect + n_detect] = w[detectable]
