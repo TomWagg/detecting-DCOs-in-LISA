@@ -7,8 +7,8 @@ from scipy.stats import beta
 __all__ = ["simulate_mw"]
 
 
-def draw_lookback_times(size, component="thin_disc", tm=12*u.Gyr, tsfr=6.8*u.Gyr):
-    """Inverse CDF sampling of lookback times. Thin and thick discs uses Frankel+2018 Eq.4,
+def draw_lookback_times(size, component="low_alpha_disc", tm=12*u.Gyr, tsfr=6.8*u.Gyr):
+    """Inverse CDF sampling of lookback times. low_alpha and high_alpha discs uses Frankel+2018 Eq.4,
     separated at 8 Gyr. The bulge matches the distribution in Fig.7 of Bovy+19 but accounts for sample's bias.
 
     Parameters
@@ -27,11 +27,11 @@ def draw_lookback_times(size, component="thin_disc", tm=12*u.Gyr, tsfr=6.8*u.Gyr
     tau: `float/array`
         Random lookback times
     """
-    if component == "thin_disc":
+    if component == "low_alpha_disc":
         U = np.random.rand(size)
         norm = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value), 0, 8)[0]
         tau = tsfr * np.log((U * np.exp(tm / tsfr)) / (norm * tsfr.value) + 1)
-    elif component == "thick_disc":
+    elif component == "high_alpha_disc":
         U = np.random.rand(size)
         norm = 1 / quad(lambda x: np.exp(-(tm.value - x) / tsfr.value), 8, 12)[0]
         tau = tsfr * np.log((U * np.exp(tm / tsfr)) / (norm * tsfr.value) + np.exp(8 * u.Gyr / tsfr))
@@ -139,7 +139,7 @@ def distance_from_earth(R, z, theta, Rsun=8.2*u.kpc):
     return D
 
 
-def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
+def simulate_mw(n_binaries, components=["low_alpha_disc", "high_alpha_disc", "bulge"],
                 masses=[2.585e10, 2.585e10, 0.91e10]*u.Msun, tm=12 * u.Gyr, tsfr=6.8 * u.Gyr, alpha=0.3,
                 Fm=-1, gradient=-0.075 / u.kpc, Rnow=8.7 * u.kpc, gamma=0.3, zsun=0.0142, Rsun=8.2 * u.kpc,
                 ret_pos=False, lookback=True):
@@ -151,7 +151,7 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
     n_binaries : `int`
         Number of binaries to simulate
     components : `list of strings`
-        Which components to include: any from 'thin_disc', 'thick_disc' and 'bulge'.
+        Which components to include: any from 'low_alpha_disc', 'high_alpha_disc' and 'bulge'.
     masses : `list of floats`
         Corresponding masses to `components` and so must have the same length.
     tm : `float`, optional
@@ -198,6 +198,8 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
         sizes[i] = np.round(mass_fractions[i] * n_binaries)
     sizes[-1] = n_binaries - np.sum(sizes)
 
+    components = ["low_alpha"]
+
     tau = [None for i in range(len(components))]
     R = [None for i in range(len(components))]
     z = [None for i in range(len(components))]
@@ -206,14 +208,14 @@ def simulate_mw(n_binaries, components=["thin_disc", "thick_disc", "bulge"],
     for i, com in enumerate(components):
         tau[i] = draw_lookback_times(sizes[i], tm=tm, tsfr=tsfr, component=com)
 
-        scale_length = R_exp(tau[i], alpha=alpha) if com == "thin_disc"\
-            else 1/0.43 * u.kpc if com == "thick_disc"\
+        scale_length = R_exp(tau[i], alpha=alpha) if com == "low_alpha_disc"\
+            else 1/0.43 * u.kpc if com == "high_alpha_disc"\
             else 1.5 * u.kpc
 
         R[i] = draw_radii(sizes[i], R_0=scale_length)
 
-        scale_height = 0.3 * u.kpc if com == "thin_disc"\
-            else 0.95 * u.kpc if com == "thick_disc"\
+        scale_height = 0.3 * u.kpc if com == "low_alpha_disc"\
+            else 0.95 * u.kpc if com == "high_alpha_disc"\
             else 0.2 * u.kpc
 
         z[i] = draw_heights(sizes[i], z_d=scale_height)
@@ -293,13 +295,13 @@ def simulate_simple_mw(n_binaries, ret_pos=False):
     radius[cursor:cursor + totals[0]] = r * u.kpc
     height[cursor:cursor + totals[0]] = z * u.kpc
 
-    # thin disc
+    # low_alpha disc
     cursor += totals[0]
     tau[cursor:cursor + totals[1]] = np.random.uniform(0, 10, totals[1]) * u.Gyr
     radius[cursor:cursor + totals[1]] = - 2.6 * u.kpc * np.log10(1.0 - np.random.uniform(0, 1, totals[1]))
     height[cursor:cursor + totals[1]] = draw_heights(totals[1], 0.3 * u.kpc)
 
-    # thick disc
+    # high_alpha disc
     cursor += totals[1]
     tau[cursor:cursor + totals[2]] = np.random.uniform(10, 11, totals[2]) * u.Gyr
     radius[cursor:cursor + totals[2]] = - 3.31 * u.kpc * np.log10(1.0 - np.random.uniform(0, 1, totals[2]))
