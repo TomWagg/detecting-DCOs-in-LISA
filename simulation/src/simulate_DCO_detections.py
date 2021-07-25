@@ -102,7 +102,7 @@ def main():
     dt = np.dtype(float)
     dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
              ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
-             ("tau", dt), ("Z", dt), ("R", dt), ("z", dt), ("theta", dt), ("component", np.dtype(str)),
+             ("tau", dt), ("Z", dt), ("R", dt), ("z", dt), ("theta", dt), ("component", np.dtype(int)),
              ("snr", dt), ("weight", dt), ("seed", dt)]
     to_file = np.zeros(shape=(loops * MAX_HIGH,), dtype=dtype)
 
@@ -113,15 +113,15 @@ def main():
         if not use_simple_mw:
             # draw parameters from Frankel Model
             tau, dist, Z_unbinned, pos, component = simulate_mw(MW_SIZE, ret_pos=True)
-            component[component == "low_alpha_disc"] = '0'
-            component[component == "high_alpha_disc"] = '1'
-            component[component == "bulge"] = '2'
+            component[component == "low_alpha_disc"] = 0
+            component[component == "high_alpha_disc"] = 1
+            component[component == "bulge"] = 2
         else:
             # draw parameters from simple Milky Way (following Breivik+2020)
             tau, dist, Z_unbinned, pos, component = simulate_simple_mw(MW_SIZE, ret_pos=True)
-            component[component == "thin_disc"] = '0'
-            component[component == "thick_disc"] = '1'
-            component[component == "bulge"] = '2'
+            component[component == "thin_disc"] = 0
+            component[component == "thick_disc"] = 1
+            component[component == "bulge"] = 2
         R, z, theta = pos
 
         # work out COMPAS limits (and limit to Z=0.022)
