@@ -13,7 +13,8 @@ from galaxy import distance_from_earth
 dt = np.dtype(float)
 dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
          ("a_LISA", dt), ("e_LISA", dt), ("t_evol", dt), ("t_merge", dt),
-         ("tau", dt), ("dist", dt), ("R", dt), ("z", dt), ("theta", dt), ("Z", dt), ("snr", dt), ("weight", dt),
+         ("tau", dt), ("dist", dt), ("R", dt), ("z", dt), ("theta", dt), ("Z", dt),
+         ("component", np.dtype(int)), ("snr", dt), ("weight", dt),
          ("seed", dt), ("channel", np.dtype(int)), ("m_1_ZAMS", dt),
          ("m_2_ZAMS", dt), ("MT1_case", np.dtype(int)),
          ("MT2_case", np.dtype(int)), ("a_ZAMS", dt), ("a_pre_SN2", dt),
