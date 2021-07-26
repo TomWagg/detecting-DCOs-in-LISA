@@ -1,9 +1,9 @@
-In this section we explore the effect of varying the underlying binary physics assumptions and the model for the Milky Way. In Section~\ref{sec:detection_rate_analysis} we explore the changes in the detection rate over different physics variations and in Section~\ref{sec:property_variations} we consider how these model physics variations change the properties of detectable systems.
+In this section we explore the effect of varying the underlying binary physics assumptions, both on the detection rate (Section~\ref{sec:detection_rate_analysis}) and the properties of the detectable systems (Section~\ref{sec:property_variations}).
 
 \subsection{Detection rates}\label{sec:detection_rate_analysis}
-\tom{I will be updating this section once the other physics variations are done running. There will be a couple of new models and the current ones will have better high Z resolution.}
+In Figure~\ref{fig:detection_rates}, we show the expected number of LISA detections for each model variation and discuss the prominent trends in the following sections. For the exact rates and uncertainties plotted in this figure see Table~\ref{tab:detection_rates}.
 
-We find that for our fiducial model on average, a 4-year LISA mission will detect \BHBHFourYear{} BHBHs, \BHNSFourYear{} BHNSs and \NSNSFourYear{} NSNSs. Increasing to a 10-year LISA mission length changes the number of detections to \BHBHTenYear{}, \BHNSTenYear{} and \NSNSTenYear{} respectively. In Figure~\ref{fig:detection_rates}, we show the expected number of LISA detections for each model variation and discuss the prominent trends in the following sections. We show the rates and uncertainties plotted in this figure in Table~\ref{tab:detection_rates}.
+The BHBH detection rate is markedly robust across variations of physics assumptions, as can be seen in the top panel of Figure~\ref{fig:detection_rates}, with the expected detections in most models staying within 25\% of the fiducial rate. In contrast, the BHNS detection rate is very sensitive to all changes in binary physics assumptions, varying across two orders of magnitude in the middle pane of Figure~\ref{fig:detection_rates}. Finally, in the last panel of Figure~\ref{fig:detection_rates} we show that the NSNS detection is only moderately sensitive to certain changes in physics assumptions, varying by up to an order of magnitude, whilst showing no change for many models.
 
 \begin{figure*}[p]
     \centering
@@ -12,30 +12,38 @@ We find that for our fiducial model on average, a 4-year LISA mission will detec
     \label{fig:detection_rates}
 \end{figure*}
 
-\subsubsection{BHBH detection rate trends}
-The BHBH detection rate is markedly robust across physics variations, with the expected detections in each model staying within 25\% of the fiducial rate (with the exception of model \modOpt{}). Thus even if there are changes in our understanding of the underlying physics before the LISA mission commences, the expected BHBH detection rate is unlikely to change significantly.
+\subsubsection{Mass transfer trends}
 
+In models \modBetaLow{}-\modBetaHigh{}, we set the mass transfer efficiency $\beta$ to a fixed value. For the BHBHs and BHNSs, as we increase $\beta$ the detection rates steadily decrease. This may seem unintuitive since one may assume that a higher mass transfer efficiency would lead to more massive compact objects and thus a more detectable population. However, this contributes to the envelope mass and so without increasing the core mass or fallback rate, the final compact object mass is relatively unaffected. Moreover, one must consider that most of these DCOs are formed through a common envelope event and so retaining more of the envelope during mass transfer means that the eventual ejection of the envelope is much more difficult, thus leading to more stellar mergers and fewer detectable systems \citep[e.g.][]{Kruckow+2018}.
+
+In contrast, for the NSNSs, the detection rate increases with increasing $\beta$. This is for two main reasons: firstly the ejection of a common envelope is less problematic for NSNSs as they are less massive \citep[e.g.][]{Kruckow+2018}. Moreover, the increased mass transfer efficiency means that systems that were previously below the mass necessary to become a NS can now accrete enough mass to form a NS. Although the same is true for more massive stars becoming BHs instead of NSs, due to the IMF, there is a net flux of more stars becoming NSs.
+
+Enforcing that case BB mass transfer is always unstable (model \modCaseBB{}) has little effect on the BHBH detection rate whilst moderately and drastically decreasing the detection rates of BHNSs and NSNSs respectively. This is because a large fraction of NSs (and the majority of NSNS binaries are formed) through case BB mass transfer. Therefore, setting this mass transfer to be always unstable results in many of these binaries to merge before they could become DCOs since we assume the pessimistic CE scenario by default.
+
+If we instead use the optimistic CE scenario when setting case BB mass transfer to be unstable (model \modCaseBBOpt{}) we find that the rates instead uniformly increase across DCO types. This is both from the natural increases from using the optimistic CE scenario (see Sec.~\ref{sec:detection_rate_CE_trends} in which we discuss model \modOpt{}), as well as additional increases from adding more DCOs formed through CE events after case BB mass transfer. This explains why we see more detections for BHNSs and NSNSs in model \modCaseBBOpt{} than in model \modOpt{}.
+
+\subsubsection{Common envelope trends}\label{sec:detection_rate_CE_trends}
+
+\subsubsection{Remnant mass prescription trends}
+
+\subsubsection{Supernova kick trends}
+
+\subsubsection{Stellar wind trends}
+
+\subsubsection{BHBH detection rate trends}
 The exception to this statement is model \modOpt{}, in which we allow Hertzsprung gap donors to survive common envelope events. A large fraction of the progenitors of BHs in this mass range expand significantly during the Hertzsprung gap phase and initiate common envelope events. Therefore, though the detectable fraction does not change significantly, the increased population of BHBHs in the Milky Way leads to this model predicting 2.5 times more detections.
 
 \subsubsection{BHNS detection rate trends}
-In contrast, the BHNS detection rate is very sensitive to changes in binary physics assumptions. Therefore, once LISA flies and we know the actual number of detections, we can compare to each model and possibly provide some constraint on binary evolution physics. There are several notable trends in the BHNS detection rate in the middle pane of Figure~\ref{fig:detection_rates}.
 
-As $\beta$ increases in models \modBetaLow{}-\modBetaHigh{}, the BHNS detection rate steadily decreases. This may seem unintuitive since a higher mass transfer efficiency should lead to more massive compact objects and thus a more detectable population. However, one must also consider that most of these DCOs are formed through a common envelope event and so retaining more of the envelope during mass transfer means that the eventual ejection of the envelope is much more difficult, thus leading to more stellar mergers and fewer detectable BHNSs \citep[e.g.][]{Kruckow+2018}.
+For the same reason as the BHBH rate, model \modOpt{} has a higher number of detections. This change is less prominent than in the BHBH case as the progenitors tend to be lower masses and initiate a CE event less frequently during the Hertzsprung gap phase. 
 
 \tom{@ALL, the trend with common envelopes still confuses me, specifially, why does it not increase when $\alpha=2.0$? We never quite resolved this in the thread in zpro\_tom\_wagg with me and Lieke. I do see that the BHBH have a lot of only stable mass transfer and so reasonably are not too affected. NSNS basically only come through CE events and so sensibly are strongly affected but BHNS have $\sim 70\%$ classic channel and so should be affected strongly. But we don't see an increase with $\alpha = 2.0$. Any thoughts? (I'm leaving thinking about this for now in case it changes with the new data haha)}
-% For a similar reason, the rate is decreased when $\alpha$ is decreased in model \modAlphaLow{}, as this reduces the amount of orbital energy that is used to eject the envelope and thus leads to more stellar mergers. \todo{Why isn't the opposite true for model \modAlphaHigh{}? It seems the number of bound DCOs \textit{does} increase but the merging total decreases...?}
-
-Enforcing that case BB mass transfer is always unstable (model \modCaseBB{}) decreases the detection rate as fewer NSs are produced and thus fewer BHNSs form. This is explained in further detail in Section~\ref{sec:NSNS_detection_trends}. For the same reason as the BHBH rate, model \modOpt{} has a higher number of detections. This change is less prominent than in the BHBH case as the progenitors tend to be lower masses and initiate a CE event less frequently during the Hertzsprung gap phase. 
 
 The Fryer \textit{rapid} prescription (model \modRapid{}) leads to a higher detection rate for BHNSs because progenitors that would become black holes in the \textit{delayed} prescription, instead become neutron stars and so more BHNSs are formed instead of BHBHs. For the same reason, increasing the maximum neutron star mass (model \modNSHigh{}) increases the detection rate and the inverse is true when it is decreased (model \modNSLow{}).
 
 Finally, models \modSigLow{}-\modNoBH{} show increased detection rates since lower kicks result in fewer disrupted binaries and hence a more numerous detectable population. Following this logic it makes sense that model \modSigLower{} produces more detections than model \modSigLow{}. The model with no BH kick (\modNoBH{}) is slightly lower than model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick.
 
 \subsubsection{NSNS detection rate trends}\label{sec:NSNS_detection_trends}
-
-As $\beta$ increases the NSNS detection rate increases, the opposite trend to that seen in the BHNS rate. This is for two main reasons: firstly the ejection of a common envelope is less problematic for the less massive NSNS binaries. Moreover, the increased mass transfer efficiency means that systems that were previously below the mass necessary to become a NS can now accrete enough mass to form a NS. Although the same is true for more massive stars becoming BHs instead of NSs, due to the IMF, there is a net flux of more stars becoming NSs.
-
-There is a drastic decrease in detections for model \modCaseBB{} by nearly two orders of magnitude. This is because the majority of NSNS binaries are formed through case BB mass transfer and setting this mass transfer to be always unstable results in many of these binaries to merge before they could become NSNSs. As a result the total number of detections decreases, however, interestingly the remaining population represent more massive progenitors (that would not go through case BB mass transfer) and thus is skewed to higher masses and has a \textit{higher} detectable fraction.
 
 The vast majority of NSNSs in our sample are formed through the common envelope channel and thus changing the value of $\alpha_{\rm CE}$ has an effect on the rate. We see that decreasing $\alpha_{\rm CE}$ (model \modAlphaLow) leads to a lower rate as there is less energy available to eject the envelope and so more binaries result to stellar mergers rather than NSNSs and similarly we see an inverse trend when increasing $\alpha_{\rm CE}$ (model \modAlphaHigh).
 
