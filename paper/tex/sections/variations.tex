@@ -12,7 +12,7 @@ The BHBH detection rate is markedly robust across variations of physics assumpti
     \label{fig:detection_rates}
 \end{figure*}
 
-\subsubsection{Mass transfer trends}
+\subsubsection{Mass transfer variation trends}
 
 In models \modBetaLow{}-\modBetaHigh{}, we set the mass transfer efficiency $\beta$ to a fixed value. For the BHBHs and BHNSs, as we increase $\beta$ the detection rates steadily decrease. This may seem unintuitive since one may assume that a higher mass transfer efficiency would lead to more massive compact objects and thus a more detectable population. However, this contributes to the envelope mass and so without increasing the core mass or fallback rate, the final compact object mass is relatively unaffected. Moreover, one must consider that most of these DCOs are formed through a common envelope event and so retaining more of the envelope during mass transfer means that the eventual ejection of the envelope is much more difficult, thus leading to more stellar mergers and fewer detectable systems \citep[e.g.][]{Kruckow+2018}.
 
@@ -22,32 +22,27 @@ Enforcing that case BB mass transfer is always unstable (model \modCaseBB{}) has
 
 If we instead use the optimistic CE scenario when setting case BB mass transfer to be unstable (model \modCaseBBOpt{}) we find that the rates instead uniformly increase across DCO types. This is both from the natural increases from using the optimistic CE scenario (see Sec.~\ref{sec:detection_rate_CE_trends} in which we discuss model \modOpt{}), as well as additional increases from adding more DCOs formed through CE events after case BB mass transfer. This explains why we see more detections for BHNSs and NSNSs in model \modCaseBBOpt{} than in model \modOpt{}.
 
-\subsubsection{Common envelope trends}\label{sec:detection_rate_CE_trends}
+\subsubsection{Common envelope variation trends}\label{sec:detection_rate_CE_trends}
 
-\subsubsection{Remnant mass prescription trends}
+\todo{Discuss $\alpha_{\rm CE}$ changes once Floor ready}
 
-\subsubsection{Supernova kick trends}
+We explore the optimistic CE scenario in model \modOpt{}, meaning that we allow Hertzsprung gap donors to survive CE events. A large fraction of the progenitors of the BHs in our sample expand significantly during the Hertzsprung gap phase and initiate CE events. Therefore, though the detectable \textit{fraction} does not change significantly, the increased formation rate of BHs in the Milky Way leads to this model predicting significantly more BHBH detections. This increase is less significant for BHNSs since their progenitors tend to be less massive and thus initiate CE events during the Hertzsprung gap less frequently. For the same reason, the NSNS detection rate shows little significant change.
 
-\subsubsection{Stellar wind trends}
+\subsubsection{Supernova variation trends}
 
-\subsubsection{BHBH detection rate trends}
-The exception to this statement is model \modOpt{}, in which we allow Hertzsprung gap donors to survive common envelope events. A large fraction of the progenitors of BHs in this mass range expand significantly during the Hertzsprung gap phase and initiate common envelope events. Therefore, though the detectable fraction does not change significantly, the increased population of BHBHs in the Milky Way leads to this model predicting 2.5 times more detections.
+Changes to the remnant mass prescription (models \modRapid{}-\modNSHigh{}) have no effect on the NSNS detection rate for two reasons. A large fraction of the NSs in our sample are formed through ECSN, in which case their masses are set to $1.26 \unit{M_\odot}$ regardless of the remnant mass prescription. Secondly, the majority of the remaining NSs have such low progenitor masses that they are set to the lowest remnant mass in the prescription ($1.28 \unit{M_\odot}$ for the delayed prescription and $1.1 \unit{M_\odot}$). This means that changing the upper portion of the mass range of NSs in the remnant mass prescription has little effect.
 
-\subsubsection{BHNS detection rate trends}
+This is not the case for BHBHs and BHNSs. The different remnant mass prescriptions and maximum neutron star masses change whether a progenitor becomes a black hole or a neutron star. Hence, using the rapid prescription (model \modRapid{}) or increasing the maximum neutron star mass (model \modNSHigh{}), means that more progenitors form high mass NSs rather than low mass BHs and so more BHNSs are formed. This explains the higher detection rates for BHNSs and lower detection rates for BHBHs in these models. The inverse is true for model \modNSLow{}, where instead more BHBHs are formed and detected.
 
-For the same reason as the BHBH rate, model \modOpt{} has a higher number of detections. This change is less prominent than in the BHBH case as the progenitors tend to be lower masses and initiate a CE event less frequently during the Hertzsprung gap phase. 
+Additionally, we find that not implementing PISN and PPISN (model \modNoPISN{}) has no effect on the results for any DCO type. This is because the average metallicity of the Milky Way is high enough than no progenitor retains enough mass to initiate a PISN or PPISN.
 
-\tom{@ALL, the trend with common envelopes still confuses me, specifially, why does it not increase when $\alpha=2.0$? We never quite resolved this in the thread in zpro\_tom\_wagg with me and Lieke. I do see that the BHBH have a lot of only stable mass transfer and so reasonably are not too affected. NSNS basically only come through CE events and so sensibly are strongly affected but BHNS have $\sim 70\%$ classic channel and so should be affected strongly. But we don't see an increase with $\alpha = 2.0$. Any thoughts? (I'm leaving thinking about this for now in case it changes with the new data haha)}
+Decreasing the core-collapse supernova velocity dispersion (models \modSigLow{}-\modSigLower{}) increases the detection rates for each DCO type since lower kicks result in fewer disrupted binaries and hence a more numerous detectable population. This increase is least prominent for BHBHs since their increased mass mean that disruptions are less frequent than, for instance, in NSNSs. It is also notable that \citet{Broekgaarden+2021} found that these two models best matched the detection rates from LIGO. Therefore we find the best matching models for the LIGO detection rates also produce the highest LISA detection rates.
 
-The Fryer \textit{rapid} prescription (model \modRapid{}) leads to a higher detection rate for BHNSs because progenitors that would become black holes in the \textit{delayed} prescription, instead become neutron stars and so more BHNSs are formed instead of BHBHs. For the same reason, increasing the maximum neutron star mass (model \modNSHigh{}) increases the detection rate and the inverse is true when it is decreased (model \modNSLow{}).
+\todo{dicuss no BH kick when done}
+%The model with no BH kick (\modNoBH{}) is slightly lower than model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick.
 
-Finally, models \modSigLow{}-\modNoBH{} show increased detection rates since lower kicks result in fewer disrupted binaries and hence a more numerous detectable population. Following this logic it makes sense that model \modSigLower{} produces more detections than model \modSigLow{}. The model with no BH kick (\modNoBH{}) is slightly lower than model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick.
-
-\subsubsection{NSNS detection rate trends}\label{sec:NSNS_detection_trends}
-
-The vast majority of NSNSs in our sample are formed through the common envelope channel and thus changing the value of $\alpha_{\rm CE}$ has an effect on the rate. We see that decreasing $\alpha_{\rm CE}$ (model \modAlphaLow) leads to a lower rate as there is less energy available to eject the envelope and so more binaries result to stellar mergers rather than NSNSs and similarly we see an inverse trend when increasing $\alpha_{\rm CE}$ (model \modAlphaHigh).
-
-As we found in the BHNS trends, a lower value for the core-collapse supernova velocity dispersion increases the detection rate in models \modSigLow{} and \modSigLower{}, whilst changing the PISN or BH kick prescription (models \modNoPISN{} and \modNoBH{}) of course has no effect on the NSNS population.
+\subsubsection{Stellar wind variation trends}
+\todo{}
 
 \subsection{Properties of detectable systems}\label{sec:property_variations}
 \tom{This will be about how the shapes of the parameter distributions change for the different model variations. I won't detail every variation but I'll point out anything that stands out and leave the rest in the appendix plots.}
