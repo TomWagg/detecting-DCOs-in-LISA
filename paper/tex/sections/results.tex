@@ -4,7 +4,7 @@ Based on our fiducial model (described in App~\ref{app:fiducial_physics}), we ex
 \begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{fig2_dcos_on_sc.png}
-    \caption{The LISA sensitivity curve is shown together with the density distribution of the characteristic strain and the dominant frequency for all detectable sources in our simulations (top) and separated by type (bottom). Contours show the percentage of the population enclosed. The remaining 2\% of the population is shown as dots with a size that scales with the sampling weight. To guide the interpretation, we show reference lines marking where a circular binary would reside for a given distance (diagonal line) and remaining inspiral time (vertical lines), assuming an average chirp mass $\avg{\mathcal{M}_c}$, orientation and sky location. The curved reference line shows the signal expected for an eccentric binary at 30 kpc. The coloured lines in the bottom panels show a contour that encloses 90\% of the population that is circular. LISA verification binaries are overplotted in the top panel (star symbols).  See also Fig.~\ref{fig:dcos_on_sc_ecc_col} and Sec.~\ref{sec:dcos_on_sc} for a discussion.}
+    \caption{The LISA sensitivity curve is shown together with the density distribution of the characteristic strain and the dominant frequency for all detectable sources in our simulations (top) and separated by type (bottom). Contours show the percentage of the population enclosed. The remaining 2\% of the population is shown as dots with a size that scales with the sampling weight. To guide the interpretation, we show reference lines marking where a circular binary would reside for a given distance (diagonal line) and remaining inspiral time (vertical lines), assuming an average chirp mass $\avg{\mathcal{M}_c}$, orientation and sky location. The curved reference line shows the signal expected for an eccentric binary at 30 kpc. The coloured lines in the bottom panels show a contour that encloses 90\% of the population that is circular. LISA verification binaries are overplotted in the top panel (star symbols).  See also Fig.~\ref{fig:dcos_on_sc_ecc_col} and Sec.~\ref{sec:dcos_on_sc} for a discussion. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig2_dcos_on_sc.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/sensitivity_curve.ipynb}{\faBook}.}
     \label{fig:dcos_on_sc}
 \end{figure*}
 We show the expected distribution of detectable DCOs together with the LISA sensitivity curve in Fig.~\ref{fig:dcos_on_sc} for all sources combined in the top panel and separated by type in the three lower panels. For reference, we overplot dotted lines to indicate where a binary system would reside for a given distance (diagonal lines) and a remaining inspiral time (vertical lines). For each line we assume the binary is circular and has the average chirp mass of the sample ($\avg{\mathcal{M}_c}$, annotated in each panel), unless indicated otherwise. We observe several features worthwhile discussing, some that earlier studies have touched upon (see Sec.~\ref{sec:compare_studies}), as well as some new findings related to eccentricity.
@@ -25,7 +25,7 @@ In Figure~\ref{fig:fiducial_pdf_distributions}, we show kernel density estimator
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\textwidth]{fig3_detectable_properties_4yr.pdf}
-    \caption{Properties of detectable systems for a 4-year LISA mission in our fiducial model. Each panel shows a kernel density estimator for a single property, coloured by DCO type. The shaded areas show the 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). The dotted lines in the black hole mass panel show the individual primary and secondary mass distributions. See Sec.~\ref{sec:fiducial_distributions} for a discussion.}
+    \caption{Properties of detectable systems for a 4-year LISA mission in our fiducial model. Each panel shows a kernel density estimator for a single property, coloured by DCO type. The shaded areas show the 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). The dotted lines in the black hole mass panel show the individual primary and secondary mass distributions. See Sec.~\ref{sec:fiducial_distributions} for a discussion. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig3_detectable_properties_4yr.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
     \label{fig:fiducial_pdf_distributions}
 \end{figure*}
 
@@ -60,7 +60,7 @@ The merger time is a function of the mass, frequency and eccentricity of the sou
     \centering
     \includegraphics[width=\columnwidth]{fig4_1_detectable_distance_distribution_4yr.pdf}
     \includegraphics[width=\columnwidth]{fig4_2_galaxy_density_distribution.png}
-    \caption{\textbf{Top:} As Figure~\ref{fig:fiducial_pdf_distributions}, but for the luminosity distance. \textbf{Bottom:} A face-on view of the Galactic density distribution for detectable DCOs. We show the density distribution for the top 95\% of the sources, the rest are indicated by scatter points whose sizes correspond to their sampling weights. The coloured lines show the 75\% contour for each of the individual DCO types. The large cross passes through (0, 0) and helps to highlight the bias towards the position of the sun, which is indicated by the $\odot$.}
+    \caption{\textbf{Top:} As Figure~\ref{fig:fiducial_pdf_distributions}, but for the luminosity distance. \textbf{Bottom:} A face-on view of the Galactic density distribution for detectable DCOs. We show the density distribution for the top 95\% of the sources, the rest are indicated by scatter points whose sizes correspond to their sampling weights. The coloured lines show the 75\% contour for each of the individual DCO types. The large cross passes through (0, 0) and helps to highlight the bias towards the position of the sun, which is indicated by the $\odot$. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig4_1_detectable_distance_distribution_4yr.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig4_2_galaxy_density_distribution.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/galaxy_creation_station.ipynb}{\faBook}.}
     \label{fig:detectable_distance_dist}
 \end{figure}
 
@@ -78,7 +78,7 @@ Although it is useful to investigate the underlying parameters of the detectable
 \begin{figure}[tb]
     \centering
     \includegraphics[width=\columnwidth]{fig5_chirp_mass_uncertainty_4yr.pdf}
-    \caption{Cumulative distribution function for error on the chirp mass. Colours indicate DCO type and shading shows 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). The shaded region indicates region with unmeasureable chirp mass.}
+    \caption{Cumulative distribution function for error on the chirp mass. Colours indicate DCO type and shading shows 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). The shaded region indicates region with unmeasureable chirp mass. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig5_chirp_mass_uncertainty_4yr.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
     \label{fig:m_c_unc}
 \end{figure}
 
@@ -113,7 +113,7 @@ We use Eq.~\ref{eq:chirp_mass_uncertainty} to calculate the chirp mass uncertain
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{fig6_angular_resolution_4yr.pdf}
-    \caption{As Fig.~\ref{fig:m_c_unc}, but for the angular resolution.}
+    \caption{As Fig.~\ref{fig:m_c_unc}, but for the angular resolution. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig6_angular_resolution_4yr.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
     \label{fig:ang_res}
 \end{figure}
 

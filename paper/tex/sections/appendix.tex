@@ -94,13 +94,13 @@ In practice, this integral is instead approximated as a sum over the metallicity
 \begin{equation}
     N_{\rm target, Z} = \sum_{i=1}^{N_{\rm binaries, Z}} w_i \theta_{\rm target, i},
 \end{equation}
-where $w_i$ is the adaptive importance sampling weight assigned to the binary by STROOPWAFEL, $N_{\rm binaries, Z}$ is the number of binaries at metallicity $Z$ in our sample and $\theta_{\rm target, i}$ is a step function that is only $1$ when the binary is a target and otherwise $0$.
+where $w_i$ is the binary's adaptive importance sampling weight assigned, $N_{\rm binaries, Z}$ is the number of binaries at metallicity $Z$ in our sample and $\theta_{\rm target, i}$ is only $1$ when the binary is a target and otherwise $0$.
 
 The total star forming mass at a metallicity $Z$, $M_{\rm SF, Z}$, can be written as
 \begin{equation}
     M_{\rm SF, Z} = \frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i,
 \end{equation}
-where $\avg{m}_{\rm COMPAS}$ is the average star forming mass of a binary in our sample and $f_{\rm trunc}$ is the fraction of the total stellar mass from which COMPAS samples, given its truncated mass and separation ranges (see Section \ref{sec:COMPAS_explained}). These truncations mean that only $f_{\rm trunc} \approx 0.17$ of the stellar mass in the galaxy is sampled from and the rest is contained in lower mass stars that are not relevant for forming the DCOs studies in this paper.
+where $\avg{m}_{\rm COMPAS}$ is the average star forming mass of a binary in our sample and $f_{\rm trunc}$ is the fraction of the total stellar mass from which COMPAS samples, given its truncated mass and separation ranges (see Section \ref{sec:COMPAS_explained}). These truncations mean that only $f_{\rm trunc} \approx 0.17$ of the stellar mass in the galaxy is sampled from.
 
 \subsection{Total star forming mass in the Milky Way}
 It is important to distinguish between the \textit{total} mass of every star formed over the entire history of the Milky Way and the \textit{current} stellar mass in the Milky Way. Many stars born in the Milky Way are no longer living and have lost much of their mass to stellar winds and supernovae, thus the current stellar mass in the Milky Way is an underestimate of the total star forming mass.
@@ -142,7 +142,7 @@ We show the spatial metallicity distribution for this model in Fig.~\ref{fig:sim
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{../figures/fig11_random_simple_galaxy.png}
-    \caption{As Fig.~\ref{fig:galaxy_schematic} (right panel), but for the Milky Way model used in \citet{Breivik+2020}.}
+    \caption{As Fig.~\ref{fig:galaxy_schematic} (right panel), but for the Milky Way model used in \citet{Breivik+2020}.  \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig11_random_simple_galaxy.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/galaxy_creation_station.ipynb}{\faBook}.}
     \label{fig:simple_mw}
 \end{figure}
 
@@ -157,7 +157,7 @@ Overall, we find that previous studies that use Milky Way models analogous to th
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\columnwidth]{../figures/fig12_mBH_simple_mw_variation.pdf}
-    \caption{As Fig.~\ref{fig:fiducial_pdf_distributions} (top left panel), but for the Milky Way model used in \citet{Breivik+2020}. Dotted lines show the distribution from Fig.~\ref{fig:fiducial_pdf_distributions} for comparison.}
+    \caption{As Fig.~\ref{fig:fiducial_pdf_distributions} (top left panel), but for the Milky Way model used in \citet{Breivik+2020}. Dotted lines show the distribution from Fig.~\ref{fig:fiducial_pdf_distributions} for comparison. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig12_mBH_simple_mw_variation.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
     \label{fig:bh_mass_simple_mw}
 \end{figure}
 
@@ -179,7 +179,7 @@ Overall, we therefore expect a single pulsar per $5.7 \unit{deg^2}$ and $1.5 \un
 \subsection{Detection rate table}
 \begin{table*}[htb]
     \centering
-    \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the \nModels{} different model variations and each DCO type. Each value shows the mean and the 1-$\sigma$ Poisson uncertainty.}
+    \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the \nModels{} different model variations and each DCO type. Each value shows the mean and the 1-$\sigma$ Poisson uncertainty. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/detections.ipynb}{\faBook}.}
     \begin{tabular}{cl|lll|lll}
         \hline
         \multirow{2}{*}{Model} & \multirow{2}{*}{Description} & \multicolumn{3}{c|}{LISA detections (4 year)} & \multicolumn{3}{c}{LISA detections (10 year)} \\ \cline{3-8}
@@ -214,7 +214,7 @@ Overall, we therefore expect a single pulsar per $5.7 \unit{deg^2}$ and $1.5 \un
 \begin{figure*}[hb]
     \centering
     \includegraphics[width=\textwidth]{fig13_dcos_on_sc_eccentric_colours.png}
-    \caption{As the bottom panels of Fig.~\ref{fig:dcos_on_sc}, but without the density distributions and scatter points are coloured by their eccentricity. We show eccentric sources are located in an offshoot below the $30 \unit{kpc}$ around $2 \unit{mHz}$.}
+    \caption{As the bottom panels of Fig.~\ref{fig:dcos_on_sc}, but without the density distributions and scatter points are coloured by their eccentricity. We show eccentric sources are located in an offshoot below the $30 \unit{kpc}$ around $2 \unit{mHz}$. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig13_dcos_on_sc_eccentric_colours.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/sensitivity_curve.ipynb}{\faBook}.}
     \label{fig:dcos_on_sc_ecc_col}
 \end{figure*}
 
@@ -225,6 +225,6 @@ Overall, we therefore expect a single pulsar per $5.7 \unit{deg^2}$ and $1.5 \un
 \begin{figure}[h]
     \centering
     \includegraphics[height=0.85\textheight]{fig14_formation_channels.pdf}
-    \caption{Fraction of each DCO type that is formed through different formation channels for all physics variations. Channels are described in detail in \citet{Broekgaarden+2021}. The classic, single core CEE and double core CEE channels all require at least one common envelope event whilst only `only stable' consists of only stable mass transfer and `other' contains the remaining binaries which are mainly formed from `lucky' supernova kicks that shrink the binary. \todo{Update R and T}}
+    \caption{Fraction of each DCO type that is formed through different formation channels for all physics variations. Channels are described in detail in \citet{Broekgaarden+2021}. The classic, single core CEE and double core CEE channels all require at least one common envelope event whilst only `only stable' consists of only stable mass transfer and `other' contains the remaining binaries which are mainly formed from `lucky' supernova kicks that shrink the binary. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig14_formation_channels.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/formation_channels.ipynb}{\faBook}. \todo{Update R and T}}
     \label{fig:formation_channels}
 \end{figure}
