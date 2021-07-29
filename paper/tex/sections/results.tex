@@ -55,13 +55,8 @@ The peak is sharpest for NSNSs as they have the highest orbital frequencies and 
 The merger time is a function of the mass, frequency and eccentricity of the sources, such that more massive, higher frequency and more eccentric sources merge faster \citep[][Eq.~5.14]{Peters+1964}. So, despite the fact that each DCO type often has higher values in any one of these properties, the convolution of all three tends to negate the differences. For example, NSNSs have the highest orbital frequencies and are mildly eccentric whilst BHNSs have moderate orbital frequencies and are more circular. However, BHNSs are more massive in general and so the overall merger times are distributed very similarly for both DCO types.
 
 \subsection{Distribution in the Milky Way}\label{sec:mw_detectable_distribution}
-In the top panel of Fig.~\ref{fig:detectable_distance_dist} we show the distribution of the luminosity distance of detectable systems. Each DCO's luminosity distance distribution peaks around $8 \unit{kpc}$ since this is the distance to the centre of the Milky Way and thus the most dense location of DCOs. There is a bias in each distribution for systems at lower distances since closer binaries are easier to detect. This bias is most prominent for the NSNS distribution since, on average, their lower relative masses require a smaller distance in order to be detected.
 
-However, more surprisingly, we also see that the NSNS distribution extends to higher distances than the other DCOs. The reason for this is that the NSNS population has the highest fraction of ``mildly'' eccentric systems ($0.01 < e < 0.3$). The BHNS population has a much higher fraction of effectively circular systems ($e < 0.01$), which emit weaker gravitational wave compared to equivalent eccentric systems. Therefore, despite their relatively higher masses, the maximum distance at which a source is detectable is generally lower than the eccentric NSNSs and hence the distribution tends to zero at smaller distances. Conversely, the BHBH population has a higher fraction of \textit{high} eccentricity systems $e > 0.3$. Although one may naively expect that this would result in stronger signals (and so further distances), for a system to have these high eccentricities in LISA, it must still be early in its evolution and thus have a low orbital frequencies. The result of this is that high eccentricity systems tend to have lower SNRs and so cannot be detected at large distances. Overall we see that the eccentricity distribution of NSNSs occupies a ``sweet spot'' where the gravitational wave power is increased compared to circular systems, but it isn't too high that the frequency is significantly impacted. This means that NSNSs can be seen out to the largest distances of the three DCO types.
-
-In the lower panel of Fig.~\ref{fig:detectable_distance_dist}, we show the density distribution for detectable DCOs in the galaxy. We see that most sources are concentrated in the Galactic center, with a bias towards to the position of the Sun. Yet we also show that systems are detectable out to the edges of the galaxy. This is especially true for NSNSs, as we highlight by plotting the 75\% contour for the individual DCO types.
-
-\begin{figure}[thb]
+\begin{figure}[tb]
     \centering
     \includegraphics[width=\columnwidth]{fig4_1_detectable_distance_distribution_4yr.pdf}
     \includegraphics[width=\columnwidth]{fig4_2_galaxy_density_distribution.png}
@@ -69,10 +64,23 @@ In the lower panel of Fig.~\ref{fig:detectable_distance_dist}, we show the densi
     \label{fig:detectable_distance_dist}
 \end{figure}
 
+In the top panel of Fig.~\ref{fig:detectable_distance_dist} we show the distribution of the luminosity distance of detectable systems. Each DCO's luminosity distance distribution peaks around $8 \unit{kpc}$ since this is the distance to the centre of the Milky Way and thus the most dense location of DCOs. There is a bias in each distribution for systems at lower distances since closer binaries are easier to detect. This bias is most prominent for the NSNS distribution since, on average, their lower relative masses require a smaller distance in order to be detected.
+
+However, more surprisingly, we also see that the NSNS distribution extends to higher distances than the other DCOs. The reason for this is that the NSNS population has the highest fraction of ``mildly'' eccentric systems ($0.01 < e < 0.3$). The BHNS population has a much higher fraction of effectively circular systems ($e < 0.01$), which emit weaker gravitational wave compared to equivalent eccentric systems. Therefore, despite their relatively higher masses, the maximum distance at which a source is detectable is generally lower than the eccentric NSNSs and hence the distribution tends to zero at smaller distances. Conversely, the BHBH population has a higher fraction of \textit{high} eccentricity systems $e > 0.3$. Although one may naively expect that this would result in stronger signals (and so further distances), for a system to have these high eccentricities in LISA, it must still be early in its evolution and thus have a low orbital frequencies. The result of this is that high eccentricity systems tend to have lower SNRs and so cannot be detected at large distances. Overall we see that the eccentricity distribution of NSNSs occupies a ``sweet spot'' where the gravitational wave power is increased compared to circular systems, but it isn't too high that the frequency is significantly impacted. This means that NSNSs can be seen out to the largest distances of the three DCO types.
+
+In the lower panel of Fig.~\ref{fig:detectable_distance_dist}, we show the density distribution for detectable DCOs in the galaxy. We see that most sources are concentrated in the Galactic center, with a bias towards to the position of the Sun. Yet we also show that systems are detectable out to the edges of the galaxy. This is especially true for NSNSs, as we highlight by plotting the 75\% contour for the individual DCO types.
+
 \subsection{Measurement Uncertainties}\label{sec:measurement_uncertainties}
 Although it is useful to investigate the underlying parameters of the detectable population, it is also important to consider what LISA will actually \textit{measure} during a detection. To this end, we discuss the most relevant uncertainties below.
 
 \subsubsection{Chirp mass uncertainty}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=\columnwidth]{fig5_chirp_mass_uncertainty_4yr.pdf}
+    \caption{Cumulative distribution function for error on the chirp mass. Colours indicate DCO type and shading shows 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). The shaded region indicates region with unmeasureable chirp mass.}
+    \label{fig:m_c_unc}
+\end{figure}
 
 The chirp mass uncertainty is important for identifying the source of a GW signal. It is calculated using the uncertainty on the orbital frequency, the time derivative of the orbital frequency and the eccentricity. This is because the chirp mass can be written as
 \begin{equation}
@@ -99,13 +107,6 @@ where $\rho$ is the signal-to-noise ratio and $T_{\rm obs}$ is the LISA mission 
 \end{equation}
 
 We use Eq.~\ref{eq:chirp_mass_uncertainty} to calculate the chirp mass uncertainty for each DCO in our sample and plot it in Fig.~\ref{fig:m_c_unc}. We find that approximately $\BHBHChirpMassMeasureable{}$ BHBHs, $\BHNSChirpMassMeasureable{}$ BHNSs and $\NSNSChirpMassMeasureable{}$ NSNSs have measurable chirp masses ($\Delta \mathcal{M}_c / \mathcal{M}_c < 1$, indicated by the shaded region in Fig.~\ref{fig:m_c_unc}). This uncertainty is generally dominated by the uncertainty on the time derivative of the frequency, since most of the binaries are too early in their inspiral for LISA to measure a strong chirp.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\columnwidth]{fig5_chirp_mass_uncertainty_4yr.pdf}
-    \caption{Cumulative distribution function for error on the chirp mass. Colours indicate DCO type and shading shows 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). The shaded region indicates region with unmeasureable chirp mass.}
-    \label{fig:m_c_unc}
-\end{figure}
 
 \subsubsection{Sky localisation}
 

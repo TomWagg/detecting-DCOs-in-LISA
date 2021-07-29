@@ -1,5 +1,12 @@
 To produce predictions for the DCOs that are detectable with LISA, we synthesise a population of DCOs using the population synthesis methods described in Section~\ref{sec:COMPAS_explained}. In Section~\ref{sec:galaxy_synthesis} we describe our model for the Milky Way and how we place DCOs in randomly sampled Milky Way instances. We evolve the orbit of each DCO in a Milky Way instance up to the LISA mission and calculate the detection rate for that instance using the methods presented in Section~\ref{sec:gw_detection}.
 
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{fig1_galaxy_diagram.png}
+    \caption{A schematic illustrating how we model the Milky Way. The left panel illustrates the different model aspects: star formation history of 3 galactic components (individually shown in the dotted lines), radial distribution, metallicity-radius-time relation, and height distribution. The right panel shows an example instance of the Milky Way with $250000$ binaries shown as points coloured by metallicity. The top panel shows a side-on view and the bottom panel a face-on view.}
+    \label{fig:galaxy_schematic}
+\end{figure*}
+
 \subsection{Binary population synthesis}\label{sec:COMPAS_explained}
 
 We use the grid of \nModels{} binary population synthesis simulations recently presented in \citet{Broekgaarden+2021} and Broekgaarden et al. (in prep). This grid of simulations is synthesised using the rapid population synthesis code \href{https://compas.science}{COMPAS} \citep{Stevenson+2017,Vigna-Gomez+2018,Stevenson+2019,Broekgaarden+2019}. COMPAS follows the approach of the population synthesis code BSE \citep{Hurley+2000,Hurley+2002} and uses fitting formula and rapid algorithms to efficiently predict the final fate of binary systems. The code is open source and documented in the papers listed above, the online documentation\footnote{\url{https://compas.science}} and in the upcoming methods paper (Team COMPAS: J.\ Riley et al.\ in prep). We summarise the main assumptions and settings relevant for this work in Appendix~\ref{app:pop_synth}.
@@ -21,13 +28,6 @@ In Section~\ref{sec:mw_model}, we outline our model for the Milky Way and in Sec
 \subsubsection{Milky Way model}\label{sec:mw_model}
 
 Fig.~\ref{fig:galaxy_schematic} shows the distributions and relations outlined in this section and also displays an example random galaxy drawn using this model.
-
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=\textwidth]{fig1_galaxy_diagram.png}
-    \caption{A schematic illustrating how we model the Milky Way. The left panel illustrates the different model aspects: star formation history of 3 galactic components (individually shown in the dotted lines), radial distribution, metallicity-radius-time relation, and height distribution. The right panel shows an example instance of the Milky Way with $250000$ binaries shown as points coloured by metallicity. The top panel shows a side-on view and the bottom panel a face-on view.}
-    \label{fig:galaxy_schematic}
-\end{figure*}
 
 Our model for the Milky Way accounts for the low-\achem\footnote{Nomenclature used to describe the enhancement of $\alpha$ elements compared to iron in stellar atmospheres}~disc, high-\achem~disc and a central component approximating a bar/bulge. The low- and high-\achem~discs are often also referred to as the thin and thick discs because the stellar vertical distribution is better fit by a double exponential rather than a single one. However, this doesn't allow one to assign a star to either the thin or thick disk purely based on its height above the Galactic plane. Therefore, we use the chemical definition of the two disks with the \achem~nomenclature because there is a clear bimodal distribution in the chemical plane, allowing stars to be assigned to each of the disc components based on their chemical abundances. For each of the three components, we use a separate star formation history and spatial distribution, which we combine into a single model, weighting each component by its stellar mass. \citet{Licquia+2015} gives that the stellar mass of the bulge is $0.9 \times 10^{10} \unit{M_{\odot}}$ and the stellar mass of the disc is $5.2 \times 10^{10} \unit{M_\odot}$, which we split equally between the low- and high-\achem~discs \citep[e.g.,][]{Snaith+2014}.
 
