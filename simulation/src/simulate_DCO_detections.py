@@ -26,13 +26,14 @@ def usage():
 def main():
     # get command line arguments and exit if error
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], "hi:o:n:t:fs", ["help",
+        opts, _ = getopt.getopt(sys.argv[1:], "hi:o:n:t:fse", ["help",
                                                              "input=",
                                                              "output=",
                                                              "loops=",
                                                              "binary-type=",
                                                              "opt-flag",
-                                                             "simple-mw"])
+                                                             "simple-mw",
+                                                             "extended-mission"])
     except getopt.GetoptError as err:
         print(err)
         usage()
@@ -45,6 +46,7 @@ def main():
     binary_type = "BHNS"
     pessimistic = True
     use_simple_mw = False
+    t_obs = 4 * u.yr
 
     # change defaults based on input
     for option, value in opts:
@@ -63,6 +65,8 @@ def main():
             pessimistic = False
         if option in ("-s", "--simple-mw"):
             use_simple_mw = True
+        if option in ("-e", "--extended-mission"):
+            t_obs = 10 * u.yr
 
     # open COMPAS file
     with h5.File(input_filepath, "r") as COMPAS_file:
@@ -191,8 +195,9 @@ def main():
         a_LISA = a_LISA[:, -1]
         f_orb_LISA = f_orb_LISA[:, -1]
 
-        sources = lw.source.Source(m_1=m_1, m_2=m_2, ecc=e_LISA, dist=dist, f_orb=f_orb_LISA)
-        snr = sources.get_snr(verbose=True)
+        sources = lw.source.Source(m_1=m_1, m_2=m_2, ecc=e_LISA, dist=dist, f_orb=f_orb_LISA,
+                                   sc_params={"t_obs": t_obs})
+        snr = sources.get_snr(t_obs=t_obs)
 
         detectable = snr > SNR_CUTOFF
         n_detect = len(snr[detectable])
