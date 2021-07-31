@@ -22,7 +22,7 @@ dtype = [("m_1", dt), ("m_2", dt), ("a_DCO", dt), ("e_DCO", dt),
 
 floor_path = "/n/holystore01/LABS/berger_lab/Lab/fbroekgaarden/DATA/all_dco_legacy_CEbug_fix/"
 
-def combine_data(dco_type, variation, simple_mw=False, runs=50):
+def combine_data(dco_type, variation, simple_mw=False, extended_mission=False, runs=50):
     full_data = None
     n_detect = np.array([], dtype=np.int)
     total_weight = np.array([], dtype=np.float)
@@ -34,6 +34,8 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
         # check individual file exists
         if simple_mw:
             fname = "simple_mw_{}_{}_{}.h5".format(dco_type, variations[variation]["file"], i)
+        elif extended_mission:
+            fname = "{}_{}_10yr_{}.h5".format(dco_type, variations[variation]["file"], i)
         else:
             fname = "{}_{}_{}.h5".format(dco_type, variations[variation]["file"], i)
         if isfile(fname):
@@ -56,10 +58,12 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
         else:
             missing.append(i)
 
-    # as long as there is at least one file
+    # as long as there is at least one file then try to combine
     if len(missing) != runs:
         # let the user know which ones are currently missing
-        print(variation, len(missing), missing)
+        print(variations[variation]["file"],
+              " simple mw" if simple_mw else " 10yr" if extended_mission else "",
+              " : ", len(missing), missing)
 
         # work out the formation channels
         model = variations[variation]["file"]
@@ -98,6 +102,8 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
         # write the rest of the files to a single file
         if simple_mw:
             fname = "../data/simple_mw_{}_{}_all.h5".format(dco_type, variations[variation]["file"])
+        elif simple_mw:
+            fname = "../data/{}_{}_10yr_all.h5".format(dco_type, variations[variation]["file"])
         else:
             fname = "../data/{}_{}_all.h5".format(dco_type, variations[variation]["file"])
         with h5.File(fname, "w") as file:
@@ -115,7 +121,8 @@ def combine_data(dco_type, variation, simple_mw=False, runs=50):
 
 # loop over all binary types and physics variations
 for dco_type in ["BHBH", "BHNS", "NSNS"]:
-    for variation in [0]:#, 1, 2, 3, 4, 5, 6, 10, 11, 12, 13, 14, 15, 16, 18]:
-        combine_data(dco_type, variation)
+    for variation in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]:
+        # combine_data(dco_type, variation)
+        combine_data(dco_type, variation, extended_mission=True)
         #if variation == 0 or variation == 5:
         #    combine_data(dco_type, variation, simple_mw=True)
