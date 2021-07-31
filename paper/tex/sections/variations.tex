@@ -8,7 +8,7 @@ The BHBH detection rate is markedly robust across variations of physics assumpti
 \begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{fig7_dco_detections.pdf}
-    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 1- (solid) and 2-$\sigma$ (dotted) Poisson uncertainties. An arrow indicates that the error bar extends to zero. The left axis and grid lines show the number of detections in a 4-year LISA mission and the right axis shows an approximation of the number of detections in a 10-year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in Section~\ref{app:fiducial_physics}. See Sec.~\ref{sec:detection_rate_analysis} for a discussion. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig7_dco_detections.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}. \todo{Will add R, T once Floor says that they are done}}
+    \caption{The number of expected detections in the LISA mission for different DCO types and model variations. Error bars show the 1- (solid) and 2-$\sigma$ (dotted) Poisson uncertainties. An arrow indicates that the error bar extends to zero. The left axis and grid lines show the number of detections in a 4-year LISA mission and the right axis shows an approximation of the number of detections in a 10-year mission (we scale the axis by $\sqrt{T_{\rm obs}}$, see Table~\ref{tab:detection_rates} for exact rates). Each model is described in further detail in Table~\ref{tab:physics_variations} and details of the fiducial assumptions are in Section~\ref{app:fiducial_physics}. See also Fig.~\ref{fig:dco_relative_rates} and Sec.~\ref{sec:detection_rate_analysis} for a discussion. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig7_dco_detections.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}. \todo{Will add R, T once Floor says that they are done}}
     \label{fig:detection_rates}
 \end{figure*}
 
@@ -20,15 +20,15 @@ In contrast, for the NSNSs, the detection rate increases with increasing $\beta$
 
 Enforcing that case BB mass transfer is always unstable (model \modCaseBB{}) has little effect on the BHBH detection rate whilst moderately and drastically decreasing the detection rates of BHNSs and NSNSs respectively. This is because a large fraction of NSs (and the majority of NSNS binaries) are formed through case BB mass transfer. Therefore, setting this mass transfer to be always unstable results in many of these binaries to merge before they could become DCOs since we assume the pessimistic common-envelope (CE) scenario by default.
 
-If we instead use the optimistic CE scenario when setting case BB mass transfer to be unstable (model \modCaseBBOpt{}) we find that the rates instead uniformly increase across DCO types. This is both from the natural increases from using the optimistic CE scenario (see Sec.~\ref{sec:detection_rate_CE_trends} in which we discuss model \modOpt{}), as well as additional increases from adding more DCOs formed through CE events after case BB mass transfer. This explains why we see more detections for BHNSs and NSNSs in model \modCaseBBOpt{} than in model \modOpt{}.
+If we instead use the optimistic CE scenario when setting case BB mass transfer to be unstable (model \modCaseBBOpt{}) we find that the rates instead uniformly increase across DCO types. This is both from the natural increases from using the optimistic CE scenario (see discussion of model \modOpt{} in Sec.~\ref{sec:detection_rate_CE_trends}), as well as additional increases from adding more DCOs formed through CE events after case BB mass transfer. This explains why we see more detections for BHNSs and NSNSs in model \modCaseBBOpt{} than in model \modOpt{}.
 
 \subsubsection{Common-envelope variation trends}\label{sec:detection_rate_CE_trends}
 
-\todo{Discuss $\alpha_{\rm CE}$ changes once Floor ready}
+\todo{Discuss $\alpha_{\rm CE}$ changes once I understand them (:}
 
 We explore the optimistic CE scenario in model \modOpt{}, meaning that we allow Hertzsprung gap donors to survive CE events. A large fraction of the progenitors of the BHs in our sample expand significantly during the Hertzsprung gap phase and initiate CE events. This means that, when we assume the optimistic CE scenario, the formation rate of BHs is greatly increased. Therefore, we find that, though the detectable \textit{fraction} does not change significantly, the increased formation rate of BHs in the Milky Way leads to this model predicting significantly more BHBH detections.
 
-The progenitors of BHNSs tend to be less massive than those of BHBHs. Less massive stars expand less during the Hertzsprung gap and thus initiate CE events less frequently in this phase. This explains why the relative increase in model \modOpt{} compared to the fiducial model is lower for BHNSs. For the same reason, the NSNS detection rate shows little significant change.
+The progenitors of BHNSs tend to be less massive than those of BHBHs. Less massive stars expand less during the Hertzsprung gap and thus initiate CE events less frequently in this phase. For these reasons, as can be seen most clearly in Fig.~\ref{fig:dco_relative_rates}, the relative increase in model \modOpt{} compared to the fiducial model is lower than BHBHs for BHNSs. For the same reason, the NSNS detection rate shows little significant change.
 
 \subsubsection{Supernova variation trends}
 
@@ -40,8 +40,7 @@ Additionally, we find that not implementing pair-instability supernovae (PISN) p
 
 Decreasing the core-collapse supernova velocity dispersion (models \modSigLow{}-\modSigLower{}) increases the detection rates for each DCO type since lower kicks result in fewer disrupted binaries and hence a more numerous detectable population. This increase is least prominent for BHBHs since their increased mass mean that disruptions are less frequent than, for instance, in NSNSs. It is also notable that these two models best match the detection rates from LIGO (Broekgaarden et al.\ in prep). Therefore we find the best matching models for the LIGO detection rates also produce the highest LISA detection rates.
 
-\todo{dicuss no BH kick when done}
-%The model with no BH kick (\modNoBH{}) is slightly lower than model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick.
+\todo{ensure this noBHkick description still applies} In model \modNoBH{} we do not give black holes natal kicks. Rate is higher than fiducial for BHBH and BHNS but slightly lower than model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick. NSNSs are unaffected as one would assume.
 
 \subsubsection{Stellar wind variation trends}
 
