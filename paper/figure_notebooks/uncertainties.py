@@ -4,19 +4,17 @@ import astropy.units as u
 import legwork
 
 dco_types = ["BHBH", "BHNS", "NSNS"]
-data_folder = "../../simulation/data/"
-sim_folder = data_folder + "simulation/"
 
-def get_ecc_uncertainty(t_obs=4*u.yr, source_threshold=7, harmonic_threshold=7, model="fiducial"):
+def get_ecc_uncertainty(t_obs=4*u.yr, source_threshold=7, harmonic_threshold=7, model="fiducial", folder="../../simulation/data/simulation/", suffix=""):
     detectable_harmonics = {"BHBH": None, "BHNS": None, "NSNS": None}
     snr_uncertainty = {"BHBH": None, "BHNS": None, "NSNS": None}
     ecc_uncertainty = {"BHBH": None, "BHNS": None, "NSNS": None}
     max_harmonics = {"BHBH": None, "BHNS": None, "NSNS": None}
 
     for i, dco_type in enumerate(dco_types):
-        with h5.File(sim_folder + "{}_{}_all.h5".format(dco_type, model), "r") as f:
+        with h5.File(folder + "{}_{}{}_all.h5".format(dco_type, model, suffix), "r") as f:
             full_data = f["simulation"][...].squeeze()
-            snr_mask = full_data["snr"] * np.sqrt(t_obs / (4 * u.yr)) > source_threshold
+            snr_mask = full_data["snr"] > source_threshold
             data = full_data[snr_mask]
 
         sources = legwork.source.Source(m_1=data["m_1"] * u.Msun, m_2=data["m_2"] * u.Msun,
