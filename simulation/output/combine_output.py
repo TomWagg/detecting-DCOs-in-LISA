@@ -61,9 +61,9 @@ def combine_data(dco_type, variation, simple_mw=False, extended_mission=False, r
     # as long as there is at least one file then try to combine
     if len(missing) != runs:
         # let the user know which ones are currently missing
-        print(variations[variation]["file"],
-              " simple mw" if simple_mw else " 10yr" if extended_mission else "",
-              " : ", len(missing), missing)
+        print(len(missing), missing, ":",
+              variations[variation]["file"],
+              "simple mw" if simple_mw else "10yr" if extended_mission else "")
 
         # work out the formation channels
         model = variations[variation]["file"]
@@ -102,7 +102,7 @@ def combine_data(dco_type, variation, simple_mw=False, extended_mission=False, r
         # write the rest of the files to a single file
         if simple_mw:
             fname = "../data/simple_mw_{}_{}_all.h5".format(dco_type, variations[variation]["file"])
-        elif simple_mw:
+        elif extended_mission:
             fname = "../data/{}_{}_10yr_all.h5".format(dco_type, variations[variation]["file"])
         else:
             fname = "../data/{}_{}_all.h5".format(dco_type, variations[variation]["file"])
@@ -121,8 +121,8 @@ def combine_data(dco_type, variation, simple_mw=False, extended_mission=False, r
 
 # loop over all binary types and physics variations
 for dco_type in ["BHBH", "BHNS", "NSNS"]:
-    for variation in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]:
+    for variation in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
         # combine_data(dco_type, variation)
         combine_data(dco_type, variation, extended_mission=True)
-        #if variation == 0 or variation == 5:
+        # if variation == 0 or variation == 5:
         #    combine_data(dco_type, variation, simple_mw=True)
