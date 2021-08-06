@@ -69,16 +69,22 @@ However, it is important to highlight that \textit{if} DCOs are formed with comp
 \begin{figure}[tb]
     \centering
     \includegraphics[width=\columnwidth]{fig9_ecc_low_kick_variation.pdf}
-    \caption{As lower left panel of Fig.~\ref{fig:fiducial_pdf_distributions}, but for model \modSigLower{}. For comparison, we show the mean distribution for the fiducial model as dashed lines. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig9_ecc_low_kick_variation.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}.}
+    \caption{As lower left panel of Fig.~\ref{fig:fiducial_pdf_distributions}, but for model \modSigLower{}. For comparison, we show the mean distribution for the fiducial model (model \modFid{}) as dashed lines. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig9_ecc_low_kick_variation.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}.}
     \label{fig:ecc_low_kick_variation}
 \end{figure}
 
-In Figure~\ref{fig:ecc_low_kick_variation}, we investigate how decreasing the magnitude of natal kicks as a result of core-collapse supernovae affects the eccentricity distribution of detectable DCOs. For reference, we show the fiducial distributions from the lower left panel of Fig.~\ref{fig:fiducial_pdf_distributions} as dashed lines. In the main curves, we reduce the velocity dispersion for core-collapse supernovae from $265 \unit{km}{s^{-1}}$ to $30 \unit{km}{s^{-1}}$ (using model \modSigLower{} instead of \modFid{}).
+In Figure~\ref{fig:ecc_low_kick_variation}, we investigate how decreasing the magnitude of natal kicks from core-collapse supernovae affects the eccentricity distribution of LISA detectable DCOs. For reference, we show the mean fiducial distributions (model \modFid{}) as dashed lines (see lower left panel of Fig.~\ref{fig:fiducial_pdf_distributions} for full comparison). In the main curves, we reduce the velocity dispersion for core-collapse supernovae from $265 \unit{km}{s^{-1}}$ to $30 \unit{km}{s^{-1}}$ (model \modSigLower{}).
 
+We find that the LISA detectable BHBHs are significantly less eccentric with weaker kicks, such that the population above $e = 0.2$ is nearly completely eliminated. This is because BHBHs are often massive enough to withstand strong natal kicks without disrupting and these kicks tend to impart significant eccentricity. In model \modSigLower{}, very few systems are ever given such strong kicks and thus very few BHBHs are detected with significant eccentricity.
 
+Since BHNSs are less massive than BHBHs and have more unequal mass ratios, they are more vulnerable to disruption during supernova kicks. BHNSs can only withstand strong kicks when they are aimed in the correct direction and so only a small `lucky' fraction of the fiducial population is highly eccentric. Therefore in model \modSigLower{}, although we see that the population of highly eccentric BHNS systems is eliminated (similar to BHBHs), the peak of the distribution actually shifts to \textit{higher} eccentricity. This is because a larger fraction of systems are given weaker kicks that BHNSs can withstand and these impart much more moderate eccentricities.
+
+Finally, we find that the NSNS distribution is relatively unchanged between model \modFid{} and \modSigLower{}. This is not surprising however since the majority of NSNSs are formed through electron-capture supernovae and ultra-stripped supernovae and for these types of supernovae we use $\sigma^{\rm 1D}_{\rm rms} = 30 \unit{km}{s^{-1}}$ already (see App.~\ref{app:fiducial_physics}) and thus there is little difference between the models.
+
+Overall, we find that decreasing supernova natal kicks, though it strongly increases the number of detections (see Fig.~\ref{fig:detection_rates}), strongly \textit{decreases} the fraction of highly eccentric systems that are detected.
 
 \subsubsection{Other interesting features}
-\todo{explore whether there is anything interesting the CE ones}
+\todo{maybe add CE model stuff}
 
 
 % \begin{table}[htb]
