@@ -46,21 +46,40 @@ Decreasing the core-collapse supernova velocity dispersion (models \modSigLow{}-
 
 
 \subsection{Properties of detectable systems}\label{sec:property_variations}
-\todo{Describe the plots -- also explore whether there is anything interesting the CE ones once they are done}
 
-\begin{figure}[htb]
+In this section, we consider how varying underlying physics assumptions changes the properties of detectable systems. We focus on several key differences across physics variations rather than showing the differences in every model and thus this section is by no means exhaustive.
+
+\subsubsection{Using LISA to investigate the lower mass gap}
+
+\begin{figure}[tb]
     \centering
     \includegraphics[width=\columnwidth]{fig8_lower_mass_gap_rapid_variation.pdf}
-    \caption{Comparison of the component mass distribution of LISA detectable DCOs when using the Fryer delayed (model \modFid{}) and rapid (model \modRapid{}) remnant mass prescriptions. Distributions are plotted in the same way as Fig.~\ref{fig:fiducial_pdf_distributions}. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig8_lower_mass_gap_rapid_variation.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}.}
+    \caption{Comparison of the component mass distribution of LISA detectable DCOs when using the Fryer delayed (model \modFid{}) and rapid (model \modRapid{}) remnant mass prescriptions. Distributions are plotted in the same way as Fig.~\ref{fig:fiducial_pdf_distributions}, except all DCOs types are shown in one curve and each type is weighted by its detection rate in the respective model. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig8_lower_mass_gap_rapid_variation.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}.}
     \label{fig:lower_mass_gap_variation}
 \end{figure}
 
-\begin{figure}[htb]
+In Figure~\ref{fig:lower_mass_gap_variation}, we show the component mass distribution for all LISA detectable DCOs (BHBHs, BHNSs and NSNSs) for two different remnant mass prescriptions. The grey distribution uses the Fryer \textit{delayed} remnant mass prescription \citep{Fryer+2012}, which is our fiducial assumption. This prescription produces compact objects in the lower mass gap ($2.5 \unit{M_{\odot}} \le m \le 5 \unit{M_{\odot}}$) and indeed we find that, of the LISA detectable DCOs, approximately \BHBHatLeastOneLowerMassGapPerc{}\% of BHBHs, \BHNSatLeastOneLowerMassGapPerc{}\% of BHNSs and \NSNSatLeastOneLowerMassGapPerc{}\% of NSNSs have at least one component in the lower mass gap. Overall, weighting by the relative detection rates, this gives that 55\% of our predicted LISA DCO detections  would have at least one component in the lower mass gap when using this remnant mass prescription.
+
+Alternatively, the blue curve in Fig.~\ref{fig:lower_mass_gap_variation} shows the same distribution but for the \textit{rapid} remnant mass prescription \citep{Fryer+2012}, which we use in model \modRapid{}. In this case, no compact objects are formed (and therefore, detected) in the lower mass gap. From the stark difference between these models, it is clear that it is difficult at this point to say with any certainty what fraction of systems LISA will detect in the lower mass gap given the highly uncertain formation rate of systems in this mass range.
+
+However, it is important to highlight that \textit{if} DCOs are formed with components in the lower mass gap, LISA \textit{will} be able to detect them. And thus, LISA could be a useful instrument for providing evidence for the existence or non-existence of a lower mass gap based on the mass distribution of detected DCOs.
+
+\subsubsection{Effect of natal kicks on eccentricity distribution}
+
+\begin{figure}[tb]
     \centering
     \includegraphics[width=\columnwidth]{fig9_ecc_low_kick_variation.pdf}
     \caption{As lower left panel of Fig.~\ref{fig:fiducial_pdf_distributions}, but for model \modSigLower{}. For comparison, we show the mean distribution for the fiducial model as dashed lines. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig9_ecc_low_kick_variation.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}.}
     \label{fig:ecc_low_kick_variation}
 \end{figure}
+
+In Figure~\ref{fig:ecc_low_kick_variation}, we investigate how decreasing the magnitude of natal kicks as a result of core-collapse supernovae affects the eccentricity distribution of detectable DCOs. For reference, we show the fiducial distributions from the lower left panel of Fig.~\ref{fig:fiducial_pdf_distributions} as dashed lines. In the main curves, we reduce the velocity dispersion for core-collapse supernovae from $265 \unit{km}{s^{-1}}$ to $30 \unit{km}{s^{-1}}$ (using model \modSigLower{} instead of \modFid{}).
+
+
+
+\subsubsection{Other interesting features}
+\todo{explore whether there is anything interesting the CE ones}
+
 
 % \begin{table}[htb]
 %     \centering
