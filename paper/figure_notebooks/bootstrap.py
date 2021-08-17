@@ -2,64 +2,58 @@ import numpy as np
 from scipy.stats import gaussian_kde
 from scipy.interpolate import interp1d
 
-def kde(variable, weights, bw_adjust=1.0, x_min=None, x_max=None, x_count=200, x_vals=None,
-        lower_bound=None, upper_bound=None, verbose=False):
-    # if a range of x values at which to evaluate have not been provided then create one
-    if x_vals is None:
-        if x_min is None:
-            x_min = np.min(variable)
-        if x_max is None:
-            x_max = np.max(variable)
-        x_vals = np.linspace(x_min, x_max, x_count)
-    else:
-        x_min, x_max = x_vals[0], x_vals[-1]
+class MirroredKDE(gaussian_kde):
+    """ KDE class that mirrors data at boundaries to account for bounded support """
 
-    # calculate the covariance factor using Scott's rule
-    cv = (1 / np.sum((weights / np.sum(weights))**2))**(-1./(1+4))
+    def __init__(self, data, weights=None, lower_bound=None, upper_bound=None,
+                 bw_method=None, bw_adjust=None):
+        """ instantiate class in similar way to scipy but with some additions """
+        super().__init__(data, weights=weights, bw_method=bw_method)
 
-    # work out the bandwidth for the original data
-    bw = cv * np.std(variable)
+        # also store the lower and upper bounds
+        self._lower_bound = lower_bound
+        self._upper_bound = upper_bound
 
-    # check if either bound is surpassed given this bandwidth
-    exceeds_lower_bound = lower_bound is not None and np.min(variable) < lower_bound + bw
-    exceeds_upper_bound = upper_bound is not None and np.max(variable) > upper_bound - bw
+        # allow adjustment of the default bandwidth similar to seaborn
+        if bw_adjust is not None:
+            self.set_bandwidth(self.factor * bw_adjust)
 
-    # mirror data as necessary and adjust height based on how much added
-    if exceeds_lower_bound and exceeds_upper_bound:
-        if verbose:
-            print("exceeds both bounds")
-        variable = np.concatenate((2 * lower_bound - variable, variable, 2 * upper_bound - variable))
-        weights = np.repeat(weights, 3)
-        height_adjust = 3
-    elif exceeds_lower_bound:
-        if verbose:
-            print("exceeds lower bounds")
-        variable = np.concatenate((variable, 2 * lower_bound - variable))
-        weights = np.concatenate((weights, weights))
-        height_adjust = 2
-    elif exceeds_upper_bound:
-        if verbose:
-            print("exceeds upper bounds")
-        variable = np.concatenate((variable, 2 * upper_bound - variable))
-        weights = np.concatenate((weights, weights))
-        height_adjust = 2
-    else:
-        height_adjust = 1
+    def evaluate(self, x_vals=None, x_min=None, x_max=None, x_count=200):
+        """ evaluate the kde taking into account the boundaries """
 
-    # calculate the KDE
-    kde = gaussian_kde(variable, weights=weights)
+        # only return x_vals when they aren't supplied
+        return_x_vals = x_vals is None
 
-    # set the bandwidth so it is equal to the original
-    kde.set_bandwidth(bw / np.std(variable))
+        if x_vals is None:
+            if x_min is None:
+                x_min = np.min(self.dataset)
+            if x_max is None:
+                x_max = np.max(self.dataset)
+            x_vals = np.linspace(x_min, x_max, x_count)
 
-    # adjust as desired
-    if bw_adjust is not None:
-        kde.set_bandwidth(kde.factor * bw_adjust)
+        # make a copy of the data before I mirror anything
+        unmirrored_x_vals = np.copy(x_vals)
 
-    # evaluate kde
-    kde_vals = kde.evaluate(x_vals) * height_adjust
+        # evaluate the kde at the original x values
+        kde_vals = super().evaluate(x_vals)
 
-    return x_vals, kde_vals
+        # if either bound is present then mirror the data and
+        # add the evaluated kde for the mirrored data to the original
+        if self._lower_bound is not None:
+            x_vals = 2.0 * self._lower_bound - x_vals
+            kde_vals += super().evaluate(x_vals)
+            x_vals = unmirrored_x_vals
+
+        if self._upper_bound is not None:
+            x_vals = 2.0 * self._upper_bound - x_vals
+            kde_vals += super().evaluate(x_vals)
+            x_vals = unmirrored_x_vals
+
+        if return_x_vals:
+            return x_vals, kde_vals
+        else:
+            return kde_vals
+
 
 def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None, lower_bound=None, upper_bound=None,
                      bootstraps=200, x_min=None, x_max=None, x_count=200, log_scale=(False, False),
@@ -128,17 +122,16 @@ def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None, lower_bound=N
         # sample indices
         boot_index = np.random.choice(indices, size=len(indices), replace=True)
 
-        _, kde_vals[i] = kde(loop_variable[boot_index], weights=loop_weights[boot_index], x_vals=x_vals,
-                             lower_bound=lower_bound, upper_bound=upper_bound, bw_adjust=bw_adjust)
+        kde = MirroredKDE(loop_variable[boot_index], weights=loop_weights[boot_index],
+                          lower_bound=lower_bound, upper_bound=upper_bound, bw_adjust=bw_adjust)
+        kde_vals[i] = kde.evaluate(x_vals)
 
     # calculate 1- and 2- sigma percentiles
     percentiles = np.percentile(kde_vals, [15.89, 84.1, 2.27, 97.725], axis=0)
 
     # plot uncertainties as filled areas
-    ax.fill_between(x_vals, percentiles[2], percentiles[3],
-                    alpha=0.15, color=color, **kwargs)
-    ax.fill_between(x_vals, percentiles[0], percentiles[1],
-                    alpha=0.3, color=color, **kwargs)
+    ax.fill_between(x_vals, percentiles[2], percentiles[3], alpha=0.15, color=color, **kwargs)
+    ax.fill_between(x_vals, percentiles[0], percentiles[1], alpha=0.3, color=color, **kwargs)
 
     # plot the regular kde
     ax.plot(x_vals, np.median(kde_vals, axis=0), color=color, label=label, **kwargs)
