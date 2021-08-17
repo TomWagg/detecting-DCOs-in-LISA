@@ -132,6 +132,41 @@ Finally, we can substitute Equations~\ref{eq:norm_avg_target_formation} and \ref
     &\times \qty(\frac{\avg{m}_{\rm COMPAS, Z}}{f_{\rm trunc}} \sum_{i=1}^{N_{\rm binaries, Z}} w_i)^{-1}.
 \end{align}
 
+\section{Calculation of the uncertainties in the chirp mass for detectable sources}\label{app:chirp_mass_uncertainty}
+
+How accurately the chirp mass of a detected binary can be determined depends on the signal to noise ratio, duration of the mission, its orbital frequency and the time derivative of the orbital frequency. 
+
+Here we describe how we estimate the uncertainty of the chirp mass . First, consider the chirp mass, which can be expressed as
+\begin{equation}
+    \mathcal{M}_c = \frac{c^3}{G} \left( \frac{5 \pi}{48 n} \frac{\dot{f}_{n}}{F(e)} \right)^{3/5} \frac{1}{(2 \pi f_{\rm orb})^{11/5}},
+\end{equation}
+where ${f}_{n}$ is the frequency of the n-th harmonic,  $f_{\rm orb}$ is the orbital frequency, $\mathcal{M}_{c}$ is the chirp mass (defined in Eq.~\ref{eq:chirp_mass}), $e$ is the eccentricity and
+\begin{equation}\label{eq:peters_f}
+    F(e) = \frac{1 + \frac{73}{24} e^2 + \frac{37}{96} e^4}{(1 - e^2)^{7/2}},
+\end{equation}
+is the enhancement factor of gravitational wave emission for an eccentric binary over an otherwise identical circular binary \citep[][Eq.~17]{Peters+1963}. 
+%
+In practice, we will use the dominating harmonic, with $n=n_{\rm dom}$ and $f_n =  f_{\rm dom}$. The dominating harmonic for circular binaries is $n_{\rm dom} = 2$ and the dominating frequency is twice the orbital frequency. 
+
+Therefore the chirp mass uncertainty can be estimated as
+\begin{equation}\label{eq:chirp_mass_uncertainty}
+    \frac{\Delta \mathcal{M}_c}{\mathcal{M}_c} = \frac{11}{5} \frac{\Delta f_{\rm orb}}{f_{\rm orb}} + \frac{3}{5} \frac{\Delta \dot{f}_{\rm dom}}{\dot{f}_{\rm dom}} + \frac{3}{5} \frac{\Delta F(e)}{F(e)},
+\end{equation}
+%where $f_{\rm dom}$ is the harmonic frequency with the strongest SNR ($f_{\rm dom} = n_{\rm dom} f_{\rm orb}$ and $n_{\rm dom} = 2$ for circular binaries) as this will provide the best measurement.
+
+We estimate the frequency uncertainties using \citet{Takahashi+2002}, such that
+\begin{align}\label{eq:f_orb_unc}
+    \frac{\Delta f_{\rm orb}}{f_{\rm orb}} &= 4 \sqrt{3} \cdot \frac{1}{\rho} \frac{1}{T_{\rm obs}} \frac{1}{f_{\rm orb}}, \\
+    \frac{\Delta \dot{f}_{\rm dom}}{\dot{f}_{\rm dom}} &= 6 \sqrt{5} \cdot \frac{1}{\rho} \left(\frac{1}{T_{\rm obs}} \right)^2 \frac{1}{\dot{f}_{\rm dom}},
+\end{align}
+where $\rho$ is the signal-to-noise ratio and $T_{\rm obs}$ is the LISA mission length. We estimate the eccentricity certainty, $\Delta e$, following the methods of \citet{Lau+2020} and \citet{Korol+2021}, which use the relative SNRs of different harmonics to work out the eccentricity. We propagate this uncertainty such that
+\begin{equation}
+    \frac{\Delta F(e)}{F(e)} = \Delta e \cdot \frac{(1256 + 1608 e^2 + 111 e^4) e}{96 + 196 e^2 - 255 e^4 - 37 e^6}.
+\end{equation}
+
+We use Eq.~\ref{eq:chirp_mass_uncertainty} to calculate the chirp mass uncertainty for each DCO type in our sample and plot it in Fig.~\ref{fig:m_c_unc}.
+
+
 \section{Assessing the impact of Milky Way model choices}\label{app:mw_changes}
 The model that we use for the Milky Way adds several layers of complexity, accounting for the inside-out growth of the thin disc, using empirically informed star formation histories that are a function of time and assigning metallicities based on the position and age of binaries. In this section, we repeat our main analysis but instead apply a simpler model for the Milky Way in order to assess the effect of these added features. For this purpose, we use model for the Milky Way used in \citet{Breivik+2020} as this is representative of the models used in most previous works.
 
