@@ -134,7 +134,7 @@ def main():
 
         # change metallicities above COMPAS limits to between solar and upper
         too_big = Z_unbinned > max_Z_compas
-        Z_unbinned[too_big] = 10**(np.random.uniform(np.log10(np.min(0.01416, max_Z_compas)),
+        Z_unbinned[too_big] = 10**(np.random.uniform(np.log10(np.min([0.01416, max_Z_compas])),
                                                      np.log10(max_Z_compas),
                                                      len(Z_unbinned[too_big])))
 
