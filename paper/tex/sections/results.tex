@@ -69,7 +69,7 @@ It is rare to get such a ``lucky kick'', but there are a few effects that favour
 The lower abundance of highly eccentric systems among the NSNS and BHNS systems may seem counter-intuitive since neutron stars receive stronger natal kicks, which one may expect to lead to more eccentric systems.  However, in practice, these stronger kicks often disrupt these systems. 
 
 \paragraph{Time since formation} 
-In Fig.~\ref{fig:fiducial_pdf_distributions}e we show how long ago the DCOs detectable by LISA formed. For comparison we show the star formation history we have assumed in our Milky Way model (grey line). Star formation was highest at early times $6-12\unit{Gyr}$ ago, after which it declined.  In contrast, the DCOs detectable by LISA primarily formed in the relatively \textit{recent} history of our Milky Way, about $2 \unit{Gyr}$ ago. This reflects the fact that binaries in our simulation typically take about a Gyr to merge, a result as is commonly found also in other population synthesis studies.
+In Fig.~\ref{fig:fiducial_pdf_distributions}e we show how long ago the DCOs detectable by LISA formed. For comparison we show the star formation history we have assumed in our Milky Way model (grey dotted line). Star formation was highest at early times $6-12\unit{Gyr}$ ago, after which it declined.  In contrast, the DCOs detectable by LISA primarily formed in the relatively \textit{recent} history of our Milky Way, about $2 \unit{Gyr}$ ago. This reflects the fact that binaries in our simulation typically take about a Gyr to merge, a result as is commonly found also in other population synthesis studies.
 
 When comparing the distribution of formation times for the three different DCO types we see that NSNSs are most strongly concentrated at recent times, followed by BHBH and then BHNS. To understand this it is helpful to consider how the inspiral time scales with various parameters
 \begin{equation}
@@ -128,7 +128,7 @@ Conversely, the BHBH population has the highest fraction of highly eccentric sys
 
 Overall we see that the eccentricity distribution of NSNSs occupies a ``sweet spot'' where the gravitational wave power is increased compared to circular systems, but it isn't too high that the frequency is significantly impacted. This means that NSNSs can be seen out to the largest distances of the three DCO types.
 
-\subsection{Progenitors and formation channel \label{sec:progenitors_and_formation}}
+\subsection{Progenitors and formation channels}\label{sec:progenitors_and_formation}
 \todo{for tom: Refer to appendix figure on formation channel and birth initial mass, mass ratio metallicity (and separation).}
 
 
@@ -144,10 +144,7 @@ So far we have discussed the properties of the detectable sources that can, in p
     \label{fig:snr_dist}
 \end{figure}
 
-{\bf SdM: proposed to add this paragraph and plot. Draft text provided}
-In Fig.~X we show the cumulative distribution of SNR expected together with the $1$ and $2\sigma$ uncertainties. We assumed a detection threshold of {\bf 8}. Of the total number of 140 {\bf check} detections SNRs larger than 10, 50, 100 respectively for 85, 16, and 9 sytems, where the high SNR systems are typically, but not only, the more massive BHBH systems.   
-
-{\bf Quote with errors. }
+In Fig.~\ref{fig:snr_dist} we show the cumulative number of detections with a given SNR. Although many have SNRs around the our assumed detection threshold of 7, many systems are detection with very high SNRs. We find that for a 4(10)-year LISA mission, of the 124(202) detections, 85(138), 16(27) and 9(14) systems have SNRs greater than 10, 50 and 100 respectively. These high SNR systems are typically, but not only, the more massive BHBH systems.
 
 \paragraph{Chirp mass}
 
@@ -160,7 +157,9 @@ In Fig.~X we show the cumulative distribution of SNR expected together with the 
 
 The chirp mass is important for identifying the type of the source of a detected GW signal. The uncertainty of the chirp mass depends on the uncertainty in the measured orbital frequency, the time derivative of the orbital frequency and the eccentricity as detailed in Appendix~\ref{app:chirp_mass_uncertainty}.
 
-We find that for a 4(10)-year LISA mission, approximately $\BHBHChirpMassMeasureableFour{}(\BHBHChirpMassMeasureableTen{})$ BHBHs, $\BHNSChirpMassMeasureableFour{}(\BHNSChirpMassMeasureableTen{})$ BHNSs and $\NSNSChirpMassMeasureableFour{}(\NSNSChirpMassMeasureableTen{})$ NSNSs have measurable chirp masses ($\Delta \mathcal{M}_c / \mathcal{M}_c < 1$, indicated by the shaded region in Fig.~\ref{fig:m_c_unc}). Note that increasing the mission length significantly increases the number of detections for which we can measure the mass. This uncertainty is generally dominated by the uncertainty on the time derivative of the frequency, since most of the binaries are too early in their inspiral for LISA to measure a strong chirp.
+We find that for a 4(10)-year LISA mission, approximately 41(105) detections have measurable chirp masses ($\Delta \mathcal{M}_c / \mathcal{M}_c < 1$, indicated by the dark shaded region in Fig.~\ref{fig:m_c_unc}) whilst 13(31) have chirp mass uncertainties below 10\%. This uncertainty is generally dominated by the uncertainty on the time derivative of the frequency, since most of the binaries are too early in their inspiral for LISA to measure a strong chirp.
+
+Note that increasing the mission length significantly increases the number of detections for which we can measure the mass. The total number of detections only scales as $\sqrt{T_{\rm obs}}$, yet we find that the total number of detections \textit{with well measured masses} scales approximately as $T_{\rm obs}$.
 
 \paragraph{Eccentricities}
 
@@ -183,6 +182,6 @@ We quantify the sky localisation of a source by estimating the angular resolutio
 \end{equation}
 where $L$ is the effective detector baseline, which for LISA is 2 AU since it will orbit the Sun.
 
-We plot the distribution of expected angular resolutions in Fig.~\ref{fig:ang_res}. We see that only {\bf x, x, and x\% [quote numbers pref. with errorbars] } of the sources can be resolved to an angular resolution better than 1 degree, for NSNS, BHNS and BHBH respectively. The fraction is higher for NSNS systems {\bf SdM: Do we understand why?}, which is will be of interest for counter part searches.   
+We plot the distribution of expected angular resolutions in Fig.~\ref{fig:ang_res}. We see that, for a 4(10)-year LISA mission, approximately 82(123) sources can be resolved to an angular resolution better than 10 degrees and only 16(23) better than 1 degree. 
 
 For comparison, the size of a pencil beam for a $15 \unit{m}$ diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees \citep{Smits+2009}, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (similar to the angular size of the moon). We will further discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
