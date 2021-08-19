@@ -43,7 +43,13 @@ Decreasing the core-collapse supernova velocity dispersion (models \modSigLow{}-
 In model \modNoBH{} we do not give black holes natal kicks. For BHBHs, the rate is approximately equal to that of model \modSigLower{} since kicks of $30 \unit{km}{s^{-1}}$ are equivalent to no kicks for massive BHs in our sample. For BHNSs, this model's rate is still well above the fiducial but decreases slightly relative to model \modSigLower{} as the number of surviving binaries is limited by the neutron star kick more than the black hole kick. NSNSs are unaffected as one would assume.
 
 \subsubsection{Stellar wind variation trends}
+We decrease the efficiency of Wolf-Rayet winds to 10\% in model \modWRLow{}. We find that decreasing the efficiency of these winds actually has very little effect on our predicted detection rates. This due to a combination of cancelling effects.
 
+Firstly, the decreased winds mean that the DCOs (particularly those containing BHs) are generally more massive and so more detectable in LISA. Secondly, one may expect that LISA sources in model \modWRLow{} would be higher frequency than in our fiducial model as decreased winds generally result in tighter binaries. However, though this \textit{is} the case at DCO formation, we find by the time the sources have evolved until the LISA mission they are actually at \textit{lower} frequencies than in our fiducial model. This is because the reduced winds allow DCOs to be formed at higher metallicity and, therefore, at more recent times. This means that the DCOs do not evolve for as long before the LISA mission and so remain at lower frequencies (wider separations) thus making them less detectable. Finally, we find that NSNSs are more eccentric and BHBHs are less eccentric than our fiducial model (with BHNSs relatively unchanged). The increase in eccentricity for NSNSs comes from the same reason as the lower frequency, more recent birth times mean that binaries have less time to circularise. The same is not true for BHBHs as the more massive systems are less affected by supernova kicks and so fewer high eccentricity systems are formed.
+
+Overall, despite the large differences in the system properties, these three effects in combination leave the detection rates relatively unchanged.
+
+In model \modWRHigh{} we instead \textit{increase} the efficiency of Wolf-Rayet winds by a factor of 5. In this model the detection rate of BHBHs decreases by over a factor of 10 and BHNSs by over a factor of 2 whilst the NSNS rate is relatively unchanged. Increasing the efficiency of WR winds strongly decreases the final masses of DCOs. This means that many progenitors that would have formed LISA sources under our fiducial assumptions would not have enough mass to produce a DCO, or produce a NS instead of a BH (therefore this effect is stronger on BHBHs than NSNSs). Moreover, DCOs that are formed tend to be less massive and therefore less detectable.
 
 \subsection{Properties of detectable systems}\label{sec:property_variations}
 
@@ -88,5 +94,5 @@ Overall, we find that decreasing supernova natal kicks, though it strongly incre
 
 \subsubsection{Effect mass loss rate multiplier on the (chirp) mass distribution}
 
-{\bf Selma would like this one}
+\todo{Selma would like this one}
 

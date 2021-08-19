@@ -41,7 +41,7 @@ The distribution for BHBH shows a bimodality. This results from the two contribu
 
 For both the BHBHs and BHNSs, we see that the black hole mass distribution favours low masses. About $90\%$ of BHs have masses below $11 \unit{M_{\odot}}$, in our fiducial simulations shown here. This is in stark contrast with the masses of the BHs that have been detected so far by ground-based GW detectors, where heavy BHs, with masses of about $30\unit{M_{\odot}}$ and higher have been common. Ground-based detectors are strongly biased towards high mass systems, since they can be detected out to larger distances. Instead, LISA is, in principle, sensitive to inspiraling BHBHs throughout the entire Milky Way regardless of their mass, as long as we catch them at the right time when their dominant frequencies coincide with the range where LISA is sensitive.
 
-A further reason for the preference for low masses is that the population of BHs detectable by LISA primarily come from progenitors that formed from high metallicity gas according to our simulations (see Sec.~\ref{sec:progenitors_and_formation} also Appendix~XX). Stellar winds are stronger at high metallicity leading to increased mass loss. This affects the mass of the most massive black holes that can be formed \citep{Belczynski+2010}. 
+A further reason for the preference for low masses is that the population of BHs detectable by LISA primarily come from progenitors that formed from high metallicity gas according to our simulations (see Sec.~\ref{sec:progenitors_and_formation} also Fig.~\ref{fig:progenitor_and_dco_properties}). Stellar winds are stronger at high metallicity leading to increased mass loss. This affects the mass of the most massive black holes that can be formed \citep{Belczynski+2010}. 
 
 We also note that our BH mass distribution extends down below $5\unit{M_{\odot}}$ to $2.5 \unit{M_{\odot}}$ which is our fiducial maximum neutron star mass. The BHs in this simulation fill the so-called ``lower mass gap'' marked as a grey band \citep{Ozel+2010,Farr+2011}, see also \citet{Shao+2021} who recently pointed this out. This prediction is sensitive to adopted model for fall back during the SN explosion as we discuss this further in Sec.~\ref{sec:lower_mass_gap}
 
@@ -66,6 +66,8 @@ It is rare to get such a ``lucky kick'', but there are a few effects that favour
 
 The lower abundance of highly eccentric systems among the NSNS and BHNS systems may seem counter-intuitive since neutron stars receive stronger natal kicks, which one may expect to lead to more eccentric systems.  However, in practice, these stronger kicks often disrupt these systems. 
 
+\todo{@Selma suggests we return to this section. NSs do \textbf{NOT} receive stronger natal kicks in our simulations since most are formed through ECSN e.g. and have 30km/s instead of 265km/s. }
+
 \paragraph{Time since formation} 
 In Fig.~\ref{fig:fiducial_pdf_distributions}e we show how long ago the DCOs detectable by LISA formed. For comparison we show the star formation history we have assumed in our Milky Way model (grey dotted line). Star formation was highest at early times $6-12\unit{Gyr}$ ago, after which it declined.  In contrast, the DCOs detectable by LISA primarily formed in the relatively \textit{recent} history of our Milky Way, about $2 \unit{Gyr}$ ago. This reflects the fact that binaries in our simulation typically take about a Gyr to merge, a result as is commonly found also in other population synthesis studies.
 
@@ -89,6 +91,22 @@ The merger time is a function of the mass, frequency and eccentricity of the sou
 
 \subsection{Distribution in the Milky Way}\label{sec:mw_detectable_distribution}
 For our Milky way model we considered three different components, a low-$\alpha$ (``thin'') disc, an older high-$\alpha$ (``thick'') disc and a bulge/bar. In Table~\ref{tab:component_fractions} we summarise the number of detections originating from each of these components. Despite the fact that only $42.5\%$ of systems are formed in the low-$\alpha$ disc, we find that $86\%$ of the detections originate from this component. This is because most detectable systems were formed relatively recently (see Fig.~\ref{fig:fiducial_pdf_distributions}) and so the high-$\alpha$ disc and bulge are effectively too old to contribute many detectable systems. Nevertheless, we do find a significant fraction of detectable systems originate in the high-$\alpha$ disc and bulge, indicating that it is still important to include these components, as was ignored in some earlier works (see Sec.~\ref{sec:compare_studies}).
+
+% \newcolumntype{Y}{>{\centering\arraybackslash}X}
+% \begin{table}[tb]
+%     \centering
+%     \begin{tabularx}{\columnwidth}{l|Y Y Y}
+%         \hline
+%         \multirow{2}{*}{Threshold} & \multicolumn{3}{c}{Individually detectable harmonics} \\ \cline{2-4}
+%         & 0 & 1 & 2+ \\
+%         \hline
+%         $\mathrm{SNR} > 7$ & 18\%  & 67\% & 15\% \\
+%         $\mathrm{SNR} > 3$ &  8\%  & 54\% & 38\% \\
+%         $\mathrm{SNR} > 1$ &  4\%  & 30\% & 66\% \\
+%     \end{tabularx}
+%     \caption{Percentage of systems with individual harmonics above different SNR thresholds.}
+%     \label{tab:test}
+% \end{table}
 
 \begin{table}[tb]
     \centering
