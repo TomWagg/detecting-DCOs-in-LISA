@@ -121,7 +121,7 @@ def combine_data(dco_type, variation, simple_mw=False, extended_mission=False, r
 
 # loop over all binary types and physics variations
 for dco_type in ["BHBH", "BHNS", "NSNS"]:
-    for variation in [17, 19]:#range(len(variations)):
+    for variation in range(len(variations)):
         combine_data(dco_type, variation)
         combine_data(dco_type, variation, extended_mission=True)
         if variation == 0 or variation == 5:
