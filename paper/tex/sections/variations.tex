@@ -24,7 +24,7 @@ If we instead use the optimistic CE scenario when setting case BB mass transfer 
 
 \subsubsection{Common-envelope variation trends}\label{sec:detection_rate_CE_trends}
 
-\todo{Discuss $\alpha_{\rm CE}$ changes}
+\todo{Discuss $\alpha_{\rm CE}$ changes: It seems that alpha=1 is a sweet spot for BHBH and BHNS (they seem to follow the same trend) whilst NSNS has a very different pattern -- not really sure what's happening here}
 
 We explore the optimistic CE scenario in model \modOpt{}, meaning that we allow Hertzsprung gap donors to survive CE events. A large fraction of the progenitors of the BHs in our sample expand significantly during the Hertzsprung gap phase and initiate CE events. This means that, when we assume the optimistic CE scenario, the formation rate of BHs is greatly increased. Therefore, we find that, though the detectable \textit{fraction} does not change significantly, the increased formation rate of BHs in the Milky Way leads to this model predicting significantly more BHBH detections.
 
@@ -75,7 +75,7 @@ However, it is important to highlight that \textit{if} DCOs are formed with comp
 \begin{figure}[tb]
     \centering
     \includegraphics[width=\columnwidth]{fig9_ecc_low_kick_variation.pdf}
-    \caption{As lower left panel of Fig.~\ref{fig:fiducial_pdf_distributions}, but for model \modSigLower{}. For comparison, we show the mean distribution for the fiducial model (model \modFid{}) as dashed lines. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig9_ecc_low_kick_variation.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}.}
+    \caption{As Fig.~\ref{fig:fiducial_pdf_distributions}d, but for model \modSigLower{}. For comparison, we show the mean distribution for the fiducial model (model \modFid{}) as dashed lines. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig9_ecc_low_kick_variation.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}.}
     \label{fig:ecc_low_kick_variation}
 \end{figure}
 
@@ -89,10 +89,16 @@ Finally, we find that the NSNS distribution is relatively unchanged between mode
 
 Overall, we find that decreasing supernova natal kicks, though it strongly increases the number of detections (see Fig.~\ref{fig:detection_rates}), strongly \textit{decreases} the fraction of highly eccentric systems that are detected.
 
+\subsubsection{Effect of mass loss efficiency on mass distribution}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=\columnwidth]{wr_wind_mass_variations.pdf}
+    \caption{As Fig.~\ref{fig:lower_mass_gap_variation}, but instead varying Wolf-Rayet wind efficiency (models \modWRLow{} and \modWRHigh{}). \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/wr_wind_mass_variations.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/variations.ipynb}{\faBook}.}
+    \label{fig:wr_wind_mass_variations}
+\end{figure}
+
+In Fig.~\ref{fig:wr_wind_mass_variations} we show the effect that changing the efficiency of Wolf-Rayet winds has on the individual component mass distribution. Decreasing the Wolf-Rayet wind efficiency allows the formation of more massive DCOs in the Milky Way and, indeed, we see that the distribution extends to $25 \unit{M_{\odot}}$ and fewer detectable systems are formed at low masses. By contrast, increasing the Wolf-Rayet efficiency by a factor of 5 strongly disfavours the formation of systems at high masses and approximately 85\% of detectable systems have masses below $5 \unit{M_{\odot}}$. These three distributions are very distinct and so it is possible that the mass distribution of LISA could help to constrain the efficiency of Wolf-Rayet winds.
+
 \subsubsection{Other interesting features}
 \todo{maybe add CE model stuff}
-
-\subsubsection{Effect mass loss rate multiplier on the (chirp) mass distribution}
-
-\todo{Selma would like this one}
-
