@@ -55,7 +55,8 @@ class MirroredKDE(gaussian_kde):
             return kde_vals
 
 
-def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None, lower_bound=None, upper_bound=None,
+def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None, normalisation=1,
+                     lower_bound=None, upper_bound=None,
                      bootstraps=200, x_min=None, x_max=None, x_count=200, log_scale=(False, False),
                      color="tab:blue", label=None, **kwargs):
     """Create a bootstrapped weighted KDE plot.
@@ -124,7 +125,7 @@ def bootstrapped_kde(variable, weights, seeds, ax, bw_adjust=None, lower_bound=N
 
         kde = MirroredKDE(loop_variable[boot_index], weights=loop_weights[boot_index],
                           lower_bound=lower_bound, upper_bound=upper_bound, bw_adjust=bw_adjust)
-        kde_vals[i] = kde.evaluate(x_vals)
+        kde_vals[i] = kde.evaluate(x_vals) * normalisation
 
     # calculate 1- and 2- sigma percentiles
     percentiles = np.percentile(kde_vals, [15.89, 84.1, 2.27, 97.725], axis=0)
