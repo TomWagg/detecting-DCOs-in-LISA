@@ -278,3 +278,39 @@ Overall, we therefore expect a single pulsar per $5.7 \unit{deg^2}$ and $1.5 \un
     \caption{Similar to Fig.~\ref{fig:detection_rates}, this shows the \textit{relative} detection rates compared to the fiducial model in order to emphasise how much each DCO is affected by model variations compared to other DCOs. The scatter points show the mean and the shaded areas show the 1-$\sigma$ uncertainty range. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig14_dco_relative_rates.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/detections.ipynb}{\faBook}.}
     \label{fig:dco_relative_rates}
 \end{figure*}
+
+
+\begin{sidewaystable}
+    \centering
+    \begin{tabular}{c|ccccccccc|ccccccccc}
+        \hline
+        \multirow{3}{*}{Model} & \multicolumn{9}{c|}{4-year Mission} & \multicolumn{9}{c}{10-year Mission} \\
+        \cline{2-9} \cline{10-19}
+        & \multicolumn{3}{c|}{$\Delta \mathcal{M}_c / \mathcal{M}_c < 0.1$} & \multicolumn{3}{c|}{$\sigma_\theta < 0.1 \unit{deg}$} & \multicolumn{3}{c|}{Distinguishable} & \multicolumn{3}{c|}{$\Delta \mathcal{M}_c / \mathcal{M}_c < 0.1$} & \multicolumn{3}{c|}{$\sigma_\theta < 0.1 \unit{deg}$} & \multicolumn{3}{c}{Distinguishable}  \\
+        \cline{2-9} \cline{10-19}
+        & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} \\
+        \hline
+        A & 0.15 & 0.11 & 0.68 & 0.23 & 0.15 & 0.65 & 0.29 & 0.24 & 0.61 & 0.12 & 0.10 & 0.59 & 0.18 & 0.12 & 0.53 & 0.22 & 0.19 & 0.60 \\
+B & 0.15 & 0.10 & 0.68 & 0.22 & 0.16 & 0.66 & 0.31 & 0.23 & 0.48 & 0.13 & 0.10 & 0.59 & 0.17 & 0.13 & 0.55 & 0.24 & 0.20 & 0.48 \\
+C & 0.15 & 0.10 & 0.69 & 0.20 & 0.14 & 0.68 & 0.29 & 0.24 & 0.49 & 0.13 & 0.10 & 0.59 & 0.16 & 0.12 & 0.58 & 0.24 & 0.20 & 0.49 \\
+D & 0.18 & 0.09 & 0.64 & 0.21 & 0.13 & 0.65 & 0.31 & 0.24 & 0.44 & 0.16 & 0.08 & 0.54 & 0.17 & 0.11 & 0.53 & 0.25 & 0.20 & 0.47 \\
+E & 0.15 & 0.12 & 0.70 & 0.14 & 0.15 & 0.76 & 0.22 & 0.25 & 0.76 & 0.12 & 0.10 & 0.61 & 0.11 & 0.14 & 0.67 & 0.17 & 0.22 & 0.74 \\
+F & 0.19 & 0.09 & 0.63 & 0.08 & 0.22 & 0.91 & 0.04 & 0.35 & 0.96 & 0.16 & 0.07 & 0.53 & 0.07 & 0.24 & 0.86 & 0.04 & 0.36 & 0.96 \\
+G & 0.15 & 0.10 & 0.68 & 0.17 & 0.17 & 0.75 & 0.27 & 0.24 & 0.55 & 0.13 & 0.09 & 0.59 & 0.14 & 0.14 & 0.66 & 0.22 & 0.20 & 0.57 \\
+H & 0.14 & 0.11 & 0.69 & 0.19 & 0.20 & 0.70 & 0.32 & 0.24 & 0.37 & 0.12 & 0.09 & 0.59 & 0.16 & 0.18 & 0.60 & 0.26 & 0.20 & 0.40 \\
+I & 0.14 & 0.10 & 0.69 & 0.24 & 0.16 & 0.65 & 0.28 & 0.24 & 0.64 & 0.12 & 0.09 & 0.60 & 0.18 & 0.13 & 0.54 & 0.22 & 0.19 & 0.63 \\
+J & 0.14 & 0.11 & 0.70 & 0.17 & 0.16 & 0.75 & 0.29 & 0.24 & 0.49 & 0.12 & 0.10 & 0.60 & 0.13 & 0.14 & 0.67 & 0.23 & 0.20 & 0.51 \\
+K & 0.19 & 0.08 & 0.64 & 0.25 & 0.15 & 0.63 & 0.25 & 0.24 & 0.67 & 0.16 & 0.08 & 0.53 & 0.18 & 0.12 & 0.53 & 0.19 & 0.19 & 0.63 \\
+L & 0.18 & 0.08 & 0.63 & 0.22 & 0.15 & 0.68 & 0.27 & 0.24 & 0.66 & 0.16 & 0.08 & 0.53 & 0.17 & 0.12 & 0.57 & 0.21 & 0.21 & 0.67 \\
+M & 0.14 & 0.13 & 0.72 & 0.23 & 0.16 & 0.64 & 0.28 & 0.24 & 0.59 & 0.12 & 0.11 & 0.62 & 0.19 & 0.13 & 0.53 & 0.23 & 0.20 & 0.60 \\
+N & 0.16 & 0.10 & 0.66 & 0.22 & 0.14 & 0.66 & 0.28 & 0.23 & 0.61 & 0.14 & 0.09 & 0.57 & 0.18 & 0.13 & 0.55 & 0.21 & 0.19 & 0.60 \\
+O & 0.15 & 0.11 & 0.69 & 0.23 & 0.15 & 0.65 & 0.28 & 0.24 & 0.61 & 0.13 & 0.10 & 0.59 & 0.18 & 0.12 & 0.54 & 0.22 & 0.19 & 0.61 \\
+P & 0.19 & 0.09 & 0.64 & 0.24 & 0.14 & 0.64 & 0.27 & 0.22 & 0.61 & 0.15 & 0.08 & 0.53 & 0.19 & 0.12 & 0.53 & 0.22 & 0.19 & 0.60 \\
+Q & 0.18 & 0.09 & 0.64 & 0.26 & 0.15 & 0.60 & 0.29 & 0.23 & 0.57 & 0.17 & 0.08 & 0.54 & 0.20 & 0.12 & 0.49 & 0.22 & 0.19 & 0.56 \\
+R & 0.15 & 0.10 & 0.68 & 0.24 & 0.15 & 0.63 & 0.27 & 0.23 & 0.60 & 0.12 & 0.10 & 0.59 & 0.19 & 0.12 & 0.50 & 0.21 & 0.18 & 0.59 \\
+S & 0.18 & 0.08 & 0.65 & 0.20 & 0.13 & 0.68 & 0.23 & 0.22 & 0.71 & 0.16 & 0.08 & 0.54 & 0.17 & 0.12 & 0.57 & 0.18 & 0.19 & 0.70 \\
+T & 0.16 & 0.09 & 0.70 & 0.23 & 0.15 & 0.62 & 0.33 & 0.25 & 0.43 & 0.13 & 0.08 & 0.60 & 0.18 & 0.12 & 0.50 & 0.26 & 0.20 & 0.45 \\
+        \hline
+    \end{tabular}
+    \caption{A table}
+\end{sidewaystable}
