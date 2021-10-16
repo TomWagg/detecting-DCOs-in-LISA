@@ -137,11 +137,18 @@ Overall we see that the eccentricity distribution of NSNSs occupies a ``sweet sp
 
 \subsection{Progenitors and formation channels}\label{sec:progenitors_and_formation}
 
+In Figure~\ref{fig:progenitor_properties}, we show some properties of the progenitors of the LISA detectable DCOs. The top panel shows the inital primary mass and is plotted on a log-scale. We see that the vast majority of NSNSs are formed with progenitor masses below $15 \unit{M_{\rm \odot}}$ and none are formed with masses greater than $30 \unit{M_{\rm \odot}}$. In contrast,
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{fig5_progenitor_distributions.pdf}
+    \caption{As Fig.~\ref{fig:fiducial_pdf_distributions}, but for the initial primary mass (top) and inital mass ratio (bottom). \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig5_progenitor_distributions.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
+    \label{fig:progenitor_properties}
+\end{figure}
+
 Formation channel figure is Fig.~\ref{fig:formation_channels}.
 
-Progenitor distribution figure is Fig.~\ref{fig:progenitor_and_dco_properties}.
-
-\todo{@Selma said she will write this section (17/08/2021)}
+\todo{@Selma will review this section}
 
 \subsection{How accurately will we be able to infer the parameters of detected systems?}\label{sec:measurement_uncertainties}
 So far we have discussed the properties of the detectable sources that can, in principle, be inferred from observations. However, many sources will only be barely detectable. Here we discuss for how many systems we expect to get high enough SNR to obtain accurate and useful measurements of these parameters. Below we discuss the expected SNR distribution and the typical uncertainties expected for the most relevant parameters, namely, the chirp mass and sky localisation.
@@ -150,8 +157,8 @@ So far we have discussed the properties of the detectable sources that can, in p
 
 \begin{figure}[tb]
     \centering
-    \includegraphics[width=\columnwidth]{fig5_snr_cumulative_all.pdf}
-    \caption{Cumulative number of LISA detections with a given signal-to-noise ratio. Colours indicate LISA mission length and shading shows 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig5_snr_cumulative_all.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
+    \includegraphics[width=\columnwidth]{fig6_snr_cumulative_all.pdf}
+    \caption{Cumulative number of LISA detections with a given signal-to-noise ratio. Colours indicate LISA mission length and shading shows 1- and 2-$\sigma$ uncertainties (obtained via bootstrapping). \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig6_snr_cumulative_all.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
     \label{fig:snr_dist}
 \end{figure}
 
@@ -161,8 +168,8 @@ In Fig.~\ref{fig:snr_dist} we show the cumulative number of detections with a gi
 
 \begin{figure}[tb]
     \centering
-    \includegraphics[width=\columnwidth]{fig5_chirp_mass_uncertainty_all.pdf}
-    \caption{As Fig.~\ref{fig:snr_dist}, but for the chirp mass uncertainty. The shaded areas indicate regions with more than 10\% and 100\% uncertainty. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig5_chirp_mass_uncertainty_all.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
+    \includegraphics[width=\columnwidth]{fig7_chirp_mass_uncertainty_all.pdf}
+    \caption{As Fig.~\ref{fig:snr_dist}, but for the chirp mass uncertainty. The shaded areas indicate regions with more than 10\% and 100\% uncertainty. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig7_chirp_mass_uncertainty_all.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
     \label{fig:m_c_unc}
 \end{figure}
 
@@ -180,8 +187,8 @@ Note that increasing the mission length significantly increases the number of de
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\columnwidth]{fig6_angular_resolution_all.pdf}
-    \caption{As Fig.~\ref{fig:snr_dist}, but for the angular resolution. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig6_angular_resolution_all.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
+    \includegraphics[width=\columnwidth]{fig8_angular_resolution_all.pdf}
+    \caption{As Fig.~\ref{fig:snr_dist}, but for the angular resolution. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig8_angular_resolution_all.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
     \label{fig:ang_res}
 \end{figure}
 
