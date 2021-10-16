@@ -10,6 +10,7 @@
 </p>
 
 ## Table of contents
+- [Citations](#citations)
 - [Required dependencies](#required-dependencies)
     - [Installing using Conda (recommended)](#installing-using-conda-recommended)
     - [Installing using pip](#installing-using-pip)
@@ -23,6 +24,11 @@
 
 <hr style="border-width:5px">
 
+## Citations
+If you use any figures, code or results from this paper we ask that you please cite Wagg et al. (2021). For convenience, here is link to the [ArXiv](TODO) and [ADS](TODO). Additionally, here is the bibtex entry:
+```
+    ADD BIBTEX ENTRY ONCE SUBMITTED (also fixed links above)
+```
 ## Required dependencies
 This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. It allows you evolve the orbits of binary sources, measure their strain and SNR as well as visualise the results.
 
