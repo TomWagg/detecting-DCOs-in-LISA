@@ -136,6 +136,7 @@ Conversely, the BHBH population has the highest fraction of highly eccentric sys
 Overall we see that the eccentricity distribution of NSNSs occupies a ``sweet spot'' where the gravitational wave power is increased compared to circular systems, but it isn't too high that the frequency is significantly impacted. This means that NSNSs can be seen out to the largest distances of the three DCO types.
 
 \subsection{Progenitors and formation channels}\label{sec:progenitors_and_formation}
+\todo{@Selma will review this section}
 
 In Figure~\ref{fig:progenitor_properties}, we show some properties of the progenitors of the LISA detectable DCOs. The top panel shows the inital primary mass and is plotted on a log-scale. We see that the vast majority of NSNSs are formed with progenitor masses below $15 \unit{M_{\rm \odot}}$ and none are formed with masses greater than $30 \unit{M_{\rm \odot}}$. In contrast, BHNSs and BHBHs have extremely high primary progenitor masses, particularly given their final BH masses (see Fig.~\ref{fig:fiducial_pdf_distributions}b). These large progenitor masses are often necessary as the high metallicity environment of the Milky Way leads to greater mass loss due to stellar winds and so a greater initial mass is needed to still produce a BH.
 
@@ -148,11 +149,9 @@ The bottom panel of Fig.~\ref{fig:progenitor_properties} shows the initial mass 
     \label{fig:progenitor_properties}
 \end{figure}
 
-We show the formation channels through which the detectable DCOs formed in 
+We show the fraction of detectable DCOs that formed through different formation channels in Fig.~\ref{fig:formation_channels}, where the first column corresponds to the fiducial model that we describe in this section. Approximately two thirds of detectable BHBHs are formed through the `only stable mass transfer' channel \citep{vandenHeuvel+2017}, whilst the remaining third are primarly formed through the `classic' channel \citep{Bhattacharya+1991}. Detectable BHNSs follow an inverse pattern, such that around two thirds are formed through the `classic' channel and the rest are mainly formed through only stable mass transfer.
 
-Formation channel figure is Fig.~\ref{fig:formation_channels}.
-
-\todo{@Selma will review this section}
+In contrast, detectable NSNSs are very rarely formed through only stable mass transfer. Approximately half of systems are formed through the `classic' channel and the rest are formed through a double-core common-envelope event \citep{Brown+1995} where both progenitors evolve on a similar timescale and initiate a double-core common-envelope event whilst they are on the giant branch. All detectable DCOs show a small fraction of systems are formed through a channel that does not fit into the other categories and hence are labelled `other'. These systems tend to be formed through `lucky' supernova kicks that happen to shrink the binary significantly by chance.
 
 \subsection{How accurately will we be able to infer the parameters of detected systems?}\label{sec:measurement_uncertainties}
 So far we have discussed the properties of the detectable sources that can, in principle, be inferred from observations. However, many sources will only be barely detectable. Here we discuss for how many systems we expect to get high enough SNR to obtain accurate and useful measurements of these parameters. Below we discuss the expected SNR distribution and the typical uncertainties expected for the most relevant parameters, namely, the chirp mass and sky localisation.
@@ -170,6 +169,12 @@ In Fig.~\ref{fig:snr_dist} we show the cumulative number of detections with a gi
 
 \paragraph{Chirp mass}
 
+The chirp mass is important for identifying the type of the source of a detected GW signal. The uncertainty of the chirp mass depends on the uncertainty in the measured orbital frequency, the time derivative of the orbital frequency and the eccentricity as detailed in Appendix~\ref{app:chirp_mass_uncertainty}.
+
+We find that for a 4(10)-year LISA mission, approximately 41(105) detections have measurable chirp masses ($\Delta \mathcal{M}_c / \mathcal{M}_c < 1$, indicated by the dark shaded region in Fig.~\ref{fig:m_c_unc}) whilst 13(31) have chirp mass uncertainties below 10\%. This uncertainty is generally dominated by the uncertainty on the time derivative of the frequency, since most of the binaries are too early in their inspiral for LISA to measure a strong chirp.
+
+Note that increasing the mission length significantly increases the number of detections for which we can measure the mass. The total number of detections only scales as $\sqrt{T_{\rm obs}}$, yet we find that the total number of detections \textit{with well measured masses} scales approximately as $T_{\rm obs}$.
+
 \begin{figure}[tb]
     \centering
     \includegraphics[width=\columnwidth]{fig7_chirp_mass_uncertainty_all.pdf}
@@ -177,24 +182,7 @@ In Fig.~\ref{fig:snr_dist} we show the cumulative number of detections with a gi
     \label{fig:m_c_unc}
 \end{figure}
 
-The chirp mass is important for identifying the type of the source of a detected GW signal. The uncertainty of the chirp mass depends on the uncertainty in the measured orbital frequency, the time derivative of the orbital frequency and the eccentricity as detailed in Appendix~\ref{app:chirp_mass_uncertainty}.
-
-We find that for a 4(10)-year LISA mission, approximately 41(105) detections have measurable chirp masses ($\Delta \mathcal{M}_c / \mathcal{M}_c < 1$, indicated by the dark shaded region in Fig.~\ref{fig:m_c_unc}) whilst 13(31) have chirp mass uncertainties below 10\%. This uncertainty is generally dominated by the uncertainty on the time derivative of the frequency, since most of the binaries are too early in their inspiral for LISA to measure a strong chirp.
-
-Note that increasing the mission length significantly increases the number of detections for which we can measure the mass. The total number of detections only scales as $\sqrt{T_{\rm obs}}$, yet we find that the total number of detections \textit{with well measured masses} scales approximately as $T_{\rm obs}$.
-
-% \paragraph{Eccentricities}
-
-% \todo{SdM: Proposed additional paragraph.... can we say something compact?  You made a large number of plots and estimates..}
-
 \paragraph{Sky localisation}
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\columnwidth]{fig8_angular_resolution_all.pdf}
-    \caption{As Fig.~\ref{fig:snr_dist}, but for the angular resolution. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig8_angular_resolution_all.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
-    \label{fig:ang_res}
-\end{figure}
 
 An accurate sky localisation will be essential to possibly identify electromagnetic counterparts or distinguish sources that come from different components of our Milky Way. 
 
@@ -207,3 +195,10 @@ where $L$ is the effective detector baseline, which for LISA is 2 AU since it wi
 We plot the distribution of expected angular resolutions in Fig.~\ref{fig:ang_res}. We see that, for a 4(10)-year LISA mission, approximately 82(123) sources can be resolved to an angular resolution better than 10 degrees and only 16(23) better than 1 degree. 
 
 For comparison, the size of a pencil beam for a $15 \unit{m}$ diameter SKA dish observing at 1.4 GHz is roughly 0.67 square degrees \citep{Smits+2009}, corresponding to an angular resolution of $\sigma_\theta = \sqrt{(0.67 / \pi)} = 0.46^\circ$ (similar to the angular size of the moon). We will further discuss the prospects of matching LISA detections to radio pulsars with SKA further in Sec.~\ref{sec:pulsar_matching}.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\columnwidth]{fig8_angular_resolution_all.pdf}
+    \caption{As Fig.~\ref{fig:snr_dist}, but for the angular resolution. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig8_angular_resolution_all.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/fiducial.ipynb}{\faBook}.}
+    \label{fig:ang_res}
+\end{figure}
