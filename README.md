@@ -18,7 +18,7 @@
     - [How to reproduce/adapt paper figures](#how-to-reproduceadapt-paper-figures)
     - [How to reproduce results/run a new simulation](#how-to-reproduce-resultsrun-a-new-simulation)
     - [Milky Way Model code](#milky-way-model-code)
-    - [Colour Schemes](#colour_schemes)
+    - [Colour Schemes](#colour-schemes)
 - [Repository map](#repository-map)
 
 <hr style="border-width:5px">
