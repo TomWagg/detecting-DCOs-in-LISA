@@ -215,50 +215,46 @@ Overall, we therefore expect a single pulsar per $5.7 \unit{deg^2}$ and $1.5 \un
 
 \begin{table*}[htb]
     \centering
-    \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the \nModels{} different model variations and each DCO type. The `All' column contains the total expected detections when summed over the three types. The final two rows show the minimum and maximum rates across all model variations. Each value shows the mean and the 1-$\sigma$ Poisson uncertainty. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/detections.ipynb}{\faBook}.}
+    \caption{The number of detectable binaries in a 4- and 10-year LISA mission for the \nModels{} different model variations and each DCO type. The `All' column contains the total expected detections when summed over the three types. The final two rows show the minimum and maximum rates across all model variations. We embolden the corresponding rate for convenience of seeing which variation results in the minimum/maximum. Each value shows the mean and the 1-$\sigma$ Poisson uncertainty. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/detections.ipynb}{\faBook}.}
     \begin{tabular}{cl|cccc|cccc}
         \hline
         \multirow{2}{*}{Model} & \multirow{2}{*}{Description} & \multicolumn{4}{c|}{LISA detections (4 year)} & \multicolumn{4}{c}{LISA detections (10 year)} \\ \cline{3-10}
-        & & {All} & {BHBH} & {BHNS} & {NSNS} &
-        {All} &
-        {BHBH} & {BHNS} & {NSNS} \\
+        & & {All} & {BHBH} & {BHNS} & {NSNS} & {All} & {BHBH} & {BHNS} & {NSNS} \\
         \hline
         A & fiducial & \confinv{124.3}{11.3}{10.7} & \confinv{74.0}{9.0}{9.0} & \confinv{42.4}{6.4}{6.6} & \confinv{7.9}{2.9}{3.1} & \confinv{202.2}{14.2}{13.8} & \confinv{117.9}{10.9}{11.1} & \confinv{71.3}{8.3}{8.7} & \confinv{13.0}{4.0}{4.0}\\
-B & $\beta=0.25$ & \confinv{94.1}{10.1}{9.9} & \confinv{68.8}{7.8}{8.2} & \confinv{22.4}{4.4}{4.6} & \confinv{2.9}{1.9}{2.1} & \confinv{149.3}{12.3}{12.7} & \confinv{107.8}{10.8}{10.2} & \confinv{36.9}{5.9}{6.1} & \confinv{4.6}{1.6}{2.4}\\
-C & $\beta=0.5$ & \confinv{59.2}{8.2}{7.8} & \confinv{47.0}{7.0}{7.0} & \confinv{8.3}{3.3}{2.7} & \confinv{3.9}{1.9}{2.1} & \confinv{95.9}{9.9}{10.1} & \confinv{75.8}{8.8}{9.2} & \confinv{13.6}{3.6}{3.4} & \confinv{6.4}{2.4}{2.6}\\
-D & $\beta=0.75$ & \confinv{67.0}{8.0}{8.0} & \confinv{46.9}{6.9}{7.1} & \confinv{7.4}{2.4}{2.6} & \confinv{12.7}{3.7}{3.3} & \confinv{104.5}{10.5}{10.5} & \confinv{71.2}{8.2}{8.8} & \confinv{12.1}{3.1}{3.9} & \confinv{21.1}{4.1}{4.9}\\
-E & unstable
-case BB & \confinv{76.7}{8.7}{8.3} & \confinv{69.3}{8.3}{8.7} & \confinv{7.3}{2.3}{2.7} & \boldconfinv{0.2}{0.2}{0.8} & \confinv{121.4}{11.4}{10.6} & \confinv{109.3}{10.3}{10.7} & \confinv{11.8}{3.8}{3.2} & \boldconfinv{0.4}{0.4}{0.6}\\
-F & E+K & \boldconfinv{320.9}{17.9}{18.1} & \boldconfinv{154.3}{12.3}{12.7} & \boldconfinv{148.4}{12.4}{12.6} & \confinv{18.2}{4.2}{3.8} & \boldconfinv{483.7}{21.7}{22.3} & \boldconfinv{239.5}{15.5}{15.5} & \confinv{216.8}{14.8}{15.2} & \confinv{27.4}{5.4}{5.6}\\
-G & $\alpha_{\rm CE}=0.1$ & \confinv{40.2}{6.2}{6.8} & \confinv{27.9}{4.9}{5.1} & \boldconfinv{2.1}{1.1}{1.9} & \confinv{10.2}{3.2}{2.8} & \confinv{64.1}{8.1}{7.9} & \confinv{43.9}{6.9}{7.1} & \boldconfinv{3.5}{1.5}{1.5} & \confinv{16.7}{3.7}{4.3}\\
-H & $\alpha_{\rm CE}=0.5$ & \confinv{85.9}{8.9}{9.1} & \confinv{58.3}{7.3}{7.7} & \confinv{21.8}{4.8}{4.2} & \confinv{5.9}{2.9}{2.1} & \confinv{136.2}{11.2}{11.8} & \confinv{91.6}{9.6}{9.4} & \confinv{34.9}{5.9}{6.1} & \confinv{9.7}{2.7}{3.3}\\
-I & $\alpha_{\rm CE}=2.0$ & \confinv{133.3}{11.3}{11.7} & \confinv{67.6}{8.6}{8.4} & \confinv{38.0}{6.0}{6.0} & \confinv{27.7}{5.7}{5.3} & \confinv{218.4}{14.4}{14.6} & \confinv{109.6}{10.6}{10.4} & \confinv{62.7}{7.7}{8.3} & \confinv{46.0}{7.0}{7.0}\\
-J & $\alpha_{\rm CE}=10.0$ & \confinv{77.9}{8.9}{9.1} & \confinv{26.7}{4.7}{5.3} & \confinv{16.3}{4.3}{3.7} & \boldconfinv{34.9}{5.9}{6.1} & \confinv{126.2}{11.2}{10.8} & \confinv{42.4}{6.4}{6.6} & \confinv{26.6}{5.6}{5.4} & \boldconfinv{57.2}{7.2}{7.8}\\
-K & optimistic
-CE & \confinv{218.3}{15.3}{14.7} & \confinv{151.5}{12.5}{12.5} & \confinv{56.8}{7.8}{7.2} & \confinv{9.9}{2.9}{3.1} & \confinv{341.5}{18.5}{18.5} & \confinv{229.7}{14.7}{15.3} & \confinv{96.1}{10.1}{9.9} & \confinv{15.8}{3.8}{4.2}\\
-L & rapid SN & \confinv{127.3}{11.3}{11.7} & \confinv{50.4}{7.4}{6.6} & \confinv{70.2}{8.2}{8.8} & \confinv{6.7}{2.7}{2.3} & \confinv{204.9}{13.9}{14.1} & \confinv{76.6}{8.6}{8.4} & \confinv{117.4}{10.4}{10.6} & \confinv{10.8}{2.8}{3.2}\\
-M & max $m_{\rm NS}$
-$2.0 \, {\rm M_{\odot}}$ & \confinv{133.5}{11.5}{11.5} & \confinv{96.2}{10.2}{9.8} & \confinv{30.1}{5.1}{5.9} & \confinv{7.2}{2.2}{2.8} & \confinv{215.2}{14.2}{14.8} & \confinv{153.7}{12.7}{12.3} & \confinv{49.9}{6.9}{7.1} & \confinv{11.6}{3.6}{3.4}\\
-N & max $m_{\rm NS}$
-$3.0 \, {\rm M_{\odot}}$ & \confinv{118.4}{10.4}{10.6} & \confinv{58.3}{7.3}{7.7} & \confinv{51.9}{6.9}{7.1} & \confinv{8.2}{3.2}{2.8} & \confinv{189.9}{13.9}{14.1} & \confinv{91.6}{9.6}{9.4} & \confinv{84.8}{8.8}{9.2} & \confinv{13.5}{3.5}{3.5}\\
-O & no PISN & \confinv{126.7}{11.7}{11.3} & \confinv{75.3}{8.3}{8.7} & \confinv{43.4}{6.4}{6.6} & \confinv{8.0}{3.0}{3.0} & \confinv{205.7}{14.7}{14.3} & \confinv{120.5}{10.5}{10.5} & \confinv{72.3}{8.3}{8.7} & \confinv{12.8}{3.8}{3.2}\\
-P & $\sigma_{\rm cc}$
-$100 \, {\rm km s^{-1}}$ & \confinv{184.6}{13.6}{13.4} & \confinv{82.7}{8.7}{9.3} & \confinv{86.6}{9.6}{9.4} & \confinv{15.4}{4.4}{3.6} & \confinv{300.8}{17.8}{17.2} & \confinv{130.1}{11.1}{11.9} & \confinv{145.1}{12.1}{11.9} & \confinv{25.6}{4.6}{5.4}\\
-Q & $\sigma_{\rm cc}$
-$30 \, {\rm km s^{-1}}$ & \confinv{268.3}{16.3}{16.7} & \confinv{91.8}{9.8}{9.2} & \confinv{142.9}{11.9}{12.1} & \confinv{33.6}{5.6}{5.4} & \confinv{426.8}{20.8}{21.2} & \confinv{142.9}{11.9}{12.1} & \boldconfinv{229.0}{15.0}{15.0} & \confinv{54.9}{7.9}{7.1}\\
-R & no BH
-kicks & \confinv{230.2}{15.2}{14.8} & \confinv{90.8}{9.8}{9.2} & \confinv{132.1}{11.1}{11.9} & \confinv{7.2}{2.2}{2.8} & \confinv{372.7}{19.7}{19.3} & \confinv{142.3}{12.3}{11.7} & \confinv{218.6}{14.6}{14.4} & \confinv{11.8}{3.8}{3.2}\\
-S & $f_{\rm WR} = 0.1$ & \confinv{118.5}{10.5}{10.5} & \confinv{75.7}{8.7}{8.3} & \confinv{34.0}{6.0}{6.0} & \confinv{8.8}{2.8}{3.2} & \confinv{182.5}{13.5}{13.5} & \confinv{112.4}{10.4}{10.6} & \confinv{55.8}{7.8}{7.2} & \confinv{14.3}{4.3}{3.7}\\
-T & $f_{\rm WR} = 5$ & \boldconfinv{29.7}{5.7}{5.3} & \boldconfinv{5.7}{2.7}{2.3} & \confinv{15.5}{3.5}{3.5} & \confinv{8.5}{2.5}{2.5} & \boldconfinv{48.8}{6.8}{7.2} & \boldconfinv{9.2}{3.2}{2.8} & \confinv{26.2}{5.2}{4.8} & \confinv{13.4}{3.4}{3.6}\\
-\hline 
-- & Minimum rate & \confinv{29.7}{5.7}{5.3} & \confinv{5.7}{2.7}{2.3} & \confinv{2.1}{1.1}{1.9} & \confinv{0.2}{0.2}{0.8} & \confinv{48.8}{6.8}{7.2} & \confinv{9.2}{3.2}{2.8} & \confinv{3.5}{1.5}{1.5} & \confinv{0.4}{0.4}{0.6} \\
-- & Maximum rate & \confinv{320.9}{17.9}{18.1} & \confinv{154.3}{12.3}{12.7} & \confinv{148.4}{12.4}{12.6} & \confinv{34.9}{5.9}{6.1} & \confinv{483.7}{21.7}{22.3} & \confinv{239.5}{15.5}{15.5} & \confinv{229.0}{15.0}{15.0} & \confinv{57.2}{7.2}{7.8} \\
+        B & $\beta=0.25$ & \confinv{94.1}{10.1}{9.9} & \confinv{68.8}{7.8}{8.2} & \confinv{22.4}{4.4}{4.6} & \confinv{2.9}{1.9}{2.1} & \confinv{149.3}{12.3}{12.7} & \confinv{107.8}{10.8}{10.2} & \confinv{36.9}{5.9}{6.1} & \confinv{4.6}{1.6}{2.4}\\
+        C & $\beta=0.5$ & \confinv{59.2}{8.2}{7.8} & \confinv{47.0}{7.0}{7.0} & \confinv{8.3}{3.3}{2.7} & \confinv{3.9}{1.9}{2.1} & \confinv{95.9}{9.9}{10.1} & \confinv{75.8}{8.8}{9.2} & \confinv{13.6}{3.6}{3.4} & \confinv{6.4}{2.4}{2.6}\\
+        D & $\beta=0.75$ & \confinv{67.0}{8.0}{8.0} & \confinv{46.9}{6.9}{7.1} & \confinv{7.4}{2.4}{2.6} & \confinv{12.7}{3.7}{3.3} & \confinv{104.5}{10.5}{10.5} & \confinv{71.2}{8.2}{8.8} & \confinv{12.1}{3.1}{3.9} & \confinv{21.1}{4.1}{4.9}\\
+        E & unstable
+        case BB & \confinv{76.7}{8.7}{8.3} & \confinv{69.3}{8.3}{8.7} & \confinv{7.3}{2.3}{2.7} & \boldconfinv{0.2}{0.2}{0.8} & \confinv{121.4}{11.4}{10.6} & \confinv{109.3}{10.3}{10.7} & \confinv{11.8}{3.8}{3.2} & \boldconfinv{0.4}{0.4}{0.6}\\
+        F & E+K & \boldconfinv{320.9}{17.9}{18.1} & \boldconfinv{154.3}{12.3}{12.7} & \boldconfinv{148.4}{12.4}{12.6} & \confinv{18.2}{4.2}{3.8} & \boldconfinv{483.7}{21.7}{22.3} & \boldconfinv{239.5}{15.5}{15.5} & \confinv{216.8}{14.8}{15.2} & \confinv{27.4}{5.4}{5.6}\\
+        G & $\alpha_{\rm CE}=0.1$ & \confinv{40.2}{6.2}{6.8} & \confinv{27.9}{4.9}{5.1} & \boldconfinv{2.1}{1.1}{1.9} & \confinv{10.2}{3.2}{2.8} & \confinv{64.1}{8.1}{7.9} & \confinv{43.9}{6.9}{7.1} & \boldconfinv{3.5}{1.5}{1.5} & \confinv{16.7}{3.7}{4.3}\\
+        H & $\alpha_{\rm CE}=0.5$ & \confinv{85.9}{8.9}{9.1} & \confinv{58.3}{7.3}{7.7} & \confinv{21.8}{4.8}{4.2} & \confinv{5.9}{2.9}{2.1} & \confinv{136.2}{11.2}{11.8} & \confinv{91.6}{9.6}{9.4} & \confinv{34.9}{5.9}{6.1} & \confinv{9.7}{2.7}{3.3}\\
+        I & $\alpha_{\rm CE}=2.0$ & \confinv{133.3}{11.3}{11.7} & \confinv{67.6}{8.6}{8.4} & \confinv{38.0}{6.0}{6.0} & \confinv{27.7}{5.7}{5.3} & \confinv{218.4}{14.4}{14.6} & \confinv{109.6}{10.6}{10.4} & \confinv{62.7}{7.7}{8.3} & \confinv{46.0}{7.0}{7.0}\\
+        J & $\alpha_{\rm CE}=10.0$ & \confinv{77.9}{8.9}{9.1} & \confinv{26.7}{4.7}{5.3} & \confinv{16.3}{4.3}{3.7} & \boldconfinv{34.9}{5.9}{6.1} & \confinv{126.2}{11.2}{10.8} & \confinv{42.4}{6.4}{6.6} & \confinv{26.6}{5.6}{5.4} & \boldconfinv{57.2}{7.2}{7.8}\\
+        K & optimistic
+        CE & \confinv{218.3}{15.3}{14.7} & \confinv{151.5}{12.5}{12.5} & \confinv{56.8}{7.8}{7.2} & \confinv{9.9}{2.9}{3.1} & \confinv{341.5}{18.5}{18.5} & \confinv{229.7}{14.7}{15.3} & \confinv{96.1}{10.1}{9.9} & \confinv{15.8}{3.8}{4.2}\\
+        L & rapid SN & \confinv{127.3}{11.3}{11.7} & \confinv{50.4}{7.4}{6.6} & \confinv{70.2}{8.2}{8.8} & \confinv{6.7}{2.7}{2.3} & \confinv{204.9}{13.9}{14.1} & \confinv{76.6}{8.6}{8.4} & \confinv{117.4}{10.4}{10.6} & \confinv{10.8}{2.8}{3.2}\\
+        M & max $m_{\rm NS}$
+        $2.0 \, {\rm M_{\odot}}$ & \confinv{133.5}{11.5}{11.5} & \confinv{96.2}{10.2}{9.8} & \confinv{30.1}{5.1}{5.9} & \confinv{7.2}{2.2}{2.8} & \confinv{215.2}{14.2}{14.8} & \confinv{153.7}{12.7}{12.3} & \confinv{49.9}{6.9}{7.1} & \confinv{11.6}{3.6}{3.4}\\
+        N & max $m_{\rm NS}$
+        $3.0 \, {\rm M_{\odot}}$ & \confinv{118.4}{10.4}{10.6} & \confinv{58.3}{7.3}{7.7} & \confinv{51.9}{6.9}{7.1} & \confinv{8.2}{3.2}{2.8} & \confinv{189.9}{13.9}{14.1} & \confinv{91.6}{9.6}{9.4} & \confinv{84.8}{8.8}{9.2} & \confinv{13.5}{3.5}{3.5}\\
+        O & no PISN & \confinv{126.7}{11.7}{11.3} & \confinv{75.3}{8.3}{8.7} & \confinv{43.4}{6.4}{6.6} & \confinv{8.0}{3.0}{3.0} & \confinv{205.7}{14.7}{14.3} & \confinv{120.5}{10.5}{10.5} & \confinv{72.3}{8.3}{8.7} & \confinv{12.8}{3.8}{3.2}\\
+        P & $\sigma_{\rm cc}$
+        $100 \, {\rm km s^{-1}}$ & \confinv{184.6}{13.6}{13.4} & \confinv{82.7}{8.7}{9.3} & \confinv{86.6}{9.6}{9.4} & \confinv{15.4}{4.4}{3.6} & \confinv{300.8}{17.8}{17.2} & \confinv{130.1}{11.1}{11.9} & \confinv{145.1}{12.1}{11.9} & \confinv{25.6}{4.6}{5.4}\\
+        Q & $\sigma_{\rm cc}$
+        $30 \, {\rm km s^{-1}}$ & \confinv{268.3}{16.3}{16.7} & \confinv{91.8}{9.8}{9.2} & \confinv{142.9}{11.9}{12.1} & \confinv{33.6}{5.6}{5.4} & \confinv{426.8}{20.8}{21.2} & \confinv{142.9}{11.9}{12.1} & \boldconfinv{229.0}{15.0}{15.0} & \confinv{54.9}{7.9}{7.1}\\
+        R & no BH
+        kicks & \confinv{230.2}{15.2}{14.8} & \confinv{90.8}{9.8}{9.2} & \confinv{132.1}{11.1}{11.9} & \confinv{7.2}{2.2}{2.8} & \confinv{372.7}{19.7}{19.3} & \confinv{142.3}{12.3}{11.7} & \confinv{218.6}{14.6}{14.4} & \confinv{11.8}{3.8}{3.2}\\
+        S & $f_{\rm WR} = 0.1$ & \confinv{118.5}{10.5}{10.5} & \confinv{75.7}{8.7}{8.3} & \confinv{34.0}{6.0}{6.0} & \confinv{8.8}{2.8}{3.2} & \confinv{182.5}{13.5}{13.5} & \confinv{112.4}{10.4}{10.6} & \confinv{55.8}{7.8}{7.2} & \confinv{14.3}{4.3}{3.7}\\
+        T & $f_{\rm WR} = 5$ & \boldconfinv{29.7}{5.7}{5.3} & \boldconfinv{5.7}{2.7}{2.3} & \confinv{15.5}{3.5}{3.5} & \confinv{8.5}{2.5}{2.5} & \boldconfinv{48.8}{6.8}{7.2} & \boldconfinv{9.2}{3.2}{2.8} & \confinv{26.2}{5.2}{4.8} & \confinv{13.4}{3.4}{3.6}\\
+        \hline 
+        - & Minimum rate & \confinv{29.7}{5.7}{5.3} & \confinv{5.7}{2.7}{2.3} & \confinv{2.1}{1.1}{1.9} & \confinv{0.2}{0.2}{0.8} & \confinv{48.8}{6.8}{7.2} & \confinv{9.2}{3.2}{2.8} & \confinv{3.5}{1.5}{1.5} & \confinv{0.4}{0.4}{0.6} \\
+        - & Maximum rate & \confinv{320.9}{17.9}{18.1} & \confinv{154.3}{12.3}{12.7} & \confinv{148.4}{12.4}{12.6} & \confinv{34.9}{5.9}{6.1} & \confinv{483.7}{21.7}{22.3} & \confinv{239.5}{15.5}{15.5} & \confinv{229.0}{15.0}{15.0} & \confinv{57.2}{7.2}{7.8} \\
         \hline
     \end{tabular}
     \label{tab:detection_rates}
 \end{table*}
-
-% \subsection{Formation channels}
 
 \begin{figure}[p]
     \centering
@@ -267,7 +263,6 @@ T & $f_{\rm WR} = 5$ & \boldconfinv{29.7}{5.7}{5.3} & \boldconfinv{5.7}{2.7}{2.3
     \label{fig:formation_channels}
 \end{figure}
 
-% \subsection{Distribution of eccentric sources on sensitivity curve}
 \begin{figure*}[p]
     \centering
     \includegraphics[width=\textwidth]{fig17_dcos_on_sc_eccentric_colours.png}
@@ -282,54 +277,3 @@ T & $f_{\rm WR} = 5$ & \boldconfinv{29.7}{5.7}{5.3} & \boldconfinv{5.7}{2.7}{2.3
     \caption{Similar to Fig.~\ref{fig:detection_rates}, this shows the \textit{relative} detection rates compared to the fiducial model in order to emphasise how much each DCO is affected by model variations compared to other DCOs. The scatter points show the mean and the shaded areas show the 1-$\sigma$ uncertainty range. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig19_dco_relative_rates.pdf}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/detections.ipynb}{\faBook}.}
     \label{fig:dco_relative_rates}
 \end{figure*}
-
-% \begin{sidewaystable}
-%     \centering
-%     \begin{tabular}{c|ccccccccc|ccccccccc}
-%         \hline
-%         \multirow{3}{*}{Model} & \multicolumn{9}{c|}{4-year Mission} & \multicolumn{9}{c}{10-year Mission} \\
-%         \cline{2-9} \cline{10-19}
-%         & \multicolumn{3}{c|}{$\Delta \mathcal{M}_c / \mathcal{M}_c < 0.1$} & \multicolumn{3}{c|}{$\sigma_\theta < 0.1 \unit{deg}$} & \multicolumn{3}{c|}{Distinguishable} & \multicolumn{3}{c|}{$\Delta \mathcal{M}_c / \mathcal{M}_c < 0.1$} & \multicolumn{3}{c|}{$\sigma_\theta < 0.1 \unit{deg}$} & \multicolumn{3}{c}{Distinguishable}  \\
-%         \cline{2-9} \cline{10-19}
-%         & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} \\
-%         \hline
-%         A & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} & \scriptsize{42} \\
-%         \hline
-%     \end{tabular}
-%     \caption{A table}
-% \end{sidewaystable}
-
-% \begin{sidewaystable}
-%     \centering
-%     \begin{tabular}{c|ccccccccc|ccccccccc}
-%         \hline
-%         \multirow{3}{*}{Model} & \multicolumn{9}{c|}{4-year Mission} & \multicolumn{9}{c}{10-year Mission} \\
-%         \cline{2-9} \cline{10-19}
-%         & \multicolumn{3}{c|}{$\Delta \mathcal{M}_c / \mathcal{M}_c < 0.1$} & \multicolumn{3}{c|}{$\sigma_\theta < 0.1 \unit{deg}$} & \multicolumn{3}{c|}{Distinguishable} & \multicolumn{3}{c|}{$\Delta \mathcal{M}_c / \mathcal{M}_c < 0.1$} & \multicolumn{3}{c|}{$\sigma_\theta < 0.1 \unit{deg}$} & \multicolumn{3}{c}{Distinguishable}  \\
-%         \cline{2-9} \cline{10-19}
-%         & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} & \scriptsize{BHBH} & \scriptsize{BHNS} & \scriptsize{NSNS} \\
-%         \hline
-%         A & 0.15 & 0.11 & 0.68 & 0.23 & 0.15 & 0.65 & 0.29 & 0.24 & 0.61 & 0.12 & 0.10 & 0.59 & 0.18 & 0.12 & 0.53 & 0.22 & 0.19 & 0.60 \\
-% B & 0.15 & 0.10 & 0.68 & 0.22 & 0.16 & 0.66 & 0.31 & 0.23 & 0.48 & 0.13 & 0.10 & 0.59 & 0.17 & 0.13 & 0.55 & 0.24 & 0.20 & 0.48 \\
-% C & 0.15 & 0.10 & 0.69 & 0.20 & 0.14 & 0.68 & 0.29 & 0.24 & 0.49 & 0.13 & 0.10 & 0.59 & 0.16 & 0.12 & 0.58 & 0.24 & 0.20 & 0.49 \\
-% D & 0.18 & 0.09 & 0.64 & 0.21 & 0.13 & 0.65 & 0.31 & 0.24 & 0.44 & 0.16 & 0.08 & 0.54 & 0.17 & 0.11 & 0.53 & 0.25 & 0.20 & 0.47 \\
-% E & 0.15 & 0.12 & 0.70 & 0.14 & 0.15 & 0.76 & 0.22 & 0.25 & 0.76 & 0.12 & 0.10 & 0.61 & 0.11 & 0.14 & 0.67 & 0.17 & 0.22 & 0.74 \\
-% F & 0.19 & 0.09 & 0.63 & 0.08 & 0.22 & 0.91 & 0.04 & 0.35 & 0.96 & 0.16 & 0.07 & 0.53 & 0.07 & 0.24 & 0.86 & 0.04 & 0.36 & 0.96 \\
-% G & 0.15 & 0.10 & 0.68 & 0.17 & 0.17 & 0.75 & 0.27 & 0.24 & 0.55 & 0.13 & 0.09 & 0.59 & 0.14 & 0.14 & 0.66 & 0.22 & 0.20 & 0.57 \\
-% H & 0.14 & 0.11 & 0.69 & 0.19 & 0.20 & 0.70 & 0.32 & 0.24 & 0.37 & 0.12 & 0.09 & 0.59 & 0.16 & 0.18 & 0.60 & 0.26 & 0.20 & 0.40 \\
-% I & 0.14 & 0.10 & 0.69 & 0.24 & 0.16 & 0.65 & 0.28 & 0.24 & 0.64 & 0.12 & 0.09 & 0.60 & 0.18 & 0.13 & 0.54 & 0.22 & 0.19 & 0.63 \\
-% J & 0.14 & 0.11 & 0.70 & 0.17 & 0.16 & 0.75 & 0.29 & 0.24 & 0.49 & 0.12 & 0.10 & 0.60 & 0.13 & 0.14 & 0.67 & 0.23 & 0.20 & 0.51 \\
-% K & 0.19 & 0.08 & 0.64 & 0.25 & 0.15 & 0.63 & 0.25 & 0.24 & 0.67 & 0.16 & 0.08 & 0.53 & 0.18 & 0.12 & 0.53 & 0.19 & 0.19 & 0.63 \\
-% L & 0.18 & 0.08 & 0.63 & 0.22 & 0.15 & 0.68 & 0.27 & 0.24 & 0.66 & 0.16 & 0.08 & 0.53 & 0.17 & 0.12 & 0.57 & 0.21 & 0.21 & 0.67 \\
-% M & 0.14 & 0.13 & 0.72 & 0.23 & 0.16 & 0.64 & 0.28 & 0.24 & 0.59 & 0.12 & 0.11 & 0.62 & 0.19 & 0.13 & 0.53 & 0.23 & 0.20 & 0.60 \\
-% N & 0.16 & 0.10 & 0.66 & 0.22 & 0.14 & 0.66 & 0.28 & 0.23 & 0.61 & 0.14 & 0.09 & 0.57 & 0.18 & 0.13 & 0.55 & 0.21 & 0.19 & 0.60 \\
-% O & 0.15 & 0.11 & 0.69 & 0.23 & 0.15 & 0.65 & 0.28 & 0.24 & 0.61 & 0.13 & 0.10 & 0.59 & 0.18 & 0.12 & 0.54 & 0.22 & 0.19 & 0.61 \\
-% P & 0.19 & 0.09 & 0.64 & 0.24 & 0.14 & 0.64 & 0.27 & 0.22 & 0.61 & 0.15 & 0.08 & 0.53 & 0.19 & 0.12 & 0.53 & 0.22 & 0.19 & 0.60 \\
-% Q & 0.18 & 0.09 & 0.64 & 0.26 & 0.15 & 0.60 & 0.29 & 0.23 & 0.57 & 0.17 & 0.08 & 0.54 & 0.20 & 0.12 & 0.49 & 0.22 & 0.19 & 0.56 \\
-% R & 0.15 & 0.10 & 0.68 & 0.24 & 0.15 & 0.63 & 0.27 & 0.23 & 0.60 & 0.12 & 0.10 & 0.59 & 0.19 & 0.12 & 0.50 & 0.21 & 0.18 & 0.59 \\
-% S & 0.18 & 0.08 & 0.65 & 0.20 & 0.13 & 0.68 & 0.23 & 0.22 & 0.71 & 0.16 & 0.08 & 0.54 & 0.17 & 0.12 & 0.57 & 0.18 & 0.19 & 0.70 \\
-% T & 0.16 & 0.09 & 0.70 & 0.23 & 0.15 & 0.62 & 0.33 & 0.25 & 0.43 & 0.13 & 0.08 & 0.60 & 0.18 & 0.12 & 0.50 & 0.26 & 0.20 & 0.45 \\
-%         \hline
-%     \end{tabular}
-%     \caption{A table}
-% \end{sidewaystable}
