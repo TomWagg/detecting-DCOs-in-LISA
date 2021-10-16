@@ -1,6 +1,13 @@
-# Predictions for detecting BHNS and other double compact objects binaries with LISA
+<p align="center">
+    <img width="100%", src="paper/figures/readme_header.png"/>
+</p>
 
-Hello there! This repository contains all of the code associated with with Wagg et al. (2021), both for the simulations so that you can reproduce the results, but also for the paper so that you can reproduce all of the plots. If you haven't read the paper yet, I recommend that you go and take a look before trying to see what's going on in the code.
+<p align="center">
+    This repository is a companion to Wagg et al. (2021), a paper investigating the Galactic population of LISA detectable BH and NS binaries. We discuss the expected detection rate, variations when using different underlying binary physics assumptions, prospects for identifying the sources of signals and matching them to electromagnetic counterparts.
+</p>
+<p align="center">
+    This repository contains all of the code associated with with Wagg et al. (2021), both for the simulations so that you can reproduce the results, but also for the paper so that you can reproduce all of the plots. If you've come this without reading the paper yet, I recommend that you go and take a look before trying to see what's going on in the code so it makes more sense.
+</p>
 
 ## Table of contents
 - [Required dependencies](#required-dependencies)
@@ -58,10 +65,14 @@ detecting-DCOs-with-LISA
 └── paper
 │   │   This folder contains everything to do with the paper
 │   │    
-│   │   .xlsx files are excel files with the comparison of previous studies
+│   │   .xlsx files are excel files with the comparison of previous studies│    
+│   └─── figure_notebooks
+│   |    |   Jupyter notebooks that reproduce every figure in the paper
 │   │
 │   └─── figures
 │   │    │   A collection of every figure used in the paper
+│   │    └─── extra_figures
+│   │         │ Some figures that didn't make it into the paper but that are still interesting!
 │   │    
 │   └─── tex
 │        │   All of the LaTeX files for the paper (split up by section)
@@ -72,8 +83,8 @@ detecting-DCOs-with-LISA
     └─── data
     │    │   This is the folder where most of the code assumes the data from Zenodo is stored
     │    │
-    └─── notebooks
-    │    │   Jupyter notebooks that reproduce every figure in the paper
+    └─── postprocessing_notebooks
+    │    │   Jupyter notebooks that transform the direct simulation output into more usable formats
     │    │
     └─── output
     │    │   Where the simulation puts all of its output on completion
