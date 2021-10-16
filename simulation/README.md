@@ -1,2 +1,2 @@
 # Simulation
-This folder has all of the code need to reproduce every figure and all of the results. The main simulation code is in [src](https://github.com/TomWagg/detecting-DCOs-in-LISA/tree/main/simulation/src) and the Jupyter notebooks for recreating figures are in [notebooks](https://github.com/TomWagg/detecting-DCOs-in-LISA/tree/main/simulation/notebooks).
+This folder has all of the code need to reproduce every figure and all of the results. The main simulation code is in [src](https://github.com/TomWagg/detecting-DCOs-in-LISA/tree/main/simulation/src).
