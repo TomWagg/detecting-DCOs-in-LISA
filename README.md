@@ -88,7 +88,7 @@ detecting-DCOs-with-LISA
 └── paper
 │   │   This folder contains everything to do with the paper
 │   │    
-│   │   .xlsx files are excel files with the comparison of previous studies│    
+│   │   `previous_BH_NS_studies.xlsx` has the comparison of previous studies with ours
 │   └─── figure_notebooks
 │   |    |   Jupyter notebooks that reproduce every figure in the paper
 │   │
