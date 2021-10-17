@@ -46,14 +46,14 @@ We also use some more well known Python packages and list them below
 
 ### Installing using Conda (recommended)
 You can install these packages using `conda` and create an environment for working with this code. Run the following to do so
-```console
+```bash
 conda create -n LISA_dcos numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
 conda activate LISA_dcos
 ```
 
 ### Installing using pip
 If you don't have Anaconda then alternatively you can use pip to install everything by running
-```console
+```bash
 pip install numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
 ```
 ## Required data
@@ -83,7 +83,7 @@ Reproducing the results from the paper is a little more involved than reproducin
 
 #### Example use case
 Let's consider an example just to make sure everything is clear. Let's say that you were interested in how the detectable BHNSs are affected by both reducing the kicks from CCSN and assuming optimistic CE scenario (combining models K and Q) for a 10-year LISA mission. In this case, you could run a new simulation to find out!! In order to just run a single Milky Way instance you would run the following (from the simulation/src directory)
-```console
+```bash
     python simulate_DCO_detections.py -i path/to/broekgaarden2021data/ccSNkick_30km_s/COMPASOutputCombined.h5 -o ../output/optimistic_plus_low_kicks.h5 -n 1 -t BHNS --opt-flag --extended-mission
 ```
 
