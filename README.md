@@ -29,7 +29,7 @@ If you have any questions about how to use any part of this repository please re
 ## Citations
 If you use any figures, code or results from this paper we ask that you please cite Wagg et al. (2021). For convenience, here is link to the [ArXiv](TODO) and [ADS](TODO). Additionally, here is the bibtex entry:
 ```
-    ADD BIBTEX ENTRY ONCE SUBMITTED (also fixed links above)
+    ADD BIBTEX ENTRY ONCE SUBMITTED (also need to fix links above)
 ```
 ## Required dependencies
 This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. It allows you evolve the orbits of binary sources, measure their strain and SNR as well as visualise the results.
@@ -71,7 +71,7 @@ In this same way you can pick any figure and follow the link in the caption to f
 
 Please remember to cite Wagg et al. (2021) should you use any figure/adapted figure in any public setting (papers/talks etc.). Thanks!
 ### How to reproduce results/run a new simulation
-Reproducing the results from the paper is a little more involved than reproducing figures but still entirely possible. Here are the steps you need to go through to run your very own simulation
+Reproducing the results from the paper should be just as easy as reproducing figures and adapting the simulations should also be very possible. Here are the steps you need to go through to run your very own simulation
 
 #### General steps to take
 
