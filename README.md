@@ -86,7 +86,17 @@ Let's consider an example just to make sure everything is clear. Let's say that 
 ```bash
     python simulate_DCO_detections.py -i path/to/broekgaarden2021data/ccSNkick_30km_s/COMPASOutputCombined.h5 -o ../output/optimistic_plus_low_kicks.h5 -n 1 -t BHNS --opt-flag --extended-mission
 ```
+In this line we've done a couple of things with the various command-line options:
+- Set the input file to the correct data file from Broekgaarden et al. (2021)
+- Set the output file to a sensible name in the output folder
+- Only run a single MW instance
+- Only run the simulation for BHNSs
+- Turned on the optimistic CE flag
+- Switched to an extended (10-year) LISA mission
 
+And that is all you need to do to produce a simulation based on your new model!!
+
+Of course, if you wanted to build up a proper statistical sample you'll need much more than a single Milky Way instance. For the paper, we ran 2500 Milky Way instances with 100,000 systems of each DCO type in each. You're welcome to edit the size of the Milky Way also within the simulation but we found that 100,000 provided a good number of detections to keep uncertainties low. You may also find that the `simulation/slurm` folder is useful for getting some of the setup for running these simulations on a computing cluster.
 
 ### Milky Way Model code
 Want to use our Milky Way model in your work without coding it yourself? You're in luck, the `simulate_mw()` function in [simulation/src/galaxy.py](simulation/src/galaxy.py) will do exactly this. If you're interested in exploring the galaxy model in more detail I recommend you check out the [Galaxy Creation Station](paper/figure_notebooks/galaxy_creation_station.ipynb).
