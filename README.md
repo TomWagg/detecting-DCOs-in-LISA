@@ -22,6 +22,8 @@
     - [Colour Schemes](#colour-schemes)
 - [Repository map](#repository-map)
 
+If you have any questions about how to use any part of this repository please reach out via email at [tomjwagg@gmail.com](mailto:tomjwagg@gmail.com)!
+
 <hr style="border-width:5px">
 
 ## Citations
@@ -44,14 +46,14 @@ We also use some more well known Python packages and list them below
 
 ### Installing using Conda (recommended)
 You can install these packages using `conda` and create an environment for working with this code. Run the following to do so
-```
+```console
 conda create -n LISA_dcos numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
 conda activate LISA_dcos
 ```
 
 ### Installing using pip
 If you don't have Anaconda then alternatively you can use pip to install everything by running
-```
+```console
 pip install numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
 ```
 ## Required data
@@ -61,7 +63,7 @@ All data used in the paper is stored [here](https://zenodo.org/record/4699713) o
 This repository is set up so that it is very easy not only to reproduce every result and figure in the paper but also adapt the work for future studies. With this in mind, let's split into two sections depending on whether you just want to visualise the results differently or whether you want to produce new results entirely.
 
 ### How to reproduce/adapt figures from the paper
-Here's a quick guide on how you can reproduce any figure from the paper, as well as how to adapt those figures for your own use. First, for the majority of the figures in the paper you'll need to download the data by following the instructions on [Zenodo](https://zenodo.org/record/4699713). Once you've downloaded the data and put it in the right folder (`simulation/data`), you're ready to start making figures!
+Here's a quick guide on how you can reproduce any figure from the paper, as well as how to adapt those figures for your own use. First, clone the repository to your local machine to access all of the code. Next, for the majority of the figures in the paper you'll need to download the data by following the instructions on [Zenodo](https://zenodo.org/record/4699713). Once you've downloaded the data and put it in the right folder (`simulation/data`), you're ready to start making figures!
 
 You're welcome to peruse the notebooks directly here on GitHub if you want to take a look at everything...but if you're looking for a particular figure then I recommend that you check the caption in the paper. There will be a small book symbol that links directly to the notebook that creates it. For example, let's consider [Figure 9](paper/figures/fig9_detection_rates.pdf) and say you wanted to only include the NSNS panel instead over DCO type. In this case, you need to open [this notebook](paper/figure_notebooks/detections.ipynb), which is linked in Figure 9's caption, and edit the code to remove the loop over DCO types so that you plot only the NSNSs instead.
 
@@ -69,7 +71,22 @@ In this same way you can pick any figure and follow the link in the caption to f
 
 Please remember to cite Wagg et al. (2021) should you use any figure/adapted figure in any public setting (papers/talks etc.). Thanks!
 ### How to reproduce results/run a new simulation
-TODO
+Reproducing the results from the paper is a little more involved than reproducing figures but still entirely possible. Here are the steps you need to go through to run your very own simulation
+
+#### General steps to take
+
+1. Clone the repository to your machine
+2. Ensure you have the [required dependencies installed](#required-dependencies)
+3. [Download the data](#required-data) from both this paper and Broekgaarden et al. (2021)
+4. (optional) Open [`simulation/src/simulate_DCO_detections.py`](simulation/src/simulate_DCO_detections.py) and make and edits to the simulation that you want to
+5. Run `simulate_DCO_detections.py` to run a simulation! Run `python simulate_DCO_detections.py -h` to get usage instructions if you need them.
+
+#### Example use case
+Let's consider an example just to make sure everything is clear. Let's say that you were interested in how the detectable BHNSs are affected by both reducing the kicks from CCSN and assuming optimistic CE scenario (combining models K and Q) for a 10-year LISA mission. In this case, you could run a new simulation to find out!! In order to just run a single Milky Way instance you would run the following (from the simulation/src directory)
+```console
+    python simulate_DCO_detections.py -i path/to/broekgaarden2021data/ccSNkick_30km_s/COMPASOutputCombined.h5 -o ../output/optimistic_plus_low_kicks.h5 -n 1 -t BHNS --opt-flag --extended-mission
+```
+
 
 ### Milky Way Model code
 Want to use our Milky Way model in your work without coding it yourself? You're in luck, the `simulate_mw()` function in [simulation/src/galaxy.py](simulation/src/galaxy.py) will do exactly this. If you're interested in exploring the galaxy model in more detail I recommend you check out the [Galaxy Creation Station](paper/figure_notebooks/galaxy_creation_station.ipynb).
