@@ -13,12 +13,29 @@ MW_SIZE = 200000
 
 
 def usage():
-    print("usage: python full_simulation.py [options]")
-    print("\toptions:")
-    print("\t\t-h, --help  : print usage instructions")
-    print("\t\t-i, --input : path to COMPAS h5 input file")
-    print("\t\t-n, --loops : number of simulations to run")
-    print("\t\t-o, --output: path to output h5 file")
+    ansi_codes = {
+        "green": '\033[92m',
+        "red": '\u001b[31m',
+        "reset": '\033[0m'
+    }
+    print()
+    print("{}usage:{} python simulation_DCO_detections.py {}[options]{}".format(ansi_codes["green"],
+                                                                                ansi_codes["reset"],
+                                                                                ansi_codes["red"],
+                                                                                ansi_codes["reset"]))
+    print()
+    print("{}options:{}".format(ansi_codes["red"], ansi_codes["reset"]))
+    print("      Option names      :                       Description                        : Default value")
+    print("------------------------:----------------------------------------------------------:--------------")
+    print("  -h, --help            : print usage instructions                                 : -")
+    print("  -i, --input           : path to COMPAS h5 input file                             : 'COMPASOutput.h5'")
+    print("  -o, --output          : path to output h5 file                                   : 'COMPASOutput_testing.h5'")
+    print("  -n, --loops           : number of simulations to run                             : 10")
+    print("  -t, --binary-type     : which binary type to simulation ['BHBH', 'BHNS', 'NSNS'] : 'BHNS'")
+    print("  -f, --opt-flag        : whether to use the optimistic CE scenario                : -")
+    print("  -s, --simple-mw       : whether to use the simple MW model                       : -")
+    print("  -e, --extended-mission: whether to assume an extended (10 yr) LISA mission       : -")
+    print()
 
 #####################################################################
 
