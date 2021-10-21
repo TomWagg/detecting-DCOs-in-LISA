@@ -16,7 +16,7 @@
     - [Installing using pip](#installing-using-pip)
 - [Required data](#required-data)
 - [Using this repository](#using-this-repository)
-    - [How to reproduce/adapt paper figures](#how-to-reproduceadapt-paper-figures)
+    - [How to reproduce/adapt figures from the paper](#how-to-reproduceadapt-figures-from-the-paper)
     - [How to reproduce results/run a new simulation](#how-to-reproduce-resultsrun-a-new-simulation)
     - [Milky Way Model code](#milky-way-model-code)
     - [Colour Schemes](#colour-schemes)
@@ -65,7 +65,7 @@ This repository is set up so that it is very easy not only to reproduce every re
 ### How to reproduce/adapt figures from the paper
 Here's a quick guide on how you can reproduce any figure from the paper, as well as how to adapt those figures for your own use. First, clone the repository to your local machine to access all of the code. Next, for the majority of the figures in the paper you'll need to download the data by following the instructions on [Zenodo](https://zenodo.org/record/4699713). Once you've downloaded the data and put it in the right folder (`simulation/data`), you're ready to start making figures!
 
-You're welcome to peruse the notebooks directly here on GitHub if you want to take a look at everything...but if you're looking for a particular figure then I recommend that you check the caption in the paper. There will be a small book symbol that links directly to the notebook that creates it. For example, let's consider [Figure 9](paper/figures/fig9_detection_rates.pdf) and say you wanted to only include the NSNS panel instead over DCO type. In this case, you need to open [this notebook](paper/figure_notebooks/detections.ipynb), which is linked in Figure 9's caption, and edit the code to remove the loop over DCO types so that you plot only the NSNSs instead.
+You're welcome to peruse the notebooks directly here on GitHub if you want to take a look at everything...but if you're looking for a particular figure then I recommend that you check the caption in the paper. There will be a small book symbol that links directly to the notebook that creates it. For example, let's consider [Figure 9](paper/figures/fig9_dco_detections.pdf) and say you wanted to only include the NSNS panel instead over DCO type. In this case, you need to open [this notebook](paper/figure_notebooks/detections.ipynb), which is linked in Figure 9's caption, and edit the code to remove the loop over DCO types so that you plot only the NSNSs instead.
 
 In this same way you can pick any figure and follow the link in the caption to find a related notebook that will explain how to make the figure with commented code that you can edit.
 
