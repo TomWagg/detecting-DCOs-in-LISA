@@ -44,8 +44,8 @@ Finally, in models \modRangeML{} we investigate the effect of changing our assum
         \modBetaLow & Fixed mass transfer efficiency of $\beta=0.25$ \\ 
         \modBetaMed & Fixed mass transfer efficiency of $\beta=0.5$  \\ 
         \modBetaHigh & Fixed mass transfer efficiency of $\beta=0.75$ \\ 
-        \modCaseBB & Case BB mass transfer is always unstable \\
-        \modCaseBBOpt & Model \modCaseBB{} + Model \modOpt{} \\
+        \modCaseBB & Exclude Case BB mass transfer is always unstable \\
+        \modCaseBBOpt & Case BB mass transfer always unstable + Optimistic CE \\
         \hline
         \modAlphaLowest & CE efficiency parameter $\alpha = 0.1$ \\
         \modAlphaLow & CE efficiency parameter $\alpha = 0.5$ \\
@@ -225,9 +225,9 @@ Overall, we therefore expect a single pulsar per $5.7 \unit{deg^2}$ and $1.5 \un
         B & $\beta=0.25$ & \confinv{94.1}{10.1}{9.9} & \confinv{68.8}{7.8}{8.2} & \confinv{22.4}{4.4}{4.6} & \confinv{2.9}{1.9}{2.1} & \confinv{149.3}{12.3}{12.7} & \confinv{107.8}{10.8}{10.2} & \confinv{36.9}{5.9}{6.1} & \confinv{4.6}{1.6}{2.4}\\
         C & $\beta=0.5$ & \confinv{59.2}{8.2}{7.8} & \confinv{47.0}{7.0}{7.0} & \confinv{8.3}{3.3}{2.7} & \confinv{3.9}{1.9}{2.1} & \confinv{95.9}{9.9}{10.1} & \confinv{75.8}{8.8}{9.2} & \confinv{13.6}{3.6}{3.4} & \confinv{6.4}{2.4}{2.6}\\
         D & $\beta=0.75$ & \confinv{67.0}{8.0}{8.0} & \confinv{46.9}{6.9}{7.1} & \confinv{7.4}{2.4}{2.6} & \confinv{12.7}{3.7}{3.3} & \confinv{104.5}{10.5}{10.5} & \confinv{71.2}{8.2}{8.8} & \confinv{12.1}{3.1}{3.9} & \confinv{21.1}{4.1}{4.9}\\
-        E & unstable
+        E & Exclude
         case BB & \confinv{76.7}{8.7}{8.3} & \confinv{69.3}{8.3}{8.7} & \confinv{7.3}{2.3}{2.7} & \boldconfinv{0.2}{0.2}{0.8} & \confinv{121.4}{11.4}{10.6} & \confinv{109.3}{10.3}{10.7} & \confinv{11.8}{3.8}{3.2} & \boldconfinv{0.4}{0.4}{0.6}\\
-        F & E+K & \boldconfinv{320.9}{17.9}{18.1} & \boldconfinv{154.3}{12.3}{12.7} & \boldconfinv{148.4}{12.4}{12.6} & \confinv{18.2}{4.2}{3.8} & \boldconfinv{483.7}{21.7}{22.3} & \boldconfinv{239.5}{15.5}{15.5} & \confinv{216.8}{14.8}{15.2} & \confinv{27.4}{5.4}{5.6}\\
+        F & Unstable Case BB + K & \boldconfinv{320.9}{17.9}{18.1} & \boldconfinv{154.3}{12.3}{12.7} & \boldconfinv{148.4}{12.4}{12.6} & \confinv{18.2}{4.2}{3.8} & \boldconfinv{483.7}{21.7}{22.3} & \boldconfinv{239.5}{15.5}{15.5} & \confinv{216.8}{14.8}{15.2} & \confinv{27.4}{5.4}{5.6}\\
         G & $\alpha_{\rm CE}=0.1$ & \confinv{40.2}{6.2}{6.8} & \confinv{27.9}{4.9}{5.1} & \boldconfinv{2.1}{1.1}{1.9} & \confinv{10.2}{3.2}{2.8} & \confinv{64.1}{8.1}{7.9} & \confinv{43.9}{6.9}{7.1} & \boldconfinv{3.5}{1.5}{1.5} & \confinv{16.7}{3.7}{4.3}\\
         H & $\alpha_{\rm CE}=0.5$ & \confinv{85.9}{8.9}{9.1} & \confinv{58.3}{7.3}{7.7} & \confinv{21.8}{4.8}{4.2} & \confinv{5.9}{2.9}{2.1} & \confinv{136.2}{11.2}{11.8} & \confinv{91.6}{9.6}{9.4} & \confinv{34.9}{5.9}{6.1} & \confinv{9.7}{2.7}{3.3}\\
         I & $\alpha_{\rm CE}=2.0$ & \confinv{133.3}{11.3}{11.7} & \confinv{67.6}{8.6}{8.4} & \confinv{38.0}{6.0}{6.0} & \confinv{27.7}{5.7}{5.3} & \confinv{218.4}{14.4}{14.6} & \confinv{109.6}{10.6}{10.4} & \confinv{62.7}{7.7}{8.3} & \confinv{46.0}{7.0}{7.0}\\
