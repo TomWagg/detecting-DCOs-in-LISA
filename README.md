@@ -3,11 +3,25 @@
 </p>
 
 <p align="center">
+    <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA/raw/main/paper/tex/paper.pdf">
+        <img src="https://img.shields.io/badge/paper-pdf-blue.svg?style=flat" alt="Read the article"/>
+    </a>
+    <a href="https://zenodo.org/record/4574727">
+        <img src="https://img.shields.io/badge/pop synth data-Zenodo-green" alt="Download the population synthesis data"/>
+    </a>
+    <a href="https://zenodo.org/record/4699713">
+        <img src="https://img.shields.io/badge/LISA simulation data-Zenodo-green" alt="Download the LISA simulation data"/>
+    </a>
+</p>
+
+<p align="center">
     This repository is a companion to Wagg et al. (2021), a paper investigating the Galactic population of LISA detectable BH and NS binaries. We discuss the expected detection rate, variations when using different underlying binary physics assumptions, prospects for identifying the sources of signals and matching them to electromagnetic counterparts.
 </p>
 <p align="center">
     This repository contains all of the code associated with with Wagg et al. (2021), both for the simulations so that you can reproduce the results, but also for the paper so that you can reproduce all of the plots. If you've come this without reading the paper yet, I recommend that you go and take a look before trying to see what's going on in the code so it makes more sense.
 </p>
+
+If you have any questions about how to use any part of this repository please reach out via email at [tomjwagg@gmail.com](mailto:tomjwagg@gmail.com)!
 
 ## Table of contents
 - [Citations](#citations)
@@ -21,8 +35,6 @@
     - [Milky Way Model code](#milky-way-model-code)
     - [Colour Schemes](#colour-schemes)
 - [Repository map](#repository-map)
-
-If you have any questions about how to use any part of this repository please reach out via email at [tomjwagg@gmail.com](mailto:tomjwagg@gmail.com)!
 
 <hr style="border-width:5px">
 
