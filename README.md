@@ -12,6 +12,9 @@
     <a href="https://zenodo.org/record/4699713">
         <img src="https://img.shields.io/badge/LISA simulation data-Zenodo-green" alt="Download the LISA simulation data"/>
     </a>
+    <a href="mailto:tomjwagg@gmail.com">
+        <img src="https://img.shields.io/badge/email-author-blueviolet" alt="Email the author"/>
+    </a>
 </p>
 
 <p align="center">
@@ -21,7 +24,9 @@
     This repository contains all of the code associated with with Wagg et al. (2021), both for the simulations so that you can reproduce the results, but also for the paper so that you can reproduce all of the plots. If you've come this without reading the paper yet, I recommend that you go and take a look before trying to see what's going on in the code so it makes more sense.
 </p>
 
-If you have any questions about how to use any part of this repository please reach out via email at [tomjwagg@gmail.com](mailto:tomjwagg@gmail.com)!
+<p align="center">
+    If you have any questions about how to use any part of this repository please reach out via email at [tomjwagg@gmail.com](mailto:tomjwagg@gmail.com)!
+</p>
 
 ## Table of contents
 - [Citations](#citations)
