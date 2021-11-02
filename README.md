@@ -25,7 +25,7 @@
 </p>
 
 <p align="center">
-    If you have any questions about how to use any part of this repository please reach out via email at [tomjwagg@gmail.com](mailto:tomjwagg@gmail.com)!
+    If you have any questions about how to use any part of this repository please reach out via email at <a href="mailto:tomjwagg@gmail.com">tomjwagg@gmail.com</a>!
 </p>
 
 ## Table of contents
