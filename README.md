@@ -15,6 +15,7 @@
     <a href="https://zenodo.org/record/4699713">
         <img src="https://img.shields.io/badge/LISA predictions data-Zenodo-green" alt="Download the LISA simulation data"/>
     </a>
+    <br>
     <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA/raw/main/paper/tex/paper.pdf">
         <img src="https://img.shields.io/badge/paper-pdf-blue.svg?style=flat" alt="Read the article"/>
     </a>
