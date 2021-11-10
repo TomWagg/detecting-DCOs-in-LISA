@@ -165,8 +165,10 @@
 \newcommand{\mpa}{Max-Planck-Institut für Astrophysik, Karl-Schwarzschild-Straße 1, 85741 Garching, Germany}
 \newcommand{\cca}{Center for Computational Astrophysics, Flatiron Institute, 162 Fifth Ave, New York, NY, 10010, USA}
 \newcommand{\UvA}{Anton Pannekoek Institute for Astronomy \& Grappa, University of Amsterdam, Postbus 94249, 1090 GE Amsterdam, The Netherlands}
+\newcommand{\UW}{Department of Astronomy, University of Washington, Seattle, WA, 98195}
 
 \author[0000-0001-6147-5761]{T. Wagg}
+\affiliation{\UW}
 \affiliation{\cfa}
 \affiliation{\mpa}
 
@@ -198,7 +200,7 @@
     \input{sections/abstract.tex}
 \end{abstract}
 
-\keywords{gravitational waves, LISA, black hole, neutron star, binary}
+\keywords{gravitational waves, LISA, black hole, neutron star, binary stars}
 
 \section{Introduction} \label{sec:intro}
 \input{sections/introduction.tex}
@@ -225,12 +227,14 @@
 \software{We used LEGWORK to evolve sources over time and calculate signal-to-noise ratios, it is freely available at \url{https://legwork.readthedocs.io/en/latest/}. Simulations in this paper made use of the COMPAS rapid binary population synthesis code, which is freely available at \url{http://github.com/TeamCOMPAS/COMPAS} \citep{Stevenson+2017, Vigna-Gomez+2018, Broekgaarden+2019}. The simulations performed in this work were simulated with a COMPAS version that predates the publicly available code. Our version of the code is most similar to version 02.13.01 of the publicly available COMPAS code. Requests for the original code can be made to Floor Broekgaarden. The authors used {\sc{STROOPWAFEL}} from \citep{Broekgaarden+2019}, publicly available at \url{https://github.com/FloorBroekgaarden/STROOPWAFEL}\footnote{For the latest pip installable version of STROOPWAFEL please contact Floor Broekgaarden.}.
 The authors also made use of Python from the Python Software Foundation. Python Language Reference, version 3.6. Available at \url{http://www.python.org}. In addition the following Python packages were used: matplotlib (\url{https://matplotlib.org/}), {NumPy} (\url{https://numpy.org/}), SciPy (\url{https://www.scipy.org/}), Jupyter Lab (\url{https://jupyter.org/}), seaborn (\url{https://seaborn.pydata.org/}), h5py (https://www.h5py.org/) and Astropy (\url{http://www.astropy.org}).  This research has made use of NASA’s Astrophysics Data System Bibliographic Services. We also made use of the computational facilities from the Harvard FAS Research Computing cluster.}
 
-\acknowledgments{We thank Mike Lau, Floris Kummer, Eva Laplace, Rob Farmer, Katie Sharpe, Mathieu Renzo, Katie Brevik, Alberto Sesana, Valeriya Korol, Will Farr, Tyson Littenberg and the members of the COMPAS collaboration for insightful discussions. TW also thanks Terence Lovatt for his advice and help on improving an earlier draft of this project. This project was funded in part by the National Science Foundation under Grant No. (NSF grant number 2009131), the European Union’s Horizon 2020 research and innovation program from the European Research Council (ERC, Grant agreement No. 715063), and by the Netherlands Organization for Scientific Research (NWO) as part of the Vidi research program BinWaves with project number 639.042.728. We further acknowledge the Black Hole Initiative funded by a generous contribution of the John Templeton Foundation and the Gordon and Betty Moore Foundation.}
+\acknowledgments{We thank Mike Lau, Floris Kummer, Eva Laplace, Rob Farmer, Katie Sharpe, Mathieu Renzo, Katie Brevik, Alberto Sesana, Valeriya Korol, Will Farr, Tyson Littenberg and the members of the COMPAS collaboration for insightful discussions. TW also thanks Terence Lovatt for his advice and help on improving an earlier draft of this project. Portions of this study were inspired by the LISA Sprint at the Center for Computational Astrophysics of the Flatiron Institute, supported by the Simons Foundation. This project was funded in part by the National Science Foundation under Grant No. (NSF grant number 2009131), the European Union’s Horizon 2020 research and innovation program from the European Research Council (ERC, Grant agreement No. 715063), and by the Netherlands Organization for Scientific Research (NWO) as part of the Vidi research program BinWaves with project number 639.042.728. We further acknowledge the Black Hole Initiative funded by a generous contribution of the John Templeton Foundation and the Gordon and Betty Moore Foundation.}
 
 \clearpage
 
 \bibliographystyle{aasjournal}
 \bibliography{references}
+
+\restartappendixnumbering
 
 \allowdisplaybreaks
 \appendix
