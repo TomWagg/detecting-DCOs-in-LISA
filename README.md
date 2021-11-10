@@ -6,11 +6,17 @@
     <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA/raw/main/paper/tex/paper.pdf">
         <img src="https://img.shields.io/badge/paper-pdf-blue.svg?style=flat" alt="Read the article"/>
     </a>
-    <a href="https://zenodo.org/record/4574727">
-        <img src="https://img.shields.io/badge/pop synth data-Zenodo-green" alt="Download the population synthesis data"/>
+    <a href="https://zenodo.org/record/5651073">
+        <img src="https://img.shields.io/badge/BHBH COMPAS data-Zenodo-green" alt="Download the population synthesis data for BHBHs"/>
+    </a>
+    <a href="https://zenodo.org/record/5178777">
+        <img src="https://img.shields.io/badge/BHNS COMPAS data-Zenodo-green" alt="Download the population synthesis data for BHNSs"/>
+    </a>
+    <a href="https://zenodo.org/record/5189849">
+        <img src="https://img.shields.io/badge/NSNS COMPAS data-Zenodo-green" alt="Download the population synthesis data for NSNSs"/>
     </a>
     <a href="https://zenodo.org/record/4699713">
-        <img src="https://img.shields.io/badge/LISA simulation data-Zenodo-green" alt="Download the LISA simulation data"/>
+        <img src="https://img.shields.io/badge/LISA predictions data-Zenodo-green" alt="Download the LISA simulation data"/>
     </a>
     <a href="mailto:tomjwagg@gmail.com">
         <img src="https://img.shields.io/badge/email-author-blueviolet" alt="Email the author"/>
@@ -74,7 +80,7 @@ If you don't have Anaconda then alternatively you can use pip to install everyth
 pip install numpy astropy scipy seaborn h5py matplotlib legwork jupyter ipython
 ```
 ## Required data
-All data used in the paper is stored [here](https://zenodo.org/record/4699713) on Zenodo. You'll need to download all of this data for reproducing the figures and be sure to follow the instructions on Zenodo for placing the data in the right place. If you also want to run a new simulation then you'll need the data from Broekgaarden et al. (2021) which you can download [here](https://zenodo.org/record/4574727).
+All data related to the predictions in the paper is stored [here](https://zenodo.org/record/4699713) on Zenodo. You'll need to download all of this data for reproducing the figures and be sure to follow the instructions on Zenodo for placing the data in the right place. If you also want to run a new simulation then you'll need the data from Broekgaarden et al. (2021, in prep.) which you can download [here](https://zenodo.org/record/5651073), [here](https://zenodo.org/record/5178777) and [here](https://zenodo.org/record/5189849) for BHBHs, BHNSs and NSNSs respectively.
 
 ## Using this repository
 This repository is set up so that it is very easy not only to reproduce every result and figure in the paper but also adapt the work for future studies. With this in mind, let's split into two sections depending on whether you just want to visualise the results differently or whether you want to produce new results entirely.
