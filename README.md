@@ -3,9 +3,6 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA/raw/main/paper/tex/paper.pdf">
-        <img src="https://img.shields.io/badge/paper-pdf-blue.svg?style=flat" alt="Read the article"/>
-    </a>
     <a href="https://zenodo.org/record/5651073">
         <img src="https://img.shields.io/badge/BHBH COMPAS data-Zenodo-green" alt="Download the population synthesis data for BHBHs"/>
     </a>
@@ -17,6 +14,9 @@
     </a>
     <a href="https://zenodo.org/record/4699713">
         <img src="https://img.shields.io/badge/LISA predictions data-Zenodo-green" alt="Download the LISA simulation data"/>
+    </a>
+    <a href="https://github.com/TomWagg/detecting-DCOs-in-LISA/raw/main/paper/tex/paper.pdf">
+        <img src="https://img.shields.io/badge/paper-pdf-blue.svg?style=flat" alt="Read the article"/>
     </a>
     <a href="mailto:tomjwagg@gmail.com">
         <img src="https://img.shields.io/badge/email-author-blueviolet" alt="Email the author"/>
