@@ -15,13 +15,13 @@ The result of the simulations is a sample of binaries, which, for each metallici
 \begin{equation}
     \mathbf{b}_{{Z, i}} = \{m_1, m_2, a_{\rm DCO}, e_{\rm DCO}, t_{\rm evolve}, t_{\rm inspiral}, w\},
 \end{equation}
-for $i = 1, 2, \dots, N_{\rm binaries}$, where $m_1$ and $m_2$ are the primary and secondary masses, $a_{\rm DCO}$ and $e_{\rm DCO}$ are the semi-major axis and eccentricity at the moment of double compact object (DCO) formation, $t_{\rm evolve}$ is the time between the binary's zero-age main sequence and DCO formation, $t_{\rm inspiral}$ is the time between DCO formation (that is immediately after the second supernova in the system) and gravitational wave merger and $w$ is the adaptive importance sampling weight assigned by STROOPWAFEL \cite[][Eq.~7]{Broekgaarden+2019}. We sample from these sets of parameters when creating synthetic galaxies.
+for $i = 1, 2, \dots, N_{\rm binaries}$, where $m_1$ and $m_2$ are the primary and secondary masses, $a_{\rm DCO}$ and $e_{\rm DCO}$ are the semi-major axis and eccentricity at the moment of double compact object (DCO) formation, $t_{\rm evolve}$ is the time between the binary's zero-age main sequence and DCO formation, $t_{\rm inspiral}$ is the time between DCO formation (that is immediately after the second supernova in the system) and gravitational-wave merger and $w$ is the adaptive importance sampling weight assigned by STROOPWAFEL \cite[][Eq.~7]{Broekgaarden+2019}. We sample from these sets of parameters when creating synthetic galaxies.
 
 \subsection{Galaxy synthesis}\label{sec:galaxy_synthesis}
 
 In order to estimate a detection rate of DCOs with statistical uncertainties, we create a series of random instances of the Milky Way, each populated with a subsample drawn (with replacement) from the synthesised binaries described in Section~\ref{sec:COMPAS_explained}.
 
-Most previous studies that predict a detection rate for LISA place binaries in the Milky Way independently of their age or evolution. We improve upon this as the first study to use an empirically-informed analytical model of the Milky Way that takes into account the galaxy's enrichment history by applying the metallicity-radius-time relation from \citet{Frankel+2018}. The authors developed this relation in order to measure the global efficiency of radial migration in the Milky Way and calibrated it using a sample of red clump stars measured with APOGEE \citep{Majewski+2017}.
+Most previous studies that predict a detection rate for LISA place binaries in the Milky Way independently of their age or evolution. We improve upon this as the first study to use an empirically-informed analytical model of the Milky Way that takes into account the galaxy's enrichment history by applying the metallicity-radius-time relation from \citet{Frankel+2018}. Those authors developed this relation in order to measure the global efficiency of radial migration in the Milky Way and calibrated it using a sample of red clump stars measured with APOGEE \citep{Majewski+2017}.
 
 In Section~\ref{sec:mw_model}, we outline our model for the Milky Way and in Section~\ref{sec:combining_pop_gal} we explain how we combine our population of synthesised DCOs with this Milky Way model.
 
@@ -29,7 +29,7 @@ In Section~\ref{sec:mw_model}, we outline our model for the Milky Way and in Sec
 
 Fig.~\ref{fig:galaxy_schematic} shows the distributions and relations outlined in this section and also displays an example random galaxy drawn using this model.
 
-Our model for the Milky Way accounts for the low-\achem\footnote{Nomenclature used to describe the enhancement of $\alpha$ elements compared to iron in stellar atmospheres}~disc, high-\achem~disc and a central component approximating a bar/bulge. The low- and high-\achem~discs are often also referred to as the thin and thick discs because the stellar vertical distribution is better fit by a double exponential rather than a single one. However, this doesn't allow one to assign a star to either the thin or thick disk purely based on its height above the Galactic plane. Therefore, we instead use the chemical definition of the two disks (applying the \achem~nomenclature) as there is a clear bimodal distribution in the chemical plane, allowing stars to be assigned to each of the disc components based on their chemical abundances. For each of the three components, we use a separate star formation history and spatial distribution, which we combine into a single model, weighting each component by its stellar mass. \citet{Licquia+2015} gives that the stellar mass of the bulge is $0.9 \times 10^{10} \unit{M_{\odot}}$ and the stellar mass of the disc is $5.2 \times 10^{10} \unit{M_\odot}$, which we split equally between the low- and high-\achem~discs \citep[e.g.,][]{Snaith+2014}.
+Our model for the Milky Way accounts for the low-\achem\footnote{Nomenclature used to describe the enhancement of $\alpha$ elements compared to iron in stellar atmospheres}~disc, high-\achem~disc and a central component approximating a bar/bulge. The low- and high-\achem~discs are often also referred to as the thin and thick discs because the stellar vertical distribution is better fit by a double exponential rather than a single one. However, this doesn't allow one to assign a star to either the thin or thick disk purely based on its height above the Galactic plane. Therefore, we instead use the chemical definition of the two disks (applying the \achem~nomenclature) as there is a clear bimodal distribution in the chemical plane, allowing stars to be assigned to each of the disc components based on their chemical abundances. For each of the three components, we use a separate star formation history and spatial distribution, which we combine into a single model, weighting each component by its present-day stellar mass. \citet{Licquia+2015} gives that the stellar mass of the bulge is $0.9 \times 10^{10} \unit{M_{\odot}}$ and the stellar mass of the disc is $5.2 \times 10^{10} \unit{M_\odot}$, which we split equally between the low- and high-\achem~discs \citep[e.g.,][]{Snaith+2014}.
 
 \textit{Star formation history:} 
 We use an exponentially declining star formation history \citep{Frankel+2018} (inspired by the average cosmic star formation history) for the combined low- and high-\achem~discs,
@@ -44,11 +44,13 @@ The star formation history of the Milky Way bulge (which we assume here to be do
 \begin{equation}\label{eq:galaxy_R}
     p(R) = \exp(-\frac{R}{R_d}) \frac{R}{R_d^2},
 \end{equation}
-where $R$ is the Galactocentric radius and $R_d$ is the scale length of the component. For the low-\achem~disc, we set $R_d = R_{\rm exp}(\tau)$, where $R_{\rm exp}(\tau)$ is the scale length presented in \citet[][Eq.~5]{Frankel+2018}
+where $R$ is the Galactocentric radius and $R_d$ is the scale length of the component. For the low-\achem~disc, we set $R_d = R_{\rm exp}(\tau)$, where $R_{\rm exp}(\tau)$ is the scale length presented in \citet[][Eq.~6]{Frankel+2018}
 \begin{equation}
     R_{\rm exp}(\tau) = 4 \unit{kpc} \qty(1 - \alpha_{R_{\rm exp}} \qty(\frac{\tau}{8 \unit{Gyr}})),
 \end{equation}
-where $\alpha_{R_{\rm exp}} = 0.3$ is the inside-out growth parameter\footnote{In $R_{\rm exp}(\tau)$, we use 4 kpc instead of 3 kpc for the 0 Gyr exponential scale-length of the disc as NF finds that it provides a better fit to the original data}. This scale length accounts for the inside-out growth of the low-\achem~disc and hence is age dependent. We assume $R_d = (1 / 0.43) \unit{kpc}$ for the high-\achem~disc \citep[][Table~1]{Bovy+2016} and $R_d = 1.5 \unit{kpc}$ for the bar component \citep{Bovy+2019}. We show the combination of these distributions in the second panel on the left in Fig.~\ref{fig:galaxy_schematic}.
+where $\alpha_{R_{\rm exp}} = 0.3$ is the inside-out growth parameter\footnote{We find that $R_{\rm exp}(\tau) = 4$ kpc fits the data well and adopt this value rather than the 3 kpc quoted in \cite{Frankel+2018}, which was a fixed parameter (not a fit).}
+
+This scale length accounts for the inside-out growth of the low-\achem~disc and hence is age dependent. We assume $R_d = (1 / 0.43) \unit{kpc}$ for the high-\achem~disc \citep[][Table~1]{Bovy+2016} and $R_d = 1.5 \unit{kpc}$ for the bar component \citep{Bovy+2019}. We show the combination of these distributions in the second panel on the left in Fig.~\ref{fig:galaxy_schematic}.
 
 \textit{Vertical distribution}: Similar to the radial distribution, we use the same single exponential distribution (but with different scale heights) for each component, given by
 \begin{equation}\label{eq:galaxy_z}
@@ -67,7 +69,7 @@ where
 \begin{equation}
     f(\tau) = \qty(1 - \frac{\tau}{\tau_m})^{\gamma_{[{\rm Fe} / {\rm H}]}},
 \end{equation}
-$F_m = -1 \unit{dex}$ is the metallicity of the gas at the center of the disc at $\tau = \tau_m$, $\nabla [{\rm Fe} / {\rm H}] = -0.075 \unit{kpc^{-1}}$ is the metallicity gradient, $R^{\rm now}_{[{\rm Fe} / {\rm H}] = 0} = 8.7 \unit{kpc}$ is the radius at which the present day metallicity is solar and $\gamma_{[{\rm Fe} / {\rm H}]} = 0.3$ set the time dependence of the chemical enrichment. We can convert this to the representation of metallicity that we use in this paper by applying \citep[e.g][]{Bertelli+1994}
+$F_m = -1 \unit{dex}$ is the metallicity of the gas at the center of the disc at $\tau = \tau_m$, $\nabla [{\rm Fe} / {\rm H}] = -0.075 \unit{kpc^{-1}}$ is the metallicity gradient, $R^{\rm now}_{[{\rm Fe} / {\rm H}] = 0} = 8.7 \unit{kpc}$ is the radius at which the present day metallicity is solar and $\gamma_{[{\rm Fe} / {\rm H}]} = 0.3$ sets the time dependence of the chemical enrichment. We can convert this to the representation of metallicity that we use in this paper by applying \citep[e.g.][]{Bertelli+1994}
 \begin{equation}\label{eq:galaxy_FeH_to_Z}
     \log_{10} (Z) = 0.977 [{\rm Fe} / {\rm H}] + \log_{10}(Z_\odot).
 \end{equation}
@@ -80,13 +82,13 @@ For each Milky Way instance, we randomly sample the following set of parameters
 \begin{equation}
     \mathbf{g}_{{j}} = \{\tau, R, Z, z, \theta\}
 \end{equation}
-for $j = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 2 \times 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using the distribution functions specified in Section~\ref{sec:mw_model}, $\theta$ is the polar angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Figure~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions and illustrates the gradient in metallicity over radius.
+for $j = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 2 \times 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using the distribution functions specified in Section~\ref{sec:mw_model}, $\theta$ is the azimuthal angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Figure~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions and illustrates the gradient in metallicity over radius.
 
 We match each set of galaxy parameters $\mathbf{g}_{{j}}$, to a random set of binary parameters $\mathbf{b}_{{Z, i}}$, by drawing a binary from the closest metallicity bin to the metallicity in $\mathbf{g}_{{j}}$.
 
 Each binary is likely to move from its birth orbit. Although all stars in the Galactic disc experience radial migration \citep{Sellwood+2002, Frankel+2018}, DCOs generally experience stronger dynamical evolution as a result of the effects of both Blaauw kicks \citep{Blaauw+1961} and natal kicks \citep[e.g.][]{Hobbs+2005}.
 
-The magnitude of the systemic kicks are typically small compared to the initial circular velocity of a binary at each Galactocentric radius. Therefore, we expect that kicks will not significantly alter the overall distribution of their positions (see however e.g.\ \citealt{Brandt+1995, Abbott+2017_GW170817_progenitor}). Given this, and for the sake of computational efficiency, we do not account for the displacement due to systemic kicks in our analysis.
+The magnitude of the systemic kicks are typically small compared to the initial circular velocity of a binary at each Galactocentric radius. Therefore, we expect that kicks will not significantly alter the overall distribution of their positions (see however, e.g., \citealt{Brandt+1995, Abbott+2017_GW170817_progenitor}). Given this, and for the sake of computational efficiency, we do not account for the displacement due to systemic kicks in our analysis.
 
 \subsection{Gravitational wave detection}\label{sec:gw_detection}
 We use the Python package \href{https://legwork.readthedocs.io/en/latest/}{LEGWORK} to evolve binaries and calculate their LISA detectability. For a full derivation of the equations given below please see the LEGWORK release paper, Wagg et al. 2021b (in preparation), or the documentation \href{https://legwork.readthedocs.io/en/latest/notebooks/Derivations.html}{\faBook}.
@@ -110,9 +112,9 @@ where $D_L$ is the luminosity distance to the source, $f_{\rm orb}$ is the orbit
     \mathcal{M}_c = \frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}.
 \end{equation}
 
-Note that the length of the LISA mission affects how much a binary will evolve over the mission and thus changes the frequency limits in Eq.~\ref{eq:snr}. The SNR generally scales as $\sqrt{T_{\rm obs}}$ (with exceptions for sources very close to merging) and thus the SNR of a typical source in a 10-year LISA mission is approximately $1.58$ (=$\sqrt{10/4}$) times stronger than in a 4-year mission.
+Note that increasing the length of the LISA mission allows more time for a DCO to evolve over the mission. Therefore the frequency limits in Eq.~\ref{eq:snr} are dictated by the LISA mission length. The SNR generally scales as $\sqrt{T_{\rm obs}}$ (with exceptions for sources very close to merging) and thus the SNR of a typical source in a 10-year LISA mission is approximately $1.58$ (=$\sqrt{10/4}$) times stronger than in a 4-year mission.
 
-We use \href{https://legwork.readthedocs.io/en/latest/}{LEGWORK} to calculate the signal-to-noise ratio for each binary and the package ensures that enough harmonics are computed for each binary such that the error on the gravitational wave luminosity remains below 1\%.
+We use \href{https://legwork.readthedocs.io/en/latest/}{LEGWORK} to calculate the signal-to-noise ratio for each binary and the package ensures that enough harmonics are computed for each binary such that the error on the gravitational-wave luminosity remains below 1\%.
 
 \subsubsection{Detection rate calculation}
 For each physics variation model and DCO type, we first convert the COMPAS simulation results into a total number of DCOs in the Milky Way, $N_{\rm DCO}$. We do this by integrating the full mass and period distributions and stars and normalising to the total Milky Way mass. For more details see Appendix~\ref{app:rate_normalisation}.
