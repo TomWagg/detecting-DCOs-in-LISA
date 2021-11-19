@@ -82,7 +82,7 @@ For each Milky Way instance, we randomly sample the following set of parameters
 \begin{equation}
     \mathbf{g}_{{j}} = \{\tau, R, Z, z, \theta\}
 \end{equation}
-for $j = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 2 \times 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using the distribution functions specified in Section~\ref{sec:mw_model}, $\theta$ is the azimuthal angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Figure~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions and illustrates the gradient in metallicity over radius.
+for $j = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 2 \times 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using the distribution functions specified in Section~\ref{sec:mw_model}, $\theta$ is the azimuthal angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Fig.~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions and illustrates the gradient in metallicity over radius.
 
 We match each set of galaxy parameters $\mathbf{g}_{{j}}$, to a random set of binary parameters $\mathbf{b}_{{Z, i}}$, by drawing a binary from the closest metallicity bin to the metallicity in $\mathbf{g}_{{j}}$.
 
