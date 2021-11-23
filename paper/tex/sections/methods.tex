@@ -9,13 +9,13 @@ To produce predictions for the DCOs that are detectable with LISA, we synthesise
 
 \subsection{Binary population synthesis}\label{sec:COMPAS_explained}
 
-We use the grid of \nModels{} binary population synthesis simulations recently presented in \citet{Broekgaarden+2021} and Broekgaarden et al.\ (in preparation). This grid of simulations is synthesised using the rapid population synthesis code \href{https://compas.science}{COMPAS} \citep{Stevenson+2017,Vigna-Gomez+2018,Stevenson+2019,Broekgaarden+2019}. COMPAS follows the approach of the population synthesis code BSE \citep{Hurley+2000,Hurley+2002} and uses fitting formula and rapid algorithms to efficiently predict the final fate of binary systems. The code is open source and documented in the papers listed above, the online documentation\footnote{\url{https://compas.science}} and in the methods paper \citep{COMPAS:2021methodsPaper}. We summarise the main assumptions and settings relevant for this work in Appendix~\ref{app:pop_synth}.
+We use the grid of \nModels{} binary population synthesis simulations recently presented in \citet{Broekgaarden+2021} and Broekgaarden et al.\ (in prep.). This grid of simulations is synthesised using the rapid population synthesis code \href{https://compas.science}{COMPAS} \citep{Stevenson+2017,Vigna-Gomez+2018,Stevenson+2019,Broekgaarden+2019}. COMPAS follows the approach of the population synthesis code BSE \citep{Hurley+2000,Hurley+2002} and uses fitting formula and rapid algorithms to efficiently predict the final fate of binary systems. The code is open source and documented in the papers listed above, the online documentation\footnote{\url{https://compas.science}} and in the methods paper \citep{COMPAS:2021methodsPaper}. We summarise the main assumptions and settings relevant for this work in Appendix~\ref{app:pop_synth}.
 
 The result of the simulations is a sample of binaries, which, for each metallicity $Z$, have $N_{\rm binaries}$ binaries with parameters
 \begin{equation}
     \mathbf{b}_{{Z, i}} = \{m_1, m_2, a_{\rm DCO}, e_{\rm DCO}, t_{\rm evolve}, t_{\rm inspiral}, w\},
 \end{equation}
-for $i = 1, 2, \dots, N_{\rm binaries}$, where $m_1$ and $m_2$ are the primary and secondary masses, $a_{\rm DCO}$ and $e_{\rm DCO}$ are the semi-major axis and eccentricity at the moment of double compact object (DCO) formation, $t_{\rm evolve}$ is the time between the binary's zero-age main sequence and DCO formation, $t_{\rm inspiral}$ is the time between DCO formation (that is immediately after the second supernova in the system) and gravitational-wave merger and $w$ is the adaptive importance sampling weight assigned by STROOPWAFEL \cite[][Eq.~7]{Broekgaarden+2019}. We sample from these sets of parameters when creating synthetic galaxies.
+for $i = 1, 2, \dots, N_{\rm binaries}$, where $m_1$ and $m_2$ are the primary and secondary masses, $a_{\rm DCO}$ and $e_{\rm DCO}$ are the semi-major axis and eccentricity at the moment of double compact object (DCO) formation, $t_{\rm evolve}$ is the time between the binary's zero-age main sequence and DCO formation, $t_{\rm inspiral}$ is the time between DCO formation (that is, immediately after the second supernova in the system) and gravitational-wave merger and $w$ is the adaptive importance sampling weight assigned by STROOPWAFEL \cite[][Eq.~7]{Broekgaarden+2019}. We sample from these sets of parameters when creating synthetic galaxies.
 
 \subsection{Galaxy synthesis}\label{sec:galaxy_synthesis}
 
@@ -84,7 +84,7 @@ For each Milky Way instance, we randomly sample the following set of parameters
 \end{equation}
 for $j = 1, 2, \dots, N_{\rm MW}$, where we set $N_{\rm MW} = 2 \times 10^{5}$, $\tau, R, Z$ and $z$ are defined and sampled using the distribution functions specified in Section~\ref{sec:mw_model}, $\theta$ is the azimuthal angle sampled uniformly on $[0, 2\pi)$ and $Z$ is the metallicity. Fig.~\ref{fig:galaxy_schematic} shows an example of a random Milky Way instance created with these distributions. This shows how these distributions translate to positions and illustrates the gradient in metallicity over radius.
 
-We match each set of galaxy parameters $\mathbf{g}_{{j}}$, to a random set of binary parameters $\mathbf{b}_{{Z, i}}$, by drawing a binary from the closest metallicity bin to the metallicity in $\mathbf{g}_{{j}}$.
+We match each set of galaxy parameters $\mathbf{g}_{{j}}$, to a random set of binary parameters $\mathbf{b}_{{Z, i}}$, by drawing a binary from the closest metallicity bin to the metallicity in $\mathbf{g}_{{j}}$. If the metallicity in $\mathbf{g}_{{j}}$ is below the minimum COMPAS metallicity bin ($Z = 10^{-4}$), we use this minimum bin. If the metallicity in $\mathbf{g}_{{j}}$ is above the maximum COMPAS metallicity bin ($Z = 0.03$), we use a randomly selected bin from the five highest metallicity bins.
 
 Each binary is likely to move from its birth orbit. Although all stars in the Galactic disc experience radial migration \citep{Sellwood+2002, Frankel+2018}, DCOs generally experience stronger dynamical evolution as a result of the effects of both Blaauw kicks \citep{Blaauw+1961} and natal kicks \citep[e.g.][]{Hobbs+2005}.
 
@@ -114,12 +114,12 @@ where $D_L$ is the luminosity distance to the source, $f_{\rm orb}$ is the orbit
 
 Note that increasing the length of the LISA mission allows more time for a DCO to evolve over the mission. Therefore the frequency limits in Eq.~\ref{eq:snr} are dictated by the LISA mission length. The SNR generally scales as $\sqrt{T_{\rm obs}}$ (with exceptions for sources very close to merging) and thus the SNR of a typical source in a 10-year LISA mission is approximately $1.58$ (=$\sqrt{10/4}$) times stronger than in a 4-year mission.
 
-We use \href{https://legwork.readthedocs.io/en/latest/}{LEGWORK} to calculate the signal-to-noise ratio for each binary and the package ensures that enough harmonics are computed for each binary such that the error on the gravitational-wave luminosity remains below 1\%.
+We use \href{https://legwork.readthedocs.io/en/latest/}{LEGWORK} \citep{Wagg+2021} to calculate the signal-to-noise ratio for each binary and the package ensures that enough harmonics are computed for each binary such that the error on the gravitational-wave luminosity remains below 1\%.
 
 \subsubsection{Detection rate calculation}
 For each physics variation model and DCO type, we first convert the COMPAS simulation results into a total number of DCOs in the Milky Way, $N_{\rm DCO}$. We do this by integrating the full mass and period distributions and stars and normalising to the total Milky Way mass. For more details see Appendix~\ref{app:rate_normalisation}.
 
-We then determine the fraction of binaries that are detectable in each Milky Way instance by summing the adaptive importance sampling weights of the binaries that have an SNR greater than 7, and dividing by the total weights in the simulation. We multiply this fraction by the total number in the Milky Way to find a detection rate (which we write as a total number of detections per LISA mission)
+We then determine the fraction of binaries that are detectable in each Milky Way instance by summing the adaptive importance sampling weights of the binaries that have an SNR greater than 7, and dividing by the total weights in the simulation. We multiply this fraction by $N_{\rm DCO}$ to find a detection rate (which we write as a total number of detections per LISA mission)
 \begin{equation}
     N_{\rm detect} = \frac{\sum_{i = 0}^{N_{\rm MW}} w_i \phi(i)}{\sum_{i = 0}^{N_{\rm MW}} w_i} N_{\rm DCO},
 \end{equation}
