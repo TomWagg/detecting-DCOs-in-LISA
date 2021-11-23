@@ -37,7 +37,7 @@ variations = np.array(
         },
         {
             "file": "unstableCaseBB",
-            "short": "E",
+            "short": "E'",
             "med": "Case BB\nunstable",
             "long": "Case BB mass transfer is always unstable",
             "colour": plt.get_cmap("tab20")(3)
