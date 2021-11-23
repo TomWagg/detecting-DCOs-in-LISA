@@ -90,9 +90,12 @@ def main():
         if option in ("-b", "--case-bb-survive"):
             allow_caseBB_survive = True
 
-    # switch to optimistic is letting case BB to survive so we can mask them away again
-    if allow_caseBB_survive and pessimistic:
-        pessimistic = False
+    if not pessimistic:
+        # no need to do case BB stuff if already optimistic
+        allow_caseBB_survive = False
+    else:
+        # force optimistic if letting case BB to survive so we can mask them away again
+        pessimistic = False if allow_caseBB_survive else True
 
     # open COMPAS file
     with h5.File(input_filepath, "r") as COMPAS_file:
@@ -125,7 +128,7 @@ def main():
                              [compas_Z_unique[-1]]))
 
     # allow case BB systems to survive the CE even when pessimistic
-    if allow_caseBB_survive and pessimistic:
+    if allow_caseBB_survive:
         ce_seeds, ce_Z, ce_st1, ce_st2 = get_COMPAS_vars(COMPAS_file,
                                                          "commonEnvelopes",
                                                          ["randomSeed", "Metallicity1",
