@@ -120,12 +120,8 @@ def main():
         compas_a_DCO *= u.AU
         compas_t_evol *= u.Myr
 
-    # work out metallicity bins
+    # find unique metallicities
     compas_Z_unique = np.unique(compas_Z)
-    inner_bins = np.array([compas_Z_unique[i] + (compas_Z_unique[i+1] - compas_Z_unique[i]) / 2
-                           for i in range(len(compas_Z_unique) - 1)])
-    Z_bins = np.concatenate(([compas_Z_unique[0]], inner_bins,
-                             [compas_Z_unique[-1]]))
 
     # allow case BB systems to survive the CE even when pessimistic
     if allow_caseBB_survive:
@@ -160,6 +156,13 @@ def main():
             compas_t_evol, compas_weights, compas_seeds = compas_m_1[exclude], compas_m_2[exclude],\
             compas_Z[exclude], compas_a_DCO[exclude], compas_e_DCO[exclude], compas_t_evol[exclude],\
             compas_weights[exclude], compas_seeds[exclude]
+
+    # work out metallicity bins
+    compas_Z_unique = np.unique(compas_Z)
+    inner_bins = np.array([compas_Z_unique[i] + (compas_Z_unique[i+1] - compas_Z_unique[i]) / 2
+                           for i in range(len(compas_Z_unique) - 1)])
+    Z_bins = np.concatenate(([compas_Z_unique[0]], inner_bins,
+                             [compas_Z_unique[-1]]))
 
     # create a random number generator
     rng = np.random.default_rng()
