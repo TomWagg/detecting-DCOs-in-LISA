@@ -34,6 +34,8 @@ def create_file(dco_type, file, simple_mw=False, extend_mission=False):
         main_line = main_line.replace("\n", " --opt-flag\n").replace("all_dco_legacy_CEbug_fix/optimistic", "all_dco_legacy_CEbug_fix/fiducial")
     if file == "unstableCaseBB_opt":
         main_line = main_line.replace("\n", " --opt-flag\n").replace("all_dco_legacy_CEbug_fix/unstableCaseBB_opt", "all_dco_legacy_CEbug_fix/unstableCaseBB")
+    if file == "unstableCaseBB":
+        main_line = main_line.replace("\n", " --case-bb-survive\n")
     lines.append(main_line)
 
 

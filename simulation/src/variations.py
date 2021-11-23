@@ -37,15 +37,15 @@ variations = np.array(
         },
         {
             "file": "unstableCaseBB",
-            "short": "E",
-            "med": "No Case BB",
-            "long": "Case BB mass transfer systems are removed",
+            "short": "E'",
+            "med": "Case BB\nunstable",
+            "long": "Case BB mass transfer is always unstable",
             "colour": plt.get_cmap("tab20")(3)
         },
         {
             "file": "unstableCaseBB_opt",
             "short": "F",
-            "med": "Case BB\nUnstable + K",
+            "med": "E + K",
             "long": "Case BB Unstable + Optimistic CE",
             "colour": plt.get_cmap("tab20")(2)
         },
