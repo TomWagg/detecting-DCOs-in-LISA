@@ -45,14 +45,14 @@ def main():
     # get command line arguments and exit if error
     try:
         opts, _ = getopt.getopt(sys.argv[1:], "hi:o:n:t:fseb", ["help",
-                                                             "input=",
-                                                             "output=",
-                                                             "loops=",
-                                                             "binary-type=",
-                                                             "opt-flag",
-                                                             "simple-mw",
-                                                             "extended-mission",
-                                                             "case-bb-survive"])
+                                                                "input=",
+                                                                "output=",
+                                                                "loops=",
+                                                                "binary-type=",
+                                                                "opt-flag",
+                                                                "simple-mw",
+                                                                "extended-mission",
+                                                                "case-bb-survive"])
     except getopt.GetoptError as err:
         print(err)
         usage()
@@ -129,29 +129,37 @@ def main():
 
     # allow case BB systems to survive the CE even when pessimistic
     if allow_caseBB_survive:
-        ce_seeds, ce_Z, ce_st1, ce_st2 = get_COMPAS_vars(COMPAS_file,
-                                                         "commonEnvelopes",
-                                                         ["randomSeed", "Metallicity1",
-                                                          "stellarType1", "StellarType2"])
+
+        # start a mask of which binaries to throw away
+        exclude = np.repeat(False, compas_seeds.shape)
 
         # do it separately by metallicity to ensure seeds are unique
         for Z in compas_Z_unique:
-            ce_matching_Z = ce_Z == Z
-            dco_matching_Z = compas_Z == Z
+            # WARNING: I have hardcoded the use of the unstable case BB file here
+            # this will produce (possibly silent) errors if other models are use
+            ce_path = "/n/holystore01/LABS/berger_lab/Lab/fbroekgaarden/DATA/all_dco_legacy_CEbug_fix/"
+            ce_path += "unstableCaseBB/Z_{}/STROOPWAFELcombined/COMPASOutput.h5".format(Z)
+
+            # grab the CE file data for this metallicity bin
+            with h5.File(ce_path, "r") as ce_file:
+                ce_seeds, ce_st1, ce_st2 = get_COMPAS_vars(ce_file, "commonEnvelopes",
+                                                           ["randomSeed", "stellarType1", "stellarType2"])
 
             # make a mask that just excludes HG but not HeHG
-            exclude = np.logical_or(ce_st1[ce_matching_Z] == 2, ce_st2[ce_matching_Z])
+            ce_with_HG = np.logical_or(ce_st1 == 2, ce_st2 == 2)
 
             # get the corresponding seeds (unique in case there were multiple CE events)
-            seeds_excluded = np.unique(ce_seeds[ce_matching_Z][exclude])
+            seeds_to_delete = np.unique(ce_seeds[ce_with_HG])
 
-            # mask the main arrays of all HG CEEs
-            exclude = np.isin(compas_seeds[dco_matching_Z], seeds_excluded)
+            # add to the mask
+            dco_matching_Z = compas_Z == Z
+            exclude[dco_matching_Z] = np.isin(compas_seeds[dco_matching_Z], seeds_to_delete)
 
-            compas_m_1, compas_m_2, compas_Z, compas_a_DCO, compas_e_DCO,\
-                compas_t_evol, compas_weights, compas_seeds = compas_m_1[exclude], compas_m_2[exclude],\
-                compas_Z[exclude], compas_a_DCO[exclude], compas_e_DCO[exclude], compas_t_evol[exclude],\
-                compas_weights[exclude], compas_seeds[exclude]
+        # mask the main arrays of all HG CEEs
+        compas_m_1, compas_m_2, compas_Z, compas_a_DCO, compas_e_DCO,\
+            compas_t_evol, compas_weights, compas_seeds = compas_m_1[exclude], compas_m_2[exclude],\
+            compas_Z[exclude], compas_a_DCO[exclude], compas_e_DCO[exclude], compas_t_evol[exclude],\
+            compas_weights[exclude], compas_seeds[exclude]
 
     # create a random number generator
     rng = np.random.default_rng()
