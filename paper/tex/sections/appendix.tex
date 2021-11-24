@@ -27,7 +27,7 @@ In addition to their fiducial model for the formation of DCOs, Broekgaarden et a
 
 Their fiducial model is labelled model \modFid{}. Models \modRangeMT{} focus on changes to the mass transfer physics assumptions. They explore the effect of fixing the mass transfer efficiency $\beta$ to a constant value, rather than allowing it to vary based on the maximum accretion rate. In models \modBetaLow{}, \modBetaMed{}, \modBetaHigh{}, in which they set the value of $\beta$ to $0.25$, $0.5$ and $0.75$ respectively.
 
-Models \modRangeCE{} focus on altering the common-envelope physics.  In model \modCaseBB{} Broekgaarden et al.\ (2021a, 2021b) investigate the consequence of assuming that case BB mass transfer onto a neutron star or black hole always leads to a stellar merger. They change the common-envelope efficiency parameter to $\alpha_{\rm CE} = 0.1, 0.5, 2.0, 10.0$ in models \modAlphaLowest{}, \modAlphaLow{}, \modAlphaHigh{} and \modAlphaHighest{} respectively. In model \modOpt{}, they relax their restriction that Hertzsprung gap donor stars cannot survive common-envelope events, thereby following the `optimistic' common-envelope scenario. They combine this with model \modCaseBB{} in model \modCaseBBOpt{}.
+Models \modRangeCE{} focus on altering the common-envelope physics. In model \modCaseBB{} we modify model E from Broekgaarden et al.\ (2021a, 2021b) to investigate the consequence of assuming that case BB mass transfer is always unstable, whilst allowing Helium HG donors to survive CE events. They change the common-envelope efficiency parameter to $\alpha_{\rm CE} = 0.1, 0.5, 2.0, 10.0$ in models \modAlphaLowest{}, \modAlphaLow{}, \modAlphaHigh{} and \modAlphaHighest{} respectively. In model \modOpt{}, they relax their restriction that Hertzsprung gap donor stars cannot survive common-envelope events, thereby following the `optimistic' common-envelope scenario. They combine this with model \modCaseBB{} in model \modCaseBBOpt{}.
 
 In models \modRangeSN{} they consider changes related to their assumptions about supernova physics. Model \modRapid{} uses the alternate \textit{rapid} remnant mass prescription from \citet{Fryer+2012} instead of the \textit{delayed} prescription. They change the maximum neutron star mass in models \modNSLow{} and \modNSHigh{} to $2$ and $3 \unit{M_{\odot}}$ respectively to account for the range of predicted maximum neutron star masses. Model \modNoPISN{} removes the implementation of pair-instability and pulsational pair-instability supernovae. In models \modSigLow{} and \modSigLower{} they decrease the root-mean-square velocity dispersion for core-collapse supernovae to explore the effect of lower kicks. Model \modNoBH{} removes the natal kick for all black holes.
 
@@ -45,7 +45,7 @@ Finally, in models \modRangeML{} Broekgaarden et al.\ (2021a, 2021b) investigate
         \modBetaMed & Fixed mass transfer efficiency of $\beta=0.5$  \\ 
         \modBetaHigh & Fixed mass transfer efficiency of $\beta=0.75$ \\
         \hline
-        \modCaseBB & Exclude Case BB mass transfer \\
+        \modCaseBB & Case BB mass transfer always unstable \\
         \modCaseBBOpt & Case BB always unstable + Optimistic CE \\
         \modAlphaLowest & CE efficiency parameter $\alpha = 0.1$ \\
         \modAlphaLow & CE efficiency parameter $\alpha = 0.5$ \\
