@@ -1,11 +1,4 @@
-To produce predictions for the DCOs that are detectable with LISA, we synthesise a population of DCOs using the population synthesis methods described in Section~\ref{sec:COMPAS_explained}. In Section~\ref{sec:galaxy_synthesis} we describe our model for the Milky Way and how we place DCOs in randomly sampled Milky Way instances. We evolve the orbit of each DCO in a Milky Way instance up to the LISA mission and calculate the detection rate for that instance using the methods presented in Section~\ref{sec:gw_detection}.
-
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=\textwidth]{fig1_galaxy_diagram.png}
-    \caption{A schematic illustrating how we model the Milky Way. The left panel illustrates the different model aspects: star formation history of three galactic components (individually shown in the dotted lines), radial distribution, metallicity-radius-time relation, and height distribution. The right panel shows an example instance of the Milky Way with $250000$ binaries shown as points coloured by metallicity. The top panel shows a side-on view and the bottom panel a face-on view. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig1_galaxy_diagram.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/galaxy_creation_station.ipynb}{\faBook}.}
-    \label{fig:galaxy_schematic}
-\end{figure*}
+To produce predictions for the DCOs that are detectable with LISA, we use a synthesised population of DCOs, simulated using the methods described in Section~\ref{sec:COMPAS_explained}. In Section~\ref{sec:galaxy_synthesis} we describe our model for the Milky Way and how we place DCOs in randomly sampled Milky Way instances. We evolve the orbit of each DCO in a Milky Way instance up to the LISA mission and calculate the detection rate for that instance using the methods presented in Section~\ref{sec:gw_detection}.
 
 \subsection{Binary population synthesis}\label{sec:COMPAS_explained}
 
@@ -27,6 +20,13 @@ In Section~\ref{sec:mw_model}, we outline our model for the Milky Way and in Sec
 
 \subsubsection{Milky Way model}\label{sec:mw_model}
 
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{fig1_galaxy_diagram.png}
+    \caption{A schematic illustrating how we model the Milky Way. The left panel illustrates the different model aspects: star formation history of three galactic components (individually shown in the dotted lines), radial distribution, metallicity-radius-time relation, and height distribution. The right panel shows an example instance of the Milky Way with $250000$ binaries shown as points coloured by metallicity. The top panel shows a side-on view and the bottom panel a face-on view. \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figures/fig1_galaxy_diagram.png}{\faFileImage} \href{https://github.com/TomWagg/detecting-DCOs-in-LISA/blob/main/paper/figure_notebooks/galaxy_creation_station.ipynb}{\faBook}.}
+    \label{fig:galaxy_schematic}
+\end{figure*}
+
 Fig.~\ref{fig:galaxy_schematic} shows the distributions and relations outlined in this section and also displays an example random galaxy drawn using this model.
 
 Our model for the Milky Way accounts for the low-\achem\footnote{Nomenclature used to describe the enhancement of $\alpha$ elements compared to iron in stellar atmospheres}~disc, high-\achem~disc and a central component approximating a bar/bulge. The low- and high-\achem~discs are often also referred to as the thin and thick discs because the stellar vertical distribution is better fit by a double exponential rather than a single one. However, this doesn't allow one to assign a star to either the thin or thick disk purely based on its height above the Galactic plane. Therefore, we instead use the chemical definition of the two disks (applying the \achem~nomenclature) as there is a clear bimodal distribution in the chemical plane, allowing stars to be assigned to each of the disc components based on their chemical abundances. For each of the three components, we use a separate star formation history and spatial distribution, which we combine into a single model, weighting each component by its present-day stellar mass. \citet{Licquia+2015} gives that the stellar mass of the bulge is $0.9 \times 10^{10} \unit{M_{\odot}}$ and the stellar mass of the disc is $5.2 \times 10^{10} \unit{M_\odot}$, which we split equally between the low- and high-\achem~discs \citep[e.g.,][]{Snaith+2014}.
@@ -36,7 +36,7 @@ We use an exponentially declining star formation history \citep{Frankel+2018} (i
 \begin{equation}\label{eq:thin_disc_tau}
     p(\tau) \propto \exp \qty(-\frac{(\tau_m - \tau)}{\tau_{\rm SFR}}),
 \end{equation}
-where $\tau$ is the lookback time (the amount of time elapsed between the binary's zero-age main sequence and today), $\tau_m = 12 \unit{Gyr}$ is the assumed age of the Milky Way and $\tau_{\rm SFR} = 6.8 \unit{Gyr}$ is the star formation timescale \citep{Frankel+2018}. The two discs form stars in mutually exclusive time periods, such that the high-\achem~disc forms stars in the early history of the galaxy ($8$--$12 \unit{Gyr}$ ago) and the low-\achem~disc forms stars more recently ($0$--$8 \unit{Gyr}$ ago). We normalise both distributions so that an equal amount of mass is formed in each of the two components over their respective star forming periods.
+where $\tau$ is the lookback time (the amount of time elapsed between the binary's zero-age main sequence and today), $\tau_m = 12 \unit{Gyr}$ is the assumed age of the Milky Way and $\tau_{\rm SFR} = 6.8 \unit{Gyr}$ is the star formation timescale \citep{Frankel+2018}. The two discs form stars in mutually exclusive time periods, such that the high-\achem~disc forms stars in the early history of the galaxy ($8$--$12 \unit{Gyr}$ ago) and the low-\achem~disc forms stars more recently ($0$--$8 \unit{Gyr}$ ago). Both distributions are normalised so that an equal amount of mass is formed in each of the two components over their respective star forming periods.
 
 The star formation history of the Milky Way bulge (which we assume here to be dominated by the central bar) has many uncertainties due to the (1) sizeable age measurement uncertainties at large ages in observational studies, (2) complex selection processes affecting the observed age distributions, and (3) formation mechanisms that are still under debate. However, the central bar was shown to contain stars with an extended age range, with most observed stars between $6$ and $12 \unit{Gyr}$ with a younger tail of ages that could come from the subsequent secular growth of the Galactic bar \citep[e.g.,][]{Bovy+2019}. To model the bar's age distribution more realistically than in previous studies (which assume an old bulge coming from a single starburst), we choose to adopt a more extended star formation history using a $\beta(2,3)$ distribution, shifted and scaled such that stars are only formed in the range $[6, 12] \unit{Gyr}$. We show these distributions in the top left panel of Fig.~\ref{fig:galaxy_schematic}.
 
@@ -69,7 +69,7 @@ where
 \begin{equation}
     f(\tau) = \qty(1 - \frac{\tau}{\tau_m})^{\gamma_{[{\rm Fe} / {\rm H}]}},
 \end{equation}
-$F_m = -1 \unit{dex}$ is the metallicity of the gas at the center of the disc at $\tau = \tau_m$, $\nabla [{\rm Fe} / {\rm H}] = -0.075 \unit{kpc^{-1}}$ is the metallicity gradient, $R^{\rm now}_{[{\rm Fe} / {\rm H}] = 0} = 8.7 \unit{kpc}$ is the radius at which the present day metallicity is solar and $\gamma_{[{\rm Fe} / {\rm H}]} = 0.3$ sets the time dependence of the chemical enrichment. We can convert this to the representation of metallicity that we use in this paper by applying \citep[e.g.][]{Bertelli+1994}
+$F_m = -1 \unit{dex}$ is the metallicity of the gas at the center of the disc at $\tau = \tau_m$, $\nabla [{\rm Fe} / {\rm H}] = -0.075 \unit{kpc^{-1}}$ is the metallicity gradient, $R^{\rm now}_{[{\rm Fe} / {\rm H}] = 0} = 8.7 \unit{kpc}$ is the radius at which the present day metallicity is solar and $\gamma_{[{\rm Fe} / {\rm H}]} = 0.3$ sets the time dependence of the chemical enrichment. We convert this to the representation of metallicity that we use in this paper by applying \citep[e.g.][]{Bertelli+1994}
 \begin{equation}\label{eq:galaxy_FeH_to_Z}
     \log_{10} (Z) = 0.977 [{\rm Fe} / {\rm H}] + \log_{10}(Z_\odot).
 \end{equation}
@@ -91,7 +91,7 @@ Each binary is likely to move from its birth orbit. Although all stars in the Ga
 The magnitude of the systemic kicks are typically small compared to the initial circular velocity of a binary at each Galactocentric radius. Therefore, we expect that kicks will not significantly alter the overall distribution of their positions (see however, e.g., \citealt{Brandt+1995, Abbott+2017_GW170817_progenitor}). Given this, and for the sake of computational efficiency, we do not account for the displacement due to systemic kicks in our analysis.
 
 \subsection{Gravitational wave detection}\label{sec:gw_detection}
-We use the Python package \href{https://legwork.readthedocs.io/en/latest/}{LEGWORK} \citep{Wagg+2021} to evolve binaries and calculate their LISA detectability. For a full derivation of the equations given below see \citep[][Sec.~3]{Wagg+2021}, or the LEGWORK documentation \href{https://legwork.readthedocs.io/en/latest/notebooks/Derivations.html}{\faBook}.
+We use the Python package \href{https://legwork.readthedocs.io/en/latest/}{LEGWORK} \citep{Wagg+2021} to evolve binaries and calculate their LISA detectability. For a full derivation of the equations given below see \citep[][Section~3]{Wagg+2021}, or the LEGWORK documentation \href{https://legwork.readthedocs.io/en/latest/notebooks/Derivations.html}{\faBook}.
 
 \subsubsection{Inspiral evolution}
 
