@@ -12,7 +12,7 @@
     <a href="https://zenodo.org/record/5189849">
         <img src="https://img.shields.io/badge/NSNS COMPAS data-Zenodo-green" alt="Download the population synthesis data for NSNSs"/>
     </a>
-    <a href="https://zenodo.org/record/4699713">
+    <a href="https://doi.org/10.5281/zenodo.4699712">
         <img src="https://img.shields.io/badge/LISA predictions data-Zenodo-green" alt="Download the LISA simulation data"/>
     </a>
     <br>
