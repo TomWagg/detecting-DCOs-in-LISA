@@ -147,3 +147,6 @@ simulation/output/*.h5
 *.synctex.gz
 
 .vscode
+*.tar.gz
+*.bll
+bbl.txt
