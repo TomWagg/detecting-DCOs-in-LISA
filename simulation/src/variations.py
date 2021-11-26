@@ -45,7 +45,7 @@ variations = np.array(
         {
             "file": "unstableCaseBB_opt",
             "short": "F",
-            "med": "E + K",
+            "med": "E' + K",
             "long": "Case BB Unstable + Optimistic CE",
             "colour": plt.get_cmap("tab20")(2)
         },
