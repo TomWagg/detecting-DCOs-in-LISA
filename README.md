@@ -51,9 +51,23 @@
 <hr style="border-width:5px">
 
 ## Citations
-If you use any figures, code or results from this paper we ask that you please cite Wagg et al. (2021). For convenience, here is link to the [ArXiv](TODO) and [ADS](TODO). Additionally, here is the bibtex entry:
+If you use any figures, code or results from this paper we ask that you please cite Wagg et al. (2021). For convenience, here is link to the [ArXiv](https://arxiv.org/abs/2111.13704) and [ADS](https://ui.adsabs.harvard.edu/abs/2021arXiv211113704W/abstract). Additionally, here is the bibtex entry:
 ```
-    ADD BIBTEX ENTRY ONCE SUBMITTED (also need to fix links above)
+    @ARTICLE{Wagg+2021,
+           author = {{Wagg}, Tom and {Broekgaarden}, Floor S. and {de Mink}, Selma E. and {van Son}, Lieke A.~C. and {Frankel}, Neige and et al.},
+            title = "{Gravitational wave sources in our Galactic backyard: Predictions for BHBH, BHNS and NSNS binaries detectable with LISA}",
+          journal = {arXiv e-prints},
+         keywords = {Astrophysics - High Energy Astrophysical Phenomena},
+             year = 2021,
+            month = nov,
+              eid = {arXiv:2111.13704},
+            pages = {arXiv:2111.13704},
+    archivePrefix = {arXiv},
+           eprint = {2111.13704},
+     primaryClass = {astro-ph.HE},
+           adsurl = {https://ui.adsabs.harvard.edu/abs/2021arXiv211113704W},
+          adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+    }
 ```
 ## Required dependencies
 This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. It allows you evolve the orbits of binary sources, measure their strain and SNR as well as visualise the results.
