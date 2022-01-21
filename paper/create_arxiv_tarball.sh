@@ -4,6 +4,7 @@ mkdir arxiv/figures
 cp figures/fig*.pdf arxiv/figures
 cp figures/fig*.png arxiv/figures
 cp ./{tex/*.bst,tex/*.cls,tex/ORCID-ID.png,tex/*.bib} arxiv
+cp tex/paper.pdf arxiv/
 cp bbl.txt arxiv/paper.bbl
 python combine_tex_files.py
 mv combined.tex arxiv/paper.tex
