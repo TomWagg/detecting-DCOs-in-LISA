@@ -225,6 +225,12 @@ def simulate_mw(n_binaries, components=["low_alpha_disc", "high_alpha_disc", "bu
     R = np.concatenate(R)
     z = np.concatenate(z)
 
+    # shuffle the samples so components are mixed
+    random_order = np.random.permutation(len(tau))
+    tau = tau[random_order]
+    R = R[random_order]
+    z = z[random_order]
+
     # compute the metallicity given the other values
     Z = get_metallicity(R, tau, tm=tm, Fm=Fm, gradient=gradient, Rnow=Rnow, gamma=gamma, zsun=zsun)
 

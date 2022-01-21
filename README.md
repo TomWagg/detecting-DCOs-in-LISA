@@ -28,7 +28,7 @@
     This repository is a companion to Wagg et al. (2021), a paper investigating the Galactic population of LISA detectable BH and NS binaries. We discuss the expected detection rate, variations when using different underlying binary physics assumptions, prospects for identifying the sources of signals and matching them to electromagnetic counterparts.
 </p>
 <p align="center">
-    This repository contains all of the code associated with with Wagg et al. (2021), both for the simulations so that you can reproduce the results, but also for the paper so that you can reproduce all of the plots. If you've come this without reading the paper yet, I recommend that you go and take a look before trying to see what's going on in the code so it makes more sense.
+    This repository contains all of the code associated with with Wagg et al. (2021), both for the simulations so that you can reproduce the results, but also for the paper so that you can reproduce all of the plots. If you've come this far without reading the paper yet, I recommend that you go and take a look before trying to see what's going on in the code so it makes more sense.
 </p>
 
 <p align="center">
@@ -51,9 +51,23 @@
 <hr style="border-width:5px">
 
 ## Citations
-If you use any figures, code or results from this paper we ask that you please cite Wagg et al. (2021). For convenience, here is link to the [ArXiv](TODO) and [ADS](TODO). Additionally, here is the bibtex entry:
+If you use any figures, code or results from this paper we ask that you please cite Wagg et al. (2021). For convenience, here is link to the [ArXiv](https://arxiv.org/abs/2111.13704) and [ADS](https://ui.adsabs.harvard.edu/abs/2021arXiv211113704W/abstract). Additionally, here is the bibtex entry:
 ```
-    ADD BIBTEX ENTRY ONCE SUBMITTED (also need to fix links above)
+    @ARTICLE{Wagg+2021,
+           author = {{Wagg}, Tom and {Broekgaarden}, Floor S. and {de Mink}, Selma E. and {van Son}, Lieke A.~C. and {Frankel}, Neige and et al.},
+            title = "{Gravitational wave sources in our Galactic backyard: Predictions for BHBH, BHNS and NSNS binaries detectable with LISA}",
+          journal = {arXiv e-prints},
+         keywords = {Astrophysics - High Energy Astrophysical Phenomena},
+             year = 2021,
+            month = nov,
+              eid = {arXiv:2111.13704},
+            pages = {arXiv:2111.13704},
+    archivePrefix = {arXiv},
+           eprint = {2111.13704},
+     primaryClass = {astro-ph.HE},
+           adsurl = {https://ui.adsabs.harvard.edu/abs/2021arXiv211113704W},
+          adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+    }
 ```
 ## Required dependencies
 This code makes heavy use of [LEGWORK](https://legwork.readthedocs.io/en/latest/), a Python package for determining the detectability of stellar-mass LISA sources that I wrote with Katie Breivik. It allows you evolve the orbits of binary sources, measure their strain and SNR as well as visualise the results.
