@@ -230,6 +230,7 @@ def simulate_mw(n_binaries, components=["low_alpha_disc", "high_alpha_disc", "bu
     tau = tau[random_order]
     R = R[random_order]
     z = z[random_order]
+    which_comp = which_comp[random_order]
 
     # compute the metallicity given the other values
     Z = get_metallicity(R, tau, tm=tm, Fm=Fm, gradient=gradient, Rnow=Rnow, gamma=gamma, zsun=zsun)
