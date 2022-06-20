@@ -1,5 +1,6 @@
 <p align="center">
-    <img width="100%", src="paper/figures/readme_header.png"/>
+    <img width="100%", src="paper/figures/readme_header.png#gh-light-mode-only"/>
+    <img width="100%", src="paper/figures/readme_header_darkmode.png#gh-dark-mode-only"/>
 </p>
 
 <p align="center">
